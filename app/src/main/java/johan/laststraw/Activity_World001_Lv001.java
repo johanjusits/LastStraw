@@ -1,0 +1,1991 @@
+package johan.laststraw;
+
+import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import java.util.Random;
+
+import static android.graphics.Color.TRANSPARENT;
+
+/**
+ * Created by Johan on 2014-09-27.
+ */
+public class Activity_World001_Lv001 extends Activity implements View.OnClickListener, Animation.AnimationListener {
+
+    ImageButton obj001, obj002, obj003, obj004, obj005, obj006, obj007, obj008, obj009,
+            obj010, obj011, obj012, obj013, obj014, obj015, obj016;
+    ImageButton playerCard1, playerCard2, playerCard3, playerCard4, playerCard5, playerCard6;
+    Button btnEndTurn;
+    TextView tvCenterMessage, tvPlayerMovesNumber, tvEnemyMovesNumber, tvEnemyDebuff, tvPlayerDebuff;
+    TextView tvPlayerName, tvPlayerExp, tvPlayerLevel, tvPlayerScore, tvEnemyScore, tvEnemyName;
+    ImageView ivPlayerPortrait, ivEnemyPortrait, ivCenterCardFrame;
+    ViewGroup layout_objectRow;
+    Animation ani_fadeIn, ani_fadeOut, ani_zoomIn;
+    Random rdm = new Random();
+    /* STRINGS */
+    String playerGender = "";
+    String playerName = "";
+    String enemyName = "Farmhand Joe";
+    String boardIsFullError = "Board is full. No effect";
+    String enemySlowed = enemyName + " is afflicted by Slow";
+    String playerHaste = "";
+    String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
+            playerCard5Name = "", playerCard6Name = "";
+    String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
+            playerCard5Img = "", playerCard6Img = "";
+    /* INTS */
+    int newExp;
+    int expToNextLevel;
+    int checkIfExpRoof;
+    int playerLevel;
+    int playerExp;
+    int playerScore = 0, enemyScore = 0, finalPlayerScore, finalEnemyScore;
+    int playerCard1Type = 0, playerCard2Type = 0, playerCard3Type = 0, playerCard4Type = 0,
+            playerCard5Type = 0, playerCard6Type = 0;
+    int playerMoves = 3, enemyMoves = 0;
+    int enemyRemoveNr;
+    int objectsRemaining = 16;
+    int selectedCard = 0;
+    int enemyThinkingTime = genThinkingTime();
+    /* BOOLEANS */
+    boolean beatenThisLevel;
+    boolean deviceIsTablet;
+    boolean enemyIsSlowed = false;
+    boolean playerHasHaste = false;
+    boolean playerTurn = true;
+    boolean playerCard1Used = false, playerCard2Used = false, playerCard3Used = false, playerCard4Used = false,
+            playerCard5Used = false, playerCard6Used = false;
+    boolean enemyCard1Used = false, enemyCard2Used = false, enemyCard3Used = false, enemyCard4Used = false,
+            enemyCard5Used = false, enemyCard6Used = false;
+    private Handler myHandler = new Handler();
+    DBHandler db;
+    Cursor cursor;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_world001_lv001);
+        layout_objectRow = (ViewGroup) findViewById(R.id.objectRow);
+
+        db = new DBHandler(this);
+
+        /* SETS ANIMATIONS */
+        ani_fadeIn = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.ani_fade_in);
+        ani_fadeOut = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.ani_fade_out);
+        ani_zoomIn = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.ani_zoom_in);
+
+        /* SETS OBJECTS IN OBJECT ROW */
+        obj001 = (ImageButton) findViewById(R.id.obj001);
+        obj002 = (ImageButton) findViewById(R.id.obj002);
+        obj003 = (ImageButton) findViewById(R.id.obj003);
+        obj004 = (ImageButton) findViewById(R.id.obj004);
+        obj005 = (ImageButton) findViewById(R.id.obj005);
+        obj006 = (ImageButton) findViewById(R.id.obj006);
+        obj007 = (ImageButton) findViewById(R.id.obj007);
+        obj008 = (ImageButton) findViewById(R.id.obj008);
+        obj009 = (ImageButton) findViewById(R.id.obj009);
+        obj010 = (ImageButton) findViewById(R.id.obj010);
+        obj011 = (ImageButton) findViewById(R.id.obj011);
+        obj012 = (ImageButton) findViewById(R.id.obj012);
+        obj013 = (ImageButton) findViewById(R.id.obj013);
+        obj014 = (ImageButton) findViewById(R.id.obj014);
+        obj015 = (ImageButton) findViewById(R.id.obj015);
+        obj016 = (ImageButton) findViewById(R.id.obj016);
+        obj001.setOnClickListener(this);
+        obj002.setOnClickListener(this);
+        obj003.setOnClickListener(this);
+        obj004.setOnClickListener(this);
+        obj005.setOnClickListener(this);
+        obj006.setOnClickListener(this);
+        obj007.setOnClickListener(this);
+        obj008.setOnClickListener(this);
+        obj009.setOnClickListener(this);
+        obj010.setOnClickListener(this);
+        obj011.setOnClickListener(this);
+        obj012.setOnClickListener(this);
+        obj013.setOnClickListener(this);
+        obj014.setOnClickListener(this);
+        obj015.setOnClickListener(this);
+        obj016.setOnClickListener(this);
+
+        /* SETS THE BUTTON */
+        btnEndTurn = (Button) findViewById(R.id.bEndTurn);
+        btnEndTurn.setOnClickListener(this);
+
+        /* SETS CARDS  */
+        ivPlayerPortrait = (ImageView) findViewById(R.id.ivPlayerPortrait);
+        ivEnemyPortrait = (ImageView) findViewById(R.id.ivEnemyPortrait);
+        ivEnemyPortrait.setImageResource(R.drawable.enemy_farmer_face);
+        ivCenterCardFrame = (ImageView) findViewById(R.id.ivCenterCardFrame);
+        playerCard1 = (ImageButton) findViewById(R.id.ibPlayerCard1);
+        playerCard2 = (ImageButton) findViewById(R.id.ibPlayerCard2);
+        playerCard3 = (ImageButton) findViewById(R.id.ibPlayerCard3);
+        playerCard4 = (ImageButton) findViewById(R.id.ibPlayerCard4);
+        playerCard5 = (ImageButton) findViewById(R.id.ibPlayerCard5);
+        playerCard6 = (ImageButton) findViewById(R.id.ibPlayerCard6);
+        playerCard1.setOnClickListener(this);
+        playerCard2.setOnClickListener(this);
+        playerCard3.setOnClickListener(this);
+        playerCard4.setOnClickListener(this);
+        playerCard5.setOnClickListener(this);
+        playerCard6.setOnClickListener(this);
+
+        /* SETS VARIOUS VIEWS */
+        tvPlayerName = (TextView) findViewById(R.id.tvPlayerName);
+        tvPlayerLevel = (TextView) findViewById(R.id.tvLvNumber);
+        tvPlayerExp = (TextView) findViewById(R.id.tvExpNumber);
+        tvPlayerScore = (TextView) findViewById(R.id.tvPlayerScore);
+        tvCenterMessage = (TextView) findViewById(R.id.tvcenterMessage);
+        tvPlayerMovesNumber = (TextView) findViewById(R.id.tvPlayerMovesLeftNumber);
+        tvEnemyMovesNumber = (TextView) findViewById(R.id.tvEnemyMovesNr);
+        tvEnemyDebuff = (TextView) findViewById(R.id.tvEnemyDebuff);
+        tvPlayerDebuff = (TextView) findViewById(R.id.tvPlayerDebuff);
+        tvEnemyScore = (TextView) findViewById(R.id.tvEnemyScore);
+        tvEnemyName = (TextView) findViewById(R.id.tvEnemyName);
+        tvCenterMessage.setText("");
+        tvEnemyDebuff.setText("");
+        tvEnemyName.setText(enemyName);
+        tvPlayerDebuff.setText("");
+        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+        tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
+
+        getScreenSize();
+        getPlayerInfo();
+        getPlayerCards();
+        setPlayerCardIcons();
+
+        playerHaste = playerName + " gains Haste";
+
+    }
+
+    /* This Method contains a switch handling player clicks on wheat */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ibPlayerCard1:
+                if (playerCard1Type != 0 && playerMoves != 0 && objectsRemaining != 0) {
+                    String message = "Play this card?";
+                    selectedCard = 1;
+                    playCardConfirm(message, Activity_World001_Lv001.this);
+                }
+                break;
+            case R.id.ibPlayerCard2:
+                if (playerCard2Type != 0 && playerMoves != 0 && objectsRemaining != 0) {
+                    String message = "Play this card?";
+                    selectedCard = 2;
+                    playCardConfirm(message, Activity_World001_Lv001.this);
+                }
+                break;
+            case R.id.ibPlayerCard3:
+                if (playerCard3Type != 0 && playerMoves != 0 && objectsRemaining != 0) {
+                    String message = "Play this card?";
+                    selectedCard = 3;
+                    playCardConfirm(message, Activity_World001_Lv001.this);
+                }
+                break;
+            case R.id.ibPlayerCard4:
+                if (playerCard4Type != 0 && playerMoves != 0 && objectsRemaining != 0) {
+                    String message = "Play this card?";
+                    selectedCard = 4;
+                    playCardConfirm(message, Activity_World001_Lv001.this);
+                }
+                break;
+            case R.id.ibPlayerCard5:
+                if (playerCard5Type != 0 && playerMoves != 0 && objectsRemaining != 0) {
+                    String message = "Play this card?";
+                    selectedCard = 5;
+                    playCardConfirm(message, Activity_World001_Lv001.this);
+                }
+                break;
+            case R.id.ibPlayerCard6:
+                if (playerCard6Type != 0 && playerMoves != 0 && objectsRemaining != 0) {
+                    String message = "Play this card?";
+                    selectedCard = 6;
+                    playCardConfirm(message, Activity_World001_Lv001.this);
+                }
+                break;
+            case R.id.bEndTurn:
+                if (objectsRemaining != 1 || playerMoves <= 2) {
+                    btnEndTurn.setEnabled(false);
+                    btnEndTurn.setText("Enemy Turn");
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    enemyTurnStart();
+                } else {
+                    tvCenterMessage.setText("You can't pass now");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                        }
+                    }, 1000);
+                }
+                break;
+            case R.id.obj001:
+                if (objectsRemaining == 16 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj001.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj002:
+                if (objectsRemaining == 15 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj002.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj003:
+                if (objectsRemaining == 14 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj003.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj004:
+                if (objectsRemaining == 13 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj004.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj005:
+                if (objectsRemaining == 12 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj005.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj006:
+                if (objectsRemaining == 11 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj006.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj007:
+                if (objectsRemaining == 10 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj007.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj008:
+                if (objectsRemaining == 9 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj008.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj009:
+                if (objectsRemaining == 8 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj009.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj010:
+                if (objectsRemaining == 7 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj010.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj011:
+                if (objectsRemaining == 6 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj011.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj012:
+                if (objectsRemaining == 5 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj012.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj013:
+                if (objectsRemaining == 4 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj013.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj014:
+                if (objectsRemaining == 3 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj014.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj015:
+                if (objectsRemaining == 2 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj015.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                }
+                break;
+            case R.id.obj016:
+                if (objectsRemaining == 1 && playerMoves != 0) {
+                    playerMoves--;
+                    playerScore = playerScore + 2;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    tvCenterMessage.setText("You cut a wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    obj016.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    btnEndTurn.setClickable(false);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            objectsRemaining--;
+                        }
+                    }, 500);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkIfNoObjRemains();
+                        }
+                    }, 1500);
+                }
+                break;
+        }
+    }
+
+    /* ENEMY TURN START METHOD */
+    private void enemyTurnStart() {
+        playerTurn = false;
+        if (!playerHasHaste){
+            tvPlayerDebuff.setText("");
+        }
+        disablePlayerCards();
+        tvCenterMessage.setText("ENEMY TURN");
+        tvCenterMessage.startAnimation(ani_fadeIn);
+        if (!enemyIsSlowed) {
+            enemyMoves = 3;
+        } else {
+            enemyMoves = 2;
+        }
+        tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
+
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+            }
+        }, 1000);
+
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                enemyThinkingTime = genThinkingTime();
+            }
+        }, 1000 + enemyThinkingTime);
+
+        enemyRemoveNr = genEnemyRemoveNr();
+        enemyCut();
+
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                enemyTurnEnd();
+            }
+        }, enemyThinkingTime + 3000);
+
+    }
+
+    /* ENEMY CUT METHOD */
+    private void enemyCut() {
+        if (enemyRemoveNr == 3) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.setText("Enemy cut 3 wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    aiRemoveThree();
+                    objectsRemaining = objectsRemaining - 3;
+                    enemyScore = enemyScore + 6;
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                }
+            }, 1000 + enemyThinkingTime + 1000);
+        }
+        if (enemyRemoveNr == 2) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.setText("Enemy cut 2 wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    aiRemoveTwo();
+                    objectsRemaining = objectsRemaining - 2;
+                    enemyScore = enemyScore + 4;
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                }
+            }, 1000 + enemyThinkingTime + 1000);
+        }
+        if (enemyRemoveNr == 1) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.setText("Enemy cut 1 wheat");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    aiRemoveOne();
+                    objectsRemaining = objectsRemaining - 1;
+                    enemyScore = enemyScore + 2;
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                }
+            }, 1000 + enemyThinkingTime + 1000);
+        }
+    }
+
+    /* ENEMY TURN END METHOD */
+    private void enemyTurnEnd() {
+        if (objectsRemaining == 0) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    checkIfNoObjRemains();
+                }
+            }, 1000);
+        } else {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    playerTurn();
+                }
+            }, 1000);
+        }
+    }
+
+    /* RETURN TO PLAYER TURN METHOD */
+    private void playerTurn() {
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                playerTurn = true;
+                enemyMoves = 0;
+                tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
+                enemyIsSlowed = false;
+                tvEnemyDebuff.setText("");
+                tvCenterMessage.setText("YOUR TURN");
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                btnEndTurn.setEnabled(true);
+                btnEndTurn.setText("End Turn");
+                enable(layout_objectRow);
+                enablePlayerCards();
+                if (playerHasHaste){
+                    playerMoves = 4;
+                } else {
+                    playerMoves = 3;
+                }
+                playerHasHaste = false;
+                tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+            }
+        }, 3000);
+    }
+
+    /* DISABLES THE INTERFACE, PREVENTING PLAYER FROM CLICKING THE OBJECT ROW */
+    private static void disable(ViewGroup layout) {
+        layout.setEnabled(false);
+        for (int i = 0; i < layout.getChildCount(); i++) {
+            View child = layout.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                disable((ViewGroup) child);
+            } else {
+                child.setEnabled(false);
+            }
+        }
+
+    }
+
+    /* ENABLES THE INTERFACE, ENABLING PLAYER TO USE ACTIONS */
+    private static void enable(ViewGroup layout) {
+        layout.setEnabled(true);
+        for (int i = 0; i < layout.getChildCount(); i++) {
+            View child = layout.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                disable((ViewGroup) child);
+            } else {
+                child.setEnabled(true);
+            }
+        }
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+
+    }
+
+    public int genEnemyRemoveNr() {
+        int newChoice = 0;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+            }
+        }, enemyThinkingTime);
+        if (objectsRemaining >= 5 && enemyMoves == 3)
+            newChoice = rdm.nextInt(3 - 1 + 1) + 1;
+        if (objectsRemaining >= 5 && enemyMoves == 2)
+            newChoice = rdm.nextInt(2 - 1 + 1) + 1;
+        if (objectsRemaining >= 5 && enemyMoves == 1)
+            newChoice = 1;
+        if (objectsRemaining == 4) {
+            if (enemyMoves == 3) {
+                newChoice = 3;
+            } else {
+                newChoice = 2;
+            }
+        }
+        if (objectsRemaining == 3 && enemyMoves >= 2) {
+            newChoice = 2;
+        }
+        if (objectsRemaining <= 2) {
+            newChoice = 1;
+        }
+        System.out.println(String.valueOf(newChoice));
+        return newChoice;
+    }
+
+    /* THIS METHOD RUNS WHEN THE AI WANTS TO REMOVE 3 */
+    private void aiRemoveThree() {
+        enemyMoves = enemyMoves - 3;
+        tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
+        if (objectsRemaining == 16) {
+            obj001.setImageResource(R.drawable.object_wheatbroken);
+            obj002.setImageResource(R.drawable.object_wheatbroken);
+            obj003.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 15) {
+            obj002.setImageResource(R.drawable.object_wheatbroken);
+            obj003.setImageResource(R.drawable.object_wheatbroken);
+            obj004.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 14) {
+            obj003.setImageResource(R.drawable.object_wheatbroken);
+            obj004.setImageResource(R.drawable.object_wheatbroken);
+            obj005.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 13) {
+            obj004.setImageResource(R.drawable.object_wheatbroken);
+            obj005.setImageResource(R.drawable.object_wheatbroken);
+            obj006.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 12) {
+            obj005.setImageResource(R.drawable.object_wheatbroken);
+            obj006.setImageResource(R.drawable.object_wheatbroken);
+            obj007.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 11) {
+            obj006.setImageResource(R.drawable.object_wheatbroken);
+            obj007.setImageResource(R.drawable.object_wheatbroken);
+            obj008.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 10) {
+            obj007.setImageResource(R.drawable.object_wheatbroken);
+            obj008.setImageResource(R.drawable.object_wheatbroken);
+            obj009.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 9) {
+            obj008.setImageResource(R.drawable.object_wheatbroken);
+            obj009.setImageResource(R.drawable.object_wheatbroken);
+            obj010.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 8) {
+            obj009.setImageResource(R.drawable.object_wheatbroken);
+            obj010.setImageResource(R.drawable.object_wheatbroken);
+            obj011.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 7) {
+            obj010.setImageResource(R.drawable.object_wheatbroken);
+            obj011.setImageResource(R.drawable.object_wheatbroken);
+            obj012.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 6) {
+            obj011.setImageResource(R.drawable.object_wheatbroken);
+            obj012.setImageResource(R.drawable.object_wheatbroken);
+            obj013.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 5) {
+            obj012.setImageResource(R.drawable.object_wheatbroken);
+            obj013.setImageResource(R.drawable.object_wheatbroken);
+            obj014.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 4) {
+            obj013.setImageResource(R.drawable.object_wheatbroken);
+            obj014.setImageResource(R.drawable.object_wheatbroken);
+            obj015.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 3) {
+            obj014.setImageResource(R.drawable.object_wheatbroken);
+            obj015.setImageResource(R.drawable.object_wheatbroken);
+            obj016.setImageResource(R.drawable.object_wheatbroken);
+        }
+    }
+
+    /* THIS METHOD RUNS WHEN THE AI WANTS TO REMOVE 2 */
+    private void aiRemoveTwo() {
+        enemyMoves = enemyMoves - 2;
+        tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
+        if (objectsRemaining == 16) {
+            obj001.setImageResource(R.drawable.object_wheatbroken);
+            obj002.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 15) {
+            obj002.setImageResource(R.drawable.object_wheatbroken);
+            obj003.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 14) {
+            obj003.setImageResource(R.drawable.object_wheatbroken);
+            obj004.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 13) {
+            obj004.setImageResource(R.drawable.object_wheatbroken);
+            obj005.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 12) {
+            obj005.setImageResource(R.drawable.object_wheatbroken);
+            obj006.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 11) {
+            obj006.setImageResource(R.drawable.object_wheatbroken);
+            obj007.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 10) {
+            obj007.setImageResource(R.drawable.object_wheatbroken);
+            obj008.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 9) {
+            obj008.setImageResource(R.drawable.object_wheatbroken);
+            obj009.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 8) {
+            obj009.setImageResource(R.drawable.object_wheatbroken);
+            obj010.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 7) {
+            obj010.setImageResource(R.drawable.object_wheatbroken);
+            obj011.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 6) {
+            obj011.setImageResource(R.drawable.object_wheatbroken);
+            obj012.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 5) {
+            obj012.setImageResource(R.drawable.object_wheatbroken);
+            obj013.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 4) {
+            obj013.setImageResource(R.drawable.object_wheatbroken);
+            obj014.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 3) {
+            obj014.setImageResource(R.drawable.object_wheatbroken);
+            obj015.setImageResource(R.drawable.object_wheatbroken);
+        }
+        if (objectsRemaining == 2) {
+            obj015.setImageResource(R.drawable.object_wheatbroken);
+            obj016.setImageResource(R.drawable.object_wheatbroken);
+        }
+    }
+
+    /* THIS METHOD RUNS WHEN THE AI WANTS TO REMOVE 2 */
+    private void aiRemoveOne() {
+        enemyMoves = enemyMoves - 1;
+        tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
+        if (objectsRemaining == 16)
+            obj001.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 15)
+            obj002.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 14)
+            obj003.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 13)
+            obj004.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 12)
+            obj005.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 11)
+            obj006.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 10)
+            obj007.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 9)
+            obj008.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 8)
+            obj009.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 7)
+            obj010.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 6)
+            obj011.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 5)
+            obj012.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 4)
+            obj013.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 3)
+            obj014.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 2)
+            obj015.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 1)
+            obj016.setImageResource(R.drawable.object_wheatbroken);
+    }
+
+    /* THIS METHOD GENERATES HOW LONG THE AI WILL WAIT
+    BETWEEN EACH MOVE (AND BEFORE THE FIRST MOVE).
+    FOLLOWING RESULTS:
+    1-19 = Fast (1-2 seconds)
+    20-94 = Average (2-4 seconds)
+    95-100 = Slow (4-6 seconds)
+     */
+    public int genThinkingTime() {
+        int genThinkingType = genRand100();
+        int newThinkingTime;
+        if (genThinkingType <= 20) {
+            newThinkingTime = genRandFast();
+        } else if (genThinkingType >= 21 && genThinkingType <= 94) {
+            newThinkingTime = genRandAverage();
+        } else {
+            newThinkingTime = genRandSlow();
+        }
+        return newThinkingTime;
+    }
+
+    public int genRand100() {
+        return new Random().nextInt(100);
+    }
+
+    public int genRandFast() {
+        return new Random().nextInt(2000 - 500 + 1) + 500;
+    }
+
+    public int genRandAverage() {
+        return new Random().nextInt(4000 - 2000 + 1) + 2000;
+    }
+
+    public int genRandSlow() {
+        return new Random().nextInt(6000 - 4000 + 1) + 4000;
+    }
+
+    private void checkIfNoObjRemains() {
+        if (objectsRemaining == 0) {
+            if (!playerTurn) {
+                finalPlayerScore = playerScore + 3;
+                finalEnemyScore = enemyScore - 3;
+                if (finalEnemyScore < 0) {
+                    finalEnemyScore = 0;
+                }
+            } else {
+                finalPlayerScore = playerScore - 3;
+                finalEnemyScore = enemyScore + 3;
+            }
+            if (finalPlayerScore < 0) {
+                finalPlayerScore = 0;
+            }
+            gameOver();
+        }
+    }
+
+    /* METHOD CALLED WHEN THE GAME IS OVER */
+    private void gameOver() {
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                final Dialog dialog = new Dialog(Activity_World001_Lv001.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.confirmdialog_finalscore);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+                dialog.getWindow().setLayout(500, 300);
+                dialog.setCancelable(false);
+
+                TextView tvPlayer = (TextView) dialog.findViewById(R.id.tvPlayer);
+                TextView tvEnemy = (TextView) dialog.findViewById(R.id.tvEnemy);
+                TextView tvWhoWon = (TextView) dialog.findViewById(R.id.tvWhoWins);
+                TextView tvPlayerFinalScore = (TextView) dialog.findViewById(R.id.tvPlayerFinalScore);
+                TextView tvEnemyFinalScore = (TextView) dialog.findViewById(R.id.tvEnemyFinalScore);
+                tvPlayer.setText(playerName);
+                tvEnemy.setText(enemyName);
+                if (finalPlayerScore > finalEnemyScore) {
+                    tvWhoWon.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvWhoWon.setText("You Win!");
+                } else {
+                    tvWhoWon.setTextColor(getResources().getColor(R.color.textRed));
+                    tvWhoWon.setText("You Lose..");
+                }
+                tvPlayerFinalScore.setText(String.valueOf(finalPlayerScore));
+                tvEnemyFinalScore.setText(String.valueOf(finalEnemyScore));
+
+                /* YES CLICKED */
+                Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+                buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                updateExp();
+                            }
+                        }, 500);
+                    }
+                });
+                dialog.show();
+            }
+        }, 1000);
+    }
+
+    /* METHOD TO UPDATE EXP/LEVEL UP */
+    private void updateExp() {
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                final Dialog dialog = new Dialog(Activity_World001_Lv001.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.confirmdialog_exp_gain);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+                dialog.getWindow().setLayout(500, 300);
+                dialog.setCancelable(false);
+
+                final ProgressBar expBar = (ProgressBar) dialog.findViewById(R.id.expBarUpd);
+                Drawable draw = getResources().getDrawable(R.drawable.customprogressbar);
+                expBar.setProgressDrawable(draw);
+
+                final TextView tvTitle = (TextView) dialog.findViewById(R.id.tvExpGainTitle);
+                final TextView tvExpText = (TextView) dialog.findViewById(R.id.tvExp);
+                final TextView tvGainedExp = (TextView) dialog.findViewById(R.id.tvGainedExp);
+                tvGainedExp.setText(String.valueOf(finalPlayerScore));
+                expBar.setProgress(playerExp);
+
+                checkIfExpRoof = playerExp + finalPlayerScore;
+
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+
+                        if(android.os.Build.VERSION.SDK_INT >= 11){
+                            ObjectAnimator animation = ObjectAnimator.ofInt(expBar, "progress", playerExp + finalPlayerScore);
+                            animation.setDuration(1000);
+                            animation.setInterpolator(new DecelerateInterpolator());
+                            animation.start();
+                        }
+                        else{
+                            expBar.setProgress(playerExp + finalPlayerScore);
+                        }
+                        checkIfExpRoof = playerExp + finalPlayerScore;
+
+                        if (checkIfExpRoof > 100) {
+                            expToNextLevel = checkIfExpRoof - 100;
+                        }
+
+                        try {
+                            db.open();
+                        } catch (java.sql.SQLException e) {
+                            e.printStackTrace();
+                        }
+                        cursor = db.getPlayerInfo();
+                        if (cursor != null && cursor.moveToFirst()) {
+                            newExp = playerExp + finalPlayerScore;
+                            db.updatePlayerExp(newExp);
+                        }
+                        db.close();
+                        expBar.setProgress(playerExp + finalPlayerScore);
+                        System.out.println("playerxp + finalscore = " + String.valueOf(checkIfExpRoof));
+                        System.out.println("ExpBar = " + String.valueOf(expBar.getProgress()));
+                        System.out.println("ExpToNext = " + expToNextLevel);
+
+                        if (expBar.getProgress() >= 100) {
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+                                    try {
+                                        db.open();
+                                    } catch (java.sql.SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                    cursor = db.getPlayerInfo();
+                                    expBar.setProgress(0);
+
+                                    if(android.os.Build.VERSION.SDK_INT >= 11){
+                                        ObjectAnimator animation = ObjectAnimator.ofInt(expBar, "progress", expToNextLevel);
+                                        animation.setDuration(500);
+                                        animation.setInterpolator(new DecelerateInterpolator());
+                                        animation.start();
+                                    }
+                                    else{
+                                        expBar.setProgress(expToNextLevel);
+                                    }
+                                    playerLevel++;
+                                    tvTitle.setText("Congratulations! You reached");
+                                    tvGainedExp.setText("Level");
+                                    tvExpText.setText(String.valueOf(playerLevel));
+                                    if (cursor != null && cursor.moveToFirst()) {
+                                        db.updatePlayerLevel(playerLevel);
+                                        db.updatePlayerExp(expToNextLevel);
+                                    }
+                                    db.close();
+
+                                    myHandler.postDelayed(new Runnable() {
+                                        public void run() {
+                                            dialog.dismiss();
+                                            finish();
+                                        }
+                                    }, 4000);
+                                }
+                            }, 1500);
+                        }
+
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                dialog.dismiss();
+                                finish();
+                            }
+                        }, 5000);
+                    }
+                }, 2000);
+
+                /* YES CLICKED */
+                Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+                buttonDialogYes.setClickable(false);
+                buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                    }
+                });
+                dialog.show();
+            }
+        }, 1000);
+    }
+
+    /* THIS METHOD STARTS THE CONFIRM CARD SELECTION DIALOG */
+    private void playCardConfirm(String message, final Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_playcard);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvError);
+        TextView tvName = (TextView) dialog.findViewById(R.id.tvCardName);
+        tvText.setText(message);
+
+        ImageView ivCard = (ImageView) dialog.findViewById(R.id.ivCardPreview);
+
+        /* HERE A METHODS ARE CALLED TO SET CARD NAME AND GRAPHIC FOR THE PREVIEW */
+        tvName.setText(getCardName());
+        ivCard.setImageResource(getResources().getIdentifier(getCardGraphic(), "drawable", getPackageName()));
+
+        /* YES CLICKED */
+        Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+                playerMoves--;
+                tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                disable(layout_objectRow);
+                disablePlayerCards();
+                btnEndTurn.setClickable(false);
+                animatePlayerCard();
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        executeCardEffect();
+                    }
+                }, 3500);
+
+            }
+        });
+
+        /* NO CLICKED */
+        Button buttonDialogNo = (Button) dialog.findViewById(R.id.bConfirmCancel);
+        buttonDialogNo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    /* THIS METHOD DISABLES THE CARDS WHILE SOMETHING ELSE IS HAPPENING AND
+    YOU SHOULDN'T BE ABLE TO CLICK THEM */
+    private void disablePlayerCards() {
+        playerCard1.setClickable(false);
+        playerCard2.setClickable(false);
+        playerCard3.setClickable(false);
+        playerCard4.setClickable(false);
+        playerCard5.setClickable(false);
+        playerCard6.setClickable(false);
+    }
+
+    /* THIS METHOD ENABLES ALL AVAILABLE CARDS BACK TO CLICKABLE */
+    private void enablePlayerCards() {
+        if (!playerCard1Used) {
+            playerCard1.setClickable(true);
+        }
+        if (!playerCard2Used) {
+            playerCard2.setClickable(true);
+        }
+        if (!playerCard3Used) {
+            playerCard3.setClickable(true);
+        }
+        if (!playerCard4Used) {
+            playerCard4.setClickable(true);
+        }
+        if (!playerCard5Used) {
+            playerCard5.setClickable(true);
+        }
+        if (!playerCard6Used) {
+            playerCard6.setClickable(true);
+        }
+    }
+
+    /* THIS METHOD FETCHES PLAYER INFO */
+    private void getPlayerInfo() {
+        try {
+            db.open();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+        cursor = db.getPlayerInfo();
+        if (cursor != null && cursor.moveToFirst()) {
+            tvPlayerName.setText(cursor.getString(cursor.getColumnIndex("name")));
+            playerName = cursor.getString(cursor.getColumnIndex("name"));
+            playerLevel = cursor.getInt(cursor.getColumnIndex("level"));
+            tvPlayerLevel.setText(String.valueOf(playerLevel));
+            playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
+            tvPlayerExp.setText(String.valueOf(playerExp));
+            playerGender = cursor.getString(cursor.getColumnIndex("gender"));
+        }
+
+        if (playerGender.equals("Male")) {
+            ivPlayerPortrait.setImageResource(R.drawable.male_face);
+        } else {
+            ivPlayerPortrait.setImageResource(R.drawable.female_face);
+        }
+
+        db.close();
+    }
+
+    /* THIS METHOD FETCHES THE CARDS FROM THE DB (THE SET CARDS FOR THIS BATTLE) */
+    private void getPlayerCards() {
+        String names[] = new String[6];
+        String image[] = new String[6];
+        int types[] = new int[6];
+        int i = 0;
+
+        try {
+            db.open();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+        cursor = db.getAllSelectedCards();
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    names[i] = cursor.getString(cursor.getColumnIndex("name"));
+                    image[i] = cursor.getString(cursor.getColumnIndex("image"));
+                    types[i] = cursor.getInt(cursor.getColumnIndex("type"));
+                    i++;
+                } while (cursor.moveToNext());
+            }
+        }
+        db.close();
+        playerCard1Type = types[0];
+        playerCard1Name = names[0];
+        playerCard1Img = image[0];
+        playerCard2Type = types[1];
+        playerCard2Name = names[1];
+        playerCard2Img = image[1];
+        playerCard3Type = types[2];
+        playerCard3Name = names[2];
+        playerCard3Img = image[2];
+        playerCard4Type = types[3];
+        playerCard4Name = names[3];
+        playerCard4Img = image[3];
+        playerCard5Type = types[4];
+        playerCard5Name = names[4];
+        playerCard5Img = image[4];
+        playerCard6Type = types[5];
+        playerCard6Name = names[5];
+        playerCard6Img = image[5];
+    }
+
+    /* THIS METHOD SETS THE PLAYER CARD ICONS */
+    private void setPlayerCardIcons() {
+
+        if (deviceIsTablet) {
+            /* CARD 1 */
+            if (playerCard1Type == 0) {
+                playerCard1.setVisibility(View.GONE);
+            } else {
+                playerCard1.setImageResource(getResources().getIdentifier(playerCard1Img, "drawable", getPackageName()));
+            }
+            /* CARD 2 */
+            if (playerCard2Type == 0) {
+                playerCard2.setVisibility(View.GONE);
+            } else {
+                playerCard2.setImageResource(getResources().getIdentifier(playerCard2Img, "drawable", getPackageName()));
+            }
+            /* CARD 3 */
+            if (playerCard3Type == 0) {
+                playerCard3.setVisibility(View.GONE);
+            } else {
+                playerCard3.setImageResource(getResources().getIdentifier(playerCard3Img, "drawable", getPackageName()));
+            }
+            /* CARD 4 */
+            if (playerCard4Type == 0) {
+                playerCard4.setVisibility(View.GONE);
+            } else {
+                playerCard4.setImageResource(getResources().getIdentifier(playerCard4Img, "drawable", getPackageName()));
+            }
+            /* CARD 5 */
+            if (playerCard5Type == 0) {
+                playerCard5.setVisibility(View.GONE);
+            } else {
+                playerCard5.setImageResource(getResources().getIdentifier(playerCard5Img, "drawable", getPackageName()));
+            }
+            /* CARD 2 */
+            if (playerCard6Type == 0) {
+                playerCard6.setVisibility(View.GONE);
+            } else {
+                playerCard6.setImageResource(getResources().getIdentifier(playerCard6Img, "drawable", getPackageName()));
+            }
+
+        } else {
+            /* CARD 1 */
+            if (playerCard1Type == 0) {
+                playerCard1.setVisibility(View.GONE);
+            }
+            if (playerCard1Type == 1) {
+                playerCard1.setImageResource(R.drawable.card_type_field);
+            }
+            if (playerCard1Type == 2) {
+                playerCard1.setImageResource(R.drawable.card_type_ailment);
+            }
+            if (playerCard1Type == 3) {
+                playerCard1.setImageResource(R.drawable.card_type_boosting);
+            }
+        /* CARD 2 */
+            if (playerCard2Type == 0) {
+                playerCard2.setVisibility(View.GONE);
+            }
+            if (playerCard2Type == 1) {
+                playerCard2.setImageResource(R.drawable.card_type_field);
+            }
+            if (playerCard2Type == 2) {
+                playerCard2.setImageResource(R.drawable.card_type_ailment);
+            }
+            if (playerCard2Type == 3) {
+                playerCard2.setImageResource(R.drawable.card_type_boosting);
+            }
+        /* CARD 3 */
+            if (playerCard3Type == 0) {
+                playerCard3.setVisibility(View.GONE);
+            }
+            if (playerCard3Type == 1) {
+                playerCard3.setImageResource(R.drawable.card_type_field);
+            }
+            if (playerCard3Type == 2) {
+                playerCard3.setImageResource(R.drawable.card_type_ailment);
+            }
+            if (playerCard3Type == 3) {
+                playerCard3.setImageResource(R.drawable.card_type_boosting);
+            }
+        /* CARD 4 */
+            if (playerCard4Type == 0) {
+                playerCard4.setVisibility(View.GONE);
+            }
+            if (playerCard4Type == 1) {
+                playerCard4.setImageResource(R.drawable.card_type_field);
+            }
+            if (playerCard4Type == 2) {
+                playerCard4.setImageResource(R.drawable.card_type_ailment);
+            }
+            if (playerCard4Type == 3) {
+                playerCard4.setImageResource(R.drawable.card_type_boosting);
+            }
+        /* CARD 5 */
+            if (playerCard5Type == 0) {
+                playerCard5.setVisibility(View.GONE);
+            }
+            if (playerCard5Type == 1) {
+                playerCard5.setImageResource(R.drawable.card_type_field);
+            }
+            if (playerCard5Type == 2) {
+                playerCard5.setImageResource(R.drawable.card_type_ailment);
+            }
+            if (playerCard5Type == 3) {
+                playerCard5.setImageResource(R.drawable.card_type_boosting);
+            }
+        /* CARD 6 */
+            if (playerCard6Type == 0) {
+                playerCard6.setVisibility(View.GONE);
+            }
+            if (playerCard6Type == 1) {
+                playerCard6.setImageResource(R.drawable.card_type_field);
+            }
+            if (playerCard6Type == 2) {
+                playerCard6.setImageResource(R.drawable.card_type_ailment);
+            }
+            if (playerCard6Type == 3) {
+                playerCard6.setImageResource(R.drawable.card_type_boosting);
+            }
+        }
+
+    }
+
+    /* THIS METHOD DETERMINES IF DEVICE IS A TABLET OR PHONE */
+    private void getScreenSize() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        int widthPixels = metrics.widthPixels;
+        int heightPixels = metrics.heightPixels;
+
+        float scaleFactor = metrics.density;
+        float widthDp = widthPixels / scaleFactor;
+        float heightDp = heightPixels / scaleFactor;
+
+        float smallestWidth = Math.min(widthDp, heightDp);
+
+        if (smallestWidth > 720) {
+            //Device is a 10" tablet
+            deviceIsTablet = true;
+        } else if (smallestWidth < 600) {
+            //Device is a 7" tablet
+            deviceIsTablet = false;
+        }
+    }
+
+    /* THIS METHOD SETS THE GRAPHIC FOR PREVIEW AND PLAYED CARD */
+    private String getCardGraphic() {
+        String cardGraphic;
+        if (selectedCard == 1) {
+            cardGraphic = playerCard1Img;
+            return cardGraphic;
+        }
+        if (selectedCard == 2) {
+            cardGraphic = playerCard2Img;
+            return cardGraphic;
+        }
+        if (selectedCard == 3) {
+            cardGraphic = playerCard3Img;
+            return cardGraphic;
+        }
+        if (selectedCard == 4) {
+            cardGraphic = playerCard4Img;
+            return cardGraphic;
+        }
+        if (selectedCard == 5) {
+            cardGraphic = playerCard5Img;
+            return cardGraphic;
+        }
+        if (selectedCard == 6) {
+            cardGraphic = playerCard6Img;
+            return cardGraphic;
+        } else {
+            return null;
+        }
+    }
+
+    /* THIS METHOD SETS THE NAME FOR PREVIEW AND PLAYED CARD */
+    private String getCardName() {
+        String cardName;
+        if (selectedCard == 1) {
+            cardName = playerCard1Name;
+            return cardName;
+        }
+        if (selectedCard == 2) {
+            cardName = playerCard2Name;
+            return cardName;
+        }
+        if (selectedCard == 3) {
+            cardName = playerCard3Name;
+            return cardName;
+        }
+        if (selectedCard == 4) {
+            cardName = playerCard4Name;
+            return cardName;
+        }
+        if (selectedCard == 5) {
+            cardName = playerCard5Name;
+            return cardName;
+        }
+        if (selectedCard == 6) {
+            cardName = playerCard6Name;
+            return cardName;
+        } else {
+            return null;
+        }
+    }
+
+    /* THIS METHOD ANIMATES THE RIGHT CARD AND DISPLAYS IT IN THE CENTER */
+    private void animatePlayerCard() {
+        if (selectedCard == 1) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    playerCard1.setVisibility(View.INVISIBLE);
+                    playerCard1.setClickable(false);
+                    playerCard1Used = true;
+                }
+            }, 500);
+
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    ivCenterCardFrame.startAnimation(ani_zoomIn);
+                    ivCenterCardFrame.setImageResource(getResources().getIdentifier(getCardGraphic(), "drawable", getPackageName()));
+                }
+            }, 1000);
+        }
+        if (selectedCard == 2) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    playerCard2.setVisibility(View.INVISIBLE);
+                    playerCard2.setClickable(false);
+                    playerCard2Used = true;
+                }
+            }, 500);
+
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    ivCenterCardFrame.startAnimation(ani_zoomIn);
+                    ivCenterCardFrame.setImageResource(getResources().getIdentifier(getCardGraphic(), "drawable", getPackageName()));
+                }
+            }, 1000);
+        }
+        if (selectedCard == 3) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    playerCard3.setVisibility(View.INVISIBLE);
+                    playerCard3.setClickable(false);
+                    playerCard3Used = true;
+                }
+            }, 500);
+
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    ivCenterCardFrame.startAnimation(ani_zoomIn);
+                    ivCenterCardFrame.setImageResource(getResources().getIdentifier(getCardGraphic(), "drawable", getPackageName()));
+                }
+            }, 1000);
+        }
+        if (selectedCard == 4) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    playerCard4.setVisibility(View.INVISIBLE);
+                    playerCard4.setClickable(false);
+                    playerCard4Used = true;
+                }
+            }, 500);
+
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    ivCenterCardFrame.startAnimation(ani_zoomIn);
+                    ivCenterCardFrame.setImageResource(getResources().getIdentifier(getCardGraphic(), "drawable", getPackageName()));
+                }
+            }, 1000);
+        }
+        if (selectedCard == 5) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    playerCard5.setVisibility(View.INVISIBLE);
+                    playerCard5.setClickable(false);
+                    playerCard5Used = true;
+                }
+            }, 500);
+
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    ivCenterCardFrame.startAnimation(ani_zoomIn);
+                    ivCenterCardFrame.setImageResource(getResources().getIdentifier(getCardGraphic(), "drawable", getPackageName()));
+                }
+            }, 1000);
+        }
+        if (selectedCard == 6) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    playerCard6.setVisibility(View.INVISIBLE);
+                    playerCard6.setClickable(false);
+                    playerCard6Used = true;
+                }
+            }, 500);
+
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    ivCenterCardFrame.startAnimation(ani_zoomIn);
+                    ivCenterCardFrame.setImageResource(getResources().getIdentifier(getCardGraphic(), "drawable", getPackageName()));
+                }
+            }, 1000);
+        }
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                ivCenterCardFrame.clearAnimation();
+                ivCenterCardFrame.setVisibility(View.INVISIBLE);
+            }
+        }, 2500);
+
+    }
+
+    /* THIS METHOD FINDS WHICH CARD IS PLAYED TO DETERMINE EFFECT */
+    private void executeCardEffect() {
+        String playedCard = getCardName();
+        if (playedCard.equals("Reinforce 1")) {
+            cardReinforce1();
+        }
+        if (playedCard.equals("Reinforce 2")) {
+            cardReinforce2();
+        }
+        if (playedCard.equals("Reinforce 3")) {
+            cardReinforce3();
+        }
+        if (playedCard.equals("Slow Down")) {
+            cardSlowDown();
+        }
+        if (playedCard.equals("Speed Up")) {
+            cardSpeedUp();
+        }
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                enable(layout_objectRow);
+                enablePlayerCards();
+                btnEndTurn.setClickable(true);
+            }
+        }, 1500);
+    }
+
+    /* REINFORCE 1 CARD EFFECT METHOD */
+    private void cardReinforce1() {
+        if (objectsRemaining == 16) {
+            tvCenterMessage.setText(boardIsFullError);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 1000);
+        }
+        if (objectsRemaining == 15) {
+            obj001.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 14) {
+            obj002.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 13) {
+            obj003.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 12) {
+            obj004.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 11) {
+            obj005.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 10) {
+            obj006.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 9) {
+            obj007.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 8) {
+            obj008.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 7) {
+            obj009.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 6) {
+            obj010.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 5) {
+            obj011.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 4) {
+            obj012.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 3) {
+            obj013.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 2) {
+            obj014.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 1) {
+            obj015.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+    }
+
+    /* REINFORCE 2 CARD EFFECT METHOD */
+    private void cardReinforce2() {
+        if (objectsRemaining == 16) {
+            tvCenterMessage.setText(boardIsFullError);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 1000);
+        }
+        if (objectsRemaining == 15) {
+            obj001.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 14) {
+            obj001.setImageResource(R.drawable.object_wheat);
+            obj002.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 13) {
+            obj002.setImageResource(R.drawable.object_wheat);
+            obj003.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 12) {
+            obj003.setImageResource(R.drawable.object_wheat);
+            obj004.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 11) {
+            obj004.setImageResource(R.drawable.object_wheat);
+            obj005.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 10) {
+            obj005.setImageResource(R.drawable.object_wheat);
+            obj006.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 9) {
+            obj006.setImageResource(R.drawable.object_wheat);
+            obj007.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 8) {
+            obj007.setImageResource(R.drawable.object_wheat);
+            obj008.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 7) {
+            obj008.setImageResource(R.drawable.object_wheat);
+            obj009.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 6) {
+            obj009.setImageResource(R.drawable.object_wheat);
+            obj010.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 5) {
+            obj010.setImageResource(R.drawable.object_wheat);
+            obj011.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 4) {
+            obj011.setImageResource(R.drawable.object_wheat);
+            obj012.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 3) {
+            obj012.setImageResource(R.drawable.object_wheat);
+            obj013.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 2) {
+            obj013.setImageResource(R.drawable.object_wheat);
+            obj014.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 1) {
+            obj014.setImageResource(R.drawable.object_wheat);
+            obj015.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+    }
+
+    /* REINFORCE 3 CARD EFFECT METHOD */
+    private void cardReinforce3() {
+        if (objectsRemaining == 16) {
+            tvCenterMessage.setText(boardIsFullError);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 1000);
+        }
+        if (objectsRemaining == 15) {
+            obj001.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 14) {
+            obj001.setImageResource(R.drawable.object_wheat);
+            obj002.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 13) {
+            obj001.setImageResource(R.drawable.object_wheat);
+            obj002.setImageResource(R.drawable.object_wheat);
+            obj003.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 12) {
+            obj002.setImageResource(R.drawable.object_wheat);
+            obj003.setImageResource(R.drawable.object_wheat);
+            obj004.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 11) {
+            obj003.setImageResource(R.drawable.object_wheat);
+            obj004.setImageResource(R.drawable.object_wheat);
+            obj005.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 10) {
+            obj004.setImageResource(R.drawable.object_wheat);
+            obj005.setImageResource(R.drawable.object_wheat);
+            obj006.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 9) {
+            obj005.setImageResource(R.drawable.object_wheat);
+            obj006.setImageResource(R.drawable.object_wheat);
+            obj007.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 8) {
+            obj006.setImageResource(R.drawable.object_wheat);
+            obj007.setImageResource(R.drawable.object_wheat);
+            obj008.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 7) {
+            obj007.setImageResource(R.drawable.object_wheat);
+            obj008.setImageResource(R.drawable.object_wheat);
+            obj009.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 6) {
+            obj008.setImageResource(R.drawable.object_wheat);
+            obj009.setImageResource(R.drawable.object_wheat);
+            obj010.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 5) {
+            obj009.setImageResource(R.drawable.object_wheat);
+            obj010.setImageResource(R.drawable.object_wheat);
+            obj011.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 4) {
+            obj010.setImageResource(R.drawable.object_wheat);
+            obj011.setImageResource(R.drawable.object_wheat);
+            obj012.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 3) {
+            obj011.setImageResource(R.drawable.object_wheat);
+            obj012.setImageResource(R.drawable.object_wheat);
+            obj013.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 2) {
+            obj012.setImageResource(R.drawable.object_wheat);
+            obj013.setImageResource(R.drawable.object_wheat);
+            obj014.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 1) {
+            obj013.setImageResource(R.drawable.object_wheat);
+            obj014.setImageResource(R.drawable.object_wheat);
+            obj015.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+    }
+
+    /* SLOW DOWN CARD EFFECT METHOD */
+    private void cardSlowDown() {
+        if (playerTurn) {
+            tvCenterMessage.setText(enemySlowed);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    enemyIsSlowed = true;
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    tvEnemyDebuff.setText("Slow");
+                }
+            }, 1000);
+        } else {
+
+        }
+    }
+
+    /* SPEED UP CARD EFFECT METHOD */
+    private void cardSpeedUp() {
+        if (playerTurn) {
+            tvCenterMessage.setText(playerHaste);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    playerHasHaste = true;
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    tvPlayerDebuff.setText("Haste");
+                }
+            }, 1000);
+        } else {
+
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+}
+
+
+

@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:padding="8dp"
+    android:id="@+id/root"
+    android:background="@drawable/gamefinished_box">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expGainTitle"
+        android:id="@+id/tvExpGainTitle"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/textBlack"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lvl000"
+            android:id="@+id/tvGainedExp"
+            android:layout_marginRight="8dp"
+            android:textSize="40sp"
+            android:textColor="@color/textBlack" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exp"
+            android:id="@+id/tvExp"
+            android:textSize="40sp"
+            android:textColor="@color/textBlack" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/customprogressbar"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/expBarUpd"
+            android:max="100" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp">
+
+        <Button
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonWait"
+            android:id="@+id/bConfirmOk"
+            style="@style/startscreen_button"
+            android:layout_below="@+id/tvError"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/textBlack" />
+
+    </LinearLayout>
+
+</LinearLayout>

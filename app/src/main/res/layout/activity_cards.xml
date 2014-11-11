@@ -1,0 +1,69 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="16dp"
+    android:background="@drawable/bg_world001">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select a card category:"
+            android:id="@+id/textView"
+            android:textSize="20sp"
+            android:textColor="@color/textBlack"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="FIELD"
+            android:id="@+id/bField"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/field_card_button"
+            android:textStyle="bold"
+            android:textColor="@color/textBlack"
+            android:layout_marginTop="5dp" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="AILMENT"
+            android:id="@+id/bAilment"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ailment_card_button"
+            android:textColor="@color/textBlack"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="BOOSTING"
+            android:id="@+id/bBoosting"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/boosting_card_button"
+            android:textStyle="bold"
+            android:textColor="@color/textBlack"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="50dp" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="BACK"
+            android:id="@+id/bBackToStart"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/startscreen_btncolor"
+            android:textColor="@color/textBlack"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

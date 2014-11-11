@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Activity Names -->
+    <string name="app_name">Last Straw</string>
+
+    <!-- Button Names -->
+    <string name="buttonOk">OK</string>
+    <string name="buttonCancel">CANCEL</string>
+    <string name="buttonWait">Please Wait..</string>
+
+    <!-- Random TextViews -->
+    <string name="playCardConfirmTitle">Play This Card?</string>
+    <string name="tvDefault">TextView</string>
+    <string name="lvlSelectTitle">Select Level</string>
+    <string name="confirmdialogErrorTitle">Error Message</string>
+    <string name="confirmdialogSuccessTitle">Success Message</string>
+    <string name="cardsinhand">Cards In Hand:</string>
+    <string name="cardsinhandNR"></string>
+    <string name="playerDebuffTitle">Player Debuff</string>
+    <string name="enemyDebuffTitle">Enemy Debuff</string>
+    <string name="cardsRemaining">Remaining: </string>
+    <string name="score">Score: </string>
+    <string name="exp">Exp</string>
+    <string name="gameOver">GAME FINISHED!</string>
+    <string name="finalScore">Final Score</string>
+    <string name="expGainTitle">You gained:</string>
+
+    <!-- Level Numbers -->
+    <string name="lvl000">0</string>
+    <string name="lvl001">1</string>
+    <string name="lvl002">2</string>
+    <string name="lvl003">3</string>
+    <string name="lvl004">4</string>
+    <string name="lvl005">5</string>
+    <string name="lvl006">6</string>
+    <string name="lvl007">7</string>
+    <string name="lvl008">8</string>
+
+    <!-- Profile Screen Activity -->
+    <string name="backButton">BACK</string>
+    <string name="nameTitle">NAME: </string>
+    <string name="saveInfo">UPDATE</string>
+    <string name="genderTitle">GENDER: </string>
+    <string name="selectGender">SELECT</string>
+    <string name="expProgressTitle">EXP</string>
+    <string name="levelTitle">LEVEL</string>
+    <string name="genderSelectionTitle">SELECT GENDER</string>
+    <string name="refreshTip">(Refreshes on update)</string>
+    <string name="male">MALE</string>
+    <string name="female">FEMALE</string>
+
+    <!-- Start Screen Activity -->
+    <string name="playButton">PLAY</string>
+    <string name="profileButton">PROFILE</string>
+    <string name="cardStoreButton">CARDS</string>
+    <string name="rulesButton">GAME RULES</string>
+
+    <!-- World Selection Activity -->
+    <string name="worldSelectTitle">World Selection</string>
+    <string name="world_unknown">\?????</string>
+    <string name="world_toolShed">Tool Shed</string>
+    <string name="world_fields">Fields</string>
+
+    <!-- Card Selection Activity -->
+    <string name="cardSelectTitle">Available Cards</string>
+    <string name="cardsInHand">Cards In Your Hand</string>
+    <string name="startGame">Start Game!</string>
+    <string name="viewCards">View Hand</string>
+    <string name="goBack">Back</string>
+    <string name="selectCardConfirmTitle">Use This Card?</string>
+    <string name="cardAdded">Card Added To Hand</string>
+    <string name="removeHandCardTitle">Remove This Card?</string>
+    <string name="emptyHand">Empty Hand</string>
+
+    <!-- Cards Activity -->
+    <string name="cardsListTitle">Cards</string>
+
+    <!-- Player Commands -->
+    <string name="commandButton">Action</string>
+
+</resources>

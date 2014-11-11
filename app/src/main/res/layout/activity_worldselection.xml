@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/bg_world001">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/worldSelectTitle"
+        android:id="@+id/tvNameTitle"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/textBlack"
+        android:textSize="24sp"
+        android:padding="16dp" />
+
+    <LinearLayout
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="30">
+
+            <!-- World: Tool Shed
+            Object: Nails
+            Enemies: Mechanics -->
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:id="@+id/imgBtnWorld001"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/world_fields"
+                android:scaleType="centerCrop"
+                android:background="@drawable/startscreen_btncolor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/world_fields"
+                android:id="@+id/tvWorld001"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="30">
+
+            <!-- World: Fields
+            Object: Wheat
+            Enemies: Farmers -->
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:id="@+id/imgBtnWorld002"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/startscreen_btncolor"
+                android:src="@drawable/world_locked"
+                android:scaleType="centerCrop"
+                android:clickable="false"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/world_unknown"
+                android:id="@+id/tvWorld002"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="30">
+
+            <!-- World: Theme Park
+            Object: Balloons
+            Enemies: Clowns -->
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:id="@+id/imgBtnWorld003"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/startscreen_btncolor"
+                android:src="@drawable/world_locked"
+                android:scaleType="centerCrop"
+                android:clickable="false"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/world_unknown"
+                android:id="@+id/tvWorld003"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="30">
+
+            <!-- World: Cathedral
+            Object: Candles
+            Enemies: Cultists -->
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:id="@+id/imgBtnWorld004"
+                android:src="@drawable/world_locked"
+                android:scaleType="centerCrop"
+                android:background="@drawable/startscreen_btncolor"
+                android:layout_gravity="center_horizontal"
+                android:clickable="false"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/world_unknown"
+                android:id="@+id/tvWorld004"
+                android:layout_gravity="center_horizontal"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="30">
+
+            <!-- World: Jungle
+            Object: Spears
+            Enemies: Savages -->
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:id="@+id/imgBtnWorld005"
+                android:src="@drawable/world_locked"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/startscreen_btncolor"
+                android:clickable="false"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/world_unknown"
+                android:id="@+id/tvWorld005"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="30">
+
+            <!-- World: Back Street
+            Object: Street Lights
+            Enemies: Ruffians -->
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:id="@+id/imgBtnWorld006"
+                android:background="@drawable/startscreen_btncolor"
+                android:src="@drawable/world_locked"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center_horizontal"
+                android:clickable="false"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/world_unknown"
+                android:id="@+id/tvWorld006"
+                android:layout_gravity="center_horizontal"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
