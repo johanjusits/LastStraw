@@ -58,6 +58,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int checkIfExpRoof;
     int playerLevel;
     int playerExp;
+    int playerProgress;
     int playerScore = 0, enemyScore = 0, finalPlayerScore, finalEnemyScore;
     int playerCard1Type = 0, playerCard2Type = 0, playerCard3Type = 0, playerCard4Type = 0,
             playerCard5Type = 0, playerCard6Type = 0;
@@ -67,7 +68,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int selectedCard = 0;
     int enemyThinkingTime = genThinkingTime();
     /* BOOLEANS */
-    boolean beatenThisLevel;
     boolean deviceIsTablet;
     boolean enemyIsSlowed = false;
     boolean playerHasHaste = false;
@@ -1289,6 +1289,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
             tvPlayerExp.setText(String.valueOf(playerExp));
             playerGender = cursor.getString(cursor.getColumnIndex("gender"));
+            playerProgress = cursor.getInt(cursor.getColumnIndex("lvlsbeaten"));
         }
 
         if (playerGender.equals("Male")) {

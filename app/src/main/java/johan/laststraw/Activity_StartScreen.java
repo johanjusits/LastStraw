@@ -10,7 +10,7 @@ import android.widget.Button;
 public class Activity_StartScreen extends Activity implements View.OnClickListener{
 
     Button profileButton, playButton, cardStoreButton, rulesButton;
-    Intent play, profile, cards;
+    Intent play, profile, cards, rules;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,11 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 cards = new Intent(Activity_StartScreen.this, Activity_Cards.class);
                 cards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(cards);
+                break;
+            case R.id.Btn_Rules:
+                rules = new Intent(Activity_StartScreen.this, Activity_Rules_P1.class);
+                rules.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(rules);
                 break;
         }
     }
