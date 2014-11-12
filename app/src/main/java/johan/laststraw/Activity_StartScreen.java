@@ -2,15 +2,23 @@ package johan.laststraw;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class Activity_StartScreen extends Activity implements View.OnClickListener{
 
     Button profileButton, playButton, cardStoreButton, rulesButton;
     Intent play, profile, cards, rules;
+    DBHandler db;
+    Cursor cursor;
+    TextView tvdblvl, tvsplvl;
+    int dbLvl, sharedPrefLvl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +29,9 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         playButton = (Button) findViewById(R.id.Btn_Play);
         cardStoreButton = (Button) findViewById(R.id.Btn_Cards);
         rulesButton = (Button) findViewById(R.id.Btn_Rules);
+
+        tvdblvl = (TextView) findViewById(R.id.tvDbLvl);
+        tvsplvl = (TextView) findViewById(R.id.tvSharedPrefLvl);
 
         profileButton.setOnClickListener(this);
         playButton.setOnClickListener(this);
@@ -53,5 +64,29 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 startActivity(rules);
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        db = new DBHandler(this);
+
+        try {
+            db.open();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+
+        cursor = db.getPlayerInfo();
+        if (cursor != null && cursor.moveToFirst()) {
+            dbLvl = cursor.getInt(cursor.getColumnIndex("level"));
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            sharedPrefLvl = preferences.getInt("CurrentLevel", 0);
+
+            tvdblvl.setText(String.valueOf(dbLvl));
+            tvsplvl.setText(String.valueOf(sharedPrefLvl));
+        }
+        db.close();
     }
 }
