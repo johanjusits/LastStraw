@@ -55,6 +55,7 @@
     <string name="profileButton">PROFILE</string>
     <string name="cardStoreButton">CARDS</string>
     <string name="rulesButton">GAME RULES</string>
+    <string name="newCards">New cards available!</string>
 
     <!-- World Selection Activity -->
     <string name="worldSelectTitle">World Selection</string>

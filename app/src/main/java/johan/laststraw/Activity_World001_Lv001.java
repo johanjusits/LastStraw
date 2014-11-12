@@ -4,11 +4,13 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -173,6 +175,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
         getScreenSize();
         getPlayerInfo();
+        storeCurrentLevel();
         getPlayerCards();
         setPlayerCardIcons();
 
@@ -1664,13 +1667,13 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* THIS METHOD FINDS WHICH CARD IS PLAYED TO DETERMINE EFFECT */
     private void executeCardEffect() {
         String playedCard = getCardName();
-        if (playedCard.equals("Reinforce 1")) {
+        if (playedCard.equals("Reinforce")) {
             cardReinforce1();
         }
-        if (playedCard.equals("Reinforce 2")) {
+        if (playedCard.equals("Reinforce II")) {
             cardReinforce2();
         }
-        if (playedCard.equals("Reinforce 3")) {
+        if (playedCard.equals("Reinforce III")) {
             cardReinforce3();
         }
         if (playedCard.equals("Slow Down")) {
@@ -1985,6 +1988,13 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    private void storeCurrentLevel() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("CurrentLevel", playerLevel);
+        editor.apply();
     }
 }
 

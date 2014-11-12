@@ -25,6 +25,7 @@ public class DBHandler {
     public static final String KEY_ISUNLOCKED = "unlocked";
     public static final String KEY_REQUIRESLVL = "reqlvl";
     public static final String KEY_LVLSBEATEN = "lvlsbeaten";
+    public static final String KEY_COST = "cost";
 
     private static final String DATABASE_NAME = "appDB";
     private static final String DATABASE_TABLE = "selectedCards";
@@ -66,6 +67,7 @@ public class DBHandler {
                             KEY_TYPE + " INTEGER NOT NULL, " +
                             KEY_DESC + " TEXT NOT NULL, " +
                             KEY_REQUIRESLVL + " INT NOT NULL, " +
+                            KEY_COST + " INT NOT NULL, " +
                             KEY_ISUNLOCKED + " INT NOT NULL);"
             );
 
@@ -84,6 +86,7 @@ public class DBHandler {
                             KEY_NAME + " TEXT NOT NULL, " +
                             KEY_IMAGE + " TEXT NOT NULL, " +
                             KEY_TYPE + " INTEGER NOT NULL, " +
+                            KEY_COST + " INTEGER NOT NULL, " +
                             KEY_DESC + " TEXT NOT NULL);"
             );
 
@@ -94,6 +97,7 @@ public class DBHandler {
             ac1.put(KEY_TYPE, 1);
             ac1.put(KEY_DESC, "Brings back one object.");
             ac1.put(KEY_REQUIRESLVL, 1);
+            ac1.put(KEY_COST, 0);
             ac1.put(KEY_ISUNLOCKED, 1);
             db.insert(DATABASE_TABLE_2, null, ac1);
 
@@ -102,7 +106,8 @@ public class DBHandler {
             ac2.put(KEY_IMAGE, "card_obj_plus_2");
             ac2.put(KEY_TYPE, 1);
             ac2.put(KEY_DESC, "Brings back two objects.");
-            ac2.put(KEY_REQUIRESLVL, 3);
+            ac2.put(KEY_REQUIRESLVL, 2);
+            ac2.put(KEY_COST, 0);
             ac2.put(KEY_ISUNLOCKED, 0);
             db.insert(DATABASE_TABLE_2, null, ac2);
 
@@ -111,7 +116,8 @@ public class DBHandler {
             ac3.put(KEY_IMAGE, "card_obj_plus_3");
             ac3.put(KEY_TYPE, 1);
             ac3.put(KEY_DESC, "Brings back three objects.");
-            ac3.put(KEY_REQUIRESLVL, 4);
+            ac3.put(KEY_REQUIRESLVL, 3);
+            ac3.put(KEY_COST, 1);
             ac3.put(KEY_ISUNLOCKED, 0);
             db.insert(DATABASE_TABLE_2, null, ac3);
 
@@ -121,6 +127,7 @@ public class DBHandler {
             ac4.put(KEY_TYPE, 2);
             ac4.put(KEY_DESC, "Reduces opponent's moves by 1 next turn.");
             ac4.put(KEY_REQUIRESLVL, 5);
+            ac4.put(KEY_COST, 1);
             ac4.put(KEY_ISUNLOCKED, 0);
             db.insert(DATABASE_TABLE_2, null, ac4);
 
@@ -129,6 +136,7 @@ public class DBHandler {
             ac5.put(KEY_IMAGE, "card_speed_up");
             ac5.put(KEY_TYPE, 3);
             ac5.put(KEY_DESC, "You gain 1 more move on next turn.");
+            ac5.put(KEY_COST, 1);
             ac5.put(KEY_REQUIRESLVL, 6);
             ac5.put(KEY_ISUNLOCKED, 0);
             db.insert(DATABASE_TABLE_2, null, ac5);
@@ -138,6 +146,7 @@ public class DBHandler {
             oc1.put(KEY_NAME, "Reinforce");
             oc1.put(KEY_IMAGE, "card_obj_plus_1");
             oc1.put(KEY_TYPE, 1);
+            oc1.put(KEY_COST, 0);
             oc1.put(KEY_DESC, "Brings back one object.");
             db.insert(DATABASE_TABLE_4, null, oc1);
 
@@ -289,9 +298,20 @@ public class DBHandler {
     }
 
     /* UNLOCKING CARDS METHODS */
-    public long unlockCard001(int CardId, int number) {
+    public long unlockCard(int CardId, int number) {
         ContentValues cv = new ContentValues();
         cv.put(KEY_ISUNLOCKED, number);
         return appDB.update(DATABASE_TABLE_2, cv, "_id "+"="+CardId, null);
+    }
+
+    /* ADD CARD TO OWNED CARDS METHOD */
+    public long addOwnedCard(String cardName, String cardImg, int cardType, int cardCost, String cardDesc) {
+        ContentValues oc1 = new ContentValues();
+        oc1.put(KEY_NAME, cardName);
+        oc1.put(KEY_IMAGE, cardImg);
+        oc1.put(KEY_TYPE, cardType);
+        oc1.put(KEY_COST, cardCost);
+        oc1.put(KEY_DESC, cardDesc);
+        return appDB.insert(DATABASE_TABLE_4, null, oc1);
     }
 }
