@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class Activity_StartScreen extends Activity implements View.OnClickListener{
 
-    Button profileButton, playButton, cardStoreButton, rulesButton;
+    Button profileButton, playButton, cardStoreButton, rulesButton, newCardMsg;
     Intent play, profile, cards, rules;
     DBHandler db;
     Cursor cursor;
@@ -29,6 +29,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         playButton = (Button) findViewById(R.id.Btn_Play);
         cardStoreButton = (Button) findViewById(R.id.Btn_Cards);
         rulesButton = (Button) findViewById(R.id.Btn_Rules);
+        newCardMsg = (Button) findViewById(R.id.newCardMsg);
 
         tvdblvl = (TextView) findViewById(R.id.tvDbLvl);
         tvsplvl = (TextView) findViewById(R.id.tvSharedPrefLvl);
@@ -56,6 +57,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             case R.id.Btn_Cards:
                 cards = new Intent(Activity_StartScreen.this, Activity_Cards.class);
                 cards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                newCardMsg.setVisibility(View.INVISIBLE);
                 startActivity(cards);
                 break;
             case R.id.Btn_Rules:
@@ -87,6 +89,22 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             tvdblvl.setText(String.valueOf(dbLvl));
             tvsplvl.setText(String.valueOf(sharedPrefLvl));
         }
+        awardNewCard();
         db.close();
+    }
+
+    private void awardNewCard() {
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 2 && sharedPrefLvl == 1){
+                newCardMsg.setVisibility(View.VISIBLE);
+                db.addOwnedCard("Reinforce II", "card_obj_plus_2", 1, 0, "Brings back two objects.");
+                db.unlockCard(2, 1);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("CurrentLevel", dbLvl);
+                editor.putBoolean("NewCard", true);
+                editor.apply();
+            }
+        }
     }
 }

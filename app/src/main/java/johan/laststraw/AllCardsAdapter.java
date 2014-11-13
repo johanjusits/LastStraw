@@ -67,6 +67,7 @@ public class AllCardsAdapter extends CursorAdapter {
         } else {
             viewUnlocked = (UnlockedHolder) view.getTag();
             viewUnlocked.nameHolder.setText(cursor.getString(cursor.getColumnIndex("name")));
+            viewUnlocked.costHolder.setText(cursor.getString(cursor.getColumnIndex("cost")));
 
             String imagePath = cursor.getString(cursor.getColumnIndex("image"));
 
@@ -119,6 +120,7 @@ public class AllCardsAdapter extends CursorAdapter {
             View unlockedView;
             unlockedView = mInflater.inflate(R.layout.card_list_row, parent, false);
             viewUnlocked.nameHolder = (TextView) unlockedView.findViewById(R.id.txtTitle);
+            viewUnlocked.costHolder = (TextView) unlockedView.findViewById(R.id.tvCost);
             viewUnlocked.imageHolder = (ImageView) unlockedView.findViewById(R.id.imgThumbnail);
             unlockedView.setTag(viewUnlocked);
 
@@ -151,6 +153,7 @@ public class AllCardsAdapter extends CursorAdapter {
 
     public class UnlockedHolder {
         public TextView nameHolder;
+        public TextView costHolder;
         public ImageView imageHolder;
     }
 

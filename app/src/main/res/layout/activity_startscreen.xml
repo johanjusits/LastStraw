@@ -70,35 +70,53 @@
         android:layout_height="wrap_content"
         android:text="DB Level = "
         android:id="@+id/textView"
-        android:layout_above="@+id/Btn_Cards"
-        android:layout_toLeftOf="@+id/tvDbLvl"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:layout_below="@+id/textView3"
+        android:layout_toLeftOf="@+id/tvSharedPrefLvl"
+        android:layout_toStartOf="@+id/tvSharedPrefLvl" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SharedPrefLevel = "
         android:id="@+id/textView3"
-        android:layout_above="@+id/textView"
+        android:textColor="@color/textBlack"
+        android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/tvSharedPrefLvl"
-        android:textColor="@color/textBlack" />
+        android:layout_toStartOf="@+id/tvSharedPrefLvl" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="0"
         android:id="@+id/tvSharedPrefLvl"
-        android:layout_above="@+id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/Btn_Cards"
+        android:layout_alignEnd="@+id/Btn_Cards" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="0"
         android:id="@+id/tvDbLvl"
+        android:layout_below="@+id/textView3"
+        android:layout_alignRight="@+id/Btn_Cards"
+        android:layout_alignEnd="@+id/Btn_Cards" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="New Card Available!"
+        android:id="@+id/newCardMsg"
         android:layout_above="@+id/Btn_Cards"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignLeft="@+id/Btn_Cards"
+        android:layout_alignStart="@+id/Btn_Cards"
+        android:clickable="false"
+        android:background="@drawable/boosting_card_button"
+        android:textColor="@color/textBlack"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        android:visibility="invisible" />
 
 </RelativeLayout>
