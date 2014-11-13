@@ -34,9 +34,6 @@ public class Activity_Cards_Ailment extends Activity implements AdapterView.OnIt
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
-        db.unlockCard(1, 1);
-        db.unlockCard(2, 0);
-        db.unlockCard(3, 0);
         setAilmentCardsList();
         db.close();
     }

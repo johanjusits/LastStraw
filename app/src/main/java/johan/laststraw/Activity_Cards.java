@@ -2,9 +2,12 @@ package johan.laststraw;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Created by Johan on 2014-10-13.
@@ -12,7 +15,9 @@ import android.widget.Button;
 public class Activity_Cards extends Activity implements View.OnClickListener {
 
     Button bField, bAilment, bBoosting, bBack;
+    TextView newCard;
     Intent changeActivity;
+    Boolean isThereANewCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +28,28 @@ public class Activity_Cards extends Activity implements View.OnClickListener {
         bAilment = (Button) findViewById(R.id.bAilment);
         bBoosting = (Button) findViewById(R.id.bBoosting);
         bBack = (Button) findViewById(R.id.bBackToStart);
+        newCard = (TextView) findViewById(R.id.tvNewCardTxt);
 
         bField.setOnClickListener(this);
         bAilment.setOnClickListener(this);
         bBoosting.setOnClickListener(this);
         bBack.setOnClickListener(this);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        isThereANewCard = preferences.getBoolean("NewCard", false);
+
     }
 
     @Override
     public void onBackPressed() {
+        if (isThereANewCard == true){
+            isThereANewCard = false;
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("NewCard", false);
+            editor.apply();
+            newCard.setVisibility(View.INVISIBLE);
+        }
         finish();
         overridePendingTransition(0, 0);
     }
@@ -41,6 +58,14 @@ public class Activity_Cards extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bBackToStart:
+                if (isThereANewCard == true){
+                    isThereANewCard = false;
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("NewCard", false);
+                    editor.apply();
+                    newCard.setVisibility(View.INVISIBLE);
+                }
                 finish();
                 overridePendingTransition(0, 0);
                 break;
@@ -59,6 +84,14 @@ public class Activity_Cards extends Activity implements View.OnClickListener {
                 changeActivity.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(changeActivity);
                 break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isThereANewCard == true){
+            newCard.setVisibility(View.VISIBLE);
         }
     }
 }
