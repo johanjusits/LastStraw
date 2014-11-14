@@ -72,9 +72,9 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
 
             playerGender = cursor.getString(cursor.getColumnIndex("gender"));
             if (playerGender.equals("Male")){
-                ivImg.setImageResource(R.drawable.male_face);
+                ivImg.setImageResource(R.drawable.portrait_placeholder_boy);
             } else {
-                ivImg.setImageResource(R.drawable.female_face);
+                ivImg.setImageResource(R.drawable.portrait_placeholder_girl);
             }
         }
         db.close();
@@ -107,9 +107,9 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
                 tvGender.setText(cursor.getString(cursor.getColumnIndex("gender")));
                 playerGender = cursor.getString(cursor.getColumnIndex("gender"));
                 if (playerGender.equals("Male")){
-                    ivImg.setImageResource(R.drawable.male_face);
+                    ivImg.setImageResource(R.drawable.portrait_placeholder_boy);
                 } else {
-                    ivImg.setImageResource(R.drawable.female_face);
+                    ivImg.setImageResource(R.drawable.portrait_placeholder_girl);
                 }
                 break;
         }

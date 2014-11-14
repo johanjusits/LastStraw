@@ -36,6 +36,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     ImageButton obj001, obj002, obj003, obj004, obj005, obj006, obj007, obj008, obj009,
             obj010, obj011, obj012, obj013, obj014, obj015, obj016;
     ImageButton playerCard1, playerCard2, playerCard3, playerCard4, playerCard5, playerCard6;
+    ImageButton enemyCard1, enemyCard2, enemyCard3;
     Button btnEndTurn;
     TextView tvCenterMessage, tvPlayerMovesNumber, tvEnemyMovesNumber, tvEnemyDebuff, tvPlayerDebuff;
     TextView tvPlayerName, tvPlayerExp, tvPlayerLevel, tvPlayerScore, tvEnemyScore, tvEnemyName;
@@ -139,7 +140,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         /* SETS CARDS  */
         ivPlayerPortrait = (ImageView) findViewById(R.id.ivPlayerPortrait);
         ivEnemyPortrait = (ImageView) findViewById(R.id.ivEnemyPortrait);
-        ivEnemyPortrait.setImageResource(R.drawable.enemy_farmer_face);
+        ivEnemyPortrait.setImageResource(R.drawable.portrait_placeholder_cpu);
         ivCenterCardFrame = (ImageView) findViewById(R.id.ivCenterCardFrame);
         playerCard1 = (ImageButton) findViewById(R.id.ibPlayerCard1);
         playerCard2 = (ImageButton) findViewById(R.id.ibPlayerCard2);
@@ -153,6 +154,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         playerCard4.setOnClickListener(this);
         playerCard5.setOnClickListener(this);
         playerCard6.setOnClickListener(this);
+
+        enemyCard1 = (ImageButton) findViewById((R.id.ibEnemyCard1));
+        enemyCard2 = (ImageButton) findViewById((R.id.ibEnemyCard2));
+        enemyCard3 = (ImageButton) findViewById((R.id.ibEnemyCard3));
 
         /* SETS VARIOUS VIEWS */
         tvPlayerName = (TextView) findViewById(R.id.tvPlayerName);
@@ -178,6 +183,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         storeCurrentLevel();
         getPlayerCards();
         setPlayerCardIcons();
+        setEnemyCards();
 
         playerHaste = playerName + " gains Haste";
 
@@ -1296,9 +1302,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
 
         if (playerGender.equals("Male")) {
-            ivPlayerPortrait.setImageResource(R.drawable.male_face);
+            ivPlayerPortrait.setImageResource(R.drawable.portrait_placeholder_boy);
         } else {
-            ivPlayerPortrait.setImageResource(R.drawable.female_face);
+            ivPlayerPortrait.setImageResource(R.drawable.portrait_placeholder_girl);
         }
 
         db.close();
@@ -1395,12 +1401,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 playerCard1.setVisibility(View.GONE);
             }
             if (playerCard1Type == 1) {
+                playerCard1.setBackgroundResource(R.drawable.card_icon_field);
                 playerCard1.setImageResource(R.drawable.card_type_field);
             }
             if (playerCard1Type == 2) {
+                playerCard1.setBackgroundResource(R.drawable.card_icon_ailment);
                 playerCard1.setImageResource(R.drawable.card_type_ailment);
             }
             if (playerCard1Type == 3) {
+                playerCard1.setBackgroundResource(R.drawable.card_icon_boosting);
                 playerCard1.setImageResource(R.drawable.card_type_boosting);
             }
         /* CARD 2 */
@@ -1408,12 +1417,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 playerCard2.setVisibility(View.GONE);
             }
             if (playerCard2Type == 1) {
+                playerCard2.setBackgroundResource(R.drawable.card_icon_field);
                 playerCard2.setImageResource(R.drawable.card_type_field);
             }
             if (playerCard2Type == 2) {
+                playerCard2.setBackgroundResource(R.drawable.card_icon_ailment);
                 playerCard2.setImageResource(R.drawable.card_type_ailment);
             }
             if (playerCard2Type == 3) {
+                playerCard2.setBackgroundResource(R.drawable.card_icon_boosting);
                 playerCard2.setImageResource(R.drawable.card_type_boosting);
             }
         /* CARD 3 */
@@ -1421,12 +1433,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 playerCard3.setVisibility(View.GONE);
             }
             if (playerCard3Type == 1) {
+                playerCard3.setBackgroundResource(R.drawable.card_icon_field);
                 playerCard3.setImageResource(R.drawable.card_type_field);
             }
             if (playerCard3Type == 2) {
+                playerCard3.setBackgroundResource(R.drawable.card_icon_ailment);
                 playerCard3.setImageResource(R.drawable.card_type_ailment);
             }
             if (playerCard3Type == 3) {
+                playerCard3.setBackgroundResource(R.drawable.card_icon_boosting);
                 playerCard3.setImageResource(R.drawable.card_type_boosting);
             }
         /* CARD 4 */
@@ -1434,12 +1449,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 playerCard4.setVisibility(View.GONE);
             }
             if (playerCard4Type == 1) {
+                playerCard4.setBackgroundResource(R.drawable.card_icon_field);
                 playerCard4.setImageResource(R.drawable.card_type_field);
             }
             if (playerCard4Type == 2) {
+                playerCard4.setBackgroundResource(R.drawable.card_icon_ailment);
                 playerCard4.setImageResource(R.drawable.card_type_ailment);
             }
             if (playerCard4Type == 3) {
+                playerCard4.setBackgroundResource(R.drawable.card_icon_boosting);
                 playerCard4.setImageResource(R.drawable.card_type_boosting);
             }
         /* CARD 5 */
@@ -1447,12 +1465,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 playerCard5.setVisibility(View.GONE);
             }
             if (playerCard5Type == 1) {
+                playerCard5.setBackgroundResource(R.drawable.card_icon_field);
                 playerCard5.setImageResource(R.drawable.card_type_field);
             }
             if (playerCard5Type == 2) {
+                playerCard5.setBackgroundResource(R.drawable.card_icon_ailment);
                 playerCard5.setImageResource(R.drawable.card_type_ailment);
             }
             if (playerCard5Type == 3) {
+                playerCard5.setBackgroundResource(R.drawable.card_icon_boosting);
                 playerCard5.setImageResource(R.drawable.card_type_boosting);
             }
         /* CARD 6 */
@@ -1460,16 +1481,32 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 playerCard6.setVisibility(View.GONE);
             }
             if (playerCard6Type == 1) {
+                playerCard6.setBackgroundResource(R.drawable.card_icon_field);
                 playerCard6.setImageResource(R.drawable.card_type_field);
             }
             if (playerCard6Type == 2) {
+                playerCard6.setBackgroundResource(R.drawable.card_icon_ailment);
                 playerCard6.setImageResource(R.drawable.card_type_ailment);
             }
             if (playerCard6Type == 3) {
+                playerCard6.setBackgroundResource(R.drawable.card_icon_boosting);
                 playerCard6.setImageResource(R.drawable.card_type_boosting);
             }
         }
 
+    }
+
+    /* THIS METHOD SETS ENEMY CARDS */
+    private void setEnemyCards(){
+        enemyCard1.setVisibility(View.VISIBLE);
+        enemyCard1.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard1.setImageResource(R.drawable.card_type_field);
+        enemyCard2.setVisibility(View.VISIBLE);
+        enemyCard2.setBackgroundResource(R.drawable.card_icon_ailment);
+        enemyCard2.setImageResource(R.drawable.card_type_ailment);
+        enemyCard3.setVisibility(View.VISIBLE);
+        enemyCard3.setBackgroundResource(R.drawable.card_icon_boosting);
+        enemyCard3.setImageResource(R.drawable.card_type_boosting);
     }
 
     /* THIS METHOD DETERMINES IF DEVICE IS A TABLET OR PHONE */

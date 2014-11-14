@@ -369,7 +369,8 @@
         android:layout_alignBottom="@+id/ibEnemyCard1"
         android:layout_toLeftOf="@+id/ibEnemyCard1"
         android:layout_toStartOf="@+id/ibEnemyCard1"
-        android:background="@drawable/frame_black" />
+        android:background="@drawable/frame_black"
+        android:visibility="invisible" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -380,7 +381,8 @@
         android:layout_alignBottom="@+id/ibEnemyCard1"
         android:layout_toLeftOf="@+id/ibEnemyCard2"
         android:layout_toStartOf="@+id/ibEnemyCard2"
-        android:background="@drawable/frame_black" />
+        android:background="@drawable/frame_black"
+        android:visibility="invisible" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -390,7 +392,8 @@
         android:src="@drawable/card_not_available"
         android:layout_below="@+id/ibEnemyCard1"
         android:layout_alignParentRight="true"
-        android:background="@drawable/frame_black" />
+        android:background="@drawable/frame_black"
+        android:visibility="invisible" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -401,7 +404,8 @@
         android:layout_alignBottom="@+id/ibEnemyCard4"
         android:layout_toLeftOf="@+id/ibEnemyCard4"
         android:layout_toStartOf="@+id/ibEnemyCard4"
-        android:background="@drawable/frame_black" />
+        android:background="@drawable/frame_black"
+        android:visibility="invisible" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -412,7 +416,8 @@
         android:layout_alignBottom="@+id/ibEnemyCard4"
         android:layout_toLeftOf="@+id/ibEnemyCard5"
         android:layout_toStartOf="@+id/ibEnemyCard5"
-        android:background="@drawable/frame_black" />
+        android:background="@drawable/frame_black"
+        android:visibility="invisible" />
 
 
     <!-- OBJECT ROW -->
