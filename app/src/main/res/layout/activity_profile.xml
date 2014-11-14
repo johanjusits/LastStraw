@@ -43,7 +43,7 @@
             android:layout_height="64dp"
             android:id="@+id/ivImg"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/male_face"
+            android:src="@drawable/portrait_placeholder_boy"
             android:layout_marginTop="8dp" />
 
         <TextView
