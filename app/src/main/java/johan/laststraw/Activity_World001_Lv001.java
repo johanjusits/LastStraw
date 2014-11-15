@@ -65,6 +65,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int playerScore = 0, enemyScore = 0, finalPlayerScore, finalEnemyScore;
     int playerCard1Type = 0, playerCard2Type = 0, playerCard3Type = 0, playerCard4Type = 0,
             playerCard5Type = 0, playerCard6Type = 0;
+    int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
+            playerCard5Cost, playerCard6Cost;
     int playerMoves = 3, enemyMoves = 0;
     int enemyRemoveNr;
     int objectsRemaining = 16;
@@ -194,44 +196,44 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ibPlayerCard1:
-                if (playerCard1Type != 0 && playerMoves != 0 && objectsRemaining != 0) {
+                selectedCard = 1;
+                if (playerCard1Type != 0 && playerMoves >= getCardCost() && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    selectedCard = 1;
                     playCardConfirm(message, Activity_World001_Lv001.this);
                 }
                 break;
             case R.id.ibPlayerCard2:
-                if (playerCard2Type != 0 && playerMoves != 0 && objectsRemaining != 0) {
+                selectedCard = 2;
+                if (playerCard2Type != 0 && playerMoves >= getCardCost() && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    selectedCard = 2;
                     playCardConfirm(message, Activity_World001_Lv001.this);
                 }
                 break;
             case R.id.ibPlayerCard3:
-                if (playerCard3Type != 0 && playerMoves != 0 && objectsRemaining != 0) {
+                selectedCard = 3;
+                if (playerCard3Type != 0 && playerMoves >= getCardCost() && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    selectedCard = 3;
                     playCardConfirm(message, Activity_World001_Lv001.this);
                 }
                 break;
             case R.id.ibPlayerCard4:
-                if (playerCard4Type != 0 && playerMoves != 0 && objectsRemaining != 0) {
+                selectedCard = 4;
+                if (playerCard4Type != 0 && playerMoves >= getCardCost() && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    selectedCard = 4;
                     playCardConfirm(message, Activity_World001_Lv001.this);
                 }
                 break;
             case R.id.ibPlayerCard5:
-                if (playerCard5Type != 0 && playerMoves != 0 && objectsRemaining != 0) {
+                selectedCard = 5;
+                if (playerCard5Type != 0 && playerMoves >= getCardCost() && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    selectedCard = 5;
                     playCardConfirm(message, Activity_World001_Lv001.this);
                 }
                 break;
             case R.id.ibPlayerCard6:
-                if (playerCard6Type != 0 && playerMoves != 0 && objectsRemaining != 0) {
+                selectedCard = 6;
+                if (playerCard6Type != 0 && playerMoves >= getCardCost() && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    selectedCard = 6;
                     playCardConfirm(message, Activity_World001_Lv001.this);
                 }
                 break;
@@ -1224,7 +1226,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         buttonDialogYes.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dialog.dismiss();
-                playerMoves--;
+                playerMoves = playerMoves - getCardCost();
                 tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                 disable(layout_objectRow);
                 disablePlayerCards();
@@ -1315,6 +1317,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         String names[] = new String[6];
         String image[] = new String[6];
         int types[] = new int[6];
+        int cost[] = new int[6];
         int i = 0;
 
         try {
@@ -1329,27 +1332,34 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     names[i] = cursor.getString(cursor.getColumnIndex("name"));
                     image[i] = cursor.getString(cursor.getColumnIndex("image"));
                     types[i] = cursor.getInt(cursor.getColumnIndex("type"));
+                    cost[i] = cursor.getInt(cursor.getColumnIndex("cost"));
                     i++;
                 } while (cursor.moveToNext());
             }
         }
         db.close();
         playerCard1Type = types[0];
+        playerCard1Cost = cost[0];
         playerCard1Name = names[0];
         playerCard1Img = image[0];
         playerCard2Type = types[1];
+        playerCard2Cost = cost[1];
         playerCard2Name = names[1];
         playerCard2Img = image[1];
         playerCard3Type = types[2];
+        playerCard3Cost = cost[2];
         playerCard3Name = names[2];
         playerCard3Img = image[2];
         playerCard4Type = types[3];
+        playerCard4Cost = cost[3];
         playerCard4Name = names[3];
         playerCard4Img = image[3];
         playerCard5Type = types[4];
+        playerCard5Cost = cost[4];
         playerCard5Name = names[4];
         playerCard5Img = image[4];
         playerCard6Type = types[5];
+        playerCard6Cost = cost[5];
         playerCard6Name = names[5];
         playerCard6Img = image[5];
     }
@@ -1591,6 +1601,37 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             return cardName;
         } else {
             return null;
+        }
+    }
+
+    private int getCardCost(){
+        int cardCost;
+        if (selectedCard == 1) {
+            cardCost = playerCard1Cost;
+            return cardCost;
+        }
+        if (selectedCard == 2) {
+            cardCost = playerCard2Cost;
+            return cardCost;
+        }
+        if (selectedCard == 3) {
+            cardCost = playerCard3Cost;
+            return cardCost;
+        }
+        if (selectedCard == 4) {
+            cardCost = playerCard4Cost;
+            return cardCost;
+        }
+        if (selectedCard == 5) {
+            cardCost = playerCard5Cost;
+            return cardCost;
+        }
+        if (selectedCard == 6) {
+            cardCost = playerCard6Cost;
+            return cardCost;
+        }
+        else {
+            return 0;
         }
     }
 
@@ -2027,6 +2068,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         super.onDestroy();
     }
 
+    /* STORES CURRENT PLAYER DB LEVEL TO SHAREDPREF LEVEL */
     private void storeCurrentLevel() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();

@@ -30,6 +30,8 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
                 pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(pickCards);
+                finish();
+                overridePendingTransition(0, 0);
                 break;
         }
     }

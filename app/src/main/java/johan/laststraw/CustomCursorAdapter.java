@@ -30,6 +30,7 @@ public class CustomCursorAdapter extends CursorAdapter {
         viewHolder = (ViewHolder) view.getTag();
 
         viewHolder.nameHolder.setText(cursor.getString(cursor.getColumnIndex("name")));
+        viewHolder.costHolder.setText(cursor.getString(cursor.getColumnIndex("cost")));
 
         String imagePath = cursor.getString(cursor.getColumnIndex("image"));
 
@@ -58,6 +59,7 @@ public class CustomCursorAdapter extends CursorAdapter {
 
         View view = mInflater.inflate(R.layout.card_list_row, parent, false);
         viewHolder.nameHolder = (TextView) view.findViewById(R.id.txtTitle);
+        viewHolder.costHolder = (TextView) view.findViewById(R.id.tvCost);
         viewHolder.imageHolder = (ImageView) view.findViewById(R.id.imgThumbnail);
 
         view.setTag(viewHolder);
@@ -67,6 +69,7 @@ public class CustomCursorAdapter extends CursorAdapter {
 
     public class ViewHolder {
         public TextView nameHolder;
+        public TextView costHolder;
         public ImageView imageHolder;
     }
 

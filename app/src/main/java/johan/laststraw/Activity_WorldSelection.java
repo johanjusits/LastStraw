@@ -31,6 +31,8 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
                 worldSelected = new Intent(Activity_WorldSelection.this, Activity_Fields_LevelSelection.class);
                 worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(worldSelected);
+                finish();
+                overridePendingTransition(0, 0);
                 break;
         }
     }
