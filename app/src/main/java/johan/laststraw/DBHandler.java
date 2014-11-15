@@ -57,6 +57,7 @@ public class DBHandler {
                             KEY_NAME + " TEXT NOT NULL, " +
                             KEY_IMAGE + " TEXT NOT NULL, " +
                             KEY_TYPE + " INTEGER NOT NULL, " +
+                            KEY_COST + " INTEGER NOT NULL, " +
                             KEY_DESC + " TEXT NOT NULL);"
             );
 
@@ -186,11 +187,12 @@ public class DBHandler {
     }
 
     /* Method for adding a card to current hand */
-    public long addCardToHand(String name, String image, int type, String desc ) {
+    public long addCardToHand(String name, String image, int type, int cost, String desc ) {
         ContentValues cv = new ContentValues();
         cv.put(KEY_NAME, name);
         cv.put(KEY_IMAGE, image);
         cv.put(KEY_TYPE, type);
+        cv.put(KEY_COST, cost);
         cv.put(KEY_DESC, desc);
         return appDB.insert(DATABASE_TABLE, null, cv);
     }

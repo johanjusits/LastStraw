@@ -39,6 +39,17 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         cardStoreButton.setOnClickListener(this);
         rulesButton.setOnClickListener(this);
 
+        db = new DBHandler(this);
+
+        try {
+            db.open();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.unlockCard(5,1);
+        db.close();
+
     }
 
     @Override
@@ -96,15 +107,35 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
     private void awardNewCard() {
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 2 && sharedPrefLvl == 1){
-                newCardMsg.setVisibility(View.VISIBLE);
-                db.addOwnedCard("Reinforce II", "card_obj_plus_2", 1, 0, "Brings back two objects.");
-                db.unlockCard(2, 1);
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt("CurrentLevel", dbLvl);
-                editor.putBoolean("NewCard", true);
-                editor.apply();
+                addCard("Reinforce II", "card_obj_plus_2", 1, 0, "Brings back two objects.", 2);
             }
         }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 3 && sharedPrefLvl == 2){
+                addCard("Reinforce III", "card_obj_plus_3", 1, 1, "Brings back two objects.", 3);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 5 && sharedPrefLvl == 4){
+                addCard("Slow Down", "card_slowdown", 2, 1, "Reduces opponent's moves by 1 next turn.", 4);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 6 && sharedPrefLvl == 5){
+                addCard("Speed Up", "card_speed_up", 3, 1, "You gain 1 more move on next turn.", 5);
+            }
+        }
+    }
+
+    /* METHOD TO ADD A NEW CARD TO OWNED CARDS DB */
+    private void addCard(String cardName, String cardImg, int cardType, int cardCost, String cardDesc, int unlockCardId){
+        newCardMsg.setVisibility(View.VISIBLE);
+        db.addOwnedCard(cardName, cardImg, cardType, cardCost, cardDesc);
+        db.unlockCard(unlockCardId, 1);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("CurrentLevel", dbLvl);
+        editor.putBoolean("NewCard", true);
+        editor.apply();
     }
 }

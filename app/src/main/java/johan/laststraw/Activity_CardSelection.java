@@ -134,19 +134,19 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
         currentTab = th.getCurrentTab();
         if (currentTab == 0) {
             db.addCardToHand(cursor1.getString(cursor1.getColumnIndex("name")), cursor1.getString(cursor1.getColumnIndex("image")),
-                    cursor1.getInt(cursor1.getColumnIndex("type")), cursor1.getString(cursor1.getColumnIndex("desc")));
+                    cursor1.getInt(cursor1.getColumnIndex("type")),  cursor1.getInt(cursor1.getColumnIndex("cost")), cursor1.getString(cursor1.getColumnIndex("desc")));
             setHandCursor();
             db.close();
         }
         if (currentTab == 1) {
             db.addCardToHand(cursor2.getString(cursor2.getColumnIndex("name")), cursor2.getString(cursor2.getColumnIndex("image")),
-                    cursor2.getInt(cursor2.getColumnIndex("type")), cursor2.getString(cursor2.getColumnIndex("desc")));
+                    cursor2.getInt(cursor2.getColumnIndex("type")), cursor2.getInt(cursor2.getColumnIndex("cost")), cursor2.getString(cursor2.getColumnIndex("desc")));
             setHandCursor();
             db.close();
         }
         if (currentTab == 2) {
             db.addCardToHand(cursor3.getString(cursor3.getColumnIndex("name")), cursor3.getString(cursor3.getColumnIndex("image")),
-                    cursor3.getInt(cursor3.getColumnIndex("type")), cursor3.getString(cursor3.getColumnIndex("desc")));
+                    cursor3.getInt(cursor3.getColumnIndex("type")), cursor3.getInt(cursor3.getColumnIndex("cost")), cursor3.getString(cursor3.getColumnIndex("desc")));
             setHandCursor();
             db.close();
         }
