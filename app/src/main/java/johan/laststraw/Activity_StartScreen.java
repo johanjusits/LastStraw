@@ -39,17 +39,6 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         cardStoreButton.setOnClickListener(this);
         rulesButton.setOnClickListener(this);
 
-        db = new DBHandler(this);
-
-        try {
-            db.open();
-        } catch (java.sql.SQLException e) {
-            e.printStackTrace();
-        }
-
-        db.unlockCard(5,1);
-        db.close();
-
     }
 
     @Override
@@ -100,7 +89,9 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             tvdblvl.setText(String.valueOf(dbLvl));
             tvsplvl.setText(String.valueOf(sharedPrefLvl));
         }
-        awardNewCard();
+        if (sharedPrefLvl < dbLvl){
+            awardNewCard();
+        }
         db.close();
     }
 
@@ -112,7 +103,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 3 && sharedPrefLvl == 2){
-                addCard("Reinforce III", "card_obj_plus_3", 1, 1, "Brings back two objects.", 3);
+                addCard("Reinforce III", "card_obj_plus_3", 1, 1, "Brings back three objects.", 3);
             }
         }
         if (dbLvl > sharedPrefLvl){
@@ -123,6 +114,26 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 6 && sharedPrefLvl == 5){
                 addCard("Speed Up", "card_speed_up", 3, 1, "You gain 1 more move on next turn.", 5);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 8 && sharedPrefLvl == 7){
+                addCard("Steal", "card_steal_3", 2, 1, "Steals 3 points from the opponent.", 6);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 10 && sharedPrefLvl == 9){
+                addCard("Concentrate", "card_concentrate", 3, 1, "Doubles points gained next turn.", 7);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 12 && sharedPrefLvl == 11){
+                addCard("Steal II", "card_steal_5", 2, 2, "Steals 5 points from the opponent.", 8);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 15 && sharedPrefLvl == 14){
+                addCard("Steal III", "card_steal_10", 2, 3, "Steals 10 points from the opponent.", 9);
             }
         }
     }

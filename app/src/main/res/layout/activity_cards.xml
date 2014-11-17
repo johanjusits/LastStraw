@@ -27,10 +27,11 @@
             android:text="You got a new card!"
             android:id="@+id/tvNewCardTxt"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/textWhite"
+            android:textColor="@color/textBlack"
             android:textStyle="bold"
-            android:textSize="16sp"
-            android:visibility="invisible" />
+            android:textSize="20sp"
+            android:visibility="invisible"
+            android:layout_marginTop="20dp" />
 
         <Button
             android:layout_width="150dp"
@@ -41,7 +42,7 @@
             android:background="@drawable/field_card_button"
             android:textStyle="bold"
             android:textColor="@color/textBlack"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="10dp" />
 
         <Button
             android:layout_width="150dp"
@@ -63,18 +64,8 @@
             android:background="@drawable/boosting_card_button"
             android:textStyle="bold"
             android:textColor="@color/textBlack"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="35dp" />
+            android:layout_marginTop="5dp" />
 
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="BACK"
-            android:id="@+id/bBackToStart"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/startscreen_btncolor"
-            android:textColor="@color/textBlack"
-            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

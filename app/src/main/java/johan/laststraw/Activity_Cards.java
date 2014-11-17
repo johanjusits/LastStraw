@@ -14,7 +14,7 @@ import android.widget.TextView;
  */
 public class Activity_Cards extends Activity implements View.OnClickListener {
 
-    Button bField, bAilment, bBoosting, bBack;
+    Button bField, bAilment, bBoosting;
     TextView newCard;
     Intent changeActivity;
     Boolean isThereANewCard;
@@ -27,13 +27,11 @@ public class Activity_Cards extends Activity implements View.OnClickListener {
         bField = (Button) findViewById(R.id.bField);
         bAilment = (Button) findViewById(R.id.bAilment);
         bBoosting = (Button) findViewById(R.id.bBoosting);
-        bBack = (Button) findViewById(R.id.bBackToStart);
         newCard = (TextView) findViewById(R.id.tvNewCardTxt);
 
         bField.setOnClickListener(this);
         bAilment.setOnClickListener(this);
         bBoosting.setOnClickListener(this);
-        bBack.setOnClickListener(this);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         isThereANewCard = preferences.getBoolean("NewCard", false);
@@ -57,18 +55,6 @@ public class Activity_Cards extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.bBackToStart:
-                if (isThereANewCard == true){
-                    isThereANewCard = false;
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean("NewCard", false);
-                    editor.apply();
-                    newCard.setVisibility(View.INVISIBLE);
-                }
-                finish();
-                overridePendingTransition(0, 0);
-                break;
             case R.id.bBoosting:
                 changeActivity = new Intent(Activity_Cards.this, Activity_Cards_Boosting.class);
                 changeActivity.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

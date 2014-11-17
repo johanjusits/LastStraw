@@ -142,6 +142,46 @@ public class DBHandler {
             ac5.put(KEY_ISUNLOCKED, 0);
             db.insert(DATABASE_TABLE_2, null, ac5);
 
+            ContentValues ac6 = new ContentValues();
+            ac6.put(KEY_NAME, "Steal");
+            ac6.put(KEY_IMAGE, "card_steal_3");
+            ac6.put(KEY_TYPE, 2);
+            ac6.put(KEY_DESC, "Steals 3 points from the opponent.");
+            ac6.put(KEY_COST, 1);
+            ac6.put(KEY_REQUIRESLVL, 8);
+            ac6.put(KEY_ISUNLOCKED, 0);
+            db.insert(DATABASE_TABLE_2, null, ac6);
+
+            ContentValues ac7 = new ContentValues();
+            ac7.put(KEY_NAME, "Concentrate");
+            ac7.put(KEY_IMAGE, "card_concentrate");
+            ac7.put(KEY_TYPE, 3);
+            ac7.put(KEY_DESC, "Doubles points gained next turn.");
+            ac7.put(KEY_COST, 1);
+            ac7.put(KEY_REQUIRESLVL, 10);
+            ac7.put(KEY_ISUNLOCKED, 0);
+            db.insert(DATABASE_TABLE_2, null, ac7);
+
+            ContentValues ac8 = new ContentValues();
+            ac8.put(KEY_NAME, "Steal II");
+            ac8.put(KEY_IMAGE, "card_steal_5");
+            ac8.put(KEY_TYPE, 2);
+            ac8.put(KEY_DESC, "Steals 5 points from the opponent.");
+            ac8.put(KEY_COST, 2);
+            ac8.put(KEY_REQUIRESLVL, 12);
+            ac8.put(KEY_ISUNLOCKED, 0);
+            db.insert(DATABASE_TABLE_2, null, ac8);
+
+            ContentValues ac9 = new ContentValues();
+            ac9.put(KEY_NAME, "Steal III");
+            ac9.put(KEY_IMAGE, "card_steal_10");
+            ac9.put(KEY_TYPE, 2);
+            ac9.put(KEY_DESC, "Steals 10 points from the opponent.");
+            ac9.put(KEY_COST, 3);
+            ac9.put(KEY_REQUIRESLVL, 15);
+            ac9.put(KEY_ISUNLOCKED, 0);
+            db.insert(DATABASE_TABLE_2, null, ac9);
+
             /* ADDS CARDS TO OWNED CARDS */
             ContentValues oc1 = new ContentValues();
             oc1.put(KEY_NAME, "Reinforce");
@@ -315,5 +355,25 @@ public class DBHandler {
         oc1.put(KEY_COST, cardCost);
         oc1.put(KEY_DESC, cardDesc);
         return appDB.insert(DATABASE_TABLE_4, null, oc1);
+    }
+
+    /* ENABLE ALL CARDS (TESTING PURPOSES ONLY) */
+    public void enableAllCards() {
+        addOwnedCard("Reinforce II", "card_obj_plus_2", 1, 0, "Brings back two objects.");
+        addOwnedCard("Reinforce III", "card_obj_plus_3", 1, 1, "Brings back three objects.");
+        addOwnedCard("Slow Down", "card_slowdown", 2, 1, "Reduces opponent's moves by 1 next turn.");
+        addOwnedCard("Speed Up", "card_speed_up", 3, 1, "You gain 1 more move on next turn.");
+        addOwnedCard("Steal", "card_steal_3", 2, 1, "Steals 3 points from the opponent.");
+        addOwnedCard("Concentrate", "card_concentrate", 3, 1, "Doubles points gained next turn.");
+        addOwnedCard("Steal II", "card_steal_5", 2, 2, "Steals 5 points from the opponent.");
+        addOwnedCard("Steal III", "card_steal_10", 2, 3, "Steals 10 points from the opponent.");
+        unlockCard(2,1);
+        unlockCard(3,1);
+        unlockCard(4,1);
+        unlockCard(5,1);
+        unlockCard(6,1);
+        unlockCard(7,1);
+        unlockCard(8,1);
+        unlockCard(9,1);
     }
 }
