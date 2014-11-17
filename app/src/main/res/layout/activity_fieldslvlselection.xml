@@ -4,30 +4,20 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg_world001">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lvlSelectTitle"
-        android:id="@+id/tvNameTitle"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/textBlack"
-        android:textSize="24sp"
-        android:padding="16dp" />
+    android:background="@drawable/bg_world001"
+    android:gravity="center_vertical">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:baselineAligned="false">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="30">
+            android:layout_weight="25">
 
             <Button
                 android:layout_width="78dp"
@@ -37,13 +27,31 @@
                 style="@style/lvlSelectionButton"
                 android:layout_gravity="center_horizontal"
                 android:textSize="40sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/textView3"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="30">
+            android:layout_weight="25">
 
             <Button
                 android:layout_width="78dp"
@@ -54,13 +62,31 @@
                 android:layout_gravity="center_horizontal"
                 android:textSize="40sp"
                 android:enabled="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView9"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/textView10"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="30">
+            android:layout_weight="25">
 
             <Button
                 android:layout_width="78dp"
@@ -71,6 +97,59 @@
                 android:layout_gravity="center_horizontal"
                 android:textSize="40sp"
                 android:enabled="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView17"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/textView18"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25">
+
+            <Button
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:text="@string/lvl004"
+                android:id="@+id/bWorld001Lvl004"
+                style="@style/lvlSelectionButton"
+                android:layout_gravity="center_horizontal"
+                android:textSize="40sp"
+                android:enabled="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView21"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/textView22"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
@@ -85,24 +164,7 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="30">
-
-            <Button
-                android:layout_width="78dp"
-                android:layout_height="78dp"
-                android:text="@string/lvl004"
-                android:id="@+id/bWorld001Lvl004"
-                android:layout_gravity="center_horizontal"
-                style="@style/lvlSelectionButton"
-                android:textSize="40sp"
-                android:enabled="false" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="30">
+            android:layout_weight="25">
 
             <Button
                 android:layout_width="78dp"
@@ -113,13 +175,31 @@
                 style="@style/lvlSelectionButton"
                 android:textSize="40sp"
                 android:enabled="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView6"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/textView7"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="30">
+            android:layout_weight="25">
 
             <Button
                 android:layout_width="78dp"
@@ -130,6 +210,94 @@
                 style="@style/lvlSelectionButton"
                 android:textSize="40sp"
                 android:enabled="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView13"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/textView15"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25">
+
+            <Button
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:text="@string/lvl007"
+                android:id="@+id/bWorld001Lvl007"
+                android:layout_gravity="center_horizontal"
+                style="@style/lvlSelectionButton"
+                android:textSize="40sp"
+                android:enabled="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView24"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/textView25"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25">
+
+            <Button
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:id="@+id/bWorld001Lvl008"
+                android:layout_gravity="center_horizontal"
+                style="@style/lvlSelectionButton"
+                android:textSize="40sp"
+                android:enabled="false"
+                android:text="@string/lvl008" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView27"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/textView28"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
