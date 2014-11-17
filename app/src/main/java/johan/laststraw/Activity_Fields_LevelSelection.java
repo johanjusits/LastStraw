@@ -17,7 +17,7 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toolshedlvlselection);
+        setContentView(R.layout.activity_fieldslvlselection);
 
         bLv001 = (Button) findViewById(R.id.bWorld001Lvl001);
         bLv001.setOnClickListener(this);

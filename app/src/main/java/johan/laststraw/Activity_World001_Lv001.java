@@ -71,7 +71,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int enemyRemoveNr;
     int objectsRemaining = 16;
     int selectedCard = 0;
+    int enemyPickedCard;
     int enemyThinkingTime = genThinkingTime();
+    int enemyCardsRemaining = 3;
     /* BOOLEANS */
     boolean deviceIsTablet;
     boolean enemyIsSlowed = false;
@@ -79,8 +81,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean playerTurn = true;
     boolean playerCard1Used = false, playerCard2Used = false, playerCard3Used = false, playerCard4Used = false,
             playerCard5Used = false, playerCard6Used = false;
-    boolean enemyCard1Used = false, enemyCard2Used = false, enemyCard3Used = false, enemyCard4Used = false,
-            enemyCard5Used = false, enemyCard6Used = false;
+    boolean enemyCard1Used = false, enemyCard2Used = false, enemyCard3Used = false;
     private Handler myHandler = new Handler();
     DBHandler db;
     Cursor cursor;
@@ -625,6 +626,74 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             }
         }, 1000);
 
+        /* Checks if enemy has any cards left and decides move pattern accordingly */
+        if (enemyCardsRemaining > 0){
+            int cardOrClear = genRand100();
+            /* If number is higher than 80 the AI will play a card only */
+            if (cardOrClear >= 80){
+                enemyPickedCard = randomizeEnemyCardSelect();
+
+                if (enemyPickedCard == 0){
+                    System.out.println("AI played card 1");
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            animateEnemyCard();;
+                        }
+                    }, 3000);
+                    enemyCard1Used = true;
+                    enemyCardsRemaining--;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            executeEnemyCardEffect();
+                        }
+                    }, 7500);
+                }
+                if (enemyPickedCard == 1){
+                    System.out.println("AI played card 2");
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            animateEnemyCard();
+                        }
+                    }, 3000);
+                    enemyCard2Used = true;
+                    enemyCardsRemaining--;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            executeEnemyCardEffect();
+                        }
+                    }, 7500);
+                }
+                if (enemyPickedCard == 2){
+                    System.out.println("AI played card 3");
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            animateEnemyCard();
+                        }
+                    }, 3000);
+                    enemyCard3Used = true;
+                    enemyCardsRemaining--;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            executeEnemyCardEffect();
+                        }
+                    }, 7500);
+                }
+
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        enemyTurnEnd();
+                    }
+                }, 8500);
+                return;
+            }
+            /* If number is equal to or higher than 50 AND lower than 80 the AI
+            * will play a card AND clear an object */
+            if (cardOrClear >= 50 && cardOrClear < 80){
+
+            }
+            /* If number is less than 50, the AI will only clear */
+        }
+
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 enemyThinkingTime = genThinkingTime();
@@ -948,7 +1017,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
-    /* THIS METHOD RUNS WHEN THE AI WANTS TO REMOVE 2 */
+    /* THIS METHOD RUNS WHEN THE AI WANTS TO REMOVE 1 */
     private void aiRemoveOne() {
         enemyMoves = enemyMoves - 1;
         tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
@@ -1004,6 +1073,69 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             newThinkingTime = genRandSlow();
         }
         return newThinkingTime;
+    }
+
+    /* Selects random card among the ones the enemy has left. This method will have to
+    be modified depending on how many cards the enemy has. */
+    public int randomizeEnemyCardSelect(){
+        int randomizedCard;
+        if (enemyCardsRemaining == 3){
+            randomizedCard = genRand3();
+            return randomizedCard;
+        }
+
+        if (enemyCardsRemaining == 2){
+
+            if (enemyCard1Used){
+                int reselect = genRand100();
+                if (reselect >= 50){
+                    randomizedCard = 2;
+                } else {
+                    randomizedCard = 1;
+                }
+                return randomizedCard;
+            }
+
+            if (enemyCard2Used){
+                int reselect = genRand100();
+                if (reselect >= 50){
+                    randomizedCard = 0;
+                } else {
+                    randomizedCard = 2;
+                }
+                return randomizedCard;
+            }
+
+            if (enemyCard3Used){
+                int reselect = genRand100();
+                if (reselect >= 50){
+                    randomizedCard = 0;
+                } else {
+                    randomizedCard = 1;
+                }
+                return randomizedCard;
+            }
+        }
+
+        if (enemyCardsRemaining == 1){
+            if (!enemyCard1Used){
+                randomizedCard = 0;
+                return randomizedCard;
+            }
+            if (!enemyCard2Used){
+                randomizedCard = 1;
+                return randomizedCard;
+            }
+            if (!enemyCard3Used){
+                randomizedCard = 2;
+                return randomizedCard;
+            }
+        }
+        return 0;
+    }
+
+    public int genRand3() {
+        return new Random().nextInt(3);
     }
 
     public int genRand100() {
@@ -1139,9 +1271,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                         db.close();
                         expBar.setProgress(playerExp + finalPlayerScore);
-                        System.out.println("playerxp + finalscore = " + String.valueOf(checkIfExpRoof));
-                        System.out.println("ExpBar = " + String.valueOf(expBar.getProgress()));
-                        System.out.println("ExpToNext = " + expToNextLevel);
 
                         if (expBar.getProgress() >= 100) {
                             myHandler.postDelayed(new Runnable() {
@@ -1512,11 +1641,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         enemyCard1.setBackgroundResource(R.drawable.card_icon_field);
         enemyCard1.setImageResource(R.drawable.card_type_field);
         enemyCard2.setVisibility(View.VISIBLE);
-        enemyCard2.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard2.setImageResource(R.drawable.card_type_ailment);
+        enemyCard2.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard2.setImageResource(R.drawable.card_type_field);
         enemyCard3.setVisibility(View.VISIBLE);
-        enemyCard3.setBackgroundResource(R.drawable.card_icon_boosting);
-        enemyCard3.setImageResource(R.drawable.card_type_boosting);
+        enemyCard3.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard3.setImageResource(R.drawable.card_type_field);
     }
 
     /* THIS METHOD DETERMINES IF DEVICE IS A TABLET OR PHONE */
@@ -1633,6 +1762,58 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         else {
             return 0;
         }
+    }
+
+    /* THIS METHOD ANIMATES THE RIGHT ENEMY CARD AND DISPLAYS IT IN THE CENTER */
+    private void animateEnemyCard(){
+        if (enemyPickedCard == 0) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    enemyCard1.setVisibility(View.INVISIBLE);
+                }
+            }, 500);
+
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    ivCenterCardFrame.startAnimation(ani_zoomIn);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_obj_plus_1);
+                }
+            }, 1000);
+        }
+        if (enemyPickedCard == 1) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    enemyCard2.setVisibility(View.INVISIBLE);
+                }
+            }, 500);
+
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    ivCenterCardFrame.startAnimation(ani_zoomIn);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_obj_plus_2);
+                }
+            }, 1000);
+        }
+        if (enemyPickedCard == 2) {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    enemyCard3.setVisibility(View.INVISIBLE);
+                }
+            }, 500);
+
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    ivCenterCardFrame.startAnimation(ani_zoomIn);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_obj_plus_3);
+                }
+            }, 1000);
+        }
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                ivCenterCardFrame.clearAnimation();
+                ivCenterCardFrame.setVisibility(View.INVISIBLE);
+            }
+        }, 2500);
     }
 
     /* THIS METHOD ANIMATES THE RIGHT CARD AND DISPLAYS IT IN THE CENTER */
@@ -1765,6 +1946,24 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 enable(layout_objectRow);
                 enablePlayerCards();
                 btnEndTurn.setClickable(true);
+            }
+        }, 1500);
+    }
+
+    /* THIS METHOD FINDS WHICH ENEMY CARD IS PLAYED TO DETERMINE EFFECT */
+    private void executeEnemyCardEffect(){
+        if (enemyPickedCard == 0){
+            cardReinforce1();
+        }
+        if (enemyPickedCard == 1){
+            cardReinforce2();
+        }
+        if (enemyPickedCard == 2){
+            cardReinforce3();
+        }
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+
             }
         }, 1500);
     }

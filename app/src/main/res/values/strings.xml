@@ -25,6 +25,7 @@
     <string name="gameOver">GAME FINISHED!</string>
     <string name="finalScore">Final Score</string>
     <string name="expGainTitle">You gained:</string>
+    <string name="close">CLOSE</string>
 
     <!-- Level Numbers -->
     <string name="lvl000">0</string>
@@ -78,29 +79,52 @@
     <string name="cardsListTitle">Cards</string>
 
     <!-- Rules Activity -->
-    <string name="rules_h1">General rules</string>
+    <string name="rules_h1">General Rules</string>
     <string name="rules_h2">Cards</string>
-    <string name="rules_p1">
-        Last Straw is a strategic one versus one battle between
+    <string name="rules_h3">Additional Information</string>
+    <string name="rules_p1">        Last Straw is a strategic one versus one battle between
         you and a computer controlled enemy. The main objective
         is to accumulate the most points but also to avoid clearing
         the last object. The game is turn based and each turn you
         get a set number of moves. Each move you can either clear
         an object or play a card. Whoever clears the last object
         and ends the game receives a point penalty, so think
-        through your last couple of turns carefully.
-    </string>
-        <string name="rules_p3">
-        The player and the enemy also has access to cards which
+        through your last couple of turns carefully.</string>
+    <string name="rules_p3">        The player and the enemy also has access to cards which
         can be used to affect the game. There are three different
         categories of cards. Continue to the next page to learn how
-        to acquire cards, how to use cards, what they can do and see examples.
-
-    </string>
+        to acquire cards, how to use cards, what they can do and see examples.</string>
     <string name="page_1">1/3</string>
+    <string name="page_2">2/3</string>
+    <string name="page_3">3/3</string>
     <string name="nextP">Next</string>
+    <string name="prevP">Previous</string>
+    <string name="rules_p4">There are three different types of cards:</string>
+    <string name="rules_p5">- Field</string>
+    <string name="rules_p6">- Ailment</string>
+    <string name="rules_p7">- Boosting</string>
+    <string name="rules_p8">Field cards affect the board somehow. For example, you can
+    use a field card to restore cleared objects. Ailment cards are cards that affect
+    the opponent, such as slowing them down or make them miss when they try to clear
+    objects. Boosting cards affects the user of the card in a positive way. For example,
+    you could gain a point or move boost.</string>
+    <string name="rules_p9">You start with only 1 card in your arsenal. However, as you
+    gain levels, you gain access to new cards. You can have a total of 6 cards in your
+    hand while playing, but you start out with 1 available slot.</string>
+    <string name="rules_p010">Additional slots are awarded from achieving victories
+    against more difficult enemies. You can preview all unlockable cards per card type
+    from the main menu if you hit the "Cards" button.</string>
+    <string name="rules_p011">In Last Straw, you will venture through different worlds. These
+    worlds consists of 10 levels. In order to progress, you have to beat each level at least one
+    time. You may play the same level multiple times, however you gain less experience the
+    higher level you are in comparison to the world level-range.</string>
+    <string name="rules_p012">Finally, high score works like this: Every level has its own
+    high score. These all add up to make a world total score. Eventually, when you\'ve cleared
+    multiple worlds, all scores adds up to an account high score.</string>
 
     <!-- Player Commands -->
     <string name="commandButton">Action</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

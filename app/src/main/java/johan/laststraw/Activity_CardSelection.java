@@ -168,6 +168,7 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmdialog_selectcard);
+        dialog.getWindow().setLayout(550, 450);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
         currentTab = th.getCurrentTab();
 
