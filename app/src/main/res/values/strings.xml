@@ -64,6 +64,18 @@
     <string name="world_toolShed">Tool Shed</string>
     <string name="world_fields">Fields</string>
 
+    <!-- Level Selection Activity -->
+    <string name="highscore">High Score: </string>
+    <string name="highscoreNr">0</string>
+    <string name="world001_lv001_enemy_name">Farmhand Joe</string>
+    <string name="world001_lv002_enemy_name">Farmhand Graham</string>
+    <string name="world001_lv003_enemy_name">Farmhand Hurwitz</string>
+    <string name="world001_lv004_enemy_name">Farmhand Daryl</string>
+    <string name="world001_lv005_enemy_name">Farmhand Chambers</string>
+    <string name="world001_lv006_enemy_name">Farmhand Kaplan</string>
+    <string name="world001_lv007_enemy_name">Farmhand Wesley</string>
+    <string name="world001_lv008_enemy_name">Farmboss Oakley</string>
+
     <!-- Card Selection Activity -->
     <string name="cardSelectTitle">Available Cards</string>
     <string name="cardsInHand">Cards In Your Hand</string>
