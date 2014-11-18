@@ -55,7 +55,7 @@
     <string name="playButton">PLAY</string>
     <string name="profileButton">PROFILE</string>
     <string name="cardStoreButton">CARDS</string>
-    <string name="rulesButton">GAME RULES</string>
+    <string name="rulesButton">HOW TO PLAY</string>
     <string name="newCards">New cards available!</string>
 
     <!-- World Selection Activity -->
@@ -127,7 +127,7 @@
     against more difficult enemies. You can preview all unlockable cards per card type
     from the main menu if you hit the "Cards" button.</string>
     <string name="rules_p011">In Last Straw, you will venture through different worlds. These
-    worlds consists of 10 levels. In order to progress, you have to beat each level at least one
+    worlds consists of 8 levels. In order to progress, you have to beat each level at least one
     time. You may play the same level multiple times, however you gain less experience the
     higher level you are in comparison to the world level-range.</string>
     <string name="rules_p012">Finally, high score works like this: Every level has its own

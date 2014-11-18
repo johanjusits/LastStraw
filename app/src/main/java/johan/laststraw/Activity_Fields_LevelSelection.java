@@ -4,14 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
  * Created by Johan on 2014-09-27.
  */
 public class Activity_Fields_LevelSelection extends Activity implements View.OnClickListener {
 
-    Button bLv001;
+    ImageButton bLv001;
     Intent startGame, pickCards;
 
     @Override
@@ -19,7 +19,7 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fieldslvlselection);
 
-        bLv001 = (Button) findViewById(R.id.bWorld001Lvl001);
+        bLv001 = (ImageButton) findViewById(R.id.bWorld001Lvl001);
         bLv001.setOnClickListener(this);
     }
 

@@ -19,14 +19,24 @@
             android:layout_height="wrap_content"
             android:layout_weight="25">
 
-            <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level 1"
+                android:id="@+id/textView2"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:text="@string/lvl001"
                 android:id="@+id/bWorld001Lvl001"
                 style="@style/lvlSelectionButton"
                 android:layout_gravity="center_horizontal"
-                android:textSize="40sp" />
+                android:textSize="40sp"
+                android:src="@drawable/icon_touch" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,15 +63,26 @@
             android:layout_height="wrap_content"
             android:layout_weight="25">
 
-            <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level 2"
+                android:id="@+id/textView4"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:text="@string/lvl002"
                 android:id="@+id/bWorld001Lvl002"
-                style="@style/lvlSelectionButton"
+                style="@style/btnGray"
                 android:layout_gravity="center_horizontal"
                 android:textSize="40sp"
-                android:enabled="false" />
+                android:clickable="false"
+                android:src="@drawable/world_locked"
+                android:scaleType="fitCenter" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -88,15 +109,26 @@
             android:layout_height="wrap_content"
             android:layout_weight="25">
 
-            <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level 3"
+                android:id="@+id/textView5"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:text="@string/lvl003"
                 android:id="@+id/bWorld001Lvl003"
-                style="@style/lvlSelectionButton"
+                style="@style/btnGray"
                 android:layout_gravity="center_horizontal"
                 android:textSize="40sp"
-                android:enabled="false" />
+                android:clickable="false"
+                android:src="@drawable/world_locked"
+                android:scaleType="fitCenter" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,15 +155,25 @@
             android:layout_height="wrap_content"
             android:layout_weight="25">
 
-            <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Miniboss"
+                android:id="@+id/textView8"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:text="@string/lvl004"
                 android:id="@+id/bWorld001Lvl004"
-                style="@style/lvlSelectionButton"
+                style="@style/btnGray"
                 android:layout_gravity="center_horizontal"
                 android:textSize="40sp"
-                android:enabled="false" />
+                android:clickable="false"
+                android:src="@drawable/icon_miniboss_black" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -166,15 +208,26 @@
             android:layout_height="wrap_content"
             android:layout_weight="25">
 
-            <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level 5"
+                android:id="@+id/textView11"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:text="@string/lvl005"
                 android:id="@+id/bWorld001Lvl005"
                 android:layout_gravity="center_horizontal"
-                style="@style/lvlSelectionButton"
+                style="@style/btnGray"
                 android:textSize="40sp"
-                android:enabled="false" />
+                android:clickable="false"
+                android:scaleType="fitCenter"
+                android:src="@drawable/world_locked" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -201,15 +254,26 @@
             android:layout_height="wrap_content"
             android:layout_weight="25">
 
-            <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level 6"
+                android:id="@+id/textView12"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:text="@string/lvl006"
                 android:id="@+id/bWorld001Lvl006"
                 android:layout_gravity="center_horizontal"
-                style="@style/lvlSelectionButton"
+                style="@style/btnGray"
                 android:textSize="40sp"
-                android:enabled="false" />
+                android:clickable="false"
+                android:src="@drawable/world_locked"
+                android:scaleType="fitCenter" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -236,15 +300,26 @@
             android:layout_height="wrap_content"
             android:layout_weight="25">
 
-            <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level 7"
+                android:id="@+id/textView14"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:text="@string/lvl007"
                 android:id="@+id/bWorld001Lvl007"
                 android:layout_gravity="center_horizontal"
-                style="@style/lvlSelectionButton"
+                style="@style/btnGray"
                 android:textSize="40sp"
-                android:enabled="false" />
+                android:clickable="false"
+                android:scaleType="fitCenter"
+                android:src="@drawable/world_locked" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -271,15 +346,25 @@
             android:layout_height="wrap_content"
             android:layout_weight="25">
 
-            <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="World Boss"
+                android:id="@+id/textView16"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:id="@+id/bWorld001Lvl008"
                 android:layout_gravity="center_horizontal"
-                style="@style/lvlSelectionButton"
+                style="@style/btnGray"
                 android:textSize="40sp"
-                android:enabled="false"
-                android:text="@string/lvl008" />
+                android:text="@string/lvl008"
+                android:src="@drawable/icon_boss_black"
+                android:clickable="false" />
 
             <TextView
                 android:layout_width="wrap_content"
