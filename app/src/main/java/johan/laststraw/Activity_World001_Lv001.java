@@ -60,7 +60,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int expToNextLevel;
     int checkIfExpRoof;
     int playerLevel;
-    int playerExp = 95;
+    int playerExp;
     int playerProgress;
     int playerScore = 0, enemyScore = 0, finalPlayerScore, finalEnemyScore;
     int playerCard1Type = 0, playerCard2Type = 0, playerCard3Type = 0, playerCard4Type = 0,
@@ -74,6 +74,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int enemyPickedCard;
     int enemyThinkingTime = genThinkingTime();
     int enemyCardsRemaining = 3;
+    int lvlcleared;
+    int lvlhighscore;
+    int lvlId;
     /* BOOLEANS */
     boolean deviceIsTablet;
     boolean enemyIsSlowed = false;
@@ -183,6 +186,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
         getScreenSize();
         getPlayerInfo();
+        getLevelInfo();
         storeCurrentLevel();
         getPlayerCards();
         setPlayerCardIcons();
@@ -1194,9 +1198,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 if (finalPlayerScore > finalEnemyScore) {
                     tvWhoWon.setTextColor(getResources().getColor(R.color.textBlack));
                     tvWhoWon.setText("You Win!");
+                    checkLevelInfo();
                 } else {
                     tvWhoWon.setTextColor(getResources().getColor(R.color.textRed));
                     tvWhoWon.setText("You Lose..");
+                    checkLevelInfo();
                 }
                 tvPlayerFinalScore.setText(String.valueOf(finalPlayerScore));
                 tvEnemyFinalScore.setText(String.valueOf(finalEnemyScore));
@@ -1216,6 +1222,47 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 dialog.show();
             }
         }, 1000);
+    }
+
+    /* CHECKS LEVEL INFO FOR UPDATE */
+    private void checkLevelInfo(){
+        if (lvlcleared == 0){
+            try {
+                db.open();
+            } catch (java.sql.SQLException e) {
+                e.printStackTrace();
+            }
+                if (finalPlayerScore > lvlhighscore){
+                    cursor = db.getLvlInfo(1);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        db.updateLvlInfo(1, 1, finalPlayerScore);
+                    }
+                } else {
+                    cursor = db.getLvlInfo(1);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        db.updateLvlInfo(1, 1, lvlhighscore);
+                    }
+                }
+
+        } else {
+            try {
+                db.open();
+            } catch (java.sql.SQLException e) {
+                e.printStackTrace();
+            }
+            if (finalPlayerScore > lvlhighscore){
+                cursor = db.getLvlInfo(1);
+                if (cursor != null && cursor.moveToFirst()) {
+                    db.updateLvlInfo(1, lvlcleared, finalPlayerScore);
+                }
+            } else {
+                cursor = db.getLvlInfo(1);
+                if (cursor != null && cursor.moveToFirst()) {
+                    db.updateLvlInfo(1, lvlcleared, lvlhighscore);
+                }
+            }
+        }
+        db.close();
     }
 
     /* METHOD TO UPDATE EXP/LEVEL UP */
@@ -1426,7 +1473,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerName = cursor.getString(cursor.getColumnIndex("name"));
             playerLevel = cursor.getInt(cursor.getColumnIndex("level"));
             tvPlayerLevel.setText(String.valueOf(playerLevel));
-            //playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
+            playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
             tvPlayerExp.setText(String.valueOf(playerExp));
             playerGender = cursor.getString(cursor.getColumnIndex("gender"));
             playerProgress = cursor.getInt(cursor.getColumnIndex("lvlsbeaten"));
@@ -2273,6 +2320,25 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("CurrentLevel", playerLevel);
         editor.apply();
+    }
+
+    /* FETCHES LEVEL INFO */
+    private void getLevelInfo(){
+        try {
+            db.open();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+        cursor = db.getLvlInfo(1);
+        if (cursor != null && cursor.moveToFirst()) {
+            lvlcleared = cursor.getInt(cursor.getColumnIndex("lvlcleared"));
+            lvlhighscore = cursor.getInt(cursor.getColumnIndex("lvlhighscore"));
+            lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
+            System.out.println(String.valueOf(lvlcleared));
+            System.out.println(String.valueOf(lvlhighscore));
+            System.out.println(String.valueOf(lvlId));
+        }
+        db.close();
     }
 }
 
