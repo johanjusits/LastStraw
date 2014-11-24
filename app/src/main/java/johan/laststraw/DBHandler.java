@@ -204,6 +204,16 @@ public class DBHandler {
             ac9.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac9);
 
+            ContentValues ac010 = new ContentValues();
+            ac010.put(KEY_NAME, "Infest");
+            ac010.put(KEY_IMAGE, "card_infest");
+            ac010.put(KEY_TYPE, 1);
+            ac010.put(KEY_DESC, "Infests the next object with spiders, making it more difficult to clear.");
+            ac010.put(KEY_COST, 1);
+            ac010.put(KEY_REQUIRESLVL, 16);
+            ac010.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac010);
+
             /* ADDS CARDS TO OWNED CARDS */
             ContentValues oc1 = new ContentValues();
             oc1.put(KEY_NAME, "Reinforce");

@@ -69,7 +69,7 @@ public class Activity_Cards_Ailment extends Activity implements AdapterView.OnIt
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmdialog_display_card);
-        dialog.getWindow().setLayout(550, 450);
+        dialog.getWindow().setLayout(500, 450);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
         String cardName = cursor.getString(cursor.getColumnIndex("name"));

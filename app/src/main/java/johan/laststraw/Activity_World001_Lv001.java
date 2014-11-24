@@ -85,6 +85,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean playerCard1Used = false, playerCard2Used = false, playerCard3Used = false, playerCard4Used = false,
             playerCard5Used = false, playerCard6Used = false;
     boolean enemyCard1Used = false, enemyCard2Used = false, enemyCard3Used = false;
+    boolean playerWon = false;
     private Handler myHandler = new Handler();
     DBHandler db;
     Cursor cursor;
@@ -271,19 +272,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj001.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj002:
@@ -292,19 +290,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj002.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj003:
@@ -313,19 +308,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj003.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj004:
@@ -334,19 +326,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj004.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj005:
@@ -355,19 +344,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj005.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj006:
@@ -376,19 +362,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj006.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj007:
@@ -397,19 +380,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj007.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj008:
@@ -418,19 +398,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj008.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj009:
@@ -439,19 +416,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj009.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj010:
@@ -460,19 +434,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj010.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj011:
@@ -481,19 +452,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj011.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj012:
@@ -502,19 +470,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj012.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj013:
@@ -523,19 +488,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj013.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj014:
@@ -544,19 +506,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj014.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj015:
@@ -565,19 +524,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj015.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             enable(layout_objectRow);
                             enablePlayerCards();
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                 }
                 break;
             case R.id.obj016:
@@ -586,23 +542,20 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerScore = playerScore + 2;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    tvCenterMessage.setText("You cut a wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
                     obj016.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     btnEndTurn.setClickable(false);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
                             objectsRemaining--;
                         }
-                    }, 500);
+                    }, 100);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             checkIfNoObjRemains();
                         }
-                    }, 1500);
+                    }, 1400);
                 }
                 break;
         }
@@ -1198,6 +1151,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 if (finalPlayerScore > finalEnemyScore) {
                     tvWhoWon.setTextColor(getResources().getColor(R.color.textBlack));
                     tvWhoWon.setText("You Win!");
+                    playerWon = true;
                     checkLevelInfo();
                 } else {
                     tvWhoWon.setTextColor(getResources().getColor(R.color.textRed));
@@ -1235,12 +1189,20 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 if (finalPlayerScore > lvlhighscore){
                     cursor = db.getLvlInfo(1);
                     if (cursor != null && cursor.moveToFirst()) {
-                        db.updateLvlInfo(1, 1, finalPlayerScore);
+                        if (playerWon){
+                            db.updateLvlInfo(1, 1, finalPlayerScore);
+                        } else {
+                            db.updateLvlInfo(1, lvlcleared, finalPlayerScore);
+                        }
                     }
                 } else {
                     cursor = db.getLvlInfo(1);
                     if (cursor != null && cursor.moveToFirst()) {
-                        db.updateLvlInfo(1, 1, lvlhighscore);
+                        if (playerWon){
+                            db.updateLvlInfo(1, 1, lvlhighscore);
+                        } else {
+                            db.updateLvlInfo(1, lvlcleared, lvlhighscore);
+                        }
                     }
                 }
 
