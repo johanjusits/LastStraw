@@ -37,7 +37,8 @@
                 android:textSize="40sp"
                 android:src="@drawable/icon_touch"
                 android:background="@drawable/lvlselection_button"
-                style="@style/lvlSelectionButton" />
+                style="@style/lvlSelectionButton"
+                android:scaleType="fitCenter" />
 
             <TextView
                 android:layout_width="wrap_content"
