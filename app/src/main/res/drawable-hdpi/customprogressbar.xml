@@ -23,10 +23,10 @@
         <clip>
             <shape>
                 <gradient
-                    android:startColor="#ff006f73"
-                    android:centerColor="#ff00989e"
+                    android:startColor="#ff3bb417"
+                    android:centerColor="#ff40c419"
                     android:centerY="1.0"
-                    android:endColor="#ff00dce3"
+                    android:endColor="#ff55fa21"
                     android:angle="270"
                     />
                 <stroke

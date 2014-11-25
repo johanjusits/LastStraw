@@ -1166,11 +1166,26 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 buttonDialogYes.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         dialog.dismiss();
-                        myHandler.postDelayed(new Runnable() {
-                            public void run() {
-                                updateExp();
-                            }
-                        }, 500);
+                        if (finalPlayerScore > lvlhighscore){
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+                                    tvCenterMessage.setText("NEW HIGH SCORE!");
+                                    tvCenterMessage.startAnimation(ani_fadeIn);
+                                }
+                            }, 500);
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+                                    tvCenterMessage.startAnimation(ani_fadeOut);
+                                    updateExp();
+                                }
+                            }, 3500);
+                        } else {
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+                                    updateExp();
+                                }
+                            }, 500);
+                        }
                     }
                 });
                 dialog.show();
