@@ -22,15 +22,24 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/ic_launcher" />
 
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/tvDesc"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/textWhite"
-        android:textStyle="bold"
-        android:textSize="16sp" />
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/tvDesc"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/textWhite"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp" />
+    </LinearLayout>
 
     <Button
         android:layout_width="96dp"
