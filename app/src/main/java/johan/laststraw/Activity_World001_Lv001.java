@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static android.graphics.Color.TRANSPARENT;
@@ -37,8 +38,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             obj010, obj011, obj012, obj013, obj014, obj015, obj016;
     ImageButton playerCard1, playerCard2, playerCard3, playerCard4, playerCard5, playerCard6;
     ImageButton enemyCard1, enemyCard2, enemyCard3;
+    ImageView playerStatusIcon1, playerStatusIcon2, playerStatusIcon3, playerStatusIcon4, playerStatusIcon5;
+    ImageView enemyStatusIcon1, enemyStatusIcon2, enemyStatusIcon3, enemyStatusIcon4, enemyStatusIcon5;
     Button btnEndTurn;
-    TextView tvCenterMessage, tvPlayerMovesNumber, tvEnemyMovesNumber, tvEnemyDebuff, tvPlayerDebuff;
+    TextView tvCenterMessage, tvPlayerMovesNumber, tvEnemyMovesNumber;
     TextView tvPlayerName, tvPlayerExp, tvPlayerLevel, tvPlayerScore, tvEnemyScore, tvEnemyName;
     ImageView ivPlayerPortrait, ivEnemyPortrait, ivCenterCardFrame;
     ViewGroup layout_objectRow;
@@ -51,16 +54,20 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String boardIsFullError = "Board is full. No effect";
     String enemySlowed = enemyName + " is afflicted by Slow";
     String playerHaste = "";
+    String buffAlreadyActiveError = "Buff already active. No effect.";
+    String debuffAlreadyActiveError = "Debuff already active. No effect.";
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
+    String[] playerStatuses = new String[5];
+    String[] enemyStatuses = new String[5];
     /* INTS */
     int newExp;
     int expToNextLevel;
     int checkIfExpRoof;
     int playerLevel;
-    int playerExp;
+    int playerExp = 95;
     int playerProgress;
     int playerScore = 0, enemyScore = 0, finalPlayerScore, finalEnemyScore;
     int playerCard1Type = 0, playerCard2Type = 0, playerCard3Type = 0, playerCard4Type = 0,
@@ -77,6 +84,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int lvlcleared;
     int lvlhighscore;
     int lvlId;
+    int activePlayerStatues = 0;
+    int activeEnemyStatues = 0;
     /* BOOLEANS */
     boolean deviceIsTablet;
     boolean enemyIsSlowed = false;
@@ -85,6 +94,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean playerCard1Used = false, playerCard2Used = false, playerCard3Used = false, playerCard4Used = false,
             playerCard5Used = false, playerCard6Used = false;
     boolean enemyCard1Used = false, enemyCard2Used = false, enemyCard3Used = false;
+    boolean errorMsg = false;
     boolean playerWon = false;
     private Handler myHandler = new Handler();
     DBHandler db;
@@ -144,6 +154,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         btnEndTurn = (Button) findViewById(R.id.bEndTurn);
         btnEndTurn.setOnClickListener(this);
 
+        /*SETS STATUS ICONS */
+        playerStatusIcon1 = (ImageView) findViewById(R.id.tvPlayerStatus1);
+        playerStatusIcon2 = (ImageView) findViewById(R.id.tvPlayerStatus2);
+        playerStatusIcon3 = (ImageView) findViewById(R.id.tvPlayerStatus3);
+        playerStatusIcon4 = (ImageView) findViewById(R.id.tvPlayerStatus4);
+        playerStatusIcon5 = (ImageView) findViewById(R.id.tvPlayerStatus5);
+        enemyStatusIcon1 = (ImageView) findViewById(R.id.tvEnemyStatus1);
+        enemyStatusIcon2 = (ImageView) findViewById(R.id.tvEnemyStatus2);
+        enemyStatusIcon3 = (ImageView) findViewById(R.id.tvEnemyStatus3);
+        enemyStatusIcon4 = (ImageView) findViewById(R.id.tvEnemyStatus4);
+        enemyStatusIcon5 = (ImageView) findViewById(R.id.tvEnemyStatus5);
+
         /* SETS CARDS  */
         ivPlayerPortrait = (ImageView) findViewById(R.id.ivPlayerPortrait);
         ivEnemyPortrait = (ImageView) findViewById(R.id.ivEnemyPortrait);
@@ -174,14 +196,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         tvCenterMessage = (TextView) findViewById(R.id.tvcenterMessage);
         tvPlayerMovesNumber = (TextView) findViewById(R.id.tvPlayerMovesLeftNumber);
         tvEnemyMovesNumber = (TextView) findViewById(R.id.tvEnemyMovesNr);
-        tvEnemyDebuff = (TextView) findViewById(R.id.tvEnemyDebuff);
-        tvPlayerDebuff = (TextView) findViewById(R.id.tvPlayerDebuff);
         tvEnemyScore = (TextView) findViewById(R.id.tvEnemyScore);
         tvEnemyName = (TextView) findViewById(R.id.tvEnemyName);
         tvCenterMessage.setText("");
-        tvEnemyDebuff.setText("");
         tvEnemyName.setText(enemyName);
-        tvPlayerDebuff.setText("");
         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
         tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
 
@@ -194,6 +212,17 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         setEnemyCards();
 
         playerHaste = playerName + " gains Haste";
+        playerStatuses[0] = "";
+        playerStatuses[1] = "";
+        playerStatuses[2] = "";
+        playerStatuses[3] = "";
+        playerStatuses[4] = "";
+
+        enemyStatuses[0] = "";
+        enemyStatuses[1] = "";
+        enemyStatuses[2] = "";
+        enemyStatuses[3] = "";
+        enemyStatuses[4] = "";
 
     }
 
@@ -564,9 +593,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* ENEMY TURN START METHOD */
     private void enemyTurnStart() {
         playerTurn = false;
-        if (!playerHasHaste){
-            tvPlayerDebuff.setText("");
-        }
+        /* Calls the method to check if player buffs have run out their duration */
+        checkPlayerStatues();
         disablePlayerCards();
         tvCenterMessage.setText("ENEMY TURN");
         tvCenterMessage.startAnimation(ani_fadeIn);
@@ -734,7 +762,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 enemyMoves = 0;
                 tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                 enemyIsSlowed = false;
-                tvEnemyDebuff.setText("");
+                checkEnemyStatuses();
                 tvCenterMessage.setText("YOUR TURN");
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
@@ -1450,7 +1478,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerName = cursor.getString(cursor.getColumnIndex("name"));
             playerLevel = cursor.getInt(cursor.getColumnIndex("level"));
             tvPlayerLevel.setText(String.valueOf(playerLevel));
-            playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
+            //playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
             tvPlayerExp.setText(String.valueOf(playerExp));
             playerGender = cursor.getString(cursor.getColumnIndex("gender"));
             playerProgress = cursor.getInt(cursor.getColumnIndex("lvlsbeaten"));
@@ -1965,13 +1993,24 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (playedCard.equals("Speed Up")) {
             cardSpeedUp();
         }
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                enable(layout_objectRow);
-                enablePlayerCards();
-                btnEndTurn.setClickable(true);
-            }
-        }, 1500);
+        if (errorMsg){
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    enable(layout_objectRow);
+                    enablePlayerCards();
+                    btnEndTurn.setClickable(true);
+                    errorMsg = false;
+                }
+            }, 2500);
+        } else {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    enable(layout_objectRow);
+                    enablePlayerCards();
+                    btnEndTurn.setClickable(true);
+                }
+            }, 1500);
+        }
     }
 
     /* THIS METHOD FINDS WHICH ENEMY CARD IS PLAYED TO DETERMINE EFFECT */
@@ -2255,13 +2294,27 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* SLOW DOWN CARD EFFECT METHOD */
     private void cardSlowDown() {
         if (playerTurn) {
-            tvCenterMessage.setText(enemySlowed);
-            tvCenterMessage.startAnimation(ani_fadeIn);
+            if (!Arrays.asList(enemyStatuses).contains("Slow Down")){
+                tvCenterMessage.setText(enemySlowed);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    enemyIsSlowed = true;
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    tvEnemyDebuff.setText("Slow");
+                    if (activeEnemyStatues < 5 && !Arrays.asList(enemyStatuses).contains("Slow Down")){
+                        enemyIsSlowed = true;
+                        activeEnemyStatues++;
+                        addEnemySlow();
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
                 }
             }, 1000);
         } else {
@@ -2272,13 +2325,27 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* SPEED UP CARD EFFECT METHOD */
     private void cardSpeedUp() {
         if (playerTurn) {
-            tvCenterMessage.setText(playerHaste);
-            tvCenterMessage.startAnimation(ani_fadeIn);
+            if (!Arrays.asList(playerStatuses).contains("Speed Up")){
+                tvCenterMessage.setText(playerHaste);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    playerHasHaste = true;
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    tvPlayerDebuff.setText("Haste");
+                    if (activePlayerStatues < 5 && !Arrays.asList(playerStatuses).contains("Speed Up")){
+                        playerHasHaste = true;
+                        activePlayerStatues++;
+                        addPlayerSpeedUp();
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
                 }
             }, 1000);
         } else {
@@ -2316,6 +2383,146 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             System.out.println(String.valueOf(lvlId));
         }
         db.close();
+    }
+
+    /* ADD PLAYER SPEED UP */
+    private void addPlayerSpeedUp(){
+        if (activePlayerStatues == 1){
+            playerStatuses[0] = "Speed Up";
+            playerStatusIcon1.setImageResource(R.drawable.buff_speed_up);
+            playerStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+            playerStatusIcon1.setVisibility(View.VISIBLE);
+        }
+        if (activePlayerStatues == 2){
+            playerStatuses[1] = "Speed Up";
+            playerStatusIcon2.setImageResource(R.drawable.buff_speed_up);
+            playerStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+            playerStatusIcon2.setVisibility(View.VISIBLE);
+        }
+        if (activePlayerStatues == 3){
+            playerStatuses[2] = "Speed Up";
+            playerStatusIcon3.setImageResource(R.drawable.buff_speed_up);
+            playerStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+            playerStatusIcon3.setVisibility(View.VISIBLE);
+        }
+        if (activePlayerStatues == 4){
+            playerStatuses[3] = "Speed Up";
+            playerStatusIcon4.setImageResource(R.drawable.buff_speed_up);
+            playerStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+            playerStatusIcon4.setVisibility(View.VISIBLE);
+        }
+        if (activePlayerStatues == 5){
+            playerStatuses[4] = "Speed Up";
+            playerStatusIcon5.setImageResource(R.drawable.buff_speed_up);
+            playerStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+            playerStatusIcon5.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /* ADD ENEMY SLOW */
+    private void addEnemySlow(){
+        if (activeEnemyStatues == 1){
+            enemyStatuses[0] = "Slow Down";
+            enemyStatusIcon1.setImageResource(R.drawable.debuff_slow);
+            enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+            enemyStatusIcon1.setVisibility(View.VISIBLE);
+        }
+        if (activeEnemyStatues == 2){
+            enemyStatuses[1] = "Slow Down";
+            enemyStatusIcon2.setImageResource(R.drawable.debuff_slow);
+            enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+            enemyStatusIcon2.setVisibility(View.VISIBLE);
+        }
+        if (activeEnemyStatues == 3){
+            enemyStatuses[2] = "Slow Down";
+            enemyStatusIcon3.setImageResource(R.drawable.debuff_slow);
+            enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+            enemyStatusIcon3.setVisibility(View.VISIBLE);
+        }
+        if (activeEnemyStatues == 4){
+            enemyStatuses[3] = "Slow Down";
+            enemyStatusIcon4.setImageResource(R.drawable.debuff_slow);
+            enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+            enemyStatusIcon4.setVisibility(View.VISIBLE);
+        }
+        if (activeEnemyStatues == 5){
+            enemyStatuses[4] = "Slow Down";
+            enemyStatusIcon5.setImageResource(R.drawable.debuff_slow);
+            enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+            enemyStatusIcon5.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /* CHECK ENEMY STATUSES */
+    private void checkEnemyStatuses(){
+        if (!enemyIsSlowed){
+            clearEnemySlow();
+        }
+    }
+
+    /* CHECK PLAYER STATUSES */
+    private void checkPlayerStatues(){
+        if (!playerHasHaste){
+            clearPlayerSpeedUp();
+        }
+    }
+
+    /* CLEAR ENEMY SLOW */
+    private void clearEnemySlow(){
+        if (enemyStatuses[0] == "Slow Down"){
+            enemyStatuses[0] = "";
+            enemyStatusIcon1.setVisibility(View.INVISIBLE);
+            activeEnemyStatues--;
+        }
+        if (enemyStatuses[1] == "Slow Down"){
+            enemyStatuses[1] = "";
+            enemyStatusIcon2.setVisibility(View.INVISIBLE);
+            activeEnemyStatues--;
+        }
+        if (enemyStatuses[2] == "Slow Down"){
+            enemyStatuses[2] = "";
+            enemyStatusIcon3.setVisibility(View.INVISIBLE);
+            activeEnemyStatues--;
+        }
+        if (enemyStatuses[3] == "Slow Down"){
+            enemyStatuses[3] = "";
+            enemyStatusIcon4.setVisibility(View.INVISIBLE);
+            activeEnemyStatues--;
+        }
+        if (enemyStatuses[4] == "Slow Down"){
+            enemyStatuses[4] = "";
+            enemyStatusIcon5.setVisibility(View.INVISIBLE);
+            activeEnemyStatues--;
+        }
+    }
+
+    /* CLEAR PLAYER SPEED UP */
+    private void clearPlayerSpeedUp(){
+        if (playerStatuses[0] == "Speed Up"){
+            playerStatuses[0] = "";
+            playerStatusIcon1.setVisibility(View.INVISIBLE);
+            activePlayerStatues--;
+        }
+        if (playerStatuses[1].equals("Speed Up")){
+            playerStatuses[1] = "";
+            playerStatusIcon2.setVisibility(View.INVISIBLE);
+            activePlayerStatues--;
+        }
+        if (playerStatuses[2].equals("Speed Up")){
+            playerStatuses[2] = "";
+            playerStatusIcon3.setVisibility(View.INVISIBLE);
+            activePlayerStatues--;
+        }
+        if (playerStatuses[3].equals("Speed Up")){
+            playerStatuses[3] = "";
+            playerStatusIcon4.setVisibility(View.INVISIBLE);
+            activePlayerStatues--;
+        }
+        if (playerStatuses[4].equals("Speed Up")){
+            playerStatuses[4] = "";
+            playerStatusIcon1.setVisibility(View.INVISIBLE);
+            activePlayerStatues--;
+        }
     }
 }
 
