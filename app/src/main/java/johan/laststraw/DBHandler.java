@@ -214,6 +214,96 @@ public class DBHandler {
             ac010.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac010);
 
+            ContentValues ac011 = new ContentValues();
+            ac011.put(KEY_NAME, "Speed Up II");
+            ac011.put(KEY_IMAGE, "card_speed_up_2");
+            ac011.put(KEY_TYPE, 3);
+            ac011.put(KEY_DESC, "Gain 2 additional moves on next turn.");
+            ac011.put(KEY_COST, 2);
+            ac011.put(KEY_REQUIRESLVL, 18);
+            ac011.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac011);
+
+            ContentValues ac012 = new ContentValues();
+            ac012.put(KEY_NAME, "Corruption");
+            ac012.put(KEY_IMAGE, "card_corruption");
+            ac012.put(KEY_TYPE, 2);
+            ac012.put(KEY_DESC, "Moves cost are doubled next turn.");
+            ac012.put(KEY_COST, 1);
+            ac012.put(KEY_REQUIRESLVL, 20);
+            ac012.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac012);
+
+            ContentValues ac013 = new ContentValues();
+            ac013.put(KEY_NAME, "Mimic");
+            ac013.put(KEY_IMAGE, "card_mimic");
+            ac013.put(KEY_TYPE, 3);
+            ac013.put(KEY_DESC, "Plays the same card as your opponent last played. Has no effect if no cards have been played.");
+            ac013.put(KEY_COST, 3);
+            ac013.put(KEY_REQUIRESLVL, 22);
+            ac013.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac013);
+
+            ContentValues ac014 = new ContentValues();
+            ac014.put(KEY_NAME, "Trap");
+            ac014.put(KEY_IMAGE, "card_trap");
+            ac014.put(KEY_TYPE, 1);
+            ac014.put(KEY_DESC, "Traps the next object, making whoever clears it lose 3 points instead of gaining 2.");
+            ac014.put(KEY_COST, 1);
+            ac014.put(KEY_REQUIRESLVL, 24);
+            ac014.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac014);
+
+            ContentValues ac015 = new ContentValues();
+            ac015.put(KEY_NAME, "Curse");
+            ac015.put(KEY_IMAGE, "card_curse");
+            ac015.put(KEY_TYPE, 2);
+            ac015.put(KEY_DESC, "Reduces score by half after three turns.");
+            ac015.put(KEY_COST, 2);
+            ac015.put(KEY_REQUIRESLVL, 26);
+            ac015.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac015);
+
+            ContentValues ac016 = new ContentValues();
+            ac016.put(KEY_NAME, "Agony");
+            ac016.put(KEY_IMAGE, "card_agony");
+            ac016.put(KEY_TYPE, 2);
+            ac016.put(KEY_DESC, "Reduces score by 3 after each turn, last 3 turns.");
+            ac016.put(KEY_COST, 2);
+            ac016.put(KEY_REQUIRESLVL, 28);
+            ac016.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac016);
+
+            ContentValues ac017 = new ContentValues();
+            ac017.put(KEY_NAME, "Malediction");
+            ac017.put(KEY_IMAGE, "card_malediction");
+            ac017.put(KEY_TYPE, 2);
+            ac017.put(KEY_DESC, "Reduces score by 3/4 after three turns.");
+            ac017.put(KEY_COST, 3);
+            ac017.put(KEY_REQUIRESLVL, 30);
+            ac017.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac017);
+
+            ContentValues ac018 = new ContentValues();
+            ac018.put(KEY_NAME, "Demonic Prayer");
+            ac018.put(KEY_IMAGE, "card_demonic_prayer");
+            ac018.put(KEY_TYPE, 2);
+            ac018.put(KEY_DESC, "10% chance to reset opponent's score.");
+            ac018.put(KEY_COST, 2);
+            ac018.put(KEY_REQUIRESLVL, 32);
+            ac018.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac018);
+
+            ContentValues ac019 = new ContentValues();
+            ac019.put(KEY_NAME, "Death Sentence");
+            ac019.put(KEY_IMAGE, "card_death_sentence");
+            ac019.put(KEY_TYPE, 2);
+            ac019.put(KEY_DESC, "50% chance to reset opponent's score after 3 turns.");
+            ac019.put(KEY_COST, 2);
+            ac019.put(KEY_REQUIRESLVL, 34);
+            ac019.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac019);
+
             /* ADDS CARDS TO OWNED CARDS */
             ContentValues oc1 = new ContentValues();
             oc1.put(KEY_NAME, "Reinforce");
@@ -438,6 +528,16 @@ public class DBHandler {
         addOwnedCard("Concentrate", "card_concentrate", 3, 1, "Doubles points gained next turn.");
         addOwnedCard("Steal II", "card_steal_5", 2, 2, "Steals 5 points from the opponent.");
         addOwnedCard("Steal III", "card_steal_10", 2, 3, "Steals 10 points from the opponent.");
+        addOwnedCard("Infest", "card_infest", 1, 1, "Infests the next object with spiders, making it more difficult to clear.");
+        addOwnedCard("Speed Up II", "card_speed_up_2", 3, 2, "Gain 2 additional moves on next turn.");
+        addOwnedCard("Corruption", "card_corruption", 2, 1, "Moves cost are doubled next turn.");
+        addOwnedCard("Mimic", "card_mimic", 3, 3, "Plays the same card as your opponent last played. Has no effect if no cards have been played.");
+        addOwnedCard("Trap", "card_trap", 1, 1, "Traps the next object, making whoever clears it lose 3 points instead of gaining 2.");
+        addOwnedCard("Curse", "card_curse", 2, 2, "Reduces score by half after three turns.");
+        addOwnedCard("Agony", "card_agony", 2, 2, "Reduces score by 3 after each turn, last 3 turns.");
+        addOwnedCard("Malediction", "card_malediction", 2, 3, "Reduces score by 3/4 after three turns.");
+        addOwnedCard("Demonic Prayer", "card_demonic_prayer", 2, 2, "10% chance to reset opponent's score.");
+        addOwnedCard("Death Sentence", "card_death_sentence", 2, 2, "50% chance to reset opponent's score after 3 turns.");
         unlockCard(2,1);
         unlockCard(3,1);
         unlockCard(4,1);
@@ -446,5 +546,15 @@ public class DBHandler {
         unlockCard(7,1);
         unlockCard(8,1);
         unlockCard(9,1);
+        unlockCard(10,1);
+        unlockCard(11,1);
+        unlockCard(12,1);
+        unlockCard(13,1);
+        unlockCard(14,1);
+        unlockCard(15,1);
+        unlockCard(16,1);
+        unlockCard(17,1);
+        unlockCard(18,1);
+        unlockCard(19,1);
     }
 }

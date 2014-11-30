@@ -79,7 +79,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
-
+        //db.enableAllCards();
         cursor = db.getPlayerInfo();
         if (cursor != null && cursor.moveToFirst()) {
             dbLvl = cursor.getInt(cursor.getColumnIndex("level"));
@@ -134,6 +134,56 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 15 && sharedPrefLvl == 14){
                 addCard("Steal III", "card_steal_10", 2, 3, "Steals 10 points from the opponent.", 9);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 16 && sharedPrefLvl == 15){
+                addCard("Infest", "card_infest", 2, 1, "Infests the next object with spiders, making it more difficult to clear.", 10);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 18 && sharedPrefLvl == 17){
+                addCard("Speed Up II", "card_speed_up_2", 3, 2, "Gain 2 additional moves on next turn.", 11);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 20 && sharedPrefLvl == 19){
+                addCard("Corruption", "card_corruption", 2, 1, "Moves cost are doubled next turn.", 12);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 22 && sharedPrefLvl == 21){
+                addCard("Mimic", "card_mimic", 3, 3, "Plays the same card as your opponent last played. Has no effect if no cards have been played.", 13);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 24 && sharedPrefLvl == 23){
+                addCard("Trap", "card_trap", 1, 1, "Traps the next object, making whoever clears it lose 3 points instead of gaining 2.", 14);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 26 && sharedPrefLvl == 25){
+                addCard("Curse", "card_curse", 2, 2, "Reduces score by half after three turns.", 15);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 28 && sharedPrefLvl == 27){
+                addCard("Agony", "card_agony", 2, 2, "Reduces score by 3 after each turn, last 3 turns.", 16);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 30 && sharedPrefLvl == 29){
+                addCard("Malediction", "card_malediction", 2, 3, "Reduces score by 3/4 after three turns.", 17);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 32 && sharedPrefLvl == 31){
+                addCard("Demonic Prayer", "card_demonic_prayer", 2, 2, "10% chance to reset opponent's score.", 18);
+            }
+        }
+        if (dbLvl > sharedPrefLvl){
+            if (dbLvl == 32 && sharedPrefLvl == 31){
+                addCard("Death Sentence", "card_death_sentence", 2, 2, "50% chance to reset opponent's score after 3 turns.", 19);
             }
         }
     }
