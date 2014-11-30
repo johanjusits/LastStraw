@@ -78,6 +78,33 @@ public class AllCardsAdapter extends CursorAdapter {
             if (imagePath.equals("card_infest")){
                 Picasso.with(context).load(R.drawable.card_infest).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
             }
+            if (imagePath.equals("card_speed_up_2")){
+                Picasso.with(context).load(R.drawable.card_speed_up_2).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            }
+            if (imagePath.equals("card_corruption")){
+                Picasso.with(context).load(R.drawable.card_corruption).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            }
+            if (imagePath.equals("card_mimic")){
+                Picasso.with(context).load(R.drawable.card_mimic).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            }
+            if (imagePath.equals("card_trap")){
+                Picasso.with(context).load(R.drawable.card_trap).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            }
+            if (imagePath.equals("card_curse")){
+                Picasso.with(context).load(R.drawable.card_curse).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            }
+            if (imagePath.equals("card_agony")){
+                Picasso.with(context).load(R.drawable.card_agony).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            }
+            if (imagePath.equals("card_malediction")){
+                Picasso.with(context).load(R.drawable.card_malediction).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            }
+            if (imagePath.equals("card_demonic_prayer")){
+                Picasso.with(context).load(R.drawable.card_demonic_prayer).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            }
+            if (imagePath.equals("card_death_sentence")){
+                Picasso.with(context).load(R.drawable.card_death_sentence).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            }
 
         } else {
             viewUnlocked = (UnlockedHolder) view.getTag();
@@ -116,7 +143,33 @@ public class AllCardsAdapter extends CursorAdapter {
             if (imagePath.equals("card_infest")){
                 Picasso.with(context).load(R.drawable.card_infest).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
             }
-
+            if (imagePath.equals("card_speed_up_2")){
+                Picasso.with(context).load(R.drawable.card_speed_up_2).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            }
+            if (imagePath.equals("card_corruption")){
+                Picasso.with(context).load(R.drawable.card_corruption).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            }
+            if (imagePath.equals("card_mimic")){
+                Picasso.with(context).load(R.drawable.card_mimic).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            }
+            if (imagePath.equals("card_trap")){
+                Picasso.with(context).load(R.drawable.card_trap).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            }
+            if (imagePath.equals("card_curse")){
+                Picasso.with(context).load(R.drawable.card_curse).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            }
+            if (imagePath.equals("card_agony")){
+                Picasso.with(context).load(R.drawable.card_agony).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            }
+            if (imagePath.equals("card_malediction")){
+                Picasso.with(context).load(R.drawable.card_malediction).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            }
+            if (imagePath.equals("card_demonic_prayer")){
+                Picasso.with(context).load(R.drawable.card_demonic_prayer).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            }
+            if (imagePath.equals("card_death_sentence")){
+                Picasso.with(context).load(R.drawable.card_death_sentence).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            }
         }
 
     }
