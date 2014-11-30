@@ -7,31 +7,119 @@
     android:background="@drawable/bg_world001"
     android:id="@+id/rootLayout">
 
-    <!-- PLAYER DEBUFF TXT -->
-    <TextView
+    <!-- PLAYER STATUS ICONS-->
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/playerDebuffTitle"
-        android:textSize="14sp"
-        android:id="@+id/tvPlayerDebuff"
+        android:src="@drawable/buff_concentrate"
+        android:id="@+id/tvPlayerStatus1"
         android:layout_below="@+id/ivPlayerPortrait"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="@color/textBlack"
-        android:textStyle="bold" />
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"
+        android:background="@drawable/frame_black" />
 
-    <!-- ENEMY DEBUFF TXT -->
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enemyDebuffTitle"
-        android:textSize="14sp"
-        android:id="@+id/tvEnemyDebuff"
+        android:src="@drawable/debuff_slow"
+        android:id="@+id/tvPlayerStatus2"
+        android:layout_toRightOf="@+id/tvPlayerStatus1"
+        android:layout_below="@+id/ivPlayerPortrait"
+        android:background="@drawable/frame_white"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/card_not_available"
+        android:id="@+id/tvPlayerStatus3"
+        android:layout_toRightOf="@+id/tvPlayerStatus2"
+        android:layout_below="@+id/ivPlayerPortrait"
+        android:background="@drawable/frame_black"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/card_not_available"
+        android:id="@+id/tvPlayerStatus4"
+        android:layout_toRightOf="@+id/tvPlayerStatus3"
+        android:layout_below="@+id/ivPlayerPortrait"
+        android:background="@drawable/frame_black"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/card_not_available"
+        android:id="@+id/tvPlayerStatus5"
+        android:layout_toRightOf="@+id/tvPlayerStatus4"
+        android:layout_below="@+id/ivPlayerPortrait"
+        android:background="@drawable/frame_black"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
+
+    <!-- ENEMY STATUS ICONS -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/card_not_available"
+        android:id="@+id/tvEnemyStatus1"
         android:layout_below="@+id/ivEnemyPortrait"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textColor="@color/textBlack"
-        android:textStyle="bold" />
+        android:background="@drawable/frame_black"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/card_not_available"
+        android:id="@+id/tvEnemyStatus2"
+        android:layout_toLeftOf="@+id/tvEnemyStatus1"
+        android:layout_below="@+id/ivEnemyPortrait"
+        android:background="@drawable/frame_black"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/card_not_available"
+        android:id="@+id/tvEnemyStatus3"
+        android:layout_toLeftOf="@+id/tvEnemyStatus2"
+        android:layout_below="@+id/ivEnemyPortrait"
+        android:background="@drawable/frame_black"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/card_not_available"
+        android:id="@+id/tvEnemyStatus4"
+        android:layout_toLeftOf="@+id/tvEnemyStatus3"
+        android:layout_below="@+id/ivEnemyPortrait"
+        android:background="@drawable/frame_black"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/card_not_available"
+        android:id="@+id/tvEnemyStatus5"
+        android:layout_toLeftOf="@+id/tvEnemyStatus4"
+        android:layout_below="@+id/ivEnemyPortrait"
+        android:background="@drawable/frame_black"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
 
     <!-- END TURN / ENEMY TURN PORTRAIT -->
     <Button
@@ -57,7 +145,7 @@
         android:src="@drawable/portrait_placeholder_boy"
         android:scaleType="fitCenter"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="5dp" />
 
     <!-- ENEMY PORTRAIT -->
     <ImageView
@@ -69,7 +157,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:scaleType="fitCenter"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp" />
 
     <!-- PLAYER NAME -->
@@ -287,7 +375,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibPlayerCard1"
-        android:layout_below="@+id/tvPlayerDebuff"
+        android:layout_below="@+id/tvPlayerStatus1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/card_not_available"
@@ -357,7 +445,7 @@
         android:id="@+id/ibEnemyCard1"
         android:src="@drawable/card_not_available"
         android:background="@drawable/frame_black"
-        android:layout_below="@+id/tvEnemyDebuff"
+        android:layout_below="@+id/tvEnemyStatus1"
         android:layout_alignParentRight="true" />
 
     <ImageButton
