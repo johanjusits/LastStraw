@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -37,7 +38,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     ImageButton obj001, obj002, obj003, obj004, obj005, obj006, obj007, obj008, obj009,
             obj010, obj011, obj012, obj013, obj014, obj015, obj016;
     ImageButton playerCard1, playerCard2, playerCard3, playerCard4, playerCard5, playerCard6;
-    ImageButton enemyCard1, enemyCard2, enemyCard3;
+    ImageButton enemyCard1, enemyCard2, enemyCard3, enemyCard4, enemyCard5, enemyCard6;
     ImageView playerStatusIcon1, playerStatusIcon2, playerStatusIcon3, playerStatusIcon4, playerStatusIcon5;
     ImageView enemyStatusIcon1, enemyStatusIcon2, enemyStatusIcon3, enemyStatusIcon4, enemyStatusIcon5;
     Button btnEndTurn;
@@ -80,12 +81,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int selectedCard = 0;
     int enemyPickedCard;
     int enemyThinkingTime = genThinkingTime();
-    int enemyCardsRemaining = 3;
+    int enemyCardsRemaining = 6;
     int lvlcleared;
     int lvlhighscore;
     int lvlId;
     int activePlayerStatues = 0;
     int activeEnemyStatues = 0;
+    int[] enemyCardsPool = {0,1,2,3,4,5};
+    ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
     boolean deviceIsTablet;
     boolean enemyIsSlowed = false;
@@ -93,7 +96,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean playerTurn = true;
     boolean playerCard1Used = false, playerCard2Used = false, playerCard3Used = false, playerCard4Used = false,
             playerCard5Used = false, playerCard6Used = false;
-    boolean enemyCard1Used = false, enemyCard2Used = false, enemyCard3Used = false;
+    boolean enemyCard1Used = false, enemyCard2Used = false, enemyCard3Used = false, enemyCard4Used = false,
+            enemyCard5Used = false, enemyCard6Used = false;
     boolean errorMsg = false;
     boolean playerWon = false;
     private Handler myHandler = new Handler();
@@ -187,6 +191,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         enemyCard1 = (ImageButton) findViewById((R.id.ibEnemyCard1));
         enemyCard2 = (ImageButton) findViewById((R.id.ibEnemyCard2));
         enemyCard3 = (ImageButton) findViewById((R.id.ibEnemyCard3));
+        enemyCard4 = (ImageButton) findViewById((R.id.ibEnemyCard4));
+        enemyCard5 = (ImageButton) findViewById((R.id.ibEnemyCard5));
+        enemyCard6 = (ImageButton) findViewById((R.id.ibEnemyCard6));
 
         /* SETS VARIOUS VIEWS */
         tvPlayerName = (TextView) findViewById(R.id.tvPlayerName);
@@ -223,7 +230,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         enemyStatuses[2] = "";
         enemyStatuses[3] = "";
         enemyStatuses[4] = "";
-
     }
 
     /* This Method contains a switch handling player clicks on wheat */
@@ -592,6 +598,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
     /* ENEMY TURN START METHOD */
     private void enemyTurnStart() {
+
         playerTurn = false;
         /* Calls the method to check if player buffs have run out their duration */
         checkPlayerStatues();
@@ -615,18 +622,20 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (enemyCardsRemaining > 0){
             int cardOrClear = genRand100();
             /* If number is higher than 80 the AI will play a card only */
-            if (cardOrClear >= 80){
+            if (cardOrClear >= 10){
                 enemyPickedCard = randomizeEnemyCardSelect();
 
                 if (enemyPickedCard == 0){
                     System.out.println("AI played card 1");
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            animateEnemyCard();;
+                            animateEnemyCard();
+                            ;
                         }
                     }, 3000);
                     enemyCard1Used = true;
                     enemyCardsRemaining--;
+                    pool.add(0);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             executeEnemyCardEffect();
@@ -642,6 +651,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 3000);
                     enemyCard2Used = true;
                     enemyCardsRemaining--;
+                    pool.add(1);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             executeEnemyCardEffect();
@@ -657,11 +667,36 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 3000);
                     enemyCard3Used = true;
                     enemyCardsRemaining--;
+                    pool.add(2);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             executeEnemyCardEffect();
                         }
                     }, 7500);
+                }
+
+                if (enemyPickedCard == 3){
+                    System.out.println("AI played card 4");
+                    enemyCard4.setVisibility(View.INVISIBLE);
+                    enemyCard4Used = true;
+                    enemyCardsRemaining--;
+                    pool.add(3);
+                }
+
+                if (enemyPickedCard == 4){
+                    System.out.println("AI played card 5");
+                    enemyCard5.setVisibility(View.INVISIBLE);
+                    enemyCard5Used = true;
+                    enemyCardsRemaining--;
+                    pool.add(4);
+                }
+
+                if (enemyPickedCard == 5){
+                    System.out.println("AI played card 6");
+                    enemyCard6.setVisibility(View.INVISIBLE);
+                    enemyCard6Used = true;
+                    enemyCardsRemaining--;
+                    pool.add(5);
                 }
 
                 myHandler.postDelayed(new Runnable() {
@@ -1064,63 +1099,25 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     be modified depending on how many cards the enemy has. */
     public int randomizeEnemyCardSelect(){
         int randomizedCard;
-        if (enemyCardsRemaining == 3){
-            randomizedCard = genRand3();
+
+        if (enemyCardsRemaining == 6){
+            randomizedCard = genRand(6);
             return randomizedCard;
         }
 
-        if (enemyCardsRemaining == 2){
-
-            if (enemyCard1Used){
-                int reselect = genRand100();
-                if (reselect >= 50){
-                    randomizedCard = 2;
-                } else {
-                    randomizedCard = 1;
-                }
-                return randomizedCard;
-            }
-
-            if (enemyCard2Used){
-                int reselect = genRand100();
-                if (reselect >= 50){
-                    randomizedCard = 0;
-                } else {
-                    randomizedCard = 2;
-                }
-                return randomizedCard;
-            }
-
-            if (enemyCard3Used){
-                int reselect = genRand100();
-                if (reselect >= 50){
-                    randomizedCard = 0;
-                } else {
-                    randomizedCard = 1;
-                }
-                return randomizedCard;
-            }
+        if (enemyCardsRemaining <= 5){
+            do{
+                randomizedCard = genRand(6);
+                System.out.println(String.valueOf("randomized card = " + randomizedCard));
+            }while( pool.contains(randomizedCard) );
+            return randomizedCard;
         }
 
-        if (enemyCardsRemaining == 1){
-            if (!enemyCard1Used){
-                randomizedCard = 0;
-                return randomizedCard;
-            }
-            if (!enemyCard2Used){
-                randomizedCard = 1;
-                return randomizedCard;
-            }
-            if (!enemyCard3Used){
-                randomizedCard = 2;
-                return randomizedCard;
-            }
-        }
         return 0;
     }
 
-    public int genRand3() {
-        return new Random().nextInt(3);
+    public int genRand(int number) {
+        return new Random().nextInt(number);
     }
 
     public int genRand100() {
@@ -1698,6 +1695,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         enemyCard3.setVisibility(View.VISIBLE);
         enemyCard3.setBackgroundResource(R.drawable.card_icon_field);
         enemyCard3.setImageResource(R.drawable.card_type_field);
+        enemyCard4.setVisibility(View.VISIBLE);
+        enemyCard4.setBackgroundResource(R.drawable.card_icon_ailment);
+        enemyCard4.setImageResource(R.drawable.card_type_ailment);
+        enemyCard5.setVisibility(View.VISIBLE);
+        enemyCard5.setBackgroundResource(R.drawable.card_icon_ailment);
+        enemyCard5.setImageResource(R.drawable.card_type_ailment);
+        enemyCard6.setVisibility(View.VISIBLE);
+        enemyCard6.setBackgroundResource(R.drawable.card_icon_ailment);
+        enemyCard6.setImageResource(R.drawable.card_type_ailment);
     }
 
     /* THIS METHOD DETERMINES IF DEVICE IS A TABLET OR PHONE */
