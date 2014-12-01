@@ -87,7 +87,7 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
         playerCursor = db.getPlayerInfo();
         if (playerCursor != null && playerCursor.moveToFirst()) {
             //cardsAllowed = playerCursor.getInt(playerCursor.getColumnIndex("slots"));
-            cardsAllowed = 2;
+            cardsAllowed = 6;
             tvSlots.setText(String.valueOf(cardsAllowed));
         }
     }
