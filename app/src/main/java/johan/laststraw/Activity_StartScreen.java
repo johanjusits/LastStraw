@@ -79,7 +79,6 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
-        //db.enableAllCards();
         cursor = db.getPlayerInfo();
         if (cursor != null && cursor.moveToFirst()) {
             dbLvl = cursor.getInt(cursor.getColumnIndex("level"));
@@ -118,7 +117,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 8 && sharedPrefLvl == 7){
-                addCard("Steal", "card_steal_3", 2, 1, "Steals 3 points from the opponent.", 6);
+                addCard("Steal", "card_steal_3", 1, 1, "Steals 3 points from the opponent.", 6);
             }
         }
         if (dbLvl > sharedPrefLvl){
@@ -128,12 +127,12 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 12 && sharedPrefLvl == 11){
-                addCard("Steal II", "card_steal_5", 2, 2, "Steals 5 points from the opponent.", 8);
+                addCard("Steal II", "card_steal_5", 1, 2, "Steals 5 points from the opponent.", 8);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 15 && sharedPrefLvl == 14){
-                addCard("Steal III", "card_steal_10", 2, 3, "Steals 10 points from the opponent.", 9);
+                addCard("Steal III", "card_steal_10", 1, 3, "Steals 10 points from the opponent.", 9);
             }
         }
         if (dbLvl > sharedPrefLvl){

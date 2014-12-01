@@ -167,7 +167,7 @@ public class DBHandler {
             ContentValues ac6 = new ContentValues();
             ac6.put(KEY_NAME, "Steal");
             ac6.put(KEY_IMAGE, "card_steal_3");
-            ac6.put(KEY_TYPE, 2);
+            ac6.put(KEY_TYPE, 1);
             ac6.put(KEY_DESC, "Steals 3 points from the opponent.");
             ac6.put(KEY_COST, 1);
             ac6.put(KEY_REQUIRESLVL, 8);
@@ -187,7 +187,7 @@ public class DBHandler {
             ContentValues ac8 = new ContentValues();
             ac8.put(KEY_NAME, "Steal II");
             ac8.put(KEY_IMAGE, "card_steal_5");
-            ac8.put(KEY_TYPE, 2);
+            ac8.put(KEY_TYPE, 1);
             ac8.put(KEY_DESC, "Steals 5 points from the opponent.");
             ac8.put(KEY_COST, 2);
             ac8.put(KEY_REQUIRESLVL, 12);
@@ -197,7 +197,7 @@ public class DBHandler {
             ContentValues ac9 = new ContentValues();
             ac9.put(KEY_NAME, "Steal III");
             ac9.put(KEY_IMAGE, "card_steal_10");
-            ac9.put(KEY_TYPE, 2);
+            ac9.put(KEY_TYPE, 1);
             ac9.put(KEY_DESC, "Steals 10 points from the opponent.");
             ac9.put(KEY_COST, 3);
             ac9.put(KEY_REQUIRESLVL, 15);
@@ -524,10 +524,10 @@ public class DBHandler {
         addOwnedCard("Reinforce III", "card_obj_plus_3", 1, 1, "Brings back three objects.");
         addOwnedCard("Slow Down", "card_slowdown", 2, 1, "Reduces opponent's moves by 1 next turn.");
         addOwnedCard("Speed Up", "card_speed_up", 3, 1, "You gain 1 more move on next turn.");
-        addOwnedCard("Steal", "card_steal_3", 2, 1, "Steals 3 points from the opponent.");
+        addOwnedCard("Steal", "card_steal_3", 1, 1, "Steals 3 points from the opponent.");
         addOwnedCard("Concentrate", "card_concentrate", 3, 1, "Doubles points gained next turn.");
-        addOwnedCard("Steal II", "card_steal_5", 2, 2, "Steals 5 points from the opponent.");
-        addOwnedCard("Steal III", "card_steal_10", 2, 3, "Steals 10 points from the opponent.");
+        addOwnedCard("Steal II", "card_steal_5", 1, 2, "Steals 5 points from the opponent.");
+        addOwnedCard("Steal III", "card_steal_10", 1, 3, "Steals 10 points from the opponent.");
         addOwnedCard("Infest", "card_infest", 1, 1, "Infests the next object with spiders, making it more difficult to clear.");
         addOwnedCard("Speed Up II", "card_speed_up_2", 3, 2, "Gain 2 additional moves on next turn.");
         addOwnedCard("Corruption", "card_corruption", 2, 1, "Moves cost are doubled next turn.");
