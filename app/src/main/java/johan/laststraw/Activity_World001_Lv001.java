@@ -627,14 +627,24 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             }
         }, 1000);
 
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                enemyTurn();
+            }
+        }, 2000);
+    }
+
+    /* ENEMY TURN MOVES */
+    private void enemyTurn(){
         /* Checks if enemy has any cards left and decides move pattern accordingly */
         if (enemyCardsRemaining > 0){
             int cardOrClear = genRand100();
-            /* If number is higher than 80 the AI will play a card only */
-            if (cardOrClear >= 20){
+            System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
+            /* If number is higher than 80 the AI will play a card */
+            if (cardOrClear >= 80){
                 enemyPickedCard = randomizeEnemyCardSelect();
 
-                if (enemyPickedCard == 0){
+                if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost){
                     System.out.println("AI played card 1");
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -652,7 +662,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 7500);
                 }
-                if (enemyPickedCard == 1){
+                if (enemyPickedCard == 1 && enemyMoves >= enemyCard2Cost){
                     System.out.println("AI played card 2");
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -670,7 +680,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 7500);
                 }
-                if (enemyPickedCard == 2){
+                if (enemyPickedCard == 2 && enemyMoves >= enemyCard3Cost){
                     System.out.println("AI played card 3");
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -689,7 +699,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 7500);
                 }
 
-                if (enemyPickedCard == 3){
+                if (enemyPickedCard == 3 && enemyMoves >= enemyCard4Cost){
                     System.out.println("AI played card 4");
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -708,7 +718,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 7500);
                 }
 
-                if (enemyPickedCard == 4){
+                if (enemyPickedCard == 4 && enemyMoves >= enemyCard5Cost){
                     System.out.println("AI played card 5");
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -727,7 +737,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 7500);
                 }
 
-                if (enemyPickedCard == 5){
+                if (enemyPickedCard == 5 && enemyMoves >= enemyCard6Cost){
                     System.out.println("AI played card 6");
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -748,35 +758,56 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
-                        enemyTurnEnd();
+                        checkEnemyMoves();
                     }
                 }, 8500);
-                return;
-            }
-            /* If number is equal to or higher than 50 AND lower than 80 the AI
-            * will play a card AND clear an object */
-            if (cardOrClear >= 50 && cardOrClear < 80){
 
+            } else {
+               /* If number is less than 80, the AI will clear */
+                if (cardOrClear < 80) {
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            aiRemoveOne();
+                            objectsRemaining = objectsRemaining - 1;
+                            enemyScore = enemyScore + 2;
+                            tvEnemyScore.setText(String.valueOf(enemyScore));
+                            checkEnemyMoves();
+                        }
+                    }, 1000);
+                }
             }
-            /* If number is less than 50, the AI will only clear */
+        } else {
+           /* IF ENEMY HAS NO CARDS LEFT, IT WILL CLEAR */
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    aiRemoveOne();
+                    objectsRemaining = objectsRemaining - 1;
+                    enemyScore = enemyScore + 2;
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                    checkEnemyMoves();
+                }
+            }, 1000);
         }
 
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                enemyThinkingTime = genThinkingTime();
-            }
-        }, 1000 + enemyThinkingTime);
+    }
 
-        enemyRemoveNr = genEnemyRemoveNr();
-        enemyCut();
+    /* CHECK ENEMY REMAINING MOVES */
+    private void checkEnemyMoves(){
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                tvCenterMessage.startAnimation(ani_fadeOut);
-                enemyTurnEnd();
+                System.out.println("checking remaining moves...");
+                if (enemyMoves <= 0){
+                    enemyTurnEnd();
+                } else {
+                    if (objectsRemaining == 0){
+                        checkIfNoObjRemains();
+                    } else {
+                        enemyTurn();
+                    }
+                }
             }
-        }, enemyThinkingTime + 3000);
-
+        }, 1500);
     }
 
     /* ENEMY CUT METHOD */
