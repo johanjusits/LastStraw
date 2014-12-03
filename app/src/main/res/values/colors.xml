@@ -8,5 +8,6 @@
     <color name="card_field_color">#ffaeb25e</color>
     <color name="card_ailment_color">#FF92806C</color>
     <color name="card_boosting_color">#fffeb100</color>
+    <color name="textBrightRed">#ffff1313</color>
 
 </resources>
