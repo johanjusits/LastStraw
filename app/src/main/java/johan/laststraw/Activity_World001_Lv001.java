@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -46,7 +47,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     TextView tvPlayerName, tvPlayerExp, tvPlayerLevel, tvPlayerScore, tvEnemyScore, tvEnemyName;
     ImageView ivPlayerPortrait, ivEnemyPortrait, ivCenterCardFrame;
     ViewGroup layout_objectRow;
-    Animation ani_fadeIn, ani_fadeOut, ani_zoomIn;
+    Animation ani_fadeIn, ani_fadeOut, ani_zoomIn, ani_shake, ani_scoregain, ani_resetscore;
     Random rdm = new Random();
     /* STRINGS */
     String playerGender = "";
@@ -80,11 +81,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 1, enemyCard4Cost = 1,
             enemyCard5Cost = 1, enemyCard6Cost = 1;
     int playerMoves = 3, enemyMoves = 0;
-    int enemyRemoveNr;
     int objectsRemaining = 16;
     int selectedCard = 0;
     int enemyPickedCard;
-    int enemyThinkingTime = genThinkingTime();
     int enemyCardsRemaining = 6;
     int lvlcleared;
     int lvlhighscore;
@@ -124,6 +123,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 R.anim.ani_fade_out);
         ani_zoomIn = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.ani_zoom_in);
+        ani_shake = AnimationUtils.loadAnimation(this, R.anim.ani_shake);
+        ani_scoregain = AnimationUtils.loadAnimation(this, R.anim.ani_scoregain);
+        ani_resetscore = AnimationUtils.loadAnimation(this, R.anim.ani_resetscore);
 
         /* SETS OBJECTS IN OBJECT ROW */
         obj001 = (ImageButton) findViewById(R.id.obj001);
@@ -612,7 +614,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         tvCenterMessage.setText("ENEMY TURN");
         tvCenterMessage.startAnimation(ani_fadeIn);
         if (enemyHasHaste){
-            System.out.println("AI gained haste");
             enemyMoves = enemyMoves + 1;
         }
         if (enemyIsSlowed){
@@ -638,7 +639,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     private void enemyTurn(){
         /* Checks if enemy has any cards left and decides move pattern accordingly */
         if (enemyCardsRemaining > 0){
-            int cardOrClear = genRand100();
+            int cardOrClear = genRand(100);
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
             if (cardOrClear >= 80){
@@ -646,13 +647,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
                 if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost){
                     System.out.println("AI played card 1");
+                    enemyCard1.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enemyMoves = enemyMoves - enemyCard1Cost;
                             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                             animateEnemyCard();
                         }
-                    }, 3000);
+                    }, 2000);
                     enemyCard1Used = true;
                     enemyCardsRemaining--;
                     pool.add(0);
@@ -660,17 +662,19 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         public void run() {
                             executeEnemyCardEffect();
                         }
-                    }, 7500);
+                    }, 6500);
                 }
+
                 if (enemyPickedCard == 1 && enemyMoves >= enemyCard2Cost){
                     System.out.println("AI played card 2");
+                    enemyCard2.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enemyMoves = enemyMoves - enemyCard2Cost;
                             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                             animateEnemyCard();
                         }
-                    }, 3000);
+                    }, 2000);
                     enemyCard2Used = true;
                     enemyCardsRemaining--;
                     pool.add(1);
@@ -678,17 +682,19 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         public void run() {
                             executeEnemyCardEffect();
                         }
-                    }, 7500);
+                    }, 6500);
                 }
+
                 if (enemyPickedCard == 2 && enemyMoves >= enemyCard3Cost){
                     System.out.println("AI played card 3");
+                    enemyCard3.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enemyMoves = enemyMoves - enemyCard3Cost;
                             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                             animateEnemyCard();
                         }
-                    }, 3000);
+                    }, 2000);
                     enemyCard3Used = true;
                     enemyCardsRemaining--;
                     pool.add(2);
@@ -696,18 +702,19 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         public void run() {
                             executeEnemyCardEffect();
                         }
-                    }, 7500);
+                    }, 6500);
                 }
 
                 if (enemyPickedCard == 3 && enemyMoves >= enemyCard4Cost){
                     System.out.println("AI played card 4");
+                    enemyCard4.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enemyMoves = enemyMoves - enemyCard4Cost;
                             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                             animateEnemyCard();
                         }
-                    }, 3000);
+                    }, 2000);
                     enemyCard4Used = true;
                     enemyCardsRemaining--;
                     pool.add(3);
@@ -715,18 +722,19 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         public void run() {
                             executeEnemyCardEffect();
                         }
-                    }, 7500);
+                    }, 6500);
                 }
 
                 if (enemyPickedCard == 4 && enemyMoves >= enemyCard5Cost){
                     System.out.println("AI played card 5");
+                    enemyCard5.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enemyMoves = enemyMoves - enemyCard5Cost;
                             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                             animateEnemyCard();
                         }
-                    }, 3000);
+                    }, 2000);
                     enemyCard5Used = true;
                     enemyCardsRemaining--;
                     pool.add(4);
@@ -734,18 +742,19 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         public void run() {
                             executeEnemyCardEffect();
                         }
-                    }, 7500);
+                    }, 6500);
                 }
 
                 if (enemyPickedCard == 5 && enemyMoves >= enemyCard6Cost){
                     System.out.println("AI played card 6");
+                    enemyCard6.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enemyMoves = enemyMoves - enemyCard6Cost;
                             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                             animateEnemyCard();
                         }
-                    }, 3000);
+                    }, 2000);
                     enemyCard6Used = true;
                     enemyCardsRemaining--;
                     pool.add(5);
@@ -753,7 +762,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         public void run() {
                             executeEnemyCardEffect();
                         }
-                    }, 7500);
+                    }, 6500);
                 }
 
                 myHandler.postDelayed(new Runnable() {
@@ -767,7 +776,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 if (cardOrClear < 80) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            aiRemoveOne();
+                            aiClearObject();
                             objectsRemaining = objectsRemaining - 1;
                             enemyScore = enemyScore + 2;
                             tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -780,7 +789,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
            /* IF ENEMY HAS NO CARDS LEFT, IT WILL CLEAR */
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    aiRemoveOne();
+                    aiClearObject();
                     objectsRemaining = objectsRemaining - 1;
                     enemyScore = enemyScore + 2;
                     tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -808,58 +817,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
             }
         }, 1500);
-    }
-
-    /* ENEMY CUT METHOD */
-    private void enemyCut() {
-        if (enemyRemoveNr == 4) {
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.setText("Enemy cut 4 wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
-                    aiRemoveFour();
-                    objectsRemaining = objectsRemaining - 4;
-                    enemyScore = enemyScore + 8;
-                    tvEnemyScore.setText(String.valueOf(enemyScore));
-                }
-            }, 1000 + enemyThinkingTime + 1000);
-        }
-        if (enemyRemoveNr == 3) {
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.setText("Enemy cut 3 wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
-                    aiRemoveThree();
-                    objectsRemaining = objectsRemaining - 3;
-                    enemyScore = enemyScore + 6;
-                    tvEnemyScore.setText(String.valueOf(enemyScore));
-                }
-            }, 1000 + enemyThinkingTime + 1000);
-        }
-        if (enemyRemoveNr == 2) {
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.setText("Enemy cut 2 wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
-                    aiRemoveTwo();
-                    objectsRemaining = objectsRemaining - 2;
-                    enemyScore = enemyScore + 4;
-                    tvEnemyScore.setText(String.valueOf(enemyScore));
-                }
-            }, 1000 + enemyThinkingTime + 1000);
-        }
-        if (enemyRemoveNr == 1) {
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.setText("Enemy cut 1 wheat");
-                    tvCenterMessage.startAnimation(ani_fadeIn);
-                    aiRemoveOne();
-                    objectsRemaining = objectsRemaining - 1;
-                    enemyScore = enemyScore + 2;
-                    tvEnemyScore.setText(String.valueOf(enemyScore));
-                }
-            }, 1000 + enemyThinkingTime + 1000);
-        }
     }
 
     /* ENEMY TURN END METHOD */
@@ -959,265 +916,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
     }
 
-    public int genEnemyRemoveNr() {
-        int newChoice = 0;
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-            }
-        }, enemyThinkingTime);
-        if (objectsRemaining >= 5 && enemyMoves == 4)
-            newChoice = 4;
-        if (objectsRemaining >= 5 && enemyMoves == 3)
-            newChoice = rdm.nextInt(3 - 1 + 1) + 1;
-        if (objectsRemaining >= 5 && enemyMoves == 2)
-            newChoice = rdm.nextInt(2 - 1 + 1) + 1;
-        if (objectsRemaining >= 5 && enemyMoves == 1)
-            newChoice = 1;
-        if (objectsRemaining == 4) {
-            if (enemyMoves == 3) {
-                newChoice = 3;
-            } else {
-                newChoice = 2;
-            }
-        }
-        if (objectsRemaining == 3 && enemyMoves >= 2) {
-            newChoice = 2;
-        }
-        if (objectsRemaining <= 2) {
-            newChoice = 1;
-        }
-        System.out.println(String.valueOf(newChoice));
-        return newChoice;
-    }
-
-    /* THIS METHOD RUNS WHEN THE AI WANTS TO REMOVE 4 */
-    private void aiRemoveFour() {
-        enemyMoves = enemyMoves - 4;
-        tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
-        if (objectsRemaining == 16) {
-            obj001.setImageResource(R.drawable.object_wheatbroken);
-            obj002.setImageResource(R.drawable.object_wheatbroken);
-            obj003.setImageResource(R.drawable.object_wheatbroken);
-            obj004.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 15) {
-            obj002.setImageResource(R.drawable.object_wheatbroken);
-            obj003.setImageResource(R.drawable.object_wheatbroken);
-            obj004.setImageResource(R.drawable.object_wheatbroken);
-            obj005.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 14) {
-            obj003.setImageResource(R.drawable.object_wheatbroken);
-            obj004.setImageResource(R.drawable.object_wheatbroken);
-            obj005.setImageResource(R.drawable.object_wheatbroken);
-            obj006.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 13) {
-            obj004.setImageResource(R.drawable.object_wheatbroken);
-            obj005.setImageResource(R.drawable.object_wheatbroken);
-            obj006.setImageResource(R.drawable.object_wheatbroken);
-            obj007.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 12) {
-            obj005.setImageResource(R.drawable.object_wheatbroken);
-            obj006.setImageResource(R.drawable.object_wheatbroken);
-            obj007.setImageResource(R.drawable.object_wheatbroken);
-            obj008.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 11) {
-            obj006.setImageResource(R.drawable.object_wheatbroken);
-            obj007.setImageResource(R.drawable.object_wheatbroken);
-            obj008.setImageResource(R.drawable.object_wheatbroken);
-            obj009.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 10) {
-            obj007.setImageResource(R.drawable.object_wheatbroken);
-            obj008.setImageResource(R.drawable.object_wheatbroken);
-            obj009.setImageResource(R.drawable.object_wheatbroken);
-            obj010.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 9) {
-            obj008.setImageResource(R.drawable.object_wheatbroken);
-            obj009.setImageResource(R.drawable.object_wheatbroken);
-            obj010.setImageResource(R.drawable.object_wheatbroken);
-            obj011.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 8) {
-            obj009.setImageResource(R.drawable.object_wheatbroken);
-            obj010.setImageResource(R.drawable.object_wheatbroken);
-            obj011.setImageResource(R.drawable.object_wheatbroken);
-            obj012.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 7) {
-            obj010.setImageResource(R.drawable.object_wheatbroken);
-            obj011.setImageResource(R.drawable.object_wheatbroken);
-            obj012.setImageResource(R.drawable.object_wheatbroken);
-            obj013.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 6) {
-            obj011.setImageResource(R.drawable.object_wheatbroken);
-            obj012.setImageResource(R.drawable.object_wheatbroken);
-            obj013.setImageResource(R.drawable.object_wheatbroken);
-            obj014.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 5) {
-            obj012.setImageResource(R.drawable.object_wheatbroken);
-            obj013.setImageResource(R.drawable.object_wheatbroken);
-            obj014.setImageResource(R.drawable.object_wheatbroken);
-            obj015.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 4) {
-            obj013.setImageResource(R.drawable.object_wheatbroken);
-            obj014.setImageResource(R.drawable.object_wheatbroken);
-            obj015.setImageResource(R.drawable.object_wheatbroken);
-            obj016.setImageResource(R.drawable.object_wheatbroken);
-        }
-    }
-
-    /* THIS METHOD RUNS WHEN THE AI WANTS TO REMOVE 3 */
-    private void aiRemoveThree() {
-        enemyMoves = enemyMoves - 3;
-        tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
-        if (objectsRemaining == 16) {
-            obj001.setImageResource(R.drawable.object_wheatbroken);
-            obj002.setImageResource(R.drawable.object_wheatbroken);
-            obj003.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 15) {
-            obj002.setImageResource(R.drawable.object_wheatbroken);
-            obj003.setImageResource(R.drawable.object_wheatbroken);
-            obj004.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 14) {
-            obj003.setImageResource(R.drawable.object_wheatbroken);
-            obj004.setImageResource(R.drawable.object_wheatbroken);
-            obj005.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 13) {
-            obj004.setImageResource(R.drawable.object_wheatbroken);
-            obj005.setImageResource(R.drawable.object_wheatbroken);
-            obj006.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 12) {
-            obj005.setImageResource(R.drawable.object_wheatbroken);
-            obj006.setImageResource(R.drawable.object_wheatbroken);
-            obj007.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 11) {
-            obj006.setImageResource(R.drawable.object_wheatbroken);
-            obj007.setImageResource(R.drawable.object_wheatbroken);
-            obj008.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 10) {
-            obj007.setImageResource(R.drawable.object_wheatbroken);
-            obj008.setImageResource(R.drawable.object_wheatbroken);
-            obj009.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 9) {
-            obj008.setImageResource(R.drawable.object_wheatbroken);
-            obj009.setImageResource(R.drawable.object_wheatbroken);
-            obj010.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 8) {
-            obj009.setImageResource(R.drawable.object_wheatbroken);
-            obj010.setImageResource(R.drawable.object_wheatbroken);
-            obj011.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 7) {
-            obj010.setImageResource(R.drawable.object_wheatbroken);
-            obj011.setImageResource(R.drawable.object_wheatbroken);
-            obj012.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 6) {
-            obj011.setImageResource(R.drawable.object_wheatbroken);
-            obj012.setImageResource(R.drawable.object_wheatbroken);
-            obj013.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 5) {
-            obj012.setImageResource(R.drawable.object_wheatbroken);
-            obj013.setImageResource(R.drawable.object_wheatbroken);
-            obj014.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 4) {
-            obj013.setImageResource(R.drawable.object_wheatbroken);
-            obj014.setImageResource(R.drawable.object_wheatbroken);
-            obj015.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 3) {
-            obj014.setImageResource(R.drawable.object_wheatbroken);
-            obj015.setImageResource(R.drawable.object_wheatbroken);
-            obj016.setImageResource(R.drawable.object_wheatbroken);
-        }
-    }
-
-    /* THIS METHOD RUNS WHEN THE AI WANTS TO REMOVE 2 */
-    private void aiRemoveTwo() {
-        enemyMoves = enemyMoves - 2;
-        tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
-        if (objectsRemaining == 16) {
-            obj001.setImageResource(R.drawable.object_wheatbroken);
-            obj002.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 15) {
-            obj002.setImageResource(R.drawable.object_wheatbroken);
-            obj003.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 14) {
-            obj003.setImageResource(R.drawable.object_wheatbroken);
-            obj004.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 13) {
-            obj004.setImageResource(R.drawable.object_wheatbroken);
-            obj005.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 12) {
-            obj005.setImageResource(R.drawable.object_wheatbroken);
-            obj006.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 11) {
-            obj006.setImageResource(R.drawable.object_wheatbroken);
-            obj007.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 10) {
-            obj007.setImageResource(R.drawable.object_wheatbroken);
-            obj008.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 9) {
-            obj008.setImageResource(R.drawable.object_wheatbroken);
-            obj009.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 8) {
-            obj009.setImageResource(R.drawable.object_wheatbroken);
-            obj010.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 7) {
-            obj010.setImageResource(R.drawable.object_wheatbroken);
-            obj011.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 6) {
-            obj011.setImageResource(R.drawable.object_wheatbroken);
-            obj012.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 5) {
-            obj012.setImageResource(R.drawable.object_wheatbroken);
-            obj013.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 4) {
-            obj013.setImageResource(R.drawable.object_wheatbroken);
-            obj014.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 3) {
-            obj014.setImageResource(R.drawable.object_wheatbroken);
-            obj015.setImageResource(R.drawable.object_wheatbroken);
-        }
-        if (objectsRemaining == 2) {
-            obj015.setImageResource(R.drawable.object_wheatbroken);
-            obj016.setImageResource(R.drawable.object_wheatbroken);
-        }
-    }
-
     /* THIS METHOD RUNS WHEN THE AI WANTS TO REMOVE 1 */
-    private void aiRemoveOne() {
+    private void aiClearObject() {
         enemyMoves = enemyMoves - 1;
         tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
         if (objectsRemaining == 16)
@@ -1254,26 +954,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             obj016.setImageResource(R.drawable.object_wheatbroken);
     }
 
-    /* THIS METHOD GENERATES HOW LONG THE AI WILL WAIT
-    BETWEEN EACH MOVE (AND BEFORE THE FIRST MOVE).
-    FOLLOWING RESULTS:
-    1-19 = Fast (1-2 seconds)
-    20-94 = Average (2-4 seconds)
-    95-100 = Slow (4-6 seconds)
-     */
-    public int genThinkingTime() {
-        int genThinkingType = genRand100();
-        int newThinkingTime;
-        if (genThinkingType <= 20) {
-            newThinkingTime = genRandFast();
-        } else if (genThinkingType >= 21 && genThinkingType <= 94) {
-            newThinkingTime = genRandAverage();
-        } else {
-            newThinkingTime = genRandSlow();
-        }
-        return newThinkingTime;
-    }
-
     /* Selects random card among the ones the enemy has left. This method will have to
     be modified depending on how many cards the enemy has. */
     public int randomizeEnemyCardSelect(){
@@ -1297,22 +977,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
     public int genRand(int number) {
         return new Random().nextInt(number);
-    }
-
-    public int genRand100() {
-        return new Random().nextInt(100);
-    }
-
-    public int genRandFast() {
-        return new Random().nextInt(2000 - 500 + 1) + 500;
-    }
-
-    public int genRandAverage() {
-        return new Random().nextInt(4000 - 2000 + 1) + 2000;
-    }
-
-    public int genRandSlow() {
-        return new Random().nextInt(6000 - 4000 + 1) + 4000;
     }
 
     private void checkIfNoObjRemains() {
@@ -1472,13 +1136,12 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
 
-                        if(android.os.Build.VERSION.SDK_INT >= 11){
+                        if (android.os.Build.VERSION.SDK_INT >= 11) {
                             ObjectAnimator animation = ObjectAnimator.ofInt(expBar, "progress", playerExp + finalPlayerScore);
                             animation.setDuration(1000);
                             animation.setInterpolator(new DecelerateInterpolator());
                             animation.start();
-                        }
-                        else{
+                        } else {
                             expBar.setProgress(playerExp + finalPlayerScore);
                         }
                         checkIfExpRoof = playerExp + finalPlayerScore;
@@ -1511,13 +1174,12 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                     cursor = db.getPlayerInfo();
                                     expBar.setProgress(0);
 
-                                    if(android.os.Build.VERSION.SDK_INT >= 11){
+                                    if (android.os.Build.VERSION.SDK_INT >= 11) {
                                         ObjectAnimator animation = ObjectAnimator.ofInt(expBar, "progress", expToNextLevel);
                                         animation.setDuration(500);
                                         animation.setInterpolator(new DecelerateInterpolator());
                                         animation.start();
-                                    }
-                                    else{
+                                    } else {
                                         expBar.setProgress(expToNextLevel);
                                     }
                                     playerLevel++;
@@ -1866,23 +1528,23 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* THIS METHOD SETS ENEMY CARDS */
     private void setEnemyCards(){
         enemyCard1.setVisibility(View.VISIBLE);
-        enemyCard1.setBackgroundResource(R.drawable.card_icon_boosting);
-        enemyCard1.setImageResource(R.drawable.card_type_boosting);
+        enemyCard1.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard1.setImageResource(R.drawable.card_type_field);
         enemyCard2.setVisibility(View.VISIBLE);
-        enemyCard2.setBackgroundResource(R.drawable.card_icon_boosting);
-        enemyCard2.setImageResource(R.drawable.card_type_boosting);
+        enemyCard2.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard2.setImageResource(R.drawable.card_type_field);
         enemyCard3.setVisibility(View.VISIBLE);
-        enemyCard3.setBackgroundResource(R.drawable.card_icon_boosting);
-        enemyCard3.setImageResource(R.drawable.card_type_boosting);
+        enemyCard3.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard3.setImageResource(R.drawable.card_type_field);
         enemyCard4.setVisibility(View.VISIBLE);
-        enemyCard4.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard4.setImageResource(R.drawable.card_type_ailment);
+        enemyCard4.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard4.setImageResource(R.drawable.card_type_field);
         enemyCard5.setVisibility(View.VISIBLE);
-        enemyCard5.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard5.setImageResource(R.drawable.card_type_ailment);
+        enemyCard5.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard5.setImageResource(R.drawable.card_type_field);
         enemyCard6.setVisibility(View.VISIBLE);
-        enemyCard6.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard6.setImageResource(R.drawable.card_type_ailment);
+        enemyCard6.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard6.setImageResource(R.drawable.card_type_field);
     }
 
     /* THIS METHOD DETERMINES IF DEVICE IS A TABLET OR PHONE */
@@ -1970,6 +1632,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
+    /* FETCHES PLAYER CARD COST */
     private int getCardCost(){
         int cardCost;
         if (selectedCard == 1) {
@@ -2013,7 +1676,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_speed_up);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
                 }
             }, 1000);
         }
@@ -2027,7 +1690,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_speed_up);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
                 }
             }, 1000);
         }
@@ -2041,7 +1704,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_speed_up);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
                 }
             }, 1000);
         }
@@ -2055,7 +1718,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_slowdown);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
                 }
             }, 1000);
         }
@@ -2069,7 +1732,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_slowdown);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
                 }
             }, 1000);
         }
@@ -2083,7 +1746,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_slowdown);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
                 }
             }, 1000);
         }
@@ -2220,6 +1883,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (playedCard.equals("Speed Up")) {
             cardSpeedUp();
         }
+        if (playedCard.equals("Steal")) {
+            cardSteal(3);
+        }
+        if (playedCard.equals("Steal II")) {
+            cardSteal(5);
+        }
+        if (playedCard.equals("Steal III")) {
+            cardSteal(10);
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -2243,28 +1915,24 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* THIS METHOD FINDS WHICH ENEMY CARD IS PLAYED TO DETERMINE EFFECT */
     private void executeEnemyCardEffect(){
         if (enemyPickedCard == 0){
-            cardSpeedUp();
+            cardSteal(3);
         }
         if (enemyPickedCard == 1){
-            cardSpeedUp();
+            cardSteal(3);
         }
         if (enemyPickedCard == 2){
-            cardSpeedUp();
+            cardSteal(3);
         }
         if (enemyPickedCard == 3){
-            cardSlowDown();
+            cardSteal(3);
         }
         if (enemyPickedCard == 4){
-            cardSlowDown();
+            cardSteal(3);
         }
         if (enemyPickedCard == 5){
-            cardSlowDown();
+            cardSteal(3);
         }
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
 
-            }
-        }, 1500);
     }
 
     /* -----------------------------------------
@@ -2632,6 +2300,66 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }
+            }, 1000);
+        }
+    }
+
+    /* STEAL CARD EFFECT METHOD */
+    private void cardSteal(final int number){
+        int finalNumber = number;
+        if (playerTurn){
+            tvEnemyScore.startAnimation(ani_shake);
+            if (number > enemyScore){
+                finalNumber = enemyScore;
+            }
+            tvEnemyScore.setText("-" + String.valueOf(finalNumber));
+
+            tvPlayerScore.startAnimation(ani_scoregain);
+            tvPlayerScore.setText("+" + String.valueOf(finalNumber));
+
+            enemyScore = enemyScore - finalNumber;
+            playerScore = playerScore + finalNumber;
+            if (enemyScore < 0){
+                enemyScore = 0;
+            }
+            tvPlayerScore.setTextColor(getResources().getColor(R.color.supergreen));
+            tvEnemyScore.setTextColor(getResources().getColor(R.color.textBrightRed));
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerScore.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvEnemyScore.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                    tvEnemyScore.startAnimation(ani_resetscore);
+                    tvPlayerScore.startAnimation(ani_resetscore);
+                }
+            }, 1000);
+        } else {
+            tvPlayerScore.startAnimation(ani_shake);
+            if (number > playerScore){
+                finalNumber = playerScore;
+            }
+            tvPlayerScore.setText("-" + String.valueOf(finalNumber));
+
+            tvEnemyScore.startAnimation(ani_scoregain);
+            tvEnemyScore.setText("+" + String.valueOf(finalNumber));
+
+            enemyScore = enemyScore + finalNumber;
+            playerScore = playerScore - finalNumber;
+            if (playerScore < 0){
+                playerScore = 0;
+            }
+            tvEnemyScore.setTextColor(getResources().getColor(R.color.supergreen));
+            tvPlayerScore.setTextColor(getResources().getColor(R.color.textBrightRed));
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerScore.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvEnemyScore.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                    tvEnemyScore.startAnimation(ani_resetscore);
+                    tvPlayerScore.startAnimation(ani_resetscore);
                 }
             }, 1000);
         }
