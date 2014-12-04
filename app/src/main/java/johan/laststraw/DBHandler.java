@@ -228,8 +228,8 @@ public class DBHandler {
             ac012.put(KEY_NAME, "Corruption");
             ac012.put(KEY_IMAGE, "card_corruption");
             ac012.put(KEY_TYPE, 2);
-            ac012.put(KEY_DESC, "Moves cost are doubled next turn.");
-            ac012.put(KEY_COST, 1);
+            ac012.put(KEY_DESC, "All moves cost one more next turn.");
+            ac012.put(KEY_COST, 2);
             ac012.put(KEY_REQUIRESLVL, 20);
             ac012.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac012);
@@ -530,7 +530,7 @@ public class DBHandler {
         addOwnedCard("Steal III", "card_steal_7", 1, 3, "Steals 5-7 points from the opponent.");
         addOwnedCard("Infest", "card_infest", 1, 1, "Infests the next object with spiders, making it more difficult to clear.");
         addOwnedCard("Speed Up II", "card_speed_up_2", 3, 2, "Gain 2 additional moves on next turn.");
-        addOwnedCard("Corruption", "card_corruption", 2, 1, "Moves cost are doubled next turn.");
+        addOwnedCard("Corruption", "card_corruption", 2, 2, "All moves cost one more next turn.");
         addOwnedCard("Mimic", "card_mimic", 3, 3, "Plays the same card as your opponent last played. Has no effect if no cards have been played.");
         addOwnedCard("Trap", "card_trap", 1, 1, "Traps the next object, making whoever clears it lose 3 points instead of gaining 2.");
         addOwnedCard("Curse", "card_curse", 2, 2, "Reduces score by half after three turns.");

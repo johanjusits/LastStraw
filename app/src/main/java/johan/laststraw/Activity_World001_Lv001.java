@@ -54,12 +54,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String playerName = "";
     String enemyName = "Farmhand Joe";
     String boardIsFullError = "Board is full. No effect";
-    String enemySlowed = enemyName + " is afflicted by Slow";
-    String enemyHaste = enemyName + " gains Haste";
-    String enemyConcentrate = enemyName + " gains Concentrate";
+    String enemySlowed = "Enemy suffers Slow";
+    String enemyHaste = "Enemy gains Haste";
+    String enemyConcentrate = "Enemy gains Concentrate";
+    String enemyCorrupted = "Enemy suffers Corruption";
     String playerHaste = "";
     String playerSlowed = "";
     String playerConcentrate = "";
+    String playerCorrupted = "";
     String buffAlreadyActiveError = "Buff already active. No effect.";
     String debuffAlreadyActiveError = "Debuff already active. No effect.";
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
@@ -68,6 +70,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerCard5Img = "", playerCard6Img = "";
     String[] playerStatuses = new String[5];
     String[] enemyStatuses = new String[5];
+    String lastPlayedCard = "";
     /* INTS */
     int newExp;
     int expToNextLevel;
@@ -80,8 +83,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerCard5Type = 0, playerCard6Type = 0;
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
-    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 1, enemyCard4Cost = 1,
-            enemyCard5Cost = 1, enemyCard6Cost = 1;
+    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 2, enemyCard4Cost = 2,
+            enemyCard5Cost = 1, enemyCard6Cost = 2;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
     int selectedCard = 0;
@@ -94,6 +97,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int activeEnemyStatuses = 0;
     int playerClearAward = 2;
     int enemyClearAward = 2;
+    int playerCorruptedPenalty = 0;
+    int enemyCorruptedPenalty = 0;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
     boolean deviceIsTablet;
@@ -103,6 +108,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean playerHasHaste = false;
     boolean playerHasConcentrate = false;
     boolean enemyHasConcentrate = false;
+    boolean playerIsCorrupted = false;
+    boolean enemyIsCorrupted = false;
     boolean playerTurn = true;
     boolean playerCard1Used = false, playerCard2Used = false, playerCard3Used = false, playerCard4Used = false,
             playerCard5Used = false, playerCard6Used = false;
@@ -233,7 +240,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
         playerHaste = playerName + " gains Haste";
         playerConcentrate = playerName + " gains Concentrate";
-        playerSlowed = playerName + " is afflicted by Slow";
+        playerSlowed = playerName + " suffers Slow";
+        playerCorrupted = playerName + " suffers Corruption";
         playerStatuses[0] = "";
         playerStatuses[1] = "";
         playerStatuses[2] = "";
@@ -253,42 +261,42 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.ibPlayerCard1:
                 selectedCard = 1;
-                if (playerCard1Type != 0 && playerMoves >= getCardCost() && objectsRemaining != 0) {
+                if (playerCard1Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
                     playCardConfirm(message, Activity_World001_Lv001.this);
                 }
                 break;
             case R.id.ibPlayerCard2:
                 selectedCard = 2;
-                if (playerCard2Type != 0 && playerMoves >= getCardCost() && objectsRemaining != 0) {
+                if (playerCard2Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
                     playCardConfirm(message, Activity_World001_Lv001.this);
                 }
                 break;
             case R.id.ibPlayerCard3:
                 selectedCard = 3;
-                if (playerCard3Type != 0 && playerMoves >= getCardCost() && objectsRemaining != 0) {
+                if (playerCard3Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
                     playCardConfirm(message, Activity_World001_Lv001.this);
                 }
                 break;
             case R.id.ibPlayerCard4:
                 selectedCard = 4;
-                if (playerCard4Type != 0 && playerMoves >= getCardCost() && objectsRemaining != 0) {
+                if (playerCard4Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
                     playCardConfirm(message, Activity_World001_Lv001.this);
                 }
                 break;
             case R.id.ibPlayerCard5:
                 selectedCard = 5;
-                if (playerCard5Type != 0 && playerMoves >= getCardCost() && objectsRemaining != 0) {
+                if (playerCard5Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
                     playCardConfirm(message, Activity_World001_Lv001.this);
                 }
                 break;
             case R.id.ibPlayerCard6:
                 selectedCard = 6;
-                if (playerCard6Type != 0 && playerMoves >= getCardCost() && objectsRemaining != 0) {
+                if (playerCard6Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
                     playCardConfirm(message, Activity_World001_Lv001.this);
                 }
@@ -317,8 +325,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj001:
-                if (objectsRemaining == 16 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 16 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -335,8 +343,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj002:
-                if (objectsRemaining == 15 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 15 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -353,8 +361,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj003:
-                if (objectsRemaining == 14 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 14 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -371,8 +379,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj004:
-                if (objectsRemaining == 13 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 13 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -389,8 +397,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj005:
-                if (objectsRemaining == 12 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 12 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -407,8 +415,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj006:
-                if (objectsRemaining == 11 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 11 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -425,8 +433,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj007:
-                if (objectsRemaining == 10 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 10 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -443,8 +451,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj008:
-                if (objectsRemaining == 9 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 9 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -461,8 +469,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj009:
-                if (objectsRemaining == 8 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 8 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -479,8 +487,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj010:
-                if (objectsRemaining == 7 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 7 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -497,8 +505,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj011:
-                if (objectsRemaining == 6 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 6 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -515,8 +523,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj012:
-                if (objectsRemaining == 5 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 5 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -533,8 +541,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj013:
-                if (objectsRemaining == 4 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 4 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -551,8 +559,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj014:
-                if (objectsRemaining == 3 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 3 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -569,8 +577,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj015:
-                if (objectsRemaining == 2 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 2 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -587,8 +595,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj016:
-                if (objectsRemaining == 1 && playerMoves != 0) {
-                    playerMoves--;
+                if (objectsRemaining == 1 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -615,22 +623,12 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     private void enemyTurnStart() {
         enemyMoves = 3;
         playerTurn = false;
-        if (enemyHasConcentrate){
-            enemyClearAward = 4;
-            enemyHasConcentrate = false;
-        }
+        updateEnemyStatuses();
         /* Calls the method to check if player buffs have run out their duration */
         checkPlayerStatues();
         disablePlayerCards();
         tvCenterMessage.setText("ENEMY TURN");
         tvCenterMessage.startAnimation(ani_fadeIn);
-        if (enemyHasHaste){
-            enemyMoves = enemyMoves + 1;
-        }
-        if (enemyIsSlowed){
-            enemyMoves = enemyMoves - 1;
-        }
-        enemyHasHaste = false;
         tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
 
         myHandler.postDelayed(new Runnable() {
@@ -653,15 +651,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             int cardOrClear = genRand(100);
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
-            if (cardOrClear >= 80){
+            if (cardOrClear >= 50){
                 enemyPickedCard = randomizeEnemyCardSelect();
 
-                if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost){
+                if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost + enemyCorruptedPenalty){
                     System.out.println("AI played card 1");
                     enemyCard1.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enemyMoves = enemyMoves - enemyCard1Cost;
+                            enemyMoves = enemyMoves - enemyCard1Cost - enemyCorruptedPenalty;
                             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                             animateEnemyCard();
                         }
@@ -674,14 +672,30 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             executeEnemyCardEffect();
                         }
                     }, 6500);
+
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkEnemyMoves();
+                        }
+                    }, 8000);
+                } else if (enemyPickedCard == 0 && enemyMoves < enemyCard1Cost + enemyCorruptedPenalty) {
+                    aiClearObject();
+                    objectsRemaining = objectsRemaining - 1;
+                    enemyScore = enemyScore + enemyClearAward;
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkEnemyMoves();
+                        }
+                    }, 1000);
                 }
 
-                if (enemyPickedCard == 1 && enemyMoves >= enemyCard2Cost){
+                if (enemyPickedCard == 1 && enemyMoves >= enemyCard2Cost + enemyCorruptedPenalty){
                     System.out.println("AI played card 2");
                     enemyCard2.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enemyMoves = enemyMoves - enemyCard2Cost;
+                            enemyMoves = enemyMoves - enemyCard2Cost - enemyCorruptedPenalty;
                             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                             animateEnemyCard();
                         }
@@ -694,14 +708,30 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             executeEnemyCardEffect();
                         }
                     }, 6500);
+
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkEnemyMoves();
+                        }
+                    }, 8000);
+                } else if (enemyPickedCard == 1 && enemyMoves < enemyCard2Cost + enemyCorruptedPenalty) {
+                    aiClearObject();
+                    objectsRemaining = objectsRemaining - 1;
+                    enemyScore = enemyScore + enemyClearAward;
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkEnemyMoves();
+                        }
+                    }, 1000);
                 }
 
-                if (enemyPickedCard == 2 && enemyMoves >= enemyCard3Cost){
+                if (enemyPickedCard == 2 && enemyMoves >= enemyCard3Cost + enemyCorruptedPenalty){
                     System.out.println("AI played card 3");
                     enemyCard3.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enemyMoves = enemyMoves - enemyCard3Cost;
+                            enemyMoves = enemyMoves - enemyCard3Cost - enemyCorruptedPenalty;
                             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                             animateEnemyCard();
                         }
@@ -714,14 +744,30 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             executeEnemyCardEffect();
                         }
                     }, 6500);
+
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkEnemyMoves();
+                        }
+                    }, 8000);
+                } else if (enemyPickedCard == 2 && enemyMoves < enemyCard3Cost + enemyCorruptedPenalty) {
+                    aiClearObject();
+                    objectsRemaining = objectsRemaining - 1;
+                    enemyScore = enemyScore + enemyClearAward;
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkEnemyMoves();
+                        }
+                    }, 1000);
                 }
 
-                if (enemyPickedCard == 3 && enemyMoves >= enemyCard4Cost){
+                if (enemyPickedCard == 3 && enemyMoves >= enemyCard4Cost + enemyCorruptedPenalty){
                     System.out.println("AI played card 4");
                     enemyCard4.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enemyMoves = enemyMoves - enemyCard4Cost;
+                            enemyMoves = enemyMoves - enemyCard4Cost - enemyCorruptedPenalty;
                             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                             animateEnemyCard();
                         }
@@ -734,14 +780,30 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             executeEnemyCardEffect();
                         }
                     }, 6500);
+
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkEnemyMoves();
+                        }
+                    }, 8000);
+                } else if (enemyPickedCard == 3 && enemyMoves < enemyCard4Cost + enemyCorruptedPenalty) {
+                    aiClearObject();
+                    objectsRemaining = objectsRemaining - 1;
+                    enemyScore = enemyScore + enemyClearAward;
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkEnemyMoves();
+                        }
+                    }, 1000);
                 }
 
-                if (enemyPickedCard == 4 && enemyMoves >= enemyCard5Cost){
+                if (enemyPickedCard == 4 && enemyMoves >= enemyCard5Cost + enemyCorruptedPenalty){
                     System.out.println("AI played card 5");
                     enemyCard5.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enemyMoves = enemyMoves - enemyCard5Cost;
+                            enemyMoves = enemyMoves - enemyCard5Cost - enemyCorruptedPenalty;
                             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                             animateEnemyCard();
                         }
@@ -754,14 +816,30 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             executeEnemyCardEffect();
                         }
                     }, 6500);
+
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkEnemyMoves();
+                        }
+                    }, 8000);
+                } else if (enemyPickedCard == 4 && enemyMoves < enemyCard5Cost + enemyCorruptedPenalty) {
+                    aiClearObject();
+                    objectsRemaining = objectsRemaining - 1;
+                    enemyScore = enemyScore + enemyClearAward;
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkEnemyMoves();
+                        }
+                    }, 1000);
                 }
 
-                if (enemyPickedCard == 5 && enemyMoves >= enemyCard6Cost){
+                if (enemyPickedCard == 5 && enemyMoves >= enemyCard6Cost + enemyCorruptedPenalty){
                     System.out.println("AI played card 6");
                     enemyCard6.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enemyMoves = enemyMoves - enemyCard6Cost;
+                            enemyMoves = enemyMoves - enemyCard6Cost - enemyCorruptedPenalty;
                             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                             animateEnemyCard();
                         }
@@ -774,17 +852,27 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             executeEnemyCardEffect();
                         }
                     }, 6500);
-                }
 
-                myHandler.postDelayed(new Runnable() {
-                    public void run() {
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkEnemyMoves();
+                        }
+                    }, 8000);
+                } else if (enemyPickedCard == 5 && enemyMoves < enemyCard6Cost + enemyCorruptedPenalty) {
+                    aiClearObject();
+                    objectsRemaining = objectsRemaining - 1;
+                    enemyScore = enemyScore + enemyClearAward;
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                    myHandler.postDelayed(new Runnable() {
+                            public void run() {
                         checkEnemyMoves();
-                    }
-                }, 8500);
+                        }
+                        }, 1000);
+                }
 
             } else {
                /* If number is less than 80, the AI will clear */
-                if (cardOrClear < 80) {
+                if (cardOrClear < 50) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             aiClearObject();
@@ -811,13 +899,32 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
     }
 
+    /* UPDATE ENEMY STATUSES */
+    private void updateEnemyStatuses(){
+        if (enemyHasConcentrate){
+            enemyClearAward = 4;
+            enemyHasConcentrate = false;
+        }
+        if (enemyIsCorrupted){
+            enemyCorruptedPenalty = 1;
+        }
+        if (enemyHasHaste){
+            enemyMoves = enemyMoves + 1;
+        }
+        if (enemyIsSlowed){
+            enemyMoves = enemyMoves - 1;
+        }
+        enemyHasHaste = false;
+        enemyIsCorrupted = false;
+    }
+
     /* CHECK ENEMY REMAINING MOVES */
     private void checkEnemyMoves(){
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 System.out.println("checking remaining moves...");
-                if (enemyMoves <= 0){
+                if (enemyMoves <= 0 || enemyCorruptedPenalty != 0){
                     enemyTurnEnd();
                 } else {
                     if (objectsRemaining == 0){
@@ -827,7 +934,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }
                 }
             }
-        }, 1500);
+        }, 1000);
     }
 
     /* ENEMY TURN END METHOD */
@@ -853,12 +960,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             public void run() {
                 playerTurn = true;
                 enemyMoves = 0;
-                if (playerHasConcentrate){
-                    playerClearAward = 4;
-                    playerHasConcentrate = false;
-                }
+                playerMoves = 3;
+                updatePlayerStatuses();
                 tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                 enemyIsSlowed = false;
+                /* Calls the method to check if enemy buffs have run out their duration */
                 checkEnemyStatuses();
                 tvCenterMessage.setText("YOUR TURN");
                 tvCenterMessage.startAnimation(ani_fadeIn);
@@ -871,22 +977,33 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }, 2000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                playerMoves = 3;
                 btnEndTurn.setEnabled(true);
                 btnEndTurn.setText("End Turn");
                 enable(layout_objectRow);
                 enablePlayerCards();
-                if (playerHasHaste){
-                    playerMoves = playerMoves + 1;
-                }
-                if (playerIsSlowed){
-                    playerMoves = playerMoves - 1;
-                }
-                playerIsSlowed = false;
-                playerHasHaste = false;
                 tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
             }
         }, 3000);
+    }
+
+    /* UPDATE PLAYER STATUSES */
+    private void updatePlayerStatuses(){
+        if (playerHasConcentrate){
+            playerClearAward = 4;
+            playerHasConcentrate = false;
+        }
+        if (playerIsCorrupted){
+            playerCorruptedPenalty = 1;
+        }
+        if (playerHasHaste){
+            playerMoves = playerMoves + 1;
+        }
+        if (playerIsSlowed){
+            playerMoves = playerMoves - 1;
+        }
+        playerIsSlowed = false;
+        playerIsCorrupted = false;
+        playerHasHaste = false;
     }
 
     /* DISABLES THE INTERFACE, PREVENTING PLAYER FROM CLICKING THE OBJECT ROW */
@@ -933,7 +1050,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
     /* THIS METHOD RUNS WHEN THE AI WANTS TO REMOVE 1 */
     private void aiClearObject() {
-        enemyMoves = enemyMoves - 1;
+        enemyMoves = enemyMoves - 1 - enemyCorruptedPenalty;
         tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
         if (objectsRemaining == 16)
             obj001.setImageResource(R.drawable.object_wheatbroken);
@@ -1001,14 +1118,12 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     private void checkIfNoObjRemains() {
         if (objectsRemaining == 0) {
             if (!playerTurn) {
-                finalPlayerScore = playerScore + 3;
-                finalEnemyScore = enemyScore - 3;
+                finalEnemyScore = enemyScore - 5;
                 if (finalEnemyScore < 0) {
                     finalEnemyScore = 0;
                 }
             } else {
-                finalPlayerScore = playerScore - 3;
-                finalEnemyScore = enemyScore + 3;
+                finalPlayerScore = playerScore - 5;
             }
             if (finalPlayerScore < 0) {
                 finalPlayerScore = 0;
@@ -1264,7 +1379,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         buttonDialogYes.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dialog.dismiss();
-                playerMoves = playerMoves - getCardCost();
+                playerMoves = playerMoves - getCardCost() - playerCorruptedPenalty;
                 tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                 disable(layout_objectRow);
                 disablePlayerCards();
@@ -1723,7 +1838,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_slowdown);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_corruption);
                 }
             }, 1000);
         }
@@ -1737,7 +1852,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_slowdown);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_corruption);
                 }
             }, 1000);
         }
@@ -1914,6 +2029,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (playedCard.equals("Concentrate")){
             cardConcentrate();
         }
+        if (playedCard.equals("Corruption")){
+            cardCorruption();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -1943,10 +2061,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             cardConcentrate();
         }
         if (enemyPickedCard == 2){
-            cardSlowDown();
+            cardCorruption();
         }
         if (enemyPickedCard == 3){
-            cardSlowDown();
+            cardCorruption();
         }
         if (enemyPickedCard == 4){
             cardSteal(1,3);
@@ -2380,6 +2498,59 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
+    /* CORRUPTION CARD EFFECT METOD */
+    private void cardCorruption(){
+        if (!playerTurn) {
+            if (!Arrays.asList(playerStatuses).contains("Corruption")){
+                tvCenterMessage.setText(playerCorrupted);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Corruption")){
+                        addPlayerCorruption();
+                        playerIsCorrupted = true;
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(enemyStatuses).contains("Corruption")){
+                tvCenterMessage.setText(enemyCorrupted);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Corruption")){
+                        addEnemyCorruption();
+                        enemyIsCorrupted = true;
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        }
+    }
+
     /* STEAL CARD EFFECT METHOD */
     private void cardSteal(int min, int max){
         int finalNumber;
@@ -2599,6 +2770,43 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             }
     }
 
+    /* ADD PLAYER CORRUPTION */
+    private void addPlayerCorruption(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                playerStatuses[0] = "Corruption";
+                playerStatusIcon1.setImageResource(R.drawable.debuff_corruption);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                playerStatuses[1] = "Corruption";
+                playerStatusIcon2.setImageResource(R.drawable.debuff_corruption);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                playerStatuses[2] = "Corruption";
+                playerStatusIcon3.setImageResource(R.drawable.debuff_corruption);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                playerStatuses[3] = "Corruption";
+                playerStatusIcon4.setImageResource(R.drawable.debuff_corruption);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                playerStatuses[4] = "Corruption";
+                playerStatusIcon5.setImageResource(R.drawable.debuff_corruption);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD ENEMY SLOW */
     private void addEnemySlow(){
         int freeSpot = getFreeEnemyStatusSpot();
@@ -2710,6 +2918,43 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
+    /* ADD ENEMY CORRUPTION */
+    private void addEnemyCorruption(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot) {
+            case 0:
+                enemyStatuses[0] = "Corruption";
+                enemyStatusIcon1.setImageResource(R.drawable.debuff_corruption);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                enemyStatuses[1] = "Corruption";
+                enemyStatusIcon2.setImageResource(R.drawable.debuff_corruption);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                enemyStatuses[2] = "Corruption";
+                enemyStatusIcon3.setImageResource(R.drawable.debuff_corruption);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                enemyStatuses[3] = "Corruption";
+                enemyStatusIcon4.setImageResource(R.drawable.debuff_corruption);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                enemyStatuses[4] = "Corruption";
+                enemyStatusIcon5.setImageResource(R.drawable.debuff_corruption);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ----------------------------------------- */
 
     /* CHECK ENEMY STATUSES */
@@ -2723,6 +2968,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (!enemyHasConcentrate){
             clearEnemyStatus("Concentrate");
         }
+        if (!enemyIsCorrupted){
+            clearEnemyStatus("Corruption");
+        }
     }
 
     /* CHECK PLAYER STATUSES */
@@ -2735,6 +2983,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
         if (!playerHasConcentrate){
             clearPlayerStatus("Concentrate");
+        }
+        if (!playerIsCorrupted){
+            clearPlayerStatus("Corruption");
         }
     }
 
@@ -2771,6 +3022,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (debuffName.equals("Concentrate")){
             enemyClearAward = 2;
         }
+        if (debuffName.equals("Corruption")){
+            enemyCorruptedPenalty = 0;
+        }
     }
 
     private void clearPlayerStatus(String debuffName){
@@ -2801,6 +3055,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
         if (debuffName.equals("Concentrate")){
             playerClearAward = 2;
+        }
+        if (debuffName.equals("Corruption")){
+            playerCorruptedPenalty = 0;
         }
     }
 

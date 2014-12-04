@@ -147,7 +147,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 20 && sharedPrefLvl == 19){
-                addCard("Corruption", "card_corruption", 2, 1, "Moves cost are doubled next turn.", 12);
+                addCard("Corruption", "card_corruption", 2, 1, "All moves cost one more next turn.", 12);
             }
         }
         if (dbLvl > sharedPrefLvl){
