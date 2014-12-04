@@ -117,7 +117,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 8 && sharedPrefLvl == 7){
-                addCard("Steal", "card_steal_3", 1, 1, "Steals 3 points from the opponent.", 6);
+                addCard("Steal", "card_steal_3", 1, 1, "Steals 1-3 points from the opponent.", 6);
             }
         }
         if (dbLvl > sharedPrefLvl){
@@ -127,12 +127,12 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 12 && sharedPrefLvl == 11){
-                addCard("Steal II", "card_steal_5", 1, 2, "Steals 5 points from the opponent.", 8);
+                addCard("Steal II", "card_steal_5", 1, 2, "Steals 3-5 points from the opponent.", 8);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 15 && sharedPrefLvl == 14){
-                addCard("Steal III", "card_steal_10", 1, 3, "Steals 10 points from the opponent.", 9);
+                addCard("Steal III", "card_steal_7", 1, 3, "Steals 5-7 points from the opponent.", 9);
             }
         }
         if (dbLvl > sharedPrefLvl){

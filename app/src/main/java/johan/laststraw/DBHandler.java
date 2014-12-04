@@ -196,7 +196,7 @@ public class DBHandler {
 
             ContentValues ac9 = new ContentValues();
             ac9.put(KEY_NAME, "Steal III");
-            ac9.put(KEY_IMAGE, "card_steal_10");
+            ac9.put(KEY_IMAGE, "card_steal_7");
             ac9.put(KEY_TYPE, 1);
             ac9.put(KEY_DESC, "Steals 5-7 points from the opponent.");
             ac9.put(KEY_COST, 3);
@@ -527,7 +527,7 @@ public class DBHandler {
         addOwnedCard("Steal", "card_steal_3", 1, 1, "Steals 1-3 points from the opponent.");
         addOwnedCard("Concentrate", "card_concentrate", 3, 1, "Doubles points gained next turn.");
         addOwnedCard("Steal II", "card_steal_5", 1, 2, "Steals 3-5 points from the opponent.");
-        addOwnedCard("Steal III", "card_steal_10", 1, 3, "Steals 5-7 points from the opponent.");
+        addOwnedCard("Steal III", "card_steal_7", 1, 3, "Steals 5-7 points from the opponent.");
         addOwnedCard("Infest", "card_infest", 1, 1, "Infests the next object with spiders, making it more difficult to clear.");
         addOwnedCard("Speed Up II", "card_speed_up_2", 3, 2, "Gain 2 additional moves on next turn.");
         addOwnedCard("Corruption", "card_corruption", 2, 1, "Moves cost are doubled next turn.");

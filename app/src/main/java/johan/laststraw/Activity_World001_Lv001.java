@@ -1553,11 +1553,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         enemyCard2.setBackgroundResource(R.drawable.card_icon_boosting);
         enemyCard2.setImageResource(R.drawable.card_type_boosting);
         enemyCard3.setVisibility(View.VISIBLE);
-        enemyCard3.setBackgroundResource(R.drawable.card_icon_boosting);
-        enemyCard3.setImageResource(R.drawable.card_type_boosting);
+        enemyCard3.setBackgroundResource(R.drawable.card_icon_ailment);
+        enemyCard3.setImageResource(R.drawable.card_type_ailment);
         enemyCard4.setVisibility(View.VISIBLE);
-        enemyCard4.setBackgroundResource(R.drawable.card_icon_field);
-        enemyCard4.setImageResource(R.drawable.card_type_field);
+        enemyCard4.setBackgroundResource(R.drawable.card_icon_ailment);
+        enemyCard4.setImageResource(R.drawable.card_type_ailment);
         enemyCard5.setVisibility(View.VISIBLE);
         enemyCard5.setBackgroundResource(R.drawable.card_icon_field);
         enemyCard5.setImageResource(R.drawable.card_type_field);
@@ -1723,7 +1723,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_concentrate);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_slowdown);
                 }
             }, 1000);
         }
@@ -1737,7 +1737,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_slowdown);
                 }
             }, 1000);
         }
@@ -1765,7 +1765,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_5);
                 }
             }, 1000);
         }
@@ -1943,16 +1943,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             cardConcentrate();
         }
         if (enemyPickedCard == 2){
-            cardConcentrate();
+            cardSlowDown();
         }
         if (enemyPickedCard == 3){
-            cardSteal(1,3);
+            cardSlowDown();
         }
         if (enemyPickedCard == 4){
             cardSteal(1,3);
         }
         if (enemyPickedCard == 5){
-            cardSteal(1,3);
+            cardSteal(3,5);
         }
 
     }
@@ -2715,26 +2715,26 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* CHECK ENEMY STATUSES */
     private void checkEnemyStatuses(){
         if (!enemyIsSlowed){
-            clearEnemyDebuff("Slow Down");
+            clearEnemyStatus("Slow Down");
         }
         if (!enemyHasHaste){
-            clearEnemyDebuff("Speed Up");
+            clearEnemyStatus("Speed Up");
         }
         if (!enemyHasConcentrate){
-            clearEnemyDebuff("Concentrate");
+            clearEnemyStatus("Concentrate");
         }
     }
 
     /* CHECK PLAYER STATUSES */
     private void checkPlayerStatues(){
         if (!playerHasHaste){
-            clearPlayerDebuff("Speed Up");
+            clearPlayerStatus("Speed Up");
         }
         if (!playerIsSlowed){
-            clearPlayerDebuff("Slow Down");
+            clearPlayerStatus("Slow Down");
         }
         if (!playerHasConcentrate){
-            clearPlayerDebuff("Concentrate");
+            clearPlayerStatus("Concentrate");
         }
     }
 
@@ -2742,7 +2742,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     * CLEAR STATUS METHODS
     *  -----------------------------------------*/
 
-    private void clearEnemyDebuff(String debuffName){
+    private void clearEnemyStatus(String debuffName){
         if (enemyStatuses[0].equals(debuffName)){
             enemyStatuses[0] = "";
             enemyStatusIcon1.setVisibility(View.INVISIBLE);
@@ -2773,7 +2773,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
-    private void clearPlayerDebuff(String debuffName){
+    private void clearPlayerStatus(String debuffName){
         if (playerStatuses[0].equals(debuffName)){
             playerStatuses[0] = "";
             playerStatusIcon1.setVisibility(View.INVISIBLE);
