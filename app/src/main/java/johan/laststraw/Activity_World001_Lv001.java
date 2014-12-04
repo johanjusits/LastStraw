@@ -56,8 +56,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String boardIsFullError = "Board is full. No effect";
     String enemySlowed = enemyName + " is afflicted by Slow";
     String enemyHaste = enemyName + " gains Haste";
+    String enemyConcentrate = enemyName + " gains Concentrate";
     String playerHaste = "";
     String playerSlowed = "";
+    String playerConcentrate = "";
     String buffAlreadyActiveError = "Buff already active. No effect.";
     String debuffAlreadyActiveError = "Debuff already active. No effect.";
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
@@ -90,6 +92,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int lvlId;
     int activePlayerStatuses = 0;
     int activeEnemyStatuses = 0;
+    int playerClearAward = 2;
+    int enemyClearAward = 2;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
     boolean deviceIsTablet;
@@ -97,6 +101,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean playerIsSlowed = false;
     boolean enemyHasHaste = false;
     boolean playerHasHaste = false;
+    boolean playerHasConcentrate = false;
+    boolean enemyHasConcentrate = false;
     boolean playerTurn = true;
     boolean playerCard1Used = false, playerCard2Used = false, playerCard3Used = false, playerCard4Used = false,
             playerCard5Used = false, playerCard6Used = false;
@@ -226,6 +232,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         setEnemyCards();
 
         playerHaste = playerName + " gains Haste";
+        playerConcentrate = playerName + " gains Concentrate";
         playerSlowed = playerName + " is afflicted by Slow";
         playerStatuses[0] = "";
         playerStatuses[1] = "";
@@ -312,7 +319,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj001:
                 if (objectsRemaining == 16 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj001.setImageResource(R.drawable.object_wheatbroken);
@@ -330,7 +337,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj002:
                 if (objectsRemaining == 15 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj002.setImageResource(R.drawable.object_wheatbroken);
@@ -348,7 +355,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj003:
                 if (objectsRemaining == 14 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj003.setImageResource(R.drawable.object_wheatbroken);
@@ -366,7 +373,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj004:
                 if (objectsRemaining == 13 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj004.setImageResource(R.drawable.object_wheatbroken);
@@ -384,7 +391,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj005:
                 if (objectsRemaining == 12 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj005.setImageResource(R.drawable.object_wheatbroken);
@@ -402,7 +409,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj006:
                 if (objectsRemaining == 11 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj006.setImageResource(R.drawable.object_wheatbroken);
@@ -420,7 +427,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj007:
                 if (objectsRemaining == 10 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj007.setImageResource(R.drawable.object_wheatbroken);
@@ -438,7 +445,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj008:
                 if (objectsRemaining == 9 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj008.setImageResource(R.drawable.object_wheatbroken);
@@ -456,7 +463,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj009:
                 if (objectsRemaining == 8 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj009.setImageResource(R.drawable.object_wheatbroken);
@@ -474,7 +481,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj010:
                 if (objectsRemaining == 7 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj010.setImageResource(R.drawable.object_wheatbroken);
@@ -492,7 +499,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj011:
                 if (objectsRemaining == 6 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj011.setImageResource(R.drawable.object_wheatbroken);
@@ -510,7 +517,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj012:
                 if (objectsRemaining == 5 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj012.setImageResource(R.drawable.object_wheatbroken);
@@ -528,7 +535,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj013:
                 if (objectsRemaining == 4 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj013.setImageResource(R.drawable.object_wheatbroken);
@@ -546,7 +553,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj014:
                 if (objectsRemaining == 3 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj014.setImageResource(R.drawable.object_wheatbroken);
@@ -564,7 +571,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj015:
                 if (objectsRemaining == 2 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj015.setImageResource(R.drawable.object_wheatbroken);
@@ -582,7 +589,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case R.id.obj016:
                 if (objectsRemaining == 1 && playerMoves != 0) {
                     playerMoves--;
-                    playerScore = playerScore + 2;
+                    playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj016.setImageResource(R.drawable.object_wheatbroken);
@@ -608,6 +615,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     private void enemyTurnStart() {
         enemyMoves = 3;
         playerTurn = false;
+        if (enemyHasConcentrate){
+            enemyClearAward = 4;
+            enemyHasConcentrate = false;
+        }
         /* Calls the method to check if player buffs have run out their duration */
         checkPlayerStatues();
         disablePlayerCards();
@@ -778,7 +789,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         public void run() {
                             aiClearObject();
                             objectsRemaining = objectsRemaining - 1;
-                            enemyScore = enemyScore + 2;
+                            enemyScore = enemyScore + enemyClearAward;
                             tvEnemyScore.setText(String.valueOf(enemyScore));
                             checkEnemyMoves();
                         }
@@ -791,7 +802,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 public void run() {
                     aiClearObject();
                     objectsRemaining = objectsRemaining - 1;
-                    enemyScore = enemyScore + 2;
+                    enemyScore = enemyScore + enemyClearAward;
                     tvEnemyScore.setText(String.valueOf(enemyScore));
                     checkEnemyMoves();
                 }
@@ -842,6 +853,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             public void run() {
                 playerTurn = true;
                 enemyMoves = 0;
+                if (playerHasConcentrate){
+                    playerClearAward = 4;
+                    playerHasConcentrate = false;
+                }
                 tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
                 enemyIsSlowed = false;
                 checkEnemyStatuses();
@@ -1532,14 +1547,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* THIS METHOD SETS ENEMY CARDS */
     private void setEnemyCards(){
         enemyCard1.setVisibility(View.VISIBLE);
-        enemyCard1.setBackgroundResource(R.drawable.card_icon_field);
-        enemyCard1.setImageResource(R.drawable.card_type_field);
+        enemyCard1.setBackgroundResource(R.drawable.card_icon_boosting);
+        enemyCard1.setImageResource(R.drawable.card_type_boosting);
         enemyCard2.setVisibility(View.VISIBLE);
-        enemyCard2.setBackgroundResource(R.drawable.card_icon_field);
-        enemyCard2.setImageResource(R.drawable.card_type_field);
+        enemyCard2.setBackgroundResource(R.drawable.card_icon_boosting);
+        enemyCard2.setImageResource(R.drawable.card_type_boosting);
         enemyCard3.setVisibility(View.VISIBLE);
-        enemyCard3.setBackgroundResource(R.drawable.card_icon_field);
-        enemyCard3.setImageResource(R.drawable.card_type_field);
+        enemyCard3.setBackgroundResource(R.drawable.card_icon_boosting);
+        enemyCard3.setImageResource(R.drawable.card_type_boosting);
         enemyCard4.setVisibility(View.VISIBLE);
         enemyCard4.setBackgroundResource(R.drawable.card_icon_field);
         enemyCard4.setImageResource(R.drawable.card_type_field);
@@ -1680,7 +1695,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_concentrate);
                 }
             }, 1000);
         }
@@ -1694,7 +1709,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_concentrate);
                 }
             }, 1000);
         }
@@ -1708,7 +1723,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_concentrate);
                 }
             }, 1000);
         }
@@ -1896,6 +1911,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (playedCard.equals("Steal III")) {
             cardSteal(5,7);
         }
+        if (playedCard.equals("Concentrate")){
+            cardConcentrate();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -1919,13 +1937,13 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* THIS METHOD FINDS WHICH ENEMY CARD IS PLAYED TO DETERMINE EFFECT */
     private void executeEnemyCardEffect(){
         if (enemyPickedCard == 0){
-            cardSteal(1,3);
+            cardConcentrate();
         }
         if (enemyPickedCard == 1){
-            cardSteal(1,3);
+            cardConcentrate();
         }
         if (enemyPickedCard == 2){
-            cardSteal(1,3);
+            cardConcentrate();
         }
         if (enemyPickedCard == 3){
             cardSteal(1,3);
@@ -2309,6 +2327,59 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
+    /* CONCENTRATE CARD EFFECT METHOD */
+    private void cardConcentrate(){
+        if (playerTurn) {
+            if (!Arrays.asList(playerStatuses).contains("Concentrate")){
+                tvCenterMessage.setText(playerConcentrate);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Concentrate")){
+                        playerHasConcentrate = true;
+                        addPlayerConcentrate();
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(enemyStatuses).contains("Concentrate")){
+                tvCenterMessage.setText(enemyConcentrate);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Concentrate")){
+                        enemyHasConcentrate = true;
+                        addEnemyConcentrate();
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        }
+    }
+
     /* STEAL CARD EFFECT METHOD */
     private void cardSteal(int min, int max){
         int finalNumber;
@@ -2454,6 +2525,43 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             }
     }
 
+    /* ADD PLAYER CONCENTRATE */
+    private void addPlayerConcentrate(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                playerStatuses[0] = "Concentrate";
+                playerStatusIcon1.setImageResource(R.drawable.buff_concentrate);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                playerStatuses[1] = "Concentrate";
+                playerStatusIcon2.setImageResource(R.drawable.buff_concentrate);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                playerStatuses[2] = "Concentrate";
+                playerStatusIcon3.setImageResource(R.drawable.buff_concentrate);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                playerStatuses[3] = "Concentrate";
+                playerStatusIcon4.setImageResource(R.drawable.buff_concentrate);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                playerStatuses[4] = "Concentrate";
+                playerStatusIcon5.setImageResource(R.drawable.buff_concentrate);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD PLAYER SLOW */
     private void addPlayerSlow(){
         int freeSpot = getFreePlayerStatusSpot();
@@ -2565,25 +2673,68 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
+    /* ADD ENEMY CONCENTRATE */
+    private void addEnemyConcentrate(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot){
+            case 0:
+                enemyStatuses[0] = "Concentrate";
+                enemyStatusIcon1.setImageResource(R.drawable.buff_concentrate);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                enemyStatuses[1] = "Concentrate";
+                enemyStatusIcon2.setImageResource(R.drawable.buff_concentrate);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                enemyStatuses[2] = "Concentrate";
+                enemyStatusIcon3.setImageResource(R.drawable.buff_concentrate);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                enemyStatuses[3] = "Concentrate";
+                enemyStatusIcon4.setImageResource(R.drawable.buff_concentrate);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                enemyStatuses[4] = "Concentrate";
+                enemyStatusIcon5.setImageResource(R.drawable.buff_concentrate);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ----------------------------------------- */
 
     /* CHECK ENEMY STATUSES */
     private void checkEnemyStatuses(){
         if (!enemyIsSlowed){
-            clearEnemySlow();
+            clearEnemyDebuff("Slow Down");
         }
         if (!enemyHasHaste){
-            clearEnemySpeedUp();
+            clearEnemyDebuff("Speed Up");
+        }
+        if (!enemyHasConcentrate){
+            clearEnemyDebuff("Concentrate");
         }
     }
 
     /* CHECK PLAYER STATUSES */
     private void checkPlayerStatues(){
         if (!playerHasHaste){
-            clearPlayerSpeedUp();
+            clearPlayerDebuff("Speed Up");
         }
         if (!playerIsSlowed){
-            clearPlayerSlow();
+            clearPlayerDebuff("Slow Down");
+        }
+        if (!playerHasConcentrate){
+            clearPlayerDebuff("Concentrate");
         }
     }
 
@@ -2591,119 +2742,65 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     * CLEAR STATUS METHODS
     *  -----------------------------------------*/
 
-    /* CLEAR ENEMY SLOW */
-    private void clearEnemySlow(){
-        if (enemyStatuses[0] == "Slow Down"){
+    private void clearEnemyDebuff(String debuffName){
+        if (enemyStatuses[0].equals(debuffName)){
             enemyStatuses[0] = "";
             enemyStatusIcon1.setVisibility(View.INVISIBLE);
             activeEnemyStatuses--;
         }
-        if (enemyStatuses[1] == "Slow Down"){
+        if (enemyStatuses[1].equals(debuffName)){
             enemyStatuses[1] = "";
             enemyStatusIcon2.setVisibility(View.INVISIBLE);
             activeEnemyStatuses--;
         }
-        if (enemyStatuses[2] == "Slow Down"){
+        if (enemyStatuses[2].equals(debuffName)){
             enemyStatuses[2] = "";
             enemyStatusIcon3.setVisibility(View.INVISIBLE);
             activeEnemyStatuses--;
         }
-        if (enemyStatuses[3] == "Slow Down"){
+        if (enemyStatuses[3].equals(debuffName)){
             enemyStatuses[3] = "";
             enemyStatusIcon4.setVisibility(View.INVISIBLE);
             activeEnemyStatuses--;
         }
-        if (enemyStatuses[4] == "Slow Down"){
+        if (enemyStatuses[4].equals(debuffName)){
             enemyStatuses[4] = "";
             enemyStatusIcon5.setVisibility(View.INVISIBLE);
             activeEnemyStatuses--;
         }
-    }
-
-    /* CLEAR ENEMY SPEED UP */
-    private void clearEnemySpeedUp(){
-        if (enemyStatuses[0] == "Speed Up"){
-            enemyStatuses[0] = "";
-            enemyStatusIcon1.setVisibility(View.INVISIBLE);
-            activeEnemyStatuses--;
-        }
-        if (enemyStatuses[1] == "Speed Up"){
-            enemyStatuses[1] = "";
-            enemyStatusIcon2.setVisibility(View.INVISIBLE);
-            activeEnemyStatuses--;
-        }
-        if (enemyStatuses[2] == "Speed Up"){
-            enemyStatuses[2] = "";
-            enemyStatusIcon3.setVisibility(View.INVISIBLE);
-            activeEnemyStatuses--;
-        }
-        if (enemyStatuses[3] == "Speed Up"){
-            enemyStatuses[3] = "";
-            enemyStatusIcon4.setVisibility(View.INVISIBLE);
-            activeEnemyStatuses--;
-        }
-        if (enemyStatuses[4] == "Speed Up"){
-            enemyStatuses[4] = "";
-            enemyStatusIcon5.setVisibility(View.INVISIBLE);
-            activeEnemyStatuses--;
+        if (debuffName.equals("Concentrate")){
+            enemyClearAward = 2;
         }
     }
 
-    /* CLEAR PLAYER SPEED UP */
-    private void clearPlayerSpeedUp(){
-        if (playerStatuses[0] == "Speed Up"){
+    private void clearPlayerDebuff(String debuffName){
+        if (playerStatuses[0].equals(debuffName)){
             playerStatuses[0] = "";
             playerStatusIcon1.setVisibility(View.INVISIBLE);
             activePlayerStatuses--;
         }
-        if (playerStatuses[1].equals("Speed Up")){
+        if (playerStatuses[1].equals(debuffName)){
             playerStatuses[1] = "";
             playerStatusIcon2.setVisibility(View.INVISIBLE);
             activePlayerStatuses--;
         }
-        if (playerStatuses[2].equals("Speed Up")){
+        if (playerStatuses[2].equals(debuffName)){
             playerStatuses[2] = "";
             playerStatusIcon3.setVisibility(View.INVISIBLE);
             activePlayerStatuses--;
         }
-        if (playerStatuses[3].equals("Speed Up")){
+        if (playerStatuses[3].equals(debuffName)){
             playerStatuses[3] = "";
             playerStatusIcon4.setVisibility(View.INVISIBLE);
             activePlayerStatuses--;
         }
-        if (playerStatuses[4].equals("Speed Up")){
+        if (playerStatuses[4].equals(debuffName)){
             playerStatuses[4] = "";
             playerStatusIcon1.setVisibility(View.INVISIBLE);
             activePlayerStatuses--;
         }
-    }
-
-    /* CLEAR PLAYER SLOW */
-    private void clearPlayerSlow(){
-        if (playerStatuses[0] == "Slow Down"){
-            playerStatuses[0] = "";
-            playerStatusIcon1.setVisibility(View.INVISIBLE);
-            activePlayerStatuses--;
-        }
-        if (playerStatuses[1].equals("Slow Down")){
-            playerStatuses[1] = "";
-            playerStatusIcon2.setVisibility(View.INVISIBLE);
-            activePlayerStatuses--;
-        }
-        if (playerStatuses[2].equals("Slow Down")){
-            playerStatuses[2] = "";
-            playerStatusIcon3.setVisibility(View.INVISIBLE);
-            activePlayerStatuses--;
-        }
-        if (playerStatuses[3].equals("Slow Down")){
-            playerStatuses[3] = "";
-            playerStatusIcon4.setVisibility(View.INVISIBLE);
-            activePlayerStatuses--;
-        }
-        if (playerStatuses[4].equals("Slow Down")){
-            playerStatuses[4] = "";
-            playerStatusIcon1.setVisibility(View.INVISIBLE);
-            activePlayerStatuses--;
+        if (debuffName.equals("Concentrate")){
+            playerClearAward = 2;
         }
     }
 
