@@ -979,6 +979,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         return new Random().nextInt(number);
     }
 
+    public int genRandRange(int min, int max){
+        return new Random().nextInt((max - min) + 1) + min;
+    }
+
     private void checkIfNoObjRemains() {
         if (objectsRemaining == 0) {
             if (!playerTurn) {
@@ -1884,13 +1888,13 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             cardSpeedUp();
         }
         if (playedCard.equals("Steal")) {
-            cardSteal(3);
+            cardSteal(1,3);
         }
         if (playedCard.equals("Steal II")) {
-            cardSteal(5);
+            cardSteal(3,5);
         }
         if (playedCard.equals("Steal III")) {
-            cardSteal(10);
+            cardSteal(5,7);
         }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
@@ -1915,22 +1919,22 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* THIS METHOD FINDS WHICH ENEMY CARD IS PLAYED TO DETERMINE EFFECT */
     private void executeEnemyCardEffect(){
         if (enemyPickedCard == 0){
-            cardSteal(3);
+            cardSteal(1,3);
         }
         if (enemyPickedCard == 1){
-            cardSteal(3);
+            cardSteal(1,3);
         }
         if (enemyPickedCard == 2){
-            cardSteal(3);
+            cardSteal(1,3);
         }
         if (enemyPickedCard == 3){
-            cardSteal(3);
+            cardSteal(1,3);
         }
         if (enemyPickedCard == 4){
-            cardSteal(3);
+            cardSteal(1,3);
         }
         if (enemyPickedCard == 5){
-            cardSteal(3);
+            cardSteal(1,3);
         }
 
     }
@@ -2306,15 +2310,20 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     }
 
     /* STEAL CARD EFFECT METHOD */
-    private void cardSteal(final int number){
-        int finalNumber = number;
+    private void cardSteal(int min, int max){
+        int finalNumber;
         if (playerTurn){
             tvEnemyScore.startAnimation(ani_shake);
-            if (number > enemyScore){
-                finalNumber = enemyScore;
+            if (max > enemyScore){
+                max = enemyScore;
             }
-            tvEnemyScore.setText("-" + String.valueOf(finalNumber));
+            if (min > enemyScore){
+                min = enemyScore;
+            }
 
+            finalNumber = genRandRange(min, max);
+
+            tvEnemyScore.setText("-" + String.valueOf(finalNumber));
             tvPlayerScore.startAnimation(ani_scoregain);
             tvPlayerScore.setText("+" + String.valueOf(finalNumber));
 
@@ -2337,11 +2346,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             }, 1000);
         } else {
             tvPlayerScore.startAnimation(ani_shake);
-            if (number > playerScore){
-                finalNumber = playerScore;
+            if (max > playerScore){
+                max = playerScore;
             }
-            tvPlayerScore.setText("-" + String.valueOf(finalNumber));
+            if (min > playerScore){
+                min = playerScore;
+            }
 
+            finalNumber = genRandRange(min, max);
+
+            tvPlayerScore.setText("-" + String.valueOf(finalNumber));
             tvEnemyScore.startAnimation(ani_scoregain);
             tvEnemyScore.setText("+" + String.valueOf(finalNumber));
 
