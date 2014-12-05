@@ -1,19 +1,28 @@
 package johan.laststraw;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import static android.graphics.Color.TRANSPARENT;
 
 
 public class Activity_StartScreen extends Activity implements View.OnClickListener{
 
     Button profileButton, playButton, cardStoreButton, rulesButton, newCardMsg;
+    ImageButton resetButton;
     Intent play, profile, cards, rules;
     DBHandler db;
     Cursor cursor;
@@ -30,6 +39,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         cardStoreButton = (Button) findViewById(R.id.Btn_Cards);
         rulesButton = (Button) findViewById(R.id.Btn_Rules);
         newCardMsg = (Button) findViewById(R.id.newCardMsg);
+        resetButton = (ImageButton) findViewById(R.id.Btn_Reset);
 
         tvdblvl = (TextView) findViewById(R.id.tvDbLvl);
         tvsplvl = (TextView) findViewById(R.id.tvSharedPrefLvl);
@@ -38,6 +48,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         playButton.setOnClickListener(this);
         cardStoreButton.setOnClickListener(this);
         rulesButton.setOnClickListener(this);
+        resetButton.setOnClickListener(this);
 
     }
 
@@ -64,6 +75,10 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 rules = new Intent(Activity_StartScreen.this, Activity_Rules_P1.class);
                 rules.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(rules);
+                break;
+            case R.id.Btn_Reset:
+                String message = "Delete all data?";
+                confirmReset(message, Activity_StartScreen.this);
                 break;
         }
     }
@@ -197,5 +212,68 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         editor.putInt("CurrentLevel", dbLvl);
         editor.putBoolean("NewCard", true);
         editor.apply();
+    }
+
+    private void confirmReset(String message, final Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_removeall);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvError);
+        tvText.setText(message);
+
+        /* YES CLICKED */
+        Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String message = "Data successfully reset";
+                try {
+                    db.open();
+                } catch (java.sql.SQLException e) {
+                    e.printStackTrace();
+                }
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("CurrentLevel", 0);
+                editor.apply();
+                sharedPrefLvl = preferences.getInt("CurrentLevel", 0);
+                tvsplvl.setText(String.valueOf(sharedPrefLvl));
+                db.reset();
+                db.close();
+                confirmSuccess(message, Activity_StartScreen.this);
+                dialog.dismiss();
+            }
+        });
+
+        /* NO CLICKED */
+        Button buttonDialogNo = (Button) dialog.findViewById(R.id.bConfirmCancel);
+        buttonDialogNo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void confirmSuccess(String message, Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_success);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvSuccess);
+        ImageView ivSuccess = (ImageView) dialog.findViewById(R.id.ivSuccess);
+        tvText.setText(message);
+        ivSuccess.setImageResource(R.drawable.action_success);
+
+        /* YES CLICKED */
+        Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

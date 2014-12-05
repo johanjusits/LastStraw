@@ -557,4 +557,14 @@ public class DBHandler {
         unlockCard(18,1);
         unlockCard(19,1);
     }
+    public void reset(){
+        appDB = ourHelper.getWritableDatabase();
+        appDB.execSQL ("drop table "+SelectedCards);
+        appDB.execSQL ("drop table "+AllCards);
+        appDB.execSQL ("drop table "+PlayerInfo);
+        appDB.execSQL ("drop table "+OwnedCards);
+        appDB.execSQL ("drop table "+LevelsInfo);
+        appDB.execSQL ("drop table "+WorldsInfo);
+        this.ourHelper.onCreate (this.appDB);
+    }
 }
