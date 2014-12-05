@@ -152,7 +152,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 22 && sharedPrefLvl == 21){
-                addCard("Mimic", "card_mimic", 3, 3, "Plays the same card as your opponent last played. Has no effect if no cards have been played.", 13);
+                addCard("Mimic", "card_mimic", 3, 2, "Copies the effect of the opponents last played card.", 13);
             }
         }
         if (dbLvl > sharedPrefLvl){

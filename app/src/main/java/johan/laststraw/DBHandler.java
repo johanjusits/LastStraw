@@ -238,8 +238,8 @@ public class DBHandler {
             ac013.put(KEY_NAME, "Mimic");
             ac013.put(KEY_IMAGE, "card_mimic");
             ac013.put(KEY_TYPE, 3);
-            ac013.put(KEY_DESC, "Plays the same card as your opponent last played. Has no effect if no cards have been played.");
-            ac013.put(KEY_COST, 3);
+            ac013.put(KEY_DESC, "Copies the effect of the opponents last played card.");
+            ac013.put(KEY_COST, 2);
             ac013.put(KEY_REQUIRESLVL, 22);
             ac013.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac013);
@@ -531,7 +531,7 @@ public class DBHandler {
         addOwnedCard("Infest", "card_infest", 1, 1, "Infests the next object with spiders, making it more difficult to clear.");
         addOwnedCard("Speed Up II", "card_speed_up_2", 3, 2, "Gain 2 additional moves on next turn.");
         addOwnedCard("Corruption", "card_corruption", 2, 2, "All moves cost one more next turn.");
-        addOwnedCard("Mimic", "card_mimic", 3, 3, "Plays the same card as your opponent last played. Has no effect if no cards have been played.");
+        addOwnedCard("Mimic", "card_mimic", 3, 2, "Copies the effect of the opponents last played card.");
         addOwnedCard("Trap", "card_trap", 1, 1, "Traps the next object, making whoever clears it lose 3 points instead of gaining 2.");
         addOwnedCard("Curse", "card_curse", 2, 2, "Reduces score by half after three turns.");
         addOwnedCard("Agony", "card_agony", 2, 2, "Reduces score by 3 after each turn, last 3 turns.");
