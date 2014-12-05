@@ -70,7 +70,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
     String enemyCard1Name = "Concentrate", enemyCard2Name = "Concentrate", enemyCard3Name = "Curse", enemyCard4Name = "Curse",
-            enemyCard5Name = "Curse", enemyCard6Name = "Curse";
+            enemyCard5Name = "Mimic", enemyCard6Name = "Mimic";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
     String[] playerStatuses = new String[5];
@@ -1411,6 +1411,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             public void onClick(View v) {
                 dialog.dismiss();
                 playerMoves = playerMoves - getCardCost() - playerCorruptedPenalty;
+                lastPlayerPlayedCard = getCardName();
                 tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                 disable(layout_objectRow);
                 disablePlayerCards();
@@ -1705,11 +1706,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         enemyCard4.setBackgroundResource(R.drawable.card_icon_ailment);
         enemyCard4.setImageResource(R.drawable.card_type_ailment);
         enemyCard5.setVisibility(View.VISIBLE);
-        enemyCard5.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard5.setImageResource(R.drawable.card_type_ailment);
+        enemyCard5.setBackgroundResource(R.drawable.card_icon_boosting);
+        enemyCard5.setImageResource(R.drawable.card_type_boosting);
         enemyCard6.setVisibility(View.VISIBLE);
-        enemyCard6.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard6.setImageResource(R.drawable.card_type_ailment);
+        enemyCard6.setBackgroundResource(R.drawable.card_icon_boosting);
+        enemyCard6.setImageResource(R.drawable.card_type_boosting);
     }
 
     /* THIS METHOD DETERMINES IF DEVICE IS A TABLET OR PHONE */
@@ -1897,7 +1898,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_curse);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_mimic);
                 }
             }, 1000);
         }
@@ -1911,7 +1912,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_curse);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_mimic);
                 }
             }, 1000);
         }
@@ -2066,6 +2067,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (playedCard.equals("Curse")){
             cardCurse();
         }
+        if(playedCard.equals("Mimic")){
+            cardMimic();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -2101,10 +2105,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             cardCurse();
         }
         if (enemyPickedCard == 4){
-            cardCurse();
+            cardMimic();
         }
         if (enemyPickedCard == 5){
-            cardCurse();
+            cardMimic();
         }
 
     }
@@ -2708,6 +2712,93 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
+    /* MIMIC CARD EFFECT METHOD */
+    private void cardMimic(){
+        if (playerTurn){
+            if (!lastEnemyPlayedCard.equals("")){
+                if (lastEnemyPlayedCard.equals("Reinforce")){
+                    cardReinforce1();
+                }
+                if (lastEnemyPlayedCard.equals("Reinforce II")){
+                    cardReinforce2();
+                }
+                if (lastEnemyPlayedCard.equals("Reinforce III")){
+                    cardReinforce1();
+                }
+                if (lastEnemyPlayedCard.equals("Slow Down")){
+                    cardSlowDown();
+                }
+                if (lastEnemyPlayedCard.equals("Speed Up")){
+                    cardSpeedUp();
+                }
+                if (lastEnemyPlayedCard.equals("Steal")){
+                    cardSteal(1,3);
+                }
+                if (lastEnemyPlayedCard.equals("Concentrate")){
+                    cardConcentrate();
+                }
+                if (lastEnemyPlayedCard.equals("Steal II")){
+                    cardSteal(3,5);
+                }
+                if (lastEnemyPlayedCard.equals("Steal III")){
+                    cardSteal(5,7);
+                }
+                if (lastEnemyPlayedCard.equals("Corruption")){
+                    cardCorruption();
+                }
+                if (lastEnemyPlayedCard.equals("Curse")){
+                    cardCurse();
+                }
+                if (lastEnemyPlayedCard.equals("Mimic")){
+                    return;
+                }
+            } else {
+                return;
+            }
+        } else {
+            if (!lastPlayerPlayedCard.equals("")){
+                if (lastPlayerPlayedCard.equals("Reinforce")){
+                    cardReinforce1();
+                }
+                if (lastPlayerPlayedCard.equals("Reinforce II")){
+                    cardReinforce2();
+                }
+                if (lastPlayerPlayedCard.equals("Reinforce III")){
+                    cardReinforce1();
+                }
+                if (lastPlayerPlayedCard.equals("Slow Down")){
+                    cardSlowDown();
+                }
+                if (lastPlayerPlayedCard.equals("Speed Up")){
+                    cardSpeedUp();
+                }
+                if (lastPlayerPlayedCard.equals("Steal")){
+                    cardSteal(1,3);
+                }
+                if (lastPlayerPlayedCard.equals("Concentrate")){
+                    cardConcentrate();
+                }
+                if (lastPlayerPlayedCard.equals("Steal II")){
+                    cardSteal(3,5);
+                }
+                if (lastPlayerPlayedCard.equals("Steal III")){
+                    cardSteal(5,7);
+                }
+                if (lastPlayerPlayedCard.equals("Corruption")){
+                    cardCorruption();
+                }
+                if (lastPlayerPlayedCard.equals("Curse")){
+                    cardCurse();
+                }
+                if (lastPlayerPlayedCard.equals("Mimic")){
+                    return;
+                }
+            } else {
+                return;
+            }
+        }
+    }
+
     /* ----------------------------------------- */
 
     @Override
@@ -3176,6 +3267,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 tvPlayerScore.setText(String.valueOf(playerScore));
                 tvPlayerScore.setTextColor(getResources().getColor(R.color.textBlack));
                 tvPlayerScore.startAnimation(ani_resetscore);
+                tvEnemyScore.clearAnimation();
             }
         }, 4000);
         myHandler.postDelayed(new Runnable() {
@@ -3219,6 +3311,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 tvEnemyScore.setText(String.valueOf(enemyScore));
                 tvEnemyScore.setTextColor(getResources().getColor(R.color.textBlack));
                 tvEnemyScore.startAnimation(ani_resetscore);
+                tvPlayerScore.clearAnimation();
             }
         }, 4000);
         myHandler.postDelayed(new Runnable() {
