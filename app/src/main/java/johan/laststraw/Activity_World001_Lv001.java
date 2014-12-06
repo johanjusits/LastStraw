@@ -357,7 +357,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -410,7 +410,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -463,7 +463,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -516,7 +516,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -569,7 +569,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -622,7 +622,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -675,7 +675,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -728,7 +728,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -781,7 +781,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -834,7 +834,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -887,7 +887,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -940,7 +940,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -993,7 +993,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -1046,7 +1046,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -1099,7 +1099,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
@@ -1152,7 +1152,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                                 infestedObjRemainingHits--;
                                 System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
                             }
-                        }, 100);
+                        }, 1000);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
