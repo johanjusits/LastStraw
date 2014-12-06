@@ -47,13 +47,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     TextView tvPlayerName, tvPlayerExp, tvPlayerLevel, tvPlayerScore, tvEnemyScore, tvEnemyName;
     ImageView ivPlayerPortrait, ivEnemyPortrait, ivCenterCardFrame;
     ViewGroup layout_objectRow;
-    Animation ani_fadeIn, ani_fadeOut, ani_zoomIn, ani_shake, ani_scoregain, ani_resetscore;
+    Animation ani_fadeIn, ani_fadeOut, ani_zoomIn, ani_shake, ani_scoregain, ani_resetscore, ani_infest_shake;
     Random rdm = new Random();
     /* STRINGS */
     String playerGender = "";
     String playerName = "";
     String enemyName = "Farmhand Joe";
     String boardIsFullError = "Board is full. No effect";
+    String infestMsg = "Spiders infests the wheat";
+    String infestError = "Wheat is already infested";
     String enemySlowed = "Enemy suffers Slow";
     String enemyHaste = "Enemy gains Haste";
     String enemyConcentrate = "Enemy gains Concentrate";
@@ -69,7 +71,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
-    String enemyCard1Name = "Concentrate", enemyCard2Name = "Concentrate", enemyCard3Name = "Curse", enemyCard4Name = "Curse",
+    String enemyCard1Name = "Speed Up II", enemyCard2Name = "Speed Up II", enemyCard3Name = "Infest", enemyCard4Name = "Infest",
             enemyCard5Name = "Mimic", enemyCard6Name = "Mimic";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
@@ -78,6 +80,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String lastEnemyPlayedCard = "";
     String lastPlayerPlayedCard = "";
     /* INTS */
+    int infestedObjRemainingHits = -1;
     int newExp;
     int expToNextLevel;
     int checkIfExpRoof;
@@ -89,7 +92,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerCard5Type = 0, playerCard6Type = 0;
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
-    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 2, enemyCard4Cost = 2,
+    int enemyCard1Cost = 2, enemyCard2Cost = 2, enemyCard3Cost = 1, enemyCard4Cost = 1,
             enemyCard5Cost = 2, enemyCard6Cost = 2;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
@@ -113,7 +116,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean enemyIsSlowed = false;
     boolean playerIsSlowed = false;
     boolean enemyHasHaste = false;
+    boolean enemyHasHaste2 = false;
     boolean playerHasHaste = false;
+    boolean playerHasHaste2 = false;
     boolean playerHasConcentrate = false;
     boolean enemyHasConcentrate = false;
     boolean playerIsCorrupted = false;
@@ -127,6 +132,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             enemyCard5Used = false, enemyCard6Used = false;
     boolean errorMsg = false;
     boolean playerWon = false;
+    boolean nextObjIsInfested = false;
     private Handler myHandler = new Handler();
     DBHandler db;
     Cursor cursor;
@@ -147,6 +153,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         ani_zoomIn = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.ani_zoom_in);
         ani_shake = AnimationUtils.loadAnimation(this, R.anim.ani_shake);
+        ani_infest_shake = AnimationUtils.loadAnimation(this, R.anim.ani_infest_shake);
         ani_scoregain = AnimationUtils.loadAnimation(this, R.anim.ani_scoregain);
         ani_resetscore = AnimationUtils.loadAnimation(this, R.anim.ani_resetscore);
 
@@ -336,6 +343,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj001:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 16 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj001.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj001.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 16 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -354,6 +396,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj002:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 15 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj002.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj002.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 15 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -372,6 +449,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj003:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 14 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj003.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj003.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 14 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -390,6 +502,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj004:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 13 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj004.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj004.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 13 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -408,6 +555,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj005:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 12 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj005.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj005.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 12 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -426,6 +608,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj006:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 11 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj006.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj006.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 11 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -444,6 +661,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj007:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 10 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj007.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj007.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 10 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -462,6 +714,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj008:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 9 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj008.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj008.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 9 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -480,6 +767,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj009:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 8 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj009.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj009.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 8 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -498,6 +820,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj010:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 7 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj010.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj010.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 7 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -516,6 +873,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj011:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 6 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj011.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj011.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 6 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -534,6 +926,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj012:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 5 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj012.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj012.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 5 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -552,6 +979,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj013:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 4 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj013.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj013.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 4 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -570,6 +1032,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj014:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 3 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj014.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj014.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 3 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -588,6 +1085,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj015:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 2 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj015.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj015.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    break;
+                }
                 if (objectsRemaining == 2 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -606,6 +1138,44 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.obj016:
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
+                    if (objectsRemaining == 1 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj016.startAnimation(ani_infest_shake);
+                        disable(layout_objectRow);
+                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enable(layout_objectRow);
+                                enablePlayerCards();
+                                infestedObjRemainingHits--;
+                                System.out.println("remaining hits: " + String.valueOf(infestedObjRemainingHits));
+                            }
+                        }, 100);
+                        break;
+                    }
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    playerScore = playerScore + playerClearAward;
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    obj016.setImageResource(R.drawable.object_wheatbroken);
+                    disable(layout_objectRow);
+                    disablePlayerCards();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            objectsRemaining--;
+                            nextObjIsInfested = false;
+                        }
+                    }, 100);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            checkIfNoObjRemains();
+                        }
+                    }, 1400);
+                    break;
+                }
                 if (objectsRemaining == 1 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
@@ -666,7 +1236,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             int cardOrClear = genRand(100);
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
-            if (cardOrClear >= 20){
+            if (cardOrClear >= 70){
                 enemyPickedCard = randomizeEnemyCardSelect();
 
                 if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost + enemyCorruptedPenalty){
@@ -695,9 +1265,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 8000);
                 } else if (enemyPickedCard == 0 && enemyMoves < enemyCard1Cost + enemyCorruptedPenalty) {
                     aiClearObject();
-                    objectsRemaining = objectsRemaining - 1;
-                    enemyScore = enemyScore + enemyClearAward;
-                    tvEnemyScore.setText(String.valueOf(enemyScore));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             checkEnemyMoves();
@@ -731,9 +1298,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 8000);
                 } else if (enemyPickedCard == 1 && enemyMoves < enemyCard2Cost + enemyCorruptedPenalty) {
                     aiClearObject();
-                    objectsRemaining = objectsRemaining - 1;
-                    enemyScore = enemyScore + enemyClearAward;
-                    tvEnemyScore.setText(String.valueOf(enemyScore));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             checkEnemyMoves();
@@ -767,9 +1331,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 8000);
                 } else if (enemyPickedCard == 2 && enemyMoves < enemyCard3Cost + enemyCorruptedPenalty) {
                     aiClearObject();
-                    objectsRemaining = objectsRemaining - 1;
-                    enemyScore = enemyScore + enemyClearAward;
-                    tvEnemyScore.setText(String.valueOf(enemyScore));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             checkEnemyMoves();
@@ -803,9 +1364,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 8000);
                 } else if (enemyPickedCard == 3 && enemyMoves < enemyCard4Cost + enemyCorruptedPenalty) {
                     aiClearObject();
-                    objectsRemaining = objectsRemaining - 1;
-                    enemyScore = enemyScore + enemyClearAward;
-                    tvEnemyScore.setText(String.valueOf(enemyScore));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             checkEnemyMoves();
@@ -839,9 +1397,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 8000);
                 } else if (enemyPickedCard == 4 && enemyMoves < enemyCard5Cost + enemyCorruptedPenalty) {
                     aiClearObject();
-                    objectsRemaining = objectsRemaining - 1;
-                    enemyScore = enemyScore + enemyClearAward;
-                    tvEnemyScore.setText(String.valueOf(enemyScore));
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             checkEnemyMoves();
@@ -875,9 +1430,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 8000);
                 } else if (enemyPickedCard == 5 && enemyMoves < enemyCard6Cost + enemyCorruptedPenalty) {
                     aiClearObject();
-                    objectsRemaining = objectsRemaining - 1;
-                    enemyScore = enemyScore + enemyClearAward;
-                    tvEnemyScore.setText(String.valueOf(enemyScore));
                     myHandler.postDelayed(new Runnable() {
                             public void run() {
                         checkEnemyMoves();
@@ -887,13 +1439,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
             } else {
                /* If number is less than 80, the AI will clear */
-                if (cardOrClear < 20) {
+                if (cardOrClear < 70) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             aiClearObject();
-                            objectsRemaining = objectsRemaining - 1;
-                            enemyScore = enemyScore + enemyClearAward;
-                            tvEnemyScore.setText(String.valueOf(enemyScore));
                             checkEnemyMoves();
                         }
                     }, 1000);
@@ -904,9 +1453,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     aiClearObject();
-                    objectsRemaining = objectsRemaining - 1;
-                    enemyScore = enemyScore + enemyClearAward;
-                    tvEnemyScore.setText(String.valueOf(enemyScore));
                     checkEnemyMoves();
                 }
             }, 1000);
@@ -926,6 +1472,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (enemyHasHaste){
             enemyMoves = enemyMoves + 1;
         }
+        if (enemyHasHaste2){
+            enemyMoves = enemyMoves + 2;
+        }
         if (enemyIsSlowed){
             enemyMoves = enemyMoves - 1;
         }
@@ -936,6 +1485,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             enemyCurseCountdown--;
         }
         enemyHasHaste = false;
+        enemyHasHaste2 = false;
         enemyIsCorrupted = false;
     }
 
@@ -1022,6 +1572,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (playerHasHaste){
             playerMoves = playerMoves + 1;
         }
+        if (playerHasHaste2){
+            playerMoves = playerMoves + 2;
+        }
         if (playerIsSlowed){
             playerMoves = playerMoves - 1;
         }
@@ -1034,6 +1587,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         playerIsSlowed = false;
         playerIsCorrupted = false;
         playerHasHaste = false;
+        playerHasHaste2 = false;
     }
 
     /* DISABLES THE INTERFACE, PREVENTING PLAYER FROM CLICKING THE OBJECT ROW */
@@ -1082,38 +1636,358 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     private void aiClearObject() {
         enemyMoves = enemyMoves - 1 - enemyCorruptedPenalty;
         tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
-        if (objectsRemaining == 16)
-            obj001.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 15)
-            obj002.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 14)
-            obj003.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 13)
-            obj004.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 12)
-            obj005.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 11)
-            obj006.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 10)
-            obj007.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 9)
-            obj008.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 8)
-            obj009.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 7)
-            obj010.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 6)
-            obj011.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 5)
-            obj012.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 4)
-            obj013.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 3)
-            obj014.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 2)
-            obj015.setImageResource(R.drawable.object_wheatbroken);
-        if (objectsRemaining == 1)
-            obj016.setImageResource(R.drawable.object_wheatbroken);
+        if (objectsRemaining == 16) {
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj001.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj001.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj001.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 15) {
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj002.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj002.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj002.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 14){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj003.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj003.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj003.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 13){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj004.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj004.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj004.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 12){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj005.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj005.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj005.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 11){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj006.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj006.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj006.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 10){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj007.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj007.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj007.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 9){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj008.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj008.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj008.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 8){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj009.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj009.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj009.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 7){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj010.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj010.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj010.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 6){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj011.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj011.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj011.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 5){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj012.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj012.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj012.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 4){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj013.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj013.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj013.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 3){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj014.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj014.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj014.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 2){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj015.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj015.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj015.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
+        if (objectsRemaining == 1){
+            if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                obj016.startAnimation(ani_infest_shake);
+                infestedObjRemainingHits--;
+                return;
+            }
+            if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                obj016.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                nextObjIsInfested = false;
+                return;
+            }
+            if (!nextObjIsInfested){
+                obj016.setImageResource(R.drawable.object_wheatbroken);
+                objectsRemaining = objectsRemaining - 1;
+                enemyScore = enemyScore + enemyClearAward;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                return;
+            }
+        }
     }
 
     /* Selects random card among the ones the enemy has left. This method will have to
@@ -1700,11 +2574,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         enemyCard2.setBackgroundResource(R.drawable.card_icon_boosting);
         enemyCard2.setImageResource(R.drawable.card_type_boosting);
         enemyCard3.setVisibility(View.VISIBLE);
-        enemyCard3.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard3.setImageResource(R.drawable.card_type_ailment);
+        enemyCard3.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard3.setImageResource(R.drawable.card_type_field);
         enemyCard4.setVisibility(View.VISIBLE);
-        enemyCard4.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard4.setImageResource(R.drawable.card_type_ailment);
+        enemyCard4.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard4.setImageResource(R.drawable.card_type_field);
         enemyCard5.setVisibility(View.VISIBLE);
         enemyCard5.setBackgroundResource(R.drawable.card_icon_boosting);
         enemyCard5.setImageResource(R.drawable.card_type_boosting);
@@ -1842,7 +2716,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_concentrate);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_speed_up_2);
                 }
             }, 1000);
         }
@@ -1856,7 +2730,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_concentrate);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_speed_up_2);
                 }
             }, 1000);
         }
@@ -1870,7 +2744,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_curse);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_infest);
                 }
             }, 1000);
         }
@@ -1884,7 +2758,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_curse);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_infest);
                 }
             }, 1000);
         }
@@ -2050,13 +2924,25 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             cardSpeedUp();
         }
         if (playedCard.equals("Steal")) {
-            cardSteal(1,3);
+            if (playerClearAward == 4){
+                cardSteal(2,6);
+            } else {
+                cardSteal(1,3);
+            }
         }
         if (playedCard.equals("Steal II")) {
-            cardSteal(3,5);
+            if (playerClearAward == 4){
+                cardSteal(6,10);
+            } else {
+                cardSteal(3,5);
+            }
         }
         if (playedCard.equals("Steal III")) {
-            cardSteal(5,7);
+            if (playerClearAward == 4){
+                cardSteal(10,14);
+            } else {
+                cardSteal(5,7);
+            }
         }
         if (playedCard.equals("Concentrate")){
             cardConcentrate();
@@ -2069,6 +2955,12 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
         if(playedCard.equals("Mimic")){
             cardMimic();
+        }
+        if(playedCard.equals("Speed Up II")){
+            cardSpeedUp2();
+        }
+        if(playedCard.equals("Infest")){
+            cardInfest();
         }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
@@ -2093,16 +2985,16 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* THIS METHOD FINDS WHICH ENEMY CARD IS PLAYED TO DETERMINE EFFECT */
     private void executeEnemyCardEffect(){
         if (enemyPickedCard == 0){
-            cardConcentrate();
+            cardSpeedUp2();
         }
         if (enemyPickedCard == 1){
-            cardConcentrate();
+            cardSpeedUp2();
         }
         if (enemyPickedCard == 2){
-            cardCurse();
+            cardInfest();
         }
         if (enemyPickedCard == 3){
-            cardCurse();
+            cardInfest();
         }
         if (enemyPickedCard == 4){
             cardMimic();
@@ -2483,6 +3375,59 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
+    /* SPEED UP 2 CARD EFFECT METHOD */
+    private void cardSpeedUp2() {
+        if (playerTurn) {
+            if (!Arrays.asList(playerStatuses).contains("Speed Up")){
+                tvCenterMessage.setText(playerHaste);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Speed Up")){
+                        playerHasHaste2 = true;
+                        addPlayerSpeedUp();
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(enemyStatuses).contains("Speed Up")){
+                tvCenterMessage.setText(enemyHaste);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Speed Up")){
+                        enemyHasHaste2 = true;
+                        addEnemySpeedUp();
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        }
+    }
+
     /* CONCENTRATE CARD EFFECT METHOD */
     private void cardConcentrate(){
         if (playerTurn) {
@@ -2731,6 +3676,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 if (lastEnemyPlayedCard.equals("Speed Up")){
                     cardSpeedUp();
                 }
+                if (lastEnemyPlayedCard.equals("Speed Up II")){
+                    cardSpeedUp2();
+                }
                 if (lastEnemyPlayedCard.equals("Steal")){
                     cardSteal(1,3);
                 }
@@ -2748,6 +3696,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
                 if (lastEnemyPlayedCard.equals("Curse")){
                     cardCurse();
+                }
+                if (lastEnemyPlayedCard.equals("Infest")){
+                    cardInfest();
                 }
                 if (lastEnemyPlayedCard.equals("Mimic")){
                     return;
@@ -2772,6 +3723,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 if (lastPlayerPlayedCard.equals("Speed Up")){
                     cardSpeedUp();
                 }
+                if (lastPlayerPlayedCard.equals("Speed Up II")){
+                    cardSpeedUp2();
+                }
                 if (lastPlayerPlayedCard.equals("Steal")){
                     cardSteal(1,3);
                 }
@@ -2790,6 +3744,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 if (lastPlayerPlayedCard.equals("Curse")){
                     cardCurse();
                 }
+                if (lastPlayerPlayedCard.equals("Infest")){
+                    cardInfest();
+                }
                 if (lastPlayerPlayedCard.equals("Mimic")){
                     return;
                 }
@@ -2797,6 +3754,184 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 return;
             }
         }
+    }
+
+    /* INFEST CARD EFFECT METHOD */
+    private void cardInfest(){
+        if (!nextObjIsInfested){
+            nextObjIsInfested = true;
+            infestedObjRemainingHits = 3;
+            if (objectsRemaining == 16) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj001.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 15) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj002.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 14) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj003.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 13) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj004.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 12) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj005.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 11) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj006.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 10) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj007.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 9) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj008.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 8) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj009.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 7) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj010.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 6) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj011.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 5) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj012.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 4) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj013.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 3) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj014.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 2) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj015.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+            if (objectsRemaining == 1) {
+                tvCenterMessage.setText(infestMsg);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        obj016.setImageResource(R.drawable.object_wheat_webbed);
+                    }
+                }, 1000);
+            }
+        } else {
+            errorMsg = true;
+            tvCenterMessage.setText(infestError);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 1500);
+        }
+
     }
 
     /* ----------------------------------------- */
@@ -3211,7 +4346,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (!enemyIsSlowed){
             clearEnemyStatus("Slow Down");
         }
-        if (!enemyHasHaste){
+        if (!enemyHasHaste && !enemyHasHaste2){
             clearEnemyStatus("Speed Up");
         }
         if (!enemyHasConcentrate){
@@ -3224,7 +4359,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
     /* CHECK PLAYER STATUSES */
     private void checkPlayerStatues(){
-        if (!playerHasHaste){
+        if (!playerHasHaste && !playerHasHaste2){
             clearPlayerStatus("Speed Up");
         }
         if (!playerIsSlowed){

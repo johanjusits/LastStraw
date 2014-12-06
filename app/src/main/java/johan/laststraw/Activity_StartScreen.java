@@ -239,6 +239,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 editor.apply();
                 sharedPrefLvl = preferences.getInt("CurrentLevel", 0);
                 tvsplvl.setText(String.valueOf(sharedPrefLvl));
+                tvdblvl.setText("1");
                 db.reset();
                 db.close();
                 confirmSuccess(message, Activity_StartScreen.this);
