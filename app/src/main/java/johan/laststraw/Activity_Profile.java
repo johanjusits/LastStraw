@@ -77,7 +77,7 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
                 ivImg.setImageResource(R.drawable.portrait_placeholder_girl);
             }
         }
-        //db.enableAllCards();
+        db.enableAllCards();
         db.close();
     }
 
