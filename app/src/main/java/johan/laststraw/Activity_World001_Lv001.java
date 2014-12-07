@@ -48,7 +48,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     ImageView ivPlayerPortrait, ivEnemyPortrait, ivCenterCardFrame;
     ViewGroup layout_objectRow;
     Animation ani_fadeIn, ani_fadeOut, ani_zoomIn, ani_shake, ani_scoregain, ani_resetscore, ani_infest_shake;
-    Random rdm = new Random();
     /* STRINGS */
     String playerGender = "";
     String playerName = "";
@@ -71,7 +70,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
-    String enemyCard1Name = "Speed Up II", enemyCard2Name = "Speed Up II", enemyCard3Name = "Infest", enemyCard4Name = "Infest",
+    String enemyCard1Name = "Speed Up II", enemyCard2Name = "Speed Up II", enemyCard3Name = "Restore", enemyCard4Name = "Restore",
             enemyCard5Name = "Mimic", enemyCard6Name = "Mimic";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
@@ -92,7 +91,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerCard5Type = 0, playerCard6Type = 0;
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
-    int enemyCard1Cost = 2, enemyCard2Cost = 2, enemyCard3Cost = 1, enemyCard4Cost = 1,
+    int enemyCard1Cost = 2, enemyCard2Cost = 2, enemyCard3Cost = 2, enemyCard4Cost = 2,
             enemyCard5Cost = 2, enemyCard6Cost = 2;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
@@ -253,7 +252,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         storeCurrentLevel();
         getPlayerCards();
         setPlayerCardIcons();
-        setEnemyCards();
+        setEnemyCardsIcons();
 
         playerHaste = playerName + " gains Haste";
         playerConcentrate = playerName + " gains Concentrate";
@@ -1985,7 +1984,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
-                return;
             }
         }
     }
@@ -2292,11 +2290,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 btnEndTurn.setClickable(false);
                 animatePlayerCard();
                 myHandler.postDelayed(new Runnable() {
-                    public void run() {
-                        executeCardEffect();
-                    }
-                }, 3500);
-
+                        public void run() {
+                            executeCardEffect();
+                        }
+                    }, 3500);
             }
         });
 
@@ -2566,7 +2563,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     }
 
     /* THIS METHOD SETS ENEMY CARDS */
-    private void setEnemyCards(){
+    private void setEnemyCardsIcons(){
         enemyCard1.setVisibility(View.VISIBLE);
         enemyCard1.setBackgroundResource(R.drawable.card_icon_boosting);
         enemyCard1.setImageResource(R.drawable.card_type_boosting);
@@ -2744,7 +2741,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_infest);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_restore);
                 }
             }, 1000);
         }
@@ -2758,7 +2755,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_infest);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_restore);
                 }
             }, 1000);
         }
@@ -2962,6 +2959,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if(playedCard.equals("Infest")){
             cardInfest();
         }
+        if(playedCard.equals("Restore")){
+            cardRestore();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -2972,13 +2972,23 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
             }, 2500);
         } else {
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    enable(layout_objectRow);
-                    enablePlayerCards();
-                    btnEndTurn.setClickable(true);
-                }
-            }, 1500);
+            if (playedCard.equals("Mimic")){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        enable(layout_objectRow);
+                        enablePlayerCards();
+                        btnEndTurn.setClickable(true);
+                    }
+                }, 3000);
+            } else {
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        enable(layout_objectRow);
+                        enablePlayerCards();
+                        btnEndTurn.setClickable(true);
+                    }
+                }, 2000);
+            }
         }
     }
 
@@ -2991,10 +3001,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             cardSpeedUp2();
         }
         if (enemyPickedCard == 2){
-            cardInfest();
+            cardRestore();
         }
         if (enemyPickedCard == 3){
-            cardInfest();
+            cardRestore();
         }
         if (enemyPickedCard == 4){
             cardMimic();
@@ -3661,97 +3671,387 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     private void cardMimic(){
         if (playerTurn){
             if (!lastEnemyPlayedCard.equals("")){
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                if (lastEnemyPlayedCard.equals("Mimic")){
+                    tvCenterMessage.setText("Mimic failed");
+                } else {
+                    tvCenterMessage.setText("Mimic copies " + lastEnemyPlayedCard);
+                }
                 if (lastEnemyPlayedCard.equals("Reinforce")){
-                    cardReinforce1();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardReinforce1();
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Reinforce II")){
-                    cardReinforce2();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardReinforce2();
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Reinforce III")){
-                    cardReinforce1();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardReinforce3();
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Slow Down")){
-                    cardSlowDown();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSlowDown();
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Speed Up")){
-                    cardSpeedUp();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSpeedUp();
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Speed Up II")){
-                    cardSpeedUp2();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSpeedUp2();
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Steal")){
-                    cardSteal(1,3);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSteal(1,3);
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Concentrate")){
-                    cardConcentrate();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardConcentrate();
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Steal II")){
-                    cardSteal(3,5);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSteal(3,5);
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Steal III")){
-                    cardSteal(5,7);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSteal(5,7);
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Corruption")){
-                    cardCorruption();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardCorruption();
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Curse")){
-                    cardCurse();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardCurse();
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Infest")){
-                    cardInfest();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardInfest();
+                        }
+                    }, 2000);
+                }
+                if (lastEnemyPlayedCard.equals("Restore")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardRestore();
+                        }
+                    }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Mimic")){
-                    return;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            return;
+                        }
+                    }, 1000);
                 }
             } else {
-                return;
+                tvCenterMessage.setText("Mimic failed");
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        return;
+                    }
+                }, 1000);
             }
         } else {
             if (!lastPlayerPlayedCard.equals("")){
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                if (lastPlayerPlayedCard.equals("Mimic")){
+                    tvCenterMessage.setText("Mimic failed");
+                } else {
+                    tvCenterMessage.setText("Mimic copies " + lastPlayerPlayedCard);
+                }
                 if (lastPlayerPlayedCard.equals("Reinforce")){
-                    cardReinforce1();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardReinforce1();
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Reinforce II")){
-                    cardReinforce2();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardReinforce2();
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Reinforce III")){
-                    cardReinforce1();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardReinforce3();
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Slow Down")){
-                    cardSlowDown();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSlowDown();
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Speed Up")){
-                    cardSpeedUp();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSpeedUp();
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Speed Up II")){
-                    cardSpeedUp2();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSpeedUp2();
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Steal")){
-                    cardSteal(1,3);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSteal(1,3);
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Concentrate")){
-                    cardConcentrate();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardConcentrate();
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Steal II")){
-                    cardSteal(3,5);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSteal(3,5);
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Steal III")){
-                    cardSteal(5,7);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSteal(5,7);
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Corruption")){
-                    cardCorruption();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardCorruption();
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Curse")){
-                    cardCurse();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardCurse();
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Infest")){
-                    cardInfest();
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardInfest();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Restore")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardRestore();
+                        }
+                    }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Mimic")){
-                    return;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
                 }
             } else {
-                return;
+                tvCenterMessage.setText("Mimic failed");
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                    }
+                }, 1000);
             }
         }
     }
@@ -3932,6 +4232,121 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             }, 1500);
         }
 
+    }
+
+    /* RESTORE CARD EFFECT METHOD */
+    private void cardRestore(){
+        if (objectsRemaining == 16) {
+            tvCenterMessage.setText(boardIsFullError);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 1000);
+        }
+        if (objectsRemaining == 15) {
+            obj001.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 14) {
+            obj002.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 13) {
+            obj003.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 12) {
+            obj003.setImageResource(R.drawable.object_wheat);
+            obj004.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 11) {
+            obj004.setImageResource(R.drawable.object_wheat);
+            obj005.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 10) {
+            obj004.setImageResource(R.drawable.object_wheat);
+            obj005.setImageResource(R.drawable.object_wheat);
+            obj006.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 9) {
+            obj005.setImageResource(R.drawable.object_wheat);
+            obj006.setImageResource(R.drawable.object_wheat);
+            obj007.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 8) {
+            obj005.setImageResource(R.drawable.object_wheat);
+            obj006.setImageResource(R.drawable.object_wheat);
+            obj007.setImageResource(R.drawable.object_wheat);
+            obj008.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 4;
+        }
+        if (objectsRemaining == 7) {
+            obj006.setImageResource(R.drawable.object_wheat);
+            obj007.setImageResource(R.drawable.object_wheat);
+            obj008.setImageResource(R.drawable.object_wheat);
+            obj009.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 4;
+        }
+        if (objectsRemaining == 6) {
+            obj006.setImageResource(R.drawable.object_wheat);
+            obj007.setImageResource(R.drawable.object_wheat);
+            obj008.setImageResource(R.drawable.object_wheat);
+            obj009.setImageResource(R.drawable.object_wheat);
+            obj010.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 5;
+        }
+        if (objectsRemaining == 5) {
+            obj007.setImageResource(R.drawable.object_wheat);
+            obj008.setImageResource(R.drawable.object_wheat);
+            obj009.setImageResource(R.drawable.object_wheat);
+            obj010.setImageResource(R.drawable.object_wheat);
+            obj011.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 5;
+        }
+        if (objectsRemaining == 4) {
+            obj007.setImageResource(R.drawable.object_wheat);
+            obj008.setImageResource(R.drawable.object_wheat);
+            obj009.setImageResource(R.drawable.object_wheat);
+            obj010.setImageResource(R.drawable.object_wheat);
+            obj011.setImageResource(R.drawable.object_wheat);
+            obj012.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 6;
+        }
+        if (objectsRemaining == 3) {
+            obj008.setImageResource(R.drawable.object_wheat);
+            obj009.setImageResource(R.drawable.object_wheat);
+            obj010.setImageResource(R.drawable.object_wheat);
+            obj011.setImageResource(R.drawable.object_wheat);
+            obj012.setImageResource(R.drawable.object_wheat);
+            obj013.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 6;
+        }
+        if (objectsRemaining == 2) {
+            obj008.setImageResource(R.drawable.object_wheat);
+            obj009.setImageResource(R.drawable.object_wheat);
+            obj010.setImageResource(R.drawable.object_wheat);
+            obj011.setImageResource(R.drawable.object_wheat);
+            obj012.setImageResource(R.drawable.object_wheat);
+            obj013.setImageResource(R.drawable.object_wheat);
+            obj014.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 7;
+        }
+        if (objectsRemaining == 1) {
+            obj009.setImageResource(R.drawable.object_wheat);
+            obj010.setImageResource(R.drawable.object_wheat);
+            obj011.setImageResource(R.drawable.object_wheat);
+            obj012.setImageResource(R.drawable.object_wheat);
+            obj013.setImageResource(R.drawable.object_wheat);
+            obj014.setImageResource(R.drawable.object_wheat);
+            obj015.setImageResource(R.drawable.object_wheat);
+            objectsRemaining = objectsRemaining + 7;
+        }
     }
 
     /* ----------------------------------------- */
