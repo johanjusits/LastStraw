@@ -87,8 +87,8 @@ public class AllCardsAdapter extends CursorAdapter {
             if (imagePath.equals("card_mimic")){
                 Picasso.with(context).load(R.drawable.card_mimic).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
             }
-            if (imagePath.equals("card_trap")){
-                Picasso.with(context).load(R.drawable.card_trap).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            if (imagePath.equals("card_restore")){
+                Picasso.with(context).load(R.drawable.card_restore).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
             }
             if (imagePath.equals("card_curse")){
                 Picasso.with(context).load(R.drawable.card_curse).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
@@ -151,8 +151,8 @@ public class AllCardsAdapter extends CursorAdapter {
             if (imagePath.equals("card_mimic")){
                 Picasso.with(context).load(R.drawable.card_mimic).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
             }
-            if (imagePath.equals("card_trap")){
-                Picasso.with(context).load(R.drawable.card_trap).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            if (imagePath.equals("card_restore")){
+                Picasso.with(context).load(R.drawable.card_restore).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
             }
             if (imagePath.equals("card_curse")){
                 Picasso.with(context).load(R.drawable.card_curse).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);

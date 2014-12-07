@@ -172,7 +172,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 24 && sharedPrefLvl == 23){
-                addCard("Trap", "card_trap", 1, 1, "Traps the next object, making whoever clears it lose 3 points instead of gaining 2.", 14);
+                addCard("Restore", "card_restore", 1, 2, "Brings back half of the cleared objects.", 14);
             }
         }
         if (dbLvl > sharedPrefLvl){

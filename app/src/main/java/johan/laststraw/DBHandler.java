@@ -245,11 +245,11 @@ public class DBHandler {
             db.insert(AllCards, null, ac013);
 
             ContentValues ac014 = new ContentValues();
-            ac014.put(KEY_NAME, "Trap");
-            ac014.put(KEY_IMAGE, "card_trap");
+            ac014.put(KEY_NAME, "Restore");
+            ac014.put(KEY_IMAGE, "card_restore");
             ac014.put(KEY_TYPE, 1);
-            ac014.put(KEY_DESC, "Traps the next object, making whoever clears it lose 3 points instead of gaining 2.");
-            ac014.put(KEY_COST, 1);
+            ac014.put(KEY_DESC, "Brings back half of the cleared objects.");
+            ac014.put(KEY_COST, 2);
             ac014.put(KEY_REQUIRESLVL, 24);
             ac014.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac014);
@@ -532,7 +532,7 @@ public class DBHandler {
         addOwnedCard("Speed Up II", "card_speed_up_2", 3, 2, "Gain 2 additional moves on next turn.");
         addOwnedCard("Corruption", "card_corruption", 2, 2, "All moves cost one more next turn.");
         addOwnedCard("Mimic", "card_mimic", 3, 2, "Copies the effect of the opponents last played card.");
-        addOwnedCard("Trap", "card_trap", 1, 1, "Traps the next object, making whoever clears it lose 3 points instead of gaining 2.");
+        addOwnedCard("Restore", "card_restore", 1, 1, "Brings back half of the cleared objects.");
         addOwnedCard("Curse", "card_curse", 2, 2, "Reduces score by half after three turns.");
         addOwnedCard("Agony", "card_agony", 2, 2, "Reduces score by 3 after each turn, last 3 turns.");
         addOwnedCard("Malediction", "card_malediction", 2, 3, "Reduces score by 3/4 after three turns.");
