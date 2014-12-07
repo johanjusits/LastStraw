@@ -532,7 +532,7 @@ public class DBHandler {
         addOwnedCard("Speed Up II", "card_speed_up_2", 3, 2, "Gain 2 additional moves on next turn.");
         addOwnedCard("Corruption", "card_corruption", 2, 2, "All moves cost one more next turn.");
         addOwnedCard("Mimic", "card_mimic", 3, 2, "Copies the effect of the opponents last played card.");
-        addOwnedCard("Restore", "card_restore", 1, 1, "Brings back half of the cleared objects.");
+        addOwnedCard("Restore", "card_restore", 1, 2, "Brings back half of the cleared objects.");
         addOwnedCard("Curse", "card_curse", 2, 2, "Reduces score by half after three turns.");
         addOwnedCard("Agony", "card_agony", 2, 2, "Reduces score by 3 after each turn, last 3 turns.");
         addOwnedCard("Malediction", "card_malediction", 2, 3, "Reduces score by 3/4 after three turns.");
