@@ -3849,7 +3849,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            return;
                         }
                     }, 1000);
                 }
