@@ -60,17 +60,19 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String enemyConcentrate = "Enemy gains Concentrate";
     String enemyCorrupted = "Enemy suffers Corruption";
     String enemyCursed = "Enemy suffers Curse";
+    String enemyAgonized = "Enemy suffers Agony";
     String playerHaste = "";
     String playerSlowed = "";
     String playerConcentrate = "";
     String playerCorrupted = "";
     String playerCursed = "";
+    String playerAgonized = "";
     String buffAlreadyActiveError = "Buff already active. No effect.";
     String debuffAlreadyActiveError = "Debuff already active. No effect.";
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
-    String enemyCard1Name = "Speed Up II", enemyCard2Name = "Speed Up II", enemyCard3Name = "Restore", enemyCard4Name = "Restore",
+    String enemyCard1Name = "Agony", enemyCard2Name = "Agony", enemyCard3Name = "Restore", enemyCard4Name = "Restore",
             enemyCard5Name = "Mimic", enemyCard6Name = "Mimic";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
@@ -109,6 +111,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int enemyCorruptedPenalty = 0;
     int playerCurseCountdown = -1;
     int enemyCurseCountdown = -1;
+    int playerAgonyCountdown = -1;
+    int enemyAgonyCountdown = -1;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
     boolean deviceIsTablet;
@@ -124,6 +128,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean enemyIsCorrupted = false;
     boolean playerIsCursed = false;
     boolean enemyIsCursed = false;
+    boolean playerIsAgonized = false;
+    boolean enemyIsAgonized = false;
     boolean playerTurn = true;
     boolean playerCard1Used = false, playerCard2Used = false, playerCard3Used = false, playerCard4Used = false,
             playerCard5Used = false, playerCard6Used = false;
@@ -259,6 +265,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         playerSlowed = playerName + " suffers Slow";
         playerCorrupted = playerName + " suffers Corruption";
         playerCursed = playerName + " suffers Curse";
+        playerAgonized = playerName + " suffers Agony";
         playerStatuses[0] = "";
         playerStatuses[1] = "";
         playerStatuses[2] = "";
@@ -1219,14 +1226,37 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                if (enemyIsCursed && enemyCurseCountdown == 0){
-                    enemyCursedEffect();
-                } else {
-                    enemyTurn();
-                }
+                checkIfEnemyCurseEnds();
             }
         }, 2000);
     }
+
+    /* CHECKING IF ENEMY HAS DEBUFFS THAT RUNS OUT. TO AVOID A MESS, THEY ARE
+    ALL CHECKED AND REMOVED SEPERATELY. STARTING WITH CURSE, THEN AGONY, AND SO
+    ON, AT THE END OF THE CHAIN, IT STARTS ENEMY TURN.
+     */
+
+    private void checkIfEnemyCurseEnds(){
+        if (enemyIsCursed && enemyCurseCountdown == 0){
+            enemyCursedEffect();
+        } else {
+            checkIfEnemyAgonyEnds();
+        }
+    }
+
+    private void checkIfEnemyAgonyEnds(){
+        if (enemyIsAgonized && enemyAgonyCountdown == 0){
+            enemyAgonizedEnd();
+        } else {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    enemyTurn();
+                }
+            }, 1500);
+        }
+    }
+
+    /*---------------------------------*/
 
     /* ENEMY TURN MOVES */
     private void enemyTurn(){
@@ -1235,7 +1265,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             int cardOrClear = genRand(100);
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
-            if (cardOrClear >= 70){
+            if (cardOrClear >= 20){
                 enemyPickedCard = randomizeEnemyCardSelect();
 
                 if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost + enemyCorruptedPenalty){
@@ -1438,7 +1468,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
             } else {
                /* If number is less than 80, the AI will clear */
-                if (cardOrClear < 70) {
+                if (cardOrClear < 20) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             aiClearObject();
@@ -1483,6 +1513,27 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (enemyIsCursed && enemyCurseCountdown != -1){
             enemyCurseCountdown--;
         }
+        if (enemyIsAgonized && enemyAgonyCountdown == -1){
+            enemyAgonyCountdown = 3;
+        }
+        if (enemyIsAgonized && enemyAgonyCountdown >= 1){
+            enemyScore = enemyScore - 3;
+            tvEnemyScore.startAnimation(ani_shake);
+            tvEnemyScore.setTextColor(getResources().getColor(R.color.textBrightRed));
+            tvEnemyScore.setText("-3");
+            if (enemyScore < 0){
+                enemyScore = 0;
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvEnemyScore.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvEnemyScore.setText(String.valueOf(enemyScore));
+                    tvEnemyScore.startAnimation(ani_resetscore);
+                    tvPlayerScore.clearAnimation();
+                }
+            }, 1000);
+            enemyAgonyCountdown--;
+        }
         enemyHasHaste = false;
         enemyHasHaste2 = false;
         enemyIsCorrupted = false;
@@ -1517,14 +1568,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         } else {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    playerTurn();
+                    playerTurnStart();
                 }
             }, 1000);
         }
     }
 
     /* RETURN TO PLAYER TURN METHOD */
-    private void playerTurn() {
+    private void playerTurnStart() {
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 playerTurn = true;
@@ -1546,17 +1597,41 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }, 2000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                if (playerIsCursed && playerCurseCountdown == 0){
-                    playerCursedEffect();
-                } else {
-                    btnEndTurn.setEnabled(true);
-                    btnEndTurn.setText("End Turn");
-                    enable(layout_objectRow);
-                    enablePlayerCards();
-                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                }
+                checkIfPlayerCurseEnds();
             }
         }, 3000);
+    }
+
+    /* CHECKING IF PLAYER HAS DEBUFFS THAT RUNS OUT. TO AVOID A MESS, THEY ARE
+    ALL CHECKED AND REMOVED SEPERATELY. STARTING WITH CURSE, THEN AGONY, AND SO
+    ON, AT THE END OF THE CHAIN, IT STARTS PLAYER TURN.
+     */
+
+    private void checkIfPlayerCurseEnds(){
+        if (playerIsCursed && playerCurseCountdown == 0){
+            playerCursedEffect();
+        } else {
+            checkIfPlayerAgonyEnds();
+        }
+    }
+
+    private void checkIfPlayerAgonyEnds(){
+        if (playerIsAgonized && playerAgonyCountdown == 0){
+            playerAgonizedEnd();
+        } else {
+            playerTurn();
+        }
+    }
+
+    /*---------------------------------*/
+
+    /* PLAYER TURN START */
+    private void playerTurn(){
+        btnEndTurn.setEnabled(true);
+        btnEndTurn.setText("End Turn");
+        enable(layout_objectRow);
+        enablePlayerCards();
+        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
     }
 
     /* UPDATE PLAYER STATUSES */
@@ -1582,6 +1657,27 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
         if (playerIsCursed && playerCurseCountdown != -1){
             playerCurseCountdown--;
+        }
+        if (playerIsAgonized && playerAgonyCountdown == -1){
+            playerAgonyCountdown = 3;
+        }
+        if (playerIsAgonized && playerAgonyCountdown >= 1){
+            playerScore = playerScore - 3;
+            tvPlayerScore.startAnimation(ani_shake);
+            tvPlayerScore.setTextColor(getResources().getColor(R.color.textBrightRed));
+            tvPlayerScore.setText("-3");
+            if (playerScore < 0){
+                playerScore = 0;
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvPlayerScore.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvPlayerScore.setText(String.valueOf(playerScore));
+                    tvPlayerScore.startAnimation(ani_resetscore);
+                    tvEnemyScore.clearAnimation();
+                }
+            }, 1000);
+            playerAgonyCountdown--;
         }
         playerIsSlowed = false;
         playerIsCorrupted = false;
@@ -2565,11 +2661,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* THIS METHOD SETS ENEMY CARDS */
     private void setEnemyCardsIcons(){
         enemyCard1.setVisibility(View.VISIBLE);
-        enemyCard1.setBackgroundResource(R.drawable.card_icon_boosting);
-        enemyCard1.setImageResource(R.drawable.card_type_boosting);
+        enemyCard1.setBackgroundResource(R.drawable.card_icon_ailment);
+        enemyCard1.setImageResource(R.drawable.card_type_ailment);
         enemyCard2.setVisibility(View.VISIBLE);
-        enemyCard2.setBackgroundResource(R.drawable.card_icon_boosting);
-        enemyCard2.setImageResource(R.drawable.card_type_boosting);
+        enemyCard2.setBackgroundResource(R.drawable.card_icon_ailment);
+        enemyCard2.setImageResource(R.drawable.card_type_ailment);
         enemyCard3.setVisibility(View.VISIBLE);
         enemyCard3.setBackgroundResource(R.drawable.card_icon_field);
         enemyCard3.setImageResource(R.drawable.card_type_field);
@@ -2713,7 +2809,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_speed_up_2);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_agony);
                 }
             }, 1000);
         }
@@ -2727,7 +2823,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_speed_up_2);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_agony);
                 }
             }, 1000);
         }
@@ -2962,6 +3058,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if(playedCard.equals("Restore")){
             cardRestore();
         }
+        if(playedCard.equals("Agony")){
+            cardAgony();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -2995,10 +3094,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* THIS METHOD FINDS WHICH ENEMY CARD IS PLAYED TO DETERMINE EFFECT */
     private void executeEnemyCardEffect(){
         if (enemyPickedCard == 0){
-            cardSpeedUp2();
+            cardAgony();
         }
         if (enemyPickedCard == 1){
-            cardSpeedUp2();
+            cardAgony();
         }
         if (enemyPickedCard == 2){
             cardRestore();
@@ -3597,6 +3696,59 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
+    /* AGONY CARD EFFECT METHOD */
+    private void cardAgony(){
+        if (playerTurn) {
+            if (!Arrays.asList(enemyStatuses).contains("Agony")){
+                tvCenterMessage.setText(enemyAgonized);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Agony")){
+                        enemyIsAgonized = true;
+                        addEnemyAgony();
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(playerStatuses).contains("Agony")){
+                tvCenterMessage.setText(playerAgonized);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Agony")){
+                        playerIsAgonized = true;
+                        addPlayerAgony();
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        }
+    }
+
     /* STEAL CARD EFFECT METHOD */
     private void cardSteal(int min, int max){
         int finalNumber;
@@ -3845,6 +3997,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 2000);
                 }
+                if (lastEnemyPlayedCard.equals("Agony")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardAgony();
+                        }
+                    }, 2000);
+                }
                 if (lastEnemyPlayedCard.equals("Mimic")){
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -4034,6 +4198,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             cardRestore();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Agony")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardAgony();
                         }
                     }, 2000);
                 }
@@ -4531,7 +4707,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
-    /* ADD PLAYER CORRUPTION */
+    /* ADD PLAYER CURSE */
     private void addPlayerCurse(){
         int freeSpot = getFreePlayerStatusSpot();
         switch (freeSpot){
@@ -4562,6 +4738,43 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case 4:
                 playerStatuses[4] = "Curse";
                 playerStatusIcon5.setImageResource(R.drawable.debuff_curse);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /* ADD PLAYER CURSE */
+    private void addPlayerAgony(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                playerStatuses[0] = "Agony";
+                playerStatusIcon1.setImageResource(R.drawable.debuff_agony);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                playerStatuses[1] = "Agony";
+                playerStatusIcon2.setImageResource(R.drawable.debuff_agony);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                playerStatuses[2] = "Agony";
+                playerStatusIcon3.setImageResource(R.drawable.debuff_agony);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                playerStatuses[3] = "Agony";
+                playerStatusIcon4.setImageResource(R.drawable.debuff_agony);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                playerStatuses[4] = "Agony";
+                playerStatusIcon5.setImageResource(R.drawable.debuff_agony);
                 playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon5.setVisibility(View.VISIBLE);
                 break;
@@ -4716,7 +4929,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
-    /* ADD ENEMY CORRUPTION */
+    /* ADD ENEMY CURSE */
     private void addEnemyCurse(){
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
@@ -4753,7 +4966,46 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
-    /* ----------------------------------------- */
+    /* ADD ENEMY AGONY */
+    private void addEnemyAgony(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot) {
+            case 0:
+                enemyStatuses[0] = "Agony";
+                enemyStatusIcon1.setImageResource(R.drawable.debuff_agony);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                enemyStatuses[1] = "Agony";
+                enemyStatusIcon2.setImageResource(R.drawable.debuff_agony);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                enemyStatuses[2] = "Agony";
+                enemyStatusIcon3.setImageResource(R.drawable.debuff_agony);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                enemyStatuses[3] = "Agony";
+                enemyStatusIcon4.setImageResource(R.drawable.debuff_agony);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                enemyStatuses[4] = "Agony";
+                enemyStatusIcon5.setImageResource(R.drawable.debuff_agony);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /* -----------------------------------------
+    *  SHORT TATUS EFFECTS
+    *  -----------------------------------------*/
 
     /* CHECK ENEMY STATUSES */
     private void checkEnemyStatuses(){
@@ -4822,13 +5074,35 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 clearPlayerStatus("Curse");
-                btnEndTurn.setEnabled(true);
-                btnEndTurn.setText("End Turn");
-                enable(layout_objectRow);
-                enablePlayerCards();
-                tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
             }
         }, 6000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                checkIfPlayerAgonyEnds();
+            }
+        }, 7000);
+    }
+
+    private void playerAgonizedEnd(){
+        playerIsAgonized = false;
+        playerAgonyCountdown = -1;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText(playerName + " is no longer agonized");
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearPlayerStatus("Agony");
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                playerTurn();
+            }
+        }, 3000);
     }
 
     /* -----------------------------------------
@@ -4866,9 +5140,35 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 clearEnemyStatus("Curse");
-                enemyTurn();
             }
         }, 6000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                checkIfEnemyAgonyEnds();
+            }
+        }, 7000);
+    }
+
+    private void enemyAgonizedEnd(){
+        enemyIsAgonized = false;
+        enemyAgonyCountdown = -1;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText("Enemy is no longer agonized");
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearEnemyStatus("Agony");
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                enemyTurn();
+            }
+        }, 3000);
     }
 
     /* -----------------------------------------
