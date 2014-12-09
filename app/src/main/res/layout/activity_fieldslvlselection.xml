@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg_world001"
+    android:background="@drawable/bg_menus"
     android:gravity="center_vertical">
 
     <LinearLayout
