@@ -267,17 +267,6 @@
         android:textStyle="bold"
         android:textSize="28sp" />
 
-    <ImageView
-        android:contentDescription="@null"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivGround"
-        android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/ground_soil"
-        android:scaleType="center" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

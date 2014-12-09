@@ -40,7 +40,7 @@
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/world_fields"
                 android:scaleType="centerCrop"
-                android:background="@drawable/startscreen_btncolor" />
+                style="@style/lvlSelectionButton" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,7 +75,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/world_unknown"
+                android:text="Dungeon"
                 android:id="@+id/tvWorld002"
                 android:layout_gravity="center_horizontal"
                 android:textStyle="bold"
@@ -87,10 +87,11 @@
                 android:layout_height="78dp"
                 android:id="@+id/imgBtnWorld002"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/startscreen_btncolor"
-                android:src="@drawable/world_locked"
-                android:scaleType="centerCrop"
-                android:clickable="false"/>
+                android:background="@drawable/gray_button"
+                android:src="@drawable/world_dungeon"
+                android:scaleType="center"
+                android:clickable="false"
+                style="@style/lvlSelectionButton" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -125,7 +126,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/world_unknown"
+                android:text="Mountains"
                 android:id="@+id/tvWorld003"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
@@ -137,10 +138,11 @@
                 android:layout_height="78dp"
                 android:id="@+id/imgBtnWorld003"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/startscreen_btncolor"
-                android:src="@drawable/world_locked"
-                android:scaleType="centerCrop"
-                android:clickable="false"/>
+                android:background="@drawable/gray_button"
+                android:src="@drawable/world_mountians"
+                android:scaleType="center"
+                android:clickable="false"
+                style="@style/lvlSelectionButton" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -184,7 +186,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/world_unknown"
+                android:text="Wreckage"
                 android:id="@+id/tvWorld004"
                 android:layout_gravity="center_horizontal"
                 android:textStyle="bold"
@@ -195,11 +197,12 @@
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:id="@+id/imgBtnWorld004"
-                android:src="@drawable/world_locked"
-                android:scaleType="centerCrop"
-                android:background="@drawable/startscreen_btncolor"
+                android:src="@drawable/world_wreckage"
+                android:scaleType="center"
+                android:background="@drawable/gray_button"
                 android:layout_gravity="center_horizontal"
-                android:clickable="false"/>
+                android:clickable="false"
+                style="@style/lvlSelectionButton" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -234,7 +237,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/world_unknown"
+                android:text="Woods"
                 android:id="@+id/tvWorld005"
                 android:layout_gravity="center_horizontal"
                 android:textStyle="bold"
@@ -245,11 +248,12 @@
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:id="@+id/imgBtnWorld005"
-                android:src="@drawable/world_locked"
-                android:scaleType="centerCrop"
+                android:src="@drawable/world_woods"
+                android:scaleType="center"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/startscreen_btncolor"
-                android:clickable="false"/>
+                android:background="@drawable/gray_button"
+                android:clickable="false"
+                style="@style/lvlSelectionButton" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -284,7 +288,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/world_unknown"
+                android:text="Trainyard"
                 android:id="@+id/tvWorld006"
                 android:layout_gravity="center_horizontal"
                 android:textStyle="bold"
@@ -295,11 +299,12 @@
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:id="@+id/imgBtnWorld006"
-                android:background="@drawable/startscreen_btncolor"
-                android:src="@drawable/world_locked"
-                android:scaleType="centerCrop"
+                android:background="@drawable/gray_button"
+                android:scaleType="center"
                 android:layout_gravity="center_horizontal"
-                android:clickable="false"/>
+                android:clickable="false"
+                style="@style/lvlSelectionButton"
+                android:src="@drawable/world_trainyard" />
 
             <TextView
                 android:layout_width="wrap_content"
