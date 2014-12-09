@@ -3130,63 +3130,138 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             }, 1000);
         }
         if (objectsRemaining == 15) {
-            obj001.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj001.setImageResource(R.drawable.object_wheat_webbed);
+                obj002.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj001.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
-            obj002.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj002.setImageResource(R.drawable.object_wheat_webbed);
+                obj003.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj002.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 13) {
-            obj003.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj003.setImageResource(R.drawable.object_wheat_webbed);
+                obj004.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj003.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 12) {
-            obj004.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj004.setImageResource(R.drawable.object_wheat_webbed);
+                obj005.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj004.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 11) {
-            obj005.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj005.setImageResource(R.drawable.object_wheat_webbed);
+                obj006.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj005.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 10) {
-            obj006.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj006.setImageResource(R.drawable.object_wheat_webbed);
+                obj007.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj006.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 9) {
-            obj007.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj007.setImageResource(R.drawable.object_wheat_webbed);
+                obj008.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj007.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 8) {
-            obj008.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj008.setImageResource(R.drawable.object_wheat_webbed);
+                obj009.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj008.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 7) {
-            obj009.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj009.setImageResource(R.drawable.object_wheat_webbed);
+                obj010.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj009.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 6) {
-            obj010.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj010.setImageResource(R.drawable.object_wheat_webbed);
+                obj011.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj010.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 5) {
-            obj011.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj011.setImageResource(R.drawable.object_wheat_webbed);
+                obj012.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj011.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 4) {
-            obj012.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj012.setImageResource(R.drawable.object_wheat_webbed);
+                obj013.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj012.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 3) {
-            obj013.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj013.setImageResource(R.drawable.object_wheat_webbed);
+                obj014.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj013.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 2) {
-            obj014.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj014.setImageResource(R.drawable.object_wheat_webbed);
+                obj015.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj014.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 1) {
-            obj015.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj015.setImageResource(R.drawable.object_wheat_webbed);
+                obj016.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj015.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
     }
@@ -3203,77 +3278,166 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             }, 1000);
         }
         if (objectsRemaining == 15) {
-            obj001.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj001.setImageResource(R.drawable.object_wheat_webbed);
+                obj002.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj001.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
-            obj001.setImageResource(R.drawable.object_wheat);
-            obj002.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj001.setImageResource(R.drawable.object_wheat_webbed);
+                obj002.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj001.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 13) {
-            obj002.setImageResource(R.drawable.object_wheat);
-            obj003.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj002.setImageResource(R.drawable.object_wheat_webbed);
+                obj003.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj002.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 12) {
-            obj003.setImageResource(R.drawable.object_wheat);
-            obj004.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj003.setImageResource(R.drawable.object_wheat_webbed);
+                obj004.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj003.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 11) {
-            obj004.setImageResource(R.drawable.object_wheat);
-            obj005.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj004.setImageResource(R.drawable.object_wheat_webbed);
+                obj005.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj004.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 10) {
-            obj005.setImageResource(R.drawable.object_wheat);
-            obj006.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj005.setImageResource(R.drawable.object_wheat_webbed);
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj005.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 9) {
-            obj006.setImageResource(R.drawable.object_wheat);
-            obj007.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj006.setImageResource(R.drawable.object_wheat_webbed);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 8) {
-            obj007.setImageResource(R.drawable.object_wheat);
-            obj008.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj007.setImageResource(R.drawable.object_wheat_webbed);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 7) {
-            obj008.setImageResource(R.drawable.object_wheat);
-            obj009.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj008.setImageResource(R.drawable.object_wheat_webbed);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 6) {
-            obj009.setImageResource(R.drawable.object_wheat);
-            obj010.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj009.setImageResource(R.drawable.object_wheat_webbed);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 5) {
-            obj010.setImageResource(R.drawable.object_wheat);
-            obj011.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj010.setImageResource(R.drawable.object_wheat_webbed);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 4) {
-            obj011.setImageResource(R.drawable.object_wheat);
-            obj012.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj011.setImageResource(R.drawable.object_wheat_webbed);
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 3) {
-            obj012.setImageResource(R.drawable.object_wheat);
-            obj013.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj012.setImageResource(R.drawable.object_wheat_webbed);
+                obj013.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 2) {
-            obj013.setImageResource(R.drawable.object_wheat);
-            obj014.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj013.setImageResource(R.drawable.object_wheat_webbed);
+                obj014.setImageResource(R.drawable.object_wheat);
+                obj015.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj013.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 1) {
-            obj014.setImageResource(R.drawable.object_wheat);
-            obj015.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj014.setImageResource(R.drawable.object_wheat_webbed);
+                obj015.setImageResource(R.drawable.object_wheat);
+                obj016.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj014.setImageResource(R.drawable.object_wheat);
+                obj015.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
     }
@@ -3290,90 +3454,192 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             }, 1000);
         }
         if (objectsRemaining == 15) {
-            obj001.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj001.setImageResource(R.drawable.object_wheat_webbed);
+                obj002.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj001.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
-            obj001.setImageResource(R.drawable.object_wheat);
-            obj002.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj001.setImageResource(R.drawable.object_wheat_webbed);
+                obj002.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj001.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 13) {
-            obj001.setImageResource(R.drawable.object_wheat);
-            obj002.setImageResource(R.drawable.object_wheat);
-            obj003.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj001.setImageResource(R.drawable.object_wheat_webbed);
+                obj002.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj001.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 12) {
-            obj002.setImageResource(R.drawable.object_wheat);
-            obj003.setImageResource(R.drawable.object_wheat);
-            obj004.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj002.setImageResource(R.drawable.object_wheat_webbed);
+                obj003.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj002.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 11) {
-            obj003.setImageResource(R.drawable.object_wheat);
-            obj004.setImageResource(R.drawable.object_wheat);
-            obj005.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj003.setImageResource(R.drawable.object_wheat_webbed);
+                obj004.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj003.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 10) {
-            obj004.setImageResource(R.drawable.object_wheat);
-            obj005.setImageResource(R.drawable.object_wheat);
-            obj006.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj004.setImageResource(R.drawable.object_wheat_webbed);
+                obj005.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj004.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 9) {
-            obj005.setImageResource(R.drawable.object_wheat);
-            obj006.setImageResource(R.drawable.object_wheat);
-            obj007.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj005.setImageResource(R.drawable.object_wheat_webbed);
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj005.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 8) {
-            obj006.setImageResource(R.drawable.object_wheat);
-            obj007.setImageResource(R.drawable.object_wheat);
-            obj008.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj006.setImageResource(R.drawable.object_wheat_webbed);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 7) {
-            obj007.setImageResource(R.drawable.object_wheat);
-            obj008.setImageResource(R.drawable.object_wheat);
-            obj009.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj007.setImageResource(R.drawable.object_wheat_webbed);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 6) {
-            obj008.setImageResource(R.drawable.object_wheat);
-            obj009.setImageResource(R.drawable.object_wheat);
-            obj010.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj008.setImageResource(R.drawable.object_wheat_webbed);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 5) {
-            obj009.setImageResource(R.drawable.object_wheat);
-            obj010.setImageResource(R.drawable.object_wheat);
-            obj011.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj009.setImageResource(R.drawable.object_wheat_webbed);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 4) {
-            obj010.setImageResource(R.drawable.object_wheat);
-            obj011.setImageResource(R.drawable.object_wheat);
-            obj012.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj010.setImageResource(R.drawable.object_wheat_webbed);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 3) {
-            obj011.setImageResource(R.drawable.object_wheat);
-            obj012.setImageResource(R.drawable.object_wheat);
-            obj013.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj011.setImageResource(R.drawable.object_wheat_webbed);
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 2) {
-            obj012.setImageResource(R.drawable.object_wheat);
-            obj013.setImageResource(R.drawable.object_wheat);
-            obj014.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj012.setImageResource(R.drawable.object_wheat_webbed);
+                obj013.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(R.drawable.object_wheat);
+                obj015.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 1) {
-            obj013.setImageResource(R.drawable.object_wheat);
-            obj014.setImageResource(R.drawable.object_wheat);
-            obj015.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj013.setImageResource(R.drawable.object_wheat_webbed);
+                obj014.setImageResource(R.drawable.object_wheat);
+                obj015.setImageResource(R.drawable.object_wheat);
+                obj016.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj013.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(R.drawable.object_wheat);
+                obj015.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
     }
@@ -4427,105 +4693,232 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             }, 1000);
         }
         if (objectsRemaining == 15) {
-            obj001.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj001.setImageResource(R.drawable.object_wheat_webbed);
+                obj002.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj001.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
-            obj002.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj002.setImageResource(R.drawable.object_wheat_webbed);
+                obj003.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj002.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 13) {
-            obj003.setImageResource(R.drawable.object_wheat);
-            objectsRemaining = objectsRemaining + 1;
+            if (nextObjIsInfested){
+                obj002.setImageResource(R.drawable.object_wheat_webbed);
+                obj003.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj002.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(R.drawable.object_wheat);
+            }
+            objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 12) {
-            obj003.setImageResource(R.drawable.object_wheat);
-            obj004.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj003.setImageResource(R.drawable.object_wheat_webbed);
+                obj004.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj003.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 11) {
-            obj004.setImageResource(R.drawable.object_wheat);
-            obj005.setImageResource(R.drawable.object_wheat);
-            objectsRemaining = objectsRemaining + 2;
+            if (nextObjIsInfested){
+                obj003.setImageResource(R.drawable.object_wheat_webbed);
+                obj004.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj003.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(R.drawable.object_wheat);
+            }
+            objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 10) {
-            obj004.setImageResource(R.drawable.object_wheat);
-            obj005.setImageResource(R.drawable.object_wheat);
-            obj006.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj004.setImageResource(R.drawable.object_wheat_webbed);
+                obj005.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj004.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 9) {
-            obj005.setImageResource(R.drawable.object_wheat);
-            obj006.setImageResource(R.drawable.object_wheat);
-            obj007.setImageResource(R.drawable.object_wheat);
-            objectsRemaining = objectsRemaining + 3;
+            if (nextObjIsInfested){
+                obj004.setImageResource(R.drawable.object_wheat_webbed);
+                obj005.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj004.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+            }
+            objectsRemaining = objectsRemaining + 4;
         }
         if (objectsRemaining == 8) {
-            obj005.setImageResource(R.drawable.object_wheat);
-            obj006.setImageResource(R.drawable.object_wheat);
-            obj007.setImageResource(R.drawable.object_wheat);
-            obj008.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj005.setImageResource(R.drawable.object_wheat_webbed);
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 4;
         }
         if (objectsRemaining == 7) {
-            obj006.setImageResource(R.drawable.object_wheat);
-            obj007.setImageResource(R.drawable.object_wheat);
-            obj008.setImageResource(R.drawable.object_wheat);
-            obj009.setImageResource(R.drawable.object_wheat);
-            objectsRemaining = objectsRemaining + 4;
+            if (nextObjIsInfested){
+                obj005.setImageResource(R.drawable.object_wheat_webbed);
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj005.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+            }
+            objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 6) {
-            obj006.setImageResource(R.drawable.object_wheat);
-            obj007.setImageResource(R.drawable.object_wheat);
-            obj008.setImageResource(R.drawable.object_wheat);
-            obj009.setImageResource(R.drawable.object_wheat);
-            obj010.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj006.setImageResource(R.drawable.object_wheat_webbed);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 5) {
-            obj007.setImageResource(R.drawable.object_wheat);
-            obj008.setImageResource(R.drawable.object_wheat);
-            obj009.setImageResource(R.drawable.object_wheat);
-            obj010.setImageResource(R.drawable.object_wheat);
-            obj011.setImageResource(R.drawable.object_wheat);
-            objectsRemaining = objectsRemaining + 5;
+            if (nextObjIsInfested){
+                obj006.setImageResource(R.drawable.object_wheat_webbed);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj006.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+            }
+            objectsRemaining = objectsRemaining + 6;
         }
         if (objectsRemaining == 4) {
-            obj007.setImageResource(R.drawable.object_wheat);
-            obj008.setImageResource(R.drawable.object_wheat);
-            obj009.setImageResource(R.drawable.object_wheat);
-            obj010.setImageResource(R.drawable.object_wheat);
-            obj011.setImageResource(R.drawable.object_wheat);
-            obj012.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj007.setImageResource(R.drawable.object_wheat_webbed);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj007.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 6;
         }
         if (objectsRemaining == 3) {
-            obj008.setImageResource(R.drawable.object_wheat);
-            obj009.setImageResource(R.drawable.object_wheat);
-            obj010.setImageResource(R.drawable.object_wheat);
-            obj011.setImageResource(R.drawable.object_wheat);
-            obj012.setImageResource(R.drawable.object_wheat);
-            obj013.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj008.setImageResource(R.drawable.object_wheat_webbed);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 6;
         }
         if (objectsRemaining == 2) {
-            obj008.setImageResource(R.drawable.object_wheat);
-            obj009.setImageResource(R.drawable.object_wheat);
-            obj010.setImageResource(R.drawable.object_wheat);
-            obj011.setImageResource(R.drawable.object_wheat);
-            obj012.setImageResource(R.drawable.object_wheat);
-            obj013.setImageResource(R.drawable.object_wheat);
-            obj014.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj008.setImageResource(R.drawable.object_wheat_webbed);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(R.drawable.object_wheat);
+                obj015.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj008.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 7;
         }
         if (objectsRemaining == 1) {
-            obj009.setImageResource(R.drawable.object_wheat);
-            obj010.setImageResource(R.drawable.object_wheat);
-            obj011.setImageResource(R.drawable.object_wheat);
-            obj012.setImageResource(R.drawable.object_wheat);
-            obj013.setImageResource(R.drawable.object_wheat);
-            obj014.setImageResource(R.drawable.object_wheat);
-            obj015.setImageResource(R.drawable.object_wheat);
+            if (nextObjIsInfested){
+                obj009.setImageResource(R.drawable.object_wheat_webbed);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(R.drawable.object_wheat);
+                obj015.setImageResource(R.drawable.object_wheat);
+                obj016.setImageResource(R.drawable.object_wheat);
+            } else {
+                obj009.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(R.drawable.object_wheat);
+                obj015.setImageResource(R.drawable.object_wheat);
+            }
             objectsRemaining = objectsRemaining + 7;
         }
     }
