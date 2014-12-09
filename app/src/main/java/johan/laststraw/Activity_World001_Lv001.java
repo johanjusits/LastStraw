@@ -4010,6 +4010,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 2000);
                 }
                 if (lastEnemyPlayedCard.equals("Mimic")){
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    tvCenterMessage.setText("Mimic failed");
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -4017,6 +4019,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 1000);
                 }
             } else {
+                tvCenterMessage.startAnimation(ani_fadeIn);
                 tvCenterMessage.setText("Mimic failed");
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
@@ -4214,6 +4217,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }, 2000);
                 }
                 if (lastPlayerPlayedCard.equals("Mimic")){
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    tvCenterMessage.setText("Mimic failed");
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -4222,6 +4227,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
             } else {
                 tvCenterMessage.setText("Mimic failed");
+                tvCenterMessage.startAnimation(ani_fadeIn);
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
