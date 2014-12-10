@@ -98,7 +98,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerCard5Type = 0, playerCard6Type = 0;
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
-    int enemyCard1Cost = 2, enemyCard2Cost = 2, enemyCard3Cost = 2, enemyCard4Cost = 2,
+    int enemyCard1Cost = 0, enemyCard2Cost = 0, enemyCard3Cost = 2, enemyCard4Cost = 2,
             enemyCard5Cost = 2, enemyCard6Cost = 2;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
@@ -3171,7 +3171,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
             }, 2500);
         } else {
-            if (playedCard.equals("Mimic")){
+            if (playedCard.equals("Mimic") && lastEnemyPlayedCard.equals("Demonic Prayer")){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        enable(layout_objectRow);
+                        enablePlayerCards();
+                        btnEndTurn.setClickable(true);
+                    }
+                }, 15000);
+            } else if (playedCard.equals("Mimic")){
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         enable(layout_objectRow);
