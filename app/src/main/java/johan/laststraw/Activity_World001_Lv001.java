@@ -63,6 +63,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String enemyMaledicted = "Enemy suffers Malediction";
     String enemyCursed = "Enemy suffers Curse";
     String enemyAgonized = "Enemy suffers Agony";
+    String enemySentenced = "Enemy suffers Death Sentence";
     String playerHaste = "";
     String playerSlowed = "";
     String playerConcentrate = "";
@@ -70,12 +71,13 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String playerCursed = "";
     String playerMaledicted = "";
     String playerAgonized = "";
+    String playerSentenced = "";
     String buffAlreadyActiveError = "Buff already active. No effect.";
     String debuffAlreadyActiveError = "Debuff already active. No effect.";
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
-    String enemyCard1Name = "Demonic Prayer", enemyCard2Name = "Demonic Prayer", enemyCard3Name = "Malediction", enemyCard4Name = "Malediction",
+    String enemyCard1Name = "Demonic Prayer", enemyCard2Name = "Demonic Prayer", enemyCard3Name = "Death Sentence", enemyCard4Name = "Death Sentence",
             enemyCard5Name = "Mimic", enemyCard6Name = "Mimic";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
@@ -96,7 +98,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerCard5Type = 0, playerCard6Type = 0;
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
-    int enemyCard1Cost = 2, enemyCard2Cost = 2, enemyCard3Cost = 3, enemyCard4Cost = 3,
+    int enemyCard1Cost = 2, enemyCard2Cost = 2, enemyCard3Cost = 2, enemyCard4Cost = 2,
             enemyCard5Cost = 2, enemyCard6Cost = 2;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
@@ -118,6 +120,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int enemyAgonyCountdown = -1;
     int playerMaledictionCountdown = -1;
     int enemyMaledictionCountdown = -1;
+    int playerSentenceCountdown = -1;
+    int enemySentenceCountdown = -1;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
     boolean deviceIsTablet;
@@ -137,6 +141,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean enemyIsAgonized = false;
     boolean playerIsMaledicted = false;
     boolean enemyIsMaledicted = false;
+    boolean playerIsSentenced = false;
+    boolean enemyIsSentenced = false;
     boolean playerTurn = true;
     boolean playerCard1Used = false, playerCard2Used = false, playerCard3Used = false, playerCard4Used = false,
             playerCard5Used = false, playerCard6Used = false;
@@ -276,6 +282,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         playerCursed = playerName + " suffers Curse";
         playerAgonized = playerName + " suffers Agony";
         playerMaledicted = playerName + " suffers Malediction";
+        playerSentenced = playerName + " suffers Death Sentence";
         playerStatuses[0] = "";
         playerStatuses[1] = "";
         playerStatuses[2] = "";
@@ -1258,11 +1265,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (enemyIsAgonized && enemyAgonyCountdown == 0){
             enemyAgonizedEnd();
         } else {
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    checkIfEnemyMaledictionEnds();
-                }
-            }, 1500);
+            checkIfEnemyMaledictionEnds();
         }
     }
 
@@ -1270,11 +1273,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (enemyIsMaledicted && enemyMaledictionCountdown == 0){
             enemyMaledictedEffect();
         } else {
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    enemyTurn();
-                }
-            }, 1500);
+            checkIfEnemySentenceEnds();
+        }
+    }
+
+    private void checkIfEnemySentenceEnds(){
+        if (enemyIsSentenced && enemySentenceCountdown == 0){
+            enemySentencedEffect();
+        } else {
+            enemyTurn();
         }
     }
 
@@ -1314,7 +1321,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         public void run() {
                             checkEnemyMoves();
                         }
-                    }, 20000);
+                    }, 18000);
                 } else if (enemyPickedCard == 0 && enemyMoves < enemyCard1Cost + enemyCorruptedPenalty) {
                     aiClearObject();
                     myHandler.postDelayed(new Runnable() {
@@ -1348,7 +1355,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         public void run() {
                             checkEnemyMoves();
                         }
-                    }, 20000);
+                    }, 18000);
                 } else if (enemyPickedCard == 1 && enemyMoves < enemyCard2Cost + enemyCorruptedPenalty) {
                     aiClearObject();
                     myHandler.postDelayed(new Runnable() {
@@ -1443,13 +1450,13 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 6500);
 
-                    //IF ENEMY USES MIMIC CARD IT NEEDS LONGER WAIT (20000) TIMER THAN NORMAL (8000)
+                    //IF ENEMY USES MIMIC CARD IT NEEDS LONGER WAIT (18000) TIMER THAN NORMAL (8000)
                     if (lastPlayerPlayedCard.equals("Demonic Prayer")){
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 checkEnemyMoves();
                             }
-                        }, 20000);
+                        }, 18000);
                     } else {
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1486,13 +1493,13 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 6500);
 
-                    //IF ENEMY USES MIMIC CARD IT NEEDS LONGER WAIT (20000) TIMER THAN NORMAL (8000)
+                    //IF ENEMY USES MIMIC CARD IT NEEDS LONGER WAIT (18000) TIMER THAN NORMAL (8000)
                     if (lastPlayerPlayedCard.equals("Demonic Prayer")){
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 checkEnemyMoves();
                             }
-                        }, 20000);
+                        }, 18000);
                     } else {
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1583,6 +1590,12 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
         if (enemyIsMaledicted && enemyMaledictionCountdown != -1){
             enemyMaledictionCountdown--;
+        }
+        if (enemyIsSentenced && enemySentenceCountdown == -1){
+            enemySentenceCountdown = 3;
+        }
+        if (enemyIsSentenced && enemySentenceCountdown != -1){
+            enemySentenceCountdown--;
         }
         enemyHasHaste = false;
         enemyHasHaste2 = false;
@@ -1677,6 +1690,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (playerIsMaledicted && playerMaledictionCountdown == 0){
             playerMaledictedEffect();
         } else {
+            checkIfPlayerSentenceEnds();
+        }
+    }
+
+    private void checkIfPlayerSentenceEnds(){
+        if (playerIsSentenced && playerSentenceCountdown == 0){
+            playerSentencedEffect();
+        } else {
             playerTurn();
         }
     }
@@ -1742,6 +1763,12 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
         if (playerIsMaledicted && playerMaledictionCountdown != -1){
             playerMaledictionCountdown--;
+        }
+        if (playerIsSentenced && playerSentenceCountdown == -1){
+            playerSentenceCountdown = 3;
+        }
+        if (playerIsSentenced && playerSentenceCountdown != -1){
+            playerSentenceCountdown--;
         }
         playerIsSlowed = false;
         playerIsCorrupted = false;
@@ -2901,7 +2928,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_malediction);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_death_sentence);
                 }
             }, 1000);
         }
@@ -2915,7 +2942,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_malediction);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_death_sentence);
                 }
             }, 1000);
         }
@@ -3131,6 +3158,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if(playedCard.equals("Demonic Prayer")){
             cardDemonicPrayer();
         }
+        if(playedCard.equals("Death Sentence")){
+            cardDeathSentence();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -3178,10 +3208,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             cardDemonicPrayer();
         }
         if (enemyPickedCard == 2){
-            cardMalediction();
+            cardDeathSentence();
         }
         if (enemyPickedCard == 3){
-            cardMalediction();
+            cardDeathSentence();
         }
         if (enemyPickedCard == 4){
             cardMimic();
@@ -4377,6 +4407,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 2000);
                 }
+                if (lastEnemyPlayedCard.equals("Death Sentence")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardDeathSentence();
+                        }
+                    }, 2000);
+                }
                 if (lastEnemyPlayedCard.equals("Mimic")){
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     tvCenterMessage.setText("Mimic failed");
@@ -4605,6 +4647,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             cardDemonicPrayer();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Death Sentence")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardDeathSentence();
                         }
                     }, 2000);
                 }
@@ -5105,7 +5159,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* DEMONIC PRAYER CARD EFFECT METHOD */
     private void cardDemonicPrayer(){
         final int resetChance = genRand(100);
-        System.out.println(String.valueOf(resetChance));
         ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect);
         ivCenterImage.startAnimation(ani_fadeIn);
         myHandler.postDelayed(new Runnable() {
@@ -5206,6 +5259,59 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }
             }
         }, 11200);
+    }
+
+    /* DEATH SENTENCE CARD EFFECT METHOD */
+    private void cardDeathSentence(){
+        if (playerTurn){
+            if (!Arrays.asList(enemyStatuses).contains("Death Sentence")){
+                tvCenterMessage.setText(enemySentenced);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Death Sentence")){
+                        enemyIsSentenced = true;
+                        addEnemyDeathSentence();
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(playerStatuses).contains("Death Sentence")){
+                tvCenterMessage.setText(playerSentenced);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Death Sentence")){
+                        playerIsSentenced = true;
+                        addPlayerDeathSentence();
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        }
     }
 
     /* ----------------------------------------- */
@@ -5502,6 +5608,43 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
+    /* ADD PLAYER DEATH SENTENCE */
+    private void addPlayerDeathSentence(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                playerStatuses[0] = "Death Sentence";
+                playerStatusIcon1.setImageResource(R.drawable.debuff_death_sentence);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                playerStatuses[1] = "Death Sentence";
+                playerStatusIcon2.setImageResource(R.drawable.debuff_death_sentence);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                playerStatuses[2] = "Death Sentence";
+                playerStatusIcon3.setImageResource(R.drawable.debuff_death_sentence);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                playerStatuses[3] = "Death Sentence";
+                playerStatusIcon4.setImageResource(R.drawable.debuff_death_sentence);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                playerStatuses[4] = "Death Sentence";
+                playerStatusIcon5.setImageResource(R.drawable.debuff_death_sentence);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD ENEMY SLOW */
     private void addEnemySlow(){
         int freeSpot = getFreeEnemyStatusSpot();
@@ -5761,6 +5904,43 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
+    /* ADD ENEMY DEATH SENTENCE */
+    private void addEnemyDeathSentence(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot) {
+            case 0:
+                enemyStatuses[0] = "Death Sentence";
+                enemyStatusIcon1.setImageResource(R.drawable.debuff_death_sentence);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                enemyStatuses[1] = "Death Sentence";
+                enemyStatusIcon2.setImageResource(R.drawable.debuff_death_sentence);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                enemyStatuses[2] = "Death Sentence";
+                enemyStatusIcon3.setImageResource(R.drawable.debuff_death_sentence);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                enemyStatuses[3] = "Death Sentence";
+                enemyStatusIcon4.setImageResource(R.drawable.debuff_death_sentence);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                enemyStatuses[4] = "Death Sentence";
+                enemyStatusIcon5.setImageResource(R.drawable.debuff_death_sentence);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* -----------------------------------------
     *  SHORT STATUS EFFECTS
     *  -----------------------------------------*/
@@ -5900,6 +6080,54 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }, 6000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
+                checkIfPlayerSentenceEnds();
+            }
+        }, 7000);
+    }
+
+    private void playerSentencedEffect(){
+        int withdraw;
+        playerIsSentenced = false;
+        playerSentenceCountdown = -1;
+        int resetOrNot = genRand(100);
+        if (resetOrNot >= 50){
+            withdraw = playerScore;
+            playerScore = 0;
+        } else {
+            withdraw = 0;
+        }
+        final int number = withdraw;
+
+        ivCenterCardFrame.startAnimation(ani_zoomIn);
+        ivCenterCardFrame.setImageResource(R.drawable.card_death_sentence);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                ivCenterCardFrame.clearAnimation();
+                ivCenterCardFrame.setVisibility(View.INVISIBLE);
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvPlayerScore.startAnimation(ani_shake);
+                tvPlayerScore.setText("-" + String.valueOf(number));
+                tvPlayerScore.setTextColor(getResources().getColor(R.color.textBrightRed));
+            }
+        }, 3000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvPlayerScore.setText(String.valueOf(playerScore));
+                tvPlayerScore.setTextColor(getResources().getColor(R.color.textBlack));
+                tvPlayerScore.startAnimation(ani_resetscore);
+                tvEnemyScore.clearAnimation();
+            }
+        }, 4000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                clearPlayerStatus("Death Sentence");
+            }
+        }, 6000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
                 playerTurn();
             }
         }, 7000);
@@ -6005,6 +6233,54 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 clearEnemyStatus("Malediction");
+            }
+        }, 6000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                checkIfEnemySentenceEnds();
+            }
+        }, 7000);
+    }
+
+    private void enemySentencedEffect(){
+        int withdraw;
+        enemyIsSentenced = false;
+        enemySentenceCountdown = -1;
+        int resetOrNot = genRand(100);
+        if (resetOrNot >= 50){
+            withdraw = enemyScore;
+            enemyScore = 0;
+        } else {
+            withdraw = 0;
+        }
+        final int number = withdraw;
+
+        ivCenterCardFrame.startAnimation(ani_zoomIn);
+        ivCenterCardFrame.setImageResource(R.drawable.card_death_sentence);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                ivCenterCardFrame.clearAnimation();
+                ivCenterCardFrame.setVisibility(View.INVISIBLE);
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvEnemyScore.startAnimation(ani_shake);
+                tvEnemyScore.setText("-" + String.valueOf(number));
+                tvEnemyScore.setTextColor(getResources().getColor(R.color.textBrightRed));
+            }
+        }, 3000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                tvEnemyScore.setTextColor(getResources().getColor(R.color.textBlack));
+                tvEnemyScore.startAnimation(ani_resetscore);
+                tvPlayerScore.clearAnimation();
+            }
+        }, 4000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                clearEnemyStatus("Death Sentence");
             }
         }, 6000);
         myHandler.postDelayed(new Runnable() {
