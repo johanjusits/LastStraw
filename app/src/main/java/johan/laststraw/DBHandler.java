@@ -278,7 +278,7 @@ public class DBHandler {
             ac017.put(KEY_NAME, "Malediction");
             ac017.put(KEY_IMAGE, "card_malediction");
             ac017.put(KEY_TYPE, 2);
-            ac017.put(KEY_DESC, "Reduces score by 3/4 after three turns.");
+            ac017.put(KEY_DESC, "Reduces score by 3/4 after four turns.");
             ac017.put(KEY_COST, 3);
             ac017.put(KEY_REQUIRESLVL, 30);
             ac017.put(KEY_ISUNLOCKED, 0);
@@ -535,7 +535,7 @@ public class DBHandler {
         addOwnedCard("Restore", "card_restore", 1, 2, "Brings back half of the cleared objects.");
         addOwnedCard("Curse", "card_curse", 2, 2, "Reduces score by half after three turns.");
         addOwnedCard("Agony", "card_agony", 2, 2, "Reduces score by 3 at the start of the turn. Lasts three turns.");
-        addOwnedCard("Malediction", "card_malediction", 2, 3, "Reduces score by 3/4 after three turns.");
+        addOwnedCard("Malediction", "card_malediction", 2, 3, "Reduces score by 3/4 after three four.");
         addOwnedCard("Demonic Prayer", "card_demonic_prayer", 2, 2, "10% chance to reset opponent's score.");
         addOwnedCard("Death Sentence", "card_death_sentence", 2, 2, "50% chance to reset opponent's score after 3 turns.");
         unlockCard(2,1);
