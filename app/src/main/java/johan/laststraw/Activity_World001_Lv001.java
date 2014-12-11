@@ -64,6 +64,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String enemyCursed = "Enemy suffers Curse";
     String enemyAgonized = "Enemy suffers Agony";
     String enemySentenced = "Enemy suffers Death Sentence";
+    String enemyCured = "Enemy cures all ailments";
     String playerHaste = "";
     String playerSlowed = "";
     String playerConcentrate = "";
@@ -72,12 +73,13 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String playerMaledicted = "";
     String playerAgonized = "";
     String playerSentenced = "";
+    String playerCured = "";
     String buffAlreadyActiveError = "Buff already active. No effect.";
     String debuffAlreadyActiveError = "Debuff already active. No effect.";
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
-    String enemyCard1Name = "Demonic Prayer", enemyCard2Name = "Demonic Prayer", enemyCard3Name = "Death Sentence", enemyCard4Name = "Death Sentence",
+    String enemyCard1Name = "Cure", enemyCard2Name = "Cure", enemyCard3Name = "Death Sentence", enemyCard4Name = "Death Sentence",
             enemyCard5Name = "Mimic", enemyCard6Name = "Mimic";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
@@ -98,7 +100,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerCard5Type = 0, playerCard6Type = 0;
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
-    int enemyCard1Cost = 0, enemyCard2Cost = 0, enemyCard3Cost = 2, enemyCard4Cost = 2,
+    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 2, enemyCard4Cost = 2,
             enemyCard5Cost = 2, enemyCard6Cost = 2;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
@@ -283,6 +285,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         playerAgonized = playerName + " suffers Agony";
         playerMaledicted = playerName + " suffers Malediction";
         playerSentenced = playerName + " suffers Death Sentence";
+        playerCured = playerName + " cures all ailments";
         playerStatuses[0] = "";
         playerStatuses[1] = "";
         playerStatuses[2] = "";
@@ -1321,7 +1324,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         public void run() {
                             checkEnemyMoves();
                         }
-                    }, 18000);
+                    }, 8000);
                 } else if (enemyPickedCard == 0 && enemyMoves < enemyCard1Cost + enemyCorruptedPenalty) {
                     aiClearObject();
                     myHandler.postDelayed(new Runnable() {
@@ -1355,7 +1358,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         public void run() {
                             checkEnemyMoves();
                         }
-                    }, 18000);
+                    }, 8000);
                 } else if (enemyPickedCard == 1 && enemyMoves < enemyCard2Cost + enemyCorruptedPenalty) {
                     aiClearObject();
                     myHandler.postDelayed(new Runnable() {
@@ -1384,6 +1387,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 6500);
 
+                    //CHANGE WAIT VALUE DEPENDING ON WHICH CARD THE AI IS ASSIGNED (8000 default, 18000 for Demonic Prayer)
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             checkEnemyMoves();
@@ -1417,6 +1421,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 6500);
 
+                    //CHANGE WAIT VALUE DEPENDING ON WHICH CARD THE AI IS ASSIGNED (8000 default, 18000 for Demonic Prayer)
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             checkEnemyMoves();
@@ -2752,11 +2757,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* THIS METHOD SETS ENEMY CARDS */
     private void setEnemyCardsIcons(){
         enemyCard1.setVisibility(View.VISIBLE);
-        enemyCard1.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard1.setImageResource(R.drawable.card_type_ailment);
+        enemyCard1.setBackgroundResource(R.drawable.card_icon_boosting);
+        enemyCard1.setImageResource(R.drawable.card_type_boosting);
         enemyCard2.setVisibility(View.VISIBLE);
-        enemyCard2.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard2.setImageResource(R.drawable.card_type_ailment);
+        enemyCard2.setBackgroundResource(R.drawable.card_icon_boosting);
+        enemyCard2.setImageResource(R.drawable.card_type_boosting);
         enemyCard3.setVisibility(View.VISIBLE);
         enemyCard3.setBackgroundResource(R.drawable.card_icon_ailment);
         enemyCard3.setImageResource(R.drawable.card_type_ailment);
@@ -2900,7 +2905,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_demonic_prayer);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_cure);
                 }
             }, 1000);
         }
@@ -2914,7 +2919,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_demonic_prayer);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_cure);
                 }
             }, 1000);
         }
@@ -3161,6 +3166,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if(playedCard.equals("Death Sentence")){
             cardDeathSentence();
         }
+        if(playedCard.equals("Cure")){
+            cardCure();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -3210,10 +3218,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* THIS METHOD FINDS WHICH ENEMY CARD IS PLAYED TO DETERMINE EFFECT */
     private void executeEnemyCardEffect(){
         if (enemyPickedCard == 0){
-            cardDemonicPrayer();
+            cardCure();
         }
         if (enemyPickedCard == 1){
-            cardDemonicPrayer();
+            cardCure();
         }
         if (enemyPickedCard == 2){
             cardDeathSentence();
@@ -4427,6 +4435,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 2000);
                 }
+                if (lastEnemyPlayedCard.equals("Cure")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardCure();
+                        }
+                    }, 2000);
+                }
                 if (lastEnemyPlayedCard.equals("Mimic")){
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     tvCenterMessage.setText("Mimic failed");
@@ -4667,6 +4687,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             cardDeathSentence();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Cure")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardCure();
                         }
                     }, 2000);
                 }
@@ -5319,6 +5351,29 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }
                 }
             }, 1000);
+        }
+    }
+
+    /* CURE CARD EFFECT METHOD */
+    private void cardCure(){
+        if (playerTurn){
+            tvCenterMessage.setText(playerCured);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    checkPlayerAilments();
+                }
+            }, 1500);
+        } else {
+            tvCenterMessage.setText(enemyCured);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    checkEnemyAilments();
+                }
+            }, 1500);
         }
     }
 
@@ -6396,7 +6451,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             number = 4;
             return number;
         }
-        return 0;
+        //IF AILMENT ISNT FOUND, IT RETURNS NEGATIVE NUMBER
+        return -1;
     }
 
     /* CHECK FOR EMPTY ENEMY STATUS */
@@ -6423,6 +6479,134 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             return number;
         }
         return 0;
+    }
+
+    /* FIND PLAYER AILMENTS */
+    private int findPlayerAilment(String debuffName){
+        int number;
+        if (playerStatuses[0].equals(debuffName)){
+            number = 0;
+            return number;
+        }
+        if (playerStatuses[1].equals(debuffName)){
+            number = 1;
+            return number;
+        }
+        if (playerStatuses[2].equals(debuffName)){
+            number = 2;
+            return number;
+        }
+        if (playerStatuses[3].equals(debuffName)){
+            number = 3;
+            return number;
+        }
+        if (playerStatuses[4].equals(debuffName)){
+            number = 4;
+            return number;
+        }
+        return 0;
+    }
+
+    /* CHECK PLAYER FOR AILMENTS */
+    private void checkPlayerAilments(){
+        int check = findPlayerAilment("Slow Down");
+        if (check != -1){
+            playerIsSlowed = false;
+            clearPlayerStatus("Slow Down");
+        }
+        check = findPlayerAilment("Corruption");
+        if (check != -1){
+            playerIsCorrupted = false;
+            clearPlayerStatus("Corruption");
+        }
+        check = findPlayerAilment("Curse");
+        if (check != -1){
+            playerIsCursed = false;
+            playerCurseCountdown = -1;
+            clearPlayerStatus("Curse");
+        }
+        check = findPlayerAilment("Agony");
+        if (check != -1){
+            playerIsAgonized = false;
+            playerAgonyCountdown = -1;
+            clearPlayerStatus("Agony");
+        }
+        check = findPlayerAilment("Malediction");
+        if (check != -1){
+            playerIsMaledicted = false;
+            playerMaledictionCountdown = -1;
+            clearPlayerStatus("Malediction");
+        }
+        check = findPlayerAilment("Death Sentence");
+        if (check != -1){
+            playerIsSentenced = false;
+            playerSentenceCountdown = -1;
+            clearPlayerStatus("Death Sentence");
+        }
+    }
+
+    /* FIND ENEMY AILMENTS */
+    private int findEnemyAilments(String debuffName){
+        int number;
+        if (enemyStatuses[0].equals(debuffName)){
+            number = 0;
+            return number;
+        }
+        if (enemyStatuses[1].equals(debuffName)){
+            number = 1;
+            return number;
+        }
+        if (enemyStatuses[2].equals(debuffName)){
+            number = 2;
+            return number;
+        }
+        if (enemyStatuses[3].equals(debuffName)){
+            number = 3;
+            return number;
+        }
+        if (enemyStatuses[4].equals(debuffName)){
+            number = 4;
+            return number;
+        }
+        return 0;
+    }
+
+    /* CHECK ENEMY FOR AILMENTS */
+    private void checkEnemyAilments(){
+        int check = findEnemyAilments("Slow Down");
+        if (check != -1){
+            enemyIsSlowed = false;
+            clearEnemyStatus("Slow Down");
+        }
+        check = findEnemyAilments("Corruption");
+        if (check != -1){
+            enemyIsCorrupted = false;
+            clearEnemyStatus("Corruption");
+        }
+        check = findEnemyAilments("Curse");
+        if (check != -1){
+            enemyIsCursed = false;
+            enemyCurseCountdown = -1;
+            clearEnemyStatus("Curse");
+        }
+        check = findEnemyAilments("Agony");
+        if (check != -1){
+            enemyIsAgonized = false;
+            enemyAgonyCountdown = -1;
+            clearEnemyStatus("Agony");
+        }
+        check = findEnemyAilments("Malediction");
+        if (check != -1){
+            enemyIsMaledicted = false;
+            enemyMaledictionCountdown = -1;
+            clearEnemyStatus("Malediction");
+        }
+        check = findEnemyAilments("Death Sentence");
+        if (check != -1){
+            enemyIsSentenced = false;
+            enemySentenceCountdown = -1;
+            clearEnemyStatus("Death Sentence");
+        }
     }
 }
 
