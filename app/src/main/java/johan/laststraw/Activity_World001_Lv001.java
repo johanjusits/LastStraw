@@ -65,6 +65,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String enemyAgonized = "Enemy suffers Agony";
     String enemySentenced = "Enemy suffers Death Sentence";
     String enemyCured = "Enemy cures all ailments";
+    String enemyAlteredTime = "Enemy alters time";
+    String enemyGainAnother = "Enemy gains another turn!";
     String playerHaste = "";
     String playerSlowed = "";
     String playerConcentrate = "";
@@ -74,13 +76,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String playerAgonized = "";
     String playerSentenced = "";
     String playerCured = "";
+    String playerAlteredTime = "";
+    String playerGainAnother = "";
     String buffAlreadyActiveError = "Buff already active. No effect.";
     String debuffAlreadyActiveError = "Debuff already active. No effect.";
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
     String enemyCard1Name = "Cure", enemyCard2Name = "Cure", enemyCard3Name = "Death Sentence", enemyCard4Name = "Death Sentence",
-            enemyCard5Name = "Mimic", enemyCard6Name = "Mimic";
+            enemyCard5Name = "Rewind", enemyCard6Name = "Rewind";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
     String[] playerStatuses = new String[5];
@@ -101,7 +105,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
     int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 2, enemyCard4Cost = 2,
-            enemyCard5Cost = 2, enemyCard6Cost = 2;
+            enemyCard5Cost = 0, enemyCard6Cost = 0;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
     int selectedCard = 0;
@@ -135,6 +139,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean playerHasHaste2 = false;
     boolean playerHasConcentrate = false;
     boolean enemyHasConcentrate = false;
+    boolean playerHasAlteredTime = false;
+    boolean enemyHasAlteredTime = false;
     boolean playerIsCorrupted = false;
     boolean enemyIsCorrupted = false;
     boolean playerIsCursed = false;
@@ -286,6 +292,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         playerMaledicted = playerName + " suffers Malediction";
         playerSentenced = playerName + " suffers Death Sentence";
         playerCured = playerName + " cures all ailments";
+        playerAlteredTime = playerName + " alters time";
+        playerGainAnother = playerName + " gains another turn! ";
         playerStatuses[0] = "";
         playerStatuses[1] = "";
         playerStatuses[2] = "";
@@ -1228,27 +1236,44 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
     /* ENEMY TURN START METHOD */
     private void enemyTurnStart() {
-        enemyMoves = 3;
-        playerTurn = false;
-        updateEnemyStatuses();
+        if (playerHasAlteredTime){
+            playerHasAlteredTime = false;
+            tvCenterMessage.setText(playerGainAnother);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 1000);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    clearPlayerStatus("Rewind");
+                    playerTurnStart();
+                }
+            }, 2000);
+        } else {
+            enemyMoves = 3;
+            playerTurn = false;
+            updateEnemyStatuses();
         /* Calls the method to check if player buffs have run out their duration */
-        checkPlayerStatues();
-        disablePlayerCards();
-        tvCenterMessage.setText("ENEMY TURN");
-        tvCenterMessage.startAnimation(ani_fadeIn);
-        tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
+            checkPlayerStatues();
+            disablePlayerCards();
+            tvCenterMessage.setText("ENEMY TURN");
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
 
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                tvCenterMessage.startAnimation(ani_fadeOut);
-            }
-        }, 1000);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 1000);
 
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                checkIfEnemyCurseEnds();
-            }
-        }, 2000);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    checkIfEnemyCurseEnds();
+                }
+            }, 2000);
+        }
     }
 
     /* CHECKING IF ENEMY HAS DEBUFFS THAT RUNS OUT. TO AVOID A MESS, THEY ARE
@@ -1644,30 +1669,47 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
     /* RETURN TO PLAYER TURN METHOD */
     private void playerTurnStart() {
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                playerTurn = true;
-                enemyMoves = 0;
-                playerMoves = 3;
-                updatePlayerStatuses();
-                tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
-                enemyIsSlowed = false;
+        if (enemyHasAlteredTime) {
+            enemyHasAlteredTime = false;
+            tvCenterMessage.setText(enemyGainAnother);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 1000);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    clearEnemyStatus("Rewind");
+                    enemyTurnStart();
+                }
+            }, 2000);
+        } else {
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    playerTurn = true;
+                    enemyMoves = 0;
+                    playerMoves = 3;
+                    updatePlayerStatuses();
+                    tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
+                    enemyIsSlowed = false;
                 /* Calls the method to check if enemy buffs have run out their duration */
-                checkEnemyStatuses();
-                tvCenterMessage.setText("YOUR TURN");
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-        }, 1000);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                tvCenterMessage.startAnimation(ani_fadeOut);
-            }
-        }, 2000);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                checkIfPlayerCurseEnds();
-            }
-        }, 3000);
+                    checkEnemyStatuses();
+                    tvCenterMessage.setText("YOUR TURN");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                }
+            }, 1000);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 2000);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    checkIfPlayerCurseEnds();
+                }
+            }, 3000);
+        }
     }
 
     /* CHECKING IF PLAYER HAS DEBUFFS THAT RUNS OUT. TO AVOID A MESS, THEY ARE
@@ -2961,7 +3003,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_mimic);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_rewind);
                 }
             }, 1000);
         }
@@ -2975,7 +3017,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_mimic);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_rewind);
                 }
             }, 1000);
         }
@@ -3169,6 +3211,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if(playedCard.equals("Cure")){
             cardCure();
         }
+        if(playedCard.equals("Rewind")){
+            cardRewind();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -3230,10 +3275,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             cardDeathSentence();
         }
         if (enemyPickedCard == 4){
-            cardMimic();
+            cardRewind();
         }
         if (enemyPickedCard == 5){
-            cardMimic();
+            cardRewind();
         }
 
     }
@@ -4447,6 +4492,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 2000);
                 }
+                if (lastEnemyPlayedCard.equals("Rewind")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardRewind();
+                        }
+                    }, 2000);
+                }
                 if (lastEnemyPlayedCard.equals("Mimic")){
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     tvCenterMessage.setText("Mimic failed");
@@ -4699,6 +4756,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             cardCure();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Rewind")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardRewind();
                         }
                     }, 2000);
                 }
@@ -5377,6 +5446,59 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
     }
 
+    /* REWIND CARD EFFECT METHOD */
+    private void cardRewind(){
+        if (playerTurn) {
+            if (!Arrays.asList(playerStatuses).contains("Rewind")){
+                tvCenterMessage.setText(playerAlteredTime);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Rewind")){
+                        playerHasAlteredTime = true;
+                        addPlayerRewind();
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(enemyStatuses).contains("Rewind")){
+                tvCenterMessage.setText(enemyAlteredTime);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Rewind")){
+                        enemyHasAlteredTime = true;
+                        addEnemyRewind();
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        }
+    }
+
     /* ----------------------------------------- */
 
     @Override
@@ -5447,6 +5569,43 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     playerStatusIcon5.setVisibility(View.VISIBLE);
                     break;
             }
+    }
+
+    /* ADD PLAYER REWIND */
+    private void addPlayerRewind(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                playerStatuses[0] = "Rewind";
+                playerStatusIcon1.setImageResource(R.drawable.buff_rewind);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                playerStatuses[1] = "Rewind";
+                playerStatusIcon2.setImageResource(R.drawable.buff_rewind);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                playerStatuses[2] = "Rewind";
+                playerStatusIcon3.setImageResource(R.drawable.buff_rewind);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                playerStatuses[3] = "Rewind";
+                playerStatusIcon4.setImageResource(R.drawable.buff_rewind);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                playerStatuses[4] = "Rewind";
+                playerStatusIcon5.setImageResource(R.drawable.buff_rewind);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 
     /* ADD PLAYER CONCENTRATE */
@@ -5776,6 +5935,43 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case 4:
                 enemyStatuses[4] = "Speed Up";
                 enemyStatusIcon5.setImageResource(R.drawable.buff_speed_up);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /* ADD ENEMY REWIND*/
+    private void addEnemyRewind(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot){
+            case 0:
+                enemyStatuses[0] = "Rewind";
+                enemyStatusIcon1.setImageResource(R.drawable.buff_rewind);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                enemyStatuses[1] = "Rewind";
+                enemyStatusIcon2.setImageResource(R.drawable.buff_rewind);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                enemyStatuses[2] = "Rewind";
+                enemyStatusIcon3.setImageResource(R.drawable.buff_rewind);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                enemyStatuses[3] = "Rewind";
+                enemyStatusIcon4.setImageResource(R.drawable.buff_rewind);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                enemyStatuses[4] = "Rewind";
+                enemyStatusIcon5.setImageResource(R.drawable.buff_rewind);
                 enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
                 enemyStatusIcon5.setVisibility(View.VISIBLE);
                 break;

@@ -93,6 +93,9 @@ public class CustomCursorAdapter extends CursorAdapter {
         if (imagePath.equals("card_cure")){
             Picasso.with(context).load(R.drawable.card_cure).placeholder(R.drawable.card_placeholder).into(viewHolder.imageHolder);
         }
+        if (imagePath.equals("card_rewind")){
+            Picasso.with(context).load(R.drawable.card_rewind).placeholder(R.drawable.card_placeholder).into(viewHolder.imageHolder);
+        }
     }
 
     @Override

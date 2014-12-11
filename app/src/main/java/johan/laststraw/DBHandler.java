@@ -314,6 +314,16 @@ public class DBHandler {
             ac020.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac020);
 
+            ContentValues ac021 = new ContentValues();
+            ac021.put(KEY_NAME, "Rewind");
+            ac021.put(KEY_IMAGE, "card_rewind");
+            ac021.put(KEY_TYPE, 3);
+            ac021.put(KEY_DESC, "Gain another turn at the end of current turn.");
+            ac021.put(KEY_COST, 0);
+            ac021.put(KEY_REQUIRESLVL, 38);
+            ac021.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac021);
+
             /* ADDS CARDS TO OWNED CARDS */
             ContentValues oc1 = new ContentValues();
             oc1.put(KEY_NAME, "Reinforce");
@@ -549,6 +559,7 @@ public class DBHandler {
         addOwnedCard("Demonic Prayer", "card_demonic_prayer", 2, 0, "10% chance to reset opponent's score.");
         addOwnedCard("Death Sentence", "card_death_sentence", 2, 2, "50% chance to reset opponent's score after 3 turns.");
         addOwnedCard("Cure", "card_cure", 3, 1, "Removes all ailments from yourself.");
+        addOwnedCard("Rewind", "card_rewind", 3, 0, "Gain another turn at the end of current turn.");
         unlockCard(2,1);
         unlockCard(3,1);
         unlockCard(4,1);
@@ -568,6 +579,7 @@ public class DBHandler {
         unlockCard(18,1);
         unlockCard(19,1);
         unlockCard(20,1);
+        unlockCard(21,1);
     }
     public void reset(){
         appDB = ourHelper.getWritableDatabase();
