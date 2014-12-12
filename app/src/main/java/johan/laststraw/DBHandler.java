@@ -344,6 +344,16 @@ public class DBHandler {
             ac023.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac023);
 
+            ContentValues ac024 = new ContentValues();
+            ac024.put(KEY_NAME, "Dispel");
+            ac024.put(KEY_IMAGE, "card_dispel");
+            ac024.put(KEY_TYPE, 2);
+            ac024.put(KEY_DESC, "Removes all positive buffs from the opponent.");
+            ac024.put(KEY_COST, 1);
+            ac024.put(KEY_REQUIRESLVL, 44);
+            ac024.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac024);
+
             /* ADDS CARDS TO OWNED CARDS */
             ContentValues oc1 = new ContentValues();
             oc1.put(KEY_NAME, "Reinforce");
@@ -582,6 +592,7 @@ public class DBHandler {
         addOwnedCard("Rewind", "card_rewind", 3, 0, "Gain another turn at the end of current turn.");
         addOwnedCard("Protect", "card_protect", 3, 1, "Gain a temporary shield that protects against ailments. Lasts 2 turns.");
         addOwnedCard("Hoard", "card_hoard", 3, 1, "Keep the next card you play. Lasts until a card is played.");
+        addOwnedCard("Dispel", "card_dispel", 2, 1, "Removes all positive buffs from the opponent.");
         unlockCard(2,1);
         unlockCard(3,1);
         unlockCard(4,1);
@@ -604,6 +615,7 @@ public class DBHandler {
         unlockCard(21,1);
         unlockCard(22,1);
         unlockCard(23,1);
+        unlockCard(24,1);
     }
     public void reset(){
         appDB = ourHelper.getWritableDatabase();
