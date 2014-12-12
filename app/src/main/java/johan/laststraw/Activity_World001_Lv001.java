@@ -71,6 +71,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String enemyGainAnother = "Enemy gains another turn!";
     String enemyProtected = "Enemy gains Protect";
     String enemyHoarded = "Enemy keeps played card!";
+    String enemyDispelled = "Enemy suffers Dispel";
     String playerHaste = "";
     String playerHoard = "";
     String playerSlowed = "";
@@ -85,13 +86,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String playerGainAnother = "";
     String playerProtected = "";
     String playerHoarded = "";
+    String playerDispelled = "";
     String buffAlreadyActiveError = "Buff already active. No effect.";
     String debuffAlreadyActiveError = "Debuff already active. No effect.";
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
     String enemyCard1Name = "Protect", enemyCard2Name = "Protect", enemyCard3Name = "Slow Down", enemyCard4Name = "Slow Down",
-            enemyCard5Name = "Hoard", enemyCard6Name = "Hoard";
+            enemyCard5Name = "Dispel", enemyCard6Name = "Dispel";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
     String[] playerStatuses = new String[5];
@@ -310,6 +312,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         playerProtected = playerName + " gains Protect";
         playerHoarded = playerName + " keeps played card!";
         playerHoard = playerName + " gains Hoard";
+        playerDispelled = playerName + " suffers Dispel";
         playerStatuses[0] = "";
         playerStatuses[1] = "";
         playerStatuses[2] = "";
@@ -2885,11 +2888,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         enemyCard4.setBackgroundResource(R.drawable.card_icon_ailment);
         enemyCard4.setImageResource(R.drawable.card_type_ailment);
         enemyCard5.setVisibility(View.VISIBLE);
-        enemyCard5.setBackgroundResource(R.drawable.card_icon_boosting);
-        enemyCard5.setImageResource(R.drawable.card_type_boosting);
+        enemyCard5.setBackgroundResource(R.drawable.card_icon_ailment);
+        enemyCard5.setImageResource(R.drawable.card_type_ailment);
         enemyCard6.setVisibility(View.VISIBLE);
-        enemyCard6.setBackgroundResource(R.drawable.card_icon_boosting);
-        enemyCard6.setImageResource(R.drawable.card_type_boosting);
+        enemyCard6.setBackgroundResource(R.drawable.card_icon_ailment);
+        enemyCard6.setImageResource(R.drawable.card_type_ailment);
     }
 
     /* THIS METHOD DETERMINES IF DEVICE IS A TABLET OR PHONE */
@@ -3102,7 +3105,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_hoard);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_dispel);
                 }
             }, 1000);
         }
@@ -3121,7 +3124,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_hoard);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_dispel);
                 }
             }, 1000);
         }
@@ -3361,6 +3364,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if(playedCard.equals("Hoard")){
             cardHoard();
         }
+        if(playedCard.equals("Dispel")){
+            cardDispel();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -3422,10 +3428,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             cardSlowDown();
         }
         if (enemyPickedCard == 4){
-            cardHoard();
+            cardDispel();
         }
         if (enemyPickedCard == 5){
-            cardHoard();
+            cardDispel();
         }
 
     }
@@ -3999,6 +4005,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }
                     }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(debuffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
                 }
             }
 
@@ -4039,6 +4054,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }
                     }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(debuffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
                 }
             }
         }
@@ -4242,6 +4266,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }
                     }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
                 }
             }
 
@@ -4282,6 +4315,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }
                     }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
                 }
             }
         }
@@ -4326,6 +4368,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }
                     }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
                 }
             }
         } else {
@@ -4365,6 +4416,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }
                     }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
                 }
             }
         }
@@ -4409,6 +4469,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }
                     }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
                 }
             }
         } else {
@@ -4448,6 +4517,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }
                     }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
                 }
             }
         }
@@ -4797,6 +4875,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 2000);
                 }
+                if (lastEnemyPlayedCard.equals("Dispel")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardDispel();
+                        }
+                    }, 2000);
+                }
                 if (lastEnemyPlayedCard.equals("Mimic")){
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     tvCenterMessage.setText("Mimic failed");
@@ -5085,6 +5175,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             cardHoard();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Dispel")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardDispel();
                         }
                     }, 2000);
                 }
@@ -5568,6 +5670,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }
                     }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
                 }
             }
         } else {
@@ -5607,6 +5718,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }
                     }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
                 }
             }
         }
@@ -5756,6 +5876,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }
                     }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
                 }
             }
         } else {
@@ -5795,6 +5924,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }
                     }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
                 }
             }
         }
@@ -5979,6 +6117,29 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     }
                 }
             }, 1000);
+        }
+    }
+
+    /* DISPEL CARD EFFECT METHOD */
+    private void cardDispel(){
+        if (playerTurn){
+            tvCenterMessage.setText(enemyDispelled);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    checkEnemyBuffs();
+                }
+            }, 1500);
+        } else {
+            tvCenterMessage.setText(playerDispelled);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    checkPlayerBuffs();
+                }
+            }, 1500);
         }
     }
 
@@ -7286,7 +7447,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
         if (playerStatuses[4].equals(debuffName)){
             playerStatuses[4] = "";
-            playerStatusIcon1.setVisibility(View.INVISIBLE);
+            playerStatusIcon5.setVisibility(View.INVISIBLE);
             activePlayerStatuses--;
         }
         if (debuffName.equals("Concentrate")){
@@ -7351,6 +7512,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
         return 0;
     }
+
+    /* ----------------------------------------- */
 
     /* FIND PLAYER AILMENTS */
     private int findPlayerAilment(String debuffName){
@@ -7477,6 +7640,120 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             enemyIsSentenced = false;
             enemySentenceCountdown = -1;
             clearEnemyStatus("Death Sentence");
+        }
+    }
+
+    /* ----------------------------------------- */
+
+    /* FIND PLAYER BUFFS */
+    private int findPlayerBuff(String buffName){
+        int number;
+        if (playerStatuses[0].equals(buffName)){
+            number = 0;
+            return number;
+        }
+        if (playerStatuses[1].equals(buffName)){
+            number = 1;
+            return number;
+        }
+        if (playerStatuses[2].equals(buffName)){
+            number = 2;
+            return number;
+        }
+        if (playerStatuses[3].equals(buffName)){
+            number = 3;
+            return number;
+        }
+        if (playerStatuses[4].equals(buffName)){
+            number = 4;
+            return number;
+        }
+        return 0;
+    }
+
+    /* CHECK PLAYER FOR BUFFS */
+    private void checkPlayerBuffs(){
+        int check = findPlayerBuff("Speed Up");
+        if (check != -1){
+            playerHasHaste = false;
+            playerHasHaste2 = false;
+            clearPlayerStatus("Speed Up");
+        }
+        check = findPlayerBuff("Protect");
+        if (check != -1){
+            playerHasProtect = false;
+            clearPlayerStatus("Protect");
+        }
+        check = findPlayerBuff("Rewind");
+        if (check != -1){
+            playerHasAlteredTime = false;
+            clearPlayerStatus("Rewind");
+        }
+        check = findPlayerBuff("Hoard");
+        if (check != -1){
+            playerIsHoarding = false;
+            clearPlayerStatus("Hoard");
+        }
+        check = findPlayerBuff("Concentrate");
+        if (check != -1){
+            playerHasConcentrate = false;
+            clearPlayerStatus("Concentrate");
+        }
+    }
+
+    /* FIND ENEMY BUFFS */
+    private int findEnemyBuff(String buffName){
+        int number;
+        if (enemyStatuses[0].equals(buffName)){
+            number = 0;
+            return number;
+        }
+        if (enemyStatuses[1].equals(buffName)){
+            number = 1;
+            return number;
+        }
+        if (enemyStatuses[2].equals(buffName)){
+            number = 2;
+            return number;
+        }
+        if (enemyStatuses[3].equals(buffName)){
+            number = 3;
+            return number;
+        }
+        if (enemyStatuses[4].equals(buffName)){
+            number = 4;
+            return number;
+        }
+        return 0;
+    }
+
+    /* CHECK ENEMY FOR BUFFS */
+    private void checkEnemyBuffs(){
+        int check = findEnemyBuff("Speed Up");
+        if (check != -1){
+            enemyHasHaste = false;
+            enemyHasHaste2 = false;
+            clearEnemyStatus("Speed Up");
+        }
+        check = findEnemyBuff("Protect");
+        if (check != -1){
+            enemyHasProtect = false;
+            clearEnemyStatus("Protect");
+        }
+        check = findEnemyBuff("Rewind");
+        if (check != -1){
+            enemyHasAlteredTime = false;
+            clearEnemyStatus("Rewind");
+        }
+        check = findEnemyBuff("Hoard");
+        if (check != -1){
+            enemyIsHoarding = false;
+            clearEnemyStatus("Hoard");
+        }
+        check = findEnemyBuff("Concentrate");
+        if (check != -1){
+            enemyHasConcentrate = false;
+            clearEnemyStatus("Concentrate");
         }
     }
 }
