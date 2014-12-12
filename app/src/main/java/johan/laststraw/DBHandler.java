@@ -288,7 +288,7 @@ public class DBHandler {
             ac018.put(KEY_NAME, "Demonic Prayer");
             ac018.put(KEY_IMAGE, "card_demonic_prayer");
             ac018.put(KEY_TYPE, 2);
-            ac018.put(KEY_DESC, "10% chance to reset opponent's score.");
+            ac018.put(KEY_DESC, "10% chance to reset opponent's score. Ignores Protect.");
             ac018.put(KEY_COST, 0);
             ac018.put(KEY_REQUIRESLVL, 32);
             ac018.put(KEY_ISUNLOCKED, 0);
@@ -323,6 +323,26 @@ public class DBHandler {
             ac021.put(KEY_REQUIRESLVL, 38);
             ac021.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac021);
+
+            ContentValues ac022 = new ContentValues();
+            ac022.put(KEY_NAME, "Protect");
+            ac022.put(KEY_IMAGE, "card_protect");
+            ac022.put(KEY_TYPE, 3);
+            ac022.put(KEY_DESC, "Gain a temporary shield that protects against ailments. Lasts 2 turns.");
+            ac022.put(KEY_COST, 1);
+            ac022.put(KEY_REQUIRESLVL, 40);
+            ac022.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac022);
+
+            ContentValues ac023 = new ContentValues();
+            ac023.put(KEY_NAME, "Hoard");
+            ac023.put(KEY_IMAGE, "card_hoard");
+            ac023.put(KEY_TYPE, 3);
+            ac023.put(KEY_DESC, "Keep the next card you play. Lasts until a card is played.");
+            ac023.put(KEY_COST, 1);
+            ac023.put(KEY_REQUIRESLVL, 42);
+            ac023.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac023);
 
             /* ADDS CARDS TO OWNED CARDS */
             ContentValues oc1 = new ContentValues();
@@ -556,10 +576,12 @@ public class DBHandler {
         addOwnedCard("Curse", "card_curse", 2, 2, "Reduces score by half after three turns.");
         addOwnedCard("Agony", "card_agony", 2, 2, "Reduces score by 3 at the start of the turn. Lasts three turns.");
         addOwnedCard("Malediction", "card_malediction", 2, 3, "Reduces score by 3/4 after three four.");
-        addOwnedCard("Demonic Prayer", "card_demonic_prayer", 2, 0, "10% chance to reset opponent's score.");
+        addOwnedCard("Demonic Prayer", "card_demonic_prayer", 2, 0, "10% chance to reset opponent's score. Ignores Protect.");
         addOwnedCard("Death Sentence", "card_death_sentence", 2, 2, "50% chance to reset opponent's score after 3 turns.");
         addOwnedCard("Cure", "card_cure", 3, 1, "Removes all ailments from yourself.");
         addOwnedCard("Rewind", "card_rewind", 3, 0, "Gain another turn at the end of current turn.");
+        addOwnedCard("Protect", "card_protect", 3, 1, "Gain a temporary shield that protects against ailments. Lasts 2 turns.");
+        addOwnedCard("Hoard", "card_hoard", 3, 1, "Keep the next card you play. Lasts until a card is played.");
         unlockCard(2,1);
         unlockCard(3,1);
         unlockCard(4,1);
@@ -580,6 +602,8 @@ public class DBHandler {
         unlockCard(19,1);
         unlockCard(20,1);
         unlockCard(21,1);
+        unlockCard(22,1);
+        unlockCard(23,1);
     }
     public void reset(){
         appDB = ourHelper.getWritableDatabase();

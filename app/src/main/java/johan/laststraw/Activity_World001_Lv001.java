@@ -56,8 +56,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String boardIsFullError = "Board is full. No effect";
     String infestMsg = "Spiders infests the wheat";
     String infestError = "Wheat is already infested";
+    String ailmentFailed = "Protect wards off ailment.";
     String enemySlowed = "Enemy suffers Slow";
     String enemyHaste = "Enemy gains Haste";
+    String enemyHoard = "Enemy gains Hoard";
     String enemyConcentrate = "Enemy gains Concentrate";
     String enemyCorrupted = "Enemy suffers Corruption";
     String enemyMaledicted = "Enemy suffers Malediction";
@@ -65,9 +67,12 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String enemyAgonized = "Enemy suffers Agony";
     String enemySentenced = "Enemy suffers Death Sentence";
     String enemyCured = "Enemy cures all ailments";
-    String enemyAlteredTime = "Enemy alters time";
+    String enemyAlteredTime = "Enemy gains Rewind";
     String enemyGainAnother = "Enemy gains another turn!";
+    String enemyProtected = "Enemy gains Protect";
+    String enemyHoarded = "Enemy keeps played card!";
     String playerHaste = "";
+    String playerHoard = "";
     String playerSlowed = "";
     String playerConcentrate = "";
     String playerCorrupted = "";
@@ -78,13 +83,15 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     String playerCured = "";
     String playerAlteredTime = "";
     String playerGainAnother = "";
+    String playerProtected = "";
+    String playerHoarded = "";
     String buffAlreadyActiveError = "Buff already active. No effect.";
     String debuffAlreadyActiveError = "Debuff already active. No effect.";
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
-    String enemyCard1Name = "Cure", enemyCard2Name = "Cure", enemyCard3Name = "Death Sentence", enemyCard4Name = "Death Sentence",
-            enemyCard5Name = "Rewind", enemyCard6Name = "Rewind";
+    String enemyCard1Name = "Protect", enemyCard2Name = "Protect", enemyCard3Name = "Slow Down", enemyCard4Name = "Slow Down",
+            enemyCard5Name = "Hoard", enemyCard6Name = "Hoard";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
     String[] playerStatuses = new String[5];
@@ -104,8 +111,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerCard5Type = 0, playerCard6Type = 0;
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
-    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 2, enemyCard4Cost = 2,
-            enemyCard5Cost = 0, enemyCard6Cost = 0;
+    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 1, enemyCard4Cost = 1,
+            enemyCard5Cost = 1, enemyCard6Cost = 1;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
     int selectedCard = 0;
@@ -128,6 +135,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int enemyMaledictionCountdown = -1;
     int playerSentenceCountdown = -1;
     int enemySentenceCountdown = -1;
+    int playerProtectCountdown = -1;
+    int enemyProtectCountdown = -1;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
     boolean deviceIsTablet;
@@ -137,6 +146,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean enemyHasHaste2 = false;
     boolean playerHasHaste = false;
     boolean playerHasHaste2 = false;
+    boolean playerHasProtect = false;
+    boolean enemyHasProtect = false;
     boolean playerHasConcentrate = false;
     boolean enemyHasConcentrate = false;
     boolean playerHasAlteredTime = false;
@@ -151,6 +162,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean enemyIsMaledicted = false;
     boolean playerIsSentenced = false;
     boolean enemyIsSentenced = false;
+    boolean playerIsHoarding = false;
+    boolean enemyIsHoarding = false;
     boolean playerTurn = true;
     boolean playerCard1Used = false, playerCard2Used = false, playerCard3Used = false, playerCard4Used = false,
             playerCard5Used = false, playerCard6Used = false;
@@ -293,7 +306,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         playerSentenced = playerName + " suffers Death Sentence";
         playerCured = playerName + " cures all ailments";
         playerAlteredTime = playerName + " alters time";
-        playerGainAnother = playerName + " gains another turn! ";
+        playerGainAnother = playerName + " gains another turn!";
+        playerProtected = playerName + " gains Protect";
+        playerHoarded = playerName + " keeps played card!";
+        playerHoard = playerName + " gains Hoard";
         playerStatuses[0] = "";
         playerStatuses[1] = "";
         playerStatuses[2] = "";
@@ -1309,6 +1325,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (enemyIsSentenced && enemySentenceCountdown == 0){
             enemySentencedEffect();
         } else {
+            checkIfEnemyProtectEnds();
+        }
+    }
+
+    private void checkIfEnemyProtectEnds(){
+        if (enemyHasProtect && enemyProtectCountdown == 0){
+            enemyProtectEnd();
+        } else {
             enemyTurn();
         }
     }
@@ -1335,9 +1359,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             animateEnemyCard();
                         }
                     }, 2000);
-                    enemyCard1Used = true;
-                    enemyCardsRemaining--;
-                    pool.add(0);
+                    if (!enemyIsHoarding){
+                        enemyCard1Used = true;
+                        enemyCardsRemaining--;
+                        pool.add(0);
+                    } else {
+                        tvCenterMessage.setText(enemyHoarded);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                    }
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             executeEnemyCardEffect();
@@ -1369,9 +1398,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             animateEnemyCard();
                         }
                     }, 2000);
-                    enemyCard2Used = true;
-                    enemyCardsRemaining--;
-                    pool.add(1);
+                    if (!enemyIsHoarding){
+                        enemyCard2Used = true;
+                        enemyCardsRemaining--;
+                        pool.add(1);
+                    } else {
+                        tvCenterMessage.setText(enemyHoarded);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                    }
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             executeEnemyCardEffect();
@@ -1403,9 +1437,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             animateEnemyCard();
                         }
                     }, 2000);
-                    enemyCard3Used = true;
-                    enemyCardsRemaining--;
-                    pool.add(2);
+                    if (!enemyIsHoarding){
+                        enemyCard3Used = true;
+                        enemyCardsRemaining--;
+                        pool.add(2);
+                    } else {
+                        tvCenterMessage.setText(enemyHoarded);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                    }
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             executeEnemyCardEffect();
@@ -1437,9 +1476,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             animateEnemyCard();
                         }
                     }, 2000);
-                    enemyCard4Used = true;
-                    enemyCardsRemaining--;
-                    pool.add(3);
+                    if (!enemyIsHoarding){
+                        enemyCard4Used = true;
+                        enemyCardsRemaining--;
+                        pool.add(3);
+                    } else {
+                        tvCenterMessage.setText(enemyHoarded);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                    }
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             executeEnemyCardEffect();
@@ -1471,9 +1515,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             animateEnemyCard();
                         }
                     }, 2000);
-                    enemyCard5Used = true;
-                    enemyCardsRemaining--;
-                    pool.add(4);
+                    if (!enemyIsHoarding){
+                        enemyCard5Used = true;
+                        enemyCardsRemaining--;
+                        pool.add(4);
+                    } else {
+                        tvCenterMessage.setText(enemyHoarded);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                    }
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             executeEnemyCardEffect();
@@ -1514,9 +1563,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             animateEnemyCard();
                         }
                     }, 2000);
-                    enemyCard6Used = true;
-                    enemyCardsRemaining--;
-                    pool.add(5);
+                    if (!enemyIsHoarding){
+                        enemyCard6Used = true;
+                        enemyCardsRemaining--;
+                        pool.add(5);
+                    } else {
+                        tvCenterMessage.setText(enemyHoarded);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                    }
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             executeEnemyCardEffect();
@@ -1626,6 +1680,12 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
         if (enemyIsSentenced && enemySentenceCountdown != -1){
             enemySentenceCountdown--;
+        }
+        if (enemyHasProtect && enemyProtectCountdown == -1){
+            enemyProtectCountdown = 3;
+        }
+        if (enemyHasProtect && enemyProtectCountdown != -1){
+            enemyProtectCountdown--;
         }
         enemyHasHaste = false;
         enemyHasHaste2 = false;
@@ -1745,6 +1805,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (playerIsSentenced && playerSentenceCountdown == 0){
             playerSentencedEffect();
         } else {
+            checkIfPlayerProtectEnds();
+        }
+    }
+
+    private void checkIfPlayerProtectEnds(){
+        if (playerHasProtect && playerProtectCountdown == 0){
+            playerProtectEnd();
+        } else {
             playerTurn();
         }
     }
@@ -1816,6 +1884,12 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }
         if (playerIsSentenced && playerSentenceCountdown != -1){
             playerSentenceCountdown--;
+        }
+        if (playerHasProtect && playerProtectCountdown == -1){
+            playerProtectCountdown = 3;
+        }
+        if (playerHasProtect && playerProtectCountdown != -1){
+            playerProtectCountdown--;
         }
         playerIsSlowed = false;
         playerIsCorrupted = false;
@@ -2940,84 +3014,114 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (enemyPickedCard == 0) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    enemyCard1.setVisibility(View.INVISIBLE);
+                    if (!enemyIsHoarding){
+                        enemyCard1.setVisibility(View.INVISIBLE);
+                    } else {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        enemyCard1.clearColorFilter();
+                    }
                 }
             }, 500);
 
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_cure);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_protect);
                 }
             }, 1000);
         }
         if (enemyPickedCard == 1) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    enemyCard2.setVisibility(View.INVISIBLE);
+                    if (!enemyIsHoarding){
+                        enemyCard2.setVisibility(View.INVISIBLE);
+                    } else {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        enemyCard2.clearColorFilter();
+                    }
                 }
             }, 500);
 
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_cure);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_protect);
                 }
             }, 1000);
         }
         if (enemyPickedCard == 2) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    enemyCard3.setVisibility(View.INVISIBLE);
+                    if (!enemyIsHoarding){
+                        enemyCard3.setVisibility(View.INVISIBLE);
+                    } else {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        enemyCard3.clearColorFilter();
+                    }
                 }
             }, 500);
 
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_death_sentence);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_slowdown);
                 }
             }, 1000);
         }
         if (enemyPickedCard == 3) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    enemyCard4.setVisibility(View.INVISIBLE);
+                    if (!enemyIsHoarding){
+                        enemyCard4.setVisibility(View.INVISIBLE);
+                    } else {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        enemyCard4.clearColorFilter();
+                    }
                 }
             }, 500);
 
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_death_sentence);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_slowdown);
                 }
             }, 1000);
         }
         if (enemyPickedCard == 4) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    enemyCard5.setVisibility(View.INVISIBLE);
+                    if (!enemyIsHoarding){
+                        enemyCard5.setVisibility(View.INVISIBLE);
+                    } else {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        enemyCard5.clearColorFilter();
+                    }
                 }
             }, 500);
 
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_rewind);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_hoard);
                 }
             }, 1000);
         }
         if (enemyPickedCard == 5) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    enemyCard6.setVisibility(View.INVISIBLE);
+                    if (!enemyIsHoarding){
+                        enemyCard6.setVisibility(View.INVISIBLE);
+                    } else {
+                        tvCenterMessage.startAnimation(ani_fadeOut);
+                        enemyCard6.clearColorFilter();
+                    }
                 }
             }, 500);
 
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_rewind);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_hoard);
                 }
             }, 1000);
         }
@@ -3025,6 +3129,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             public void run() {
                 ivCenterCardFrame.clearAnimation();
                 ivCenterCardFrame.setVisibility(View.INVISIBLE);
+                enemyIsHoarding = false;
+                clearEnemyStatus("Hoard");
             }
         }, 2500);
     }
@@ -3034,9 +3140,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (selectedCard == 1) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    playerCard1.setVisibility(View.INVISIBLE);
-                    playerCard1.setClickable(false);
-                    playerCard1Used = true;
+                    if (!playerIsHoarding){
+                        playerCard1.setVisibility(View.INVISIBLE);
+                        playerCard1.setClickable(false);
+                        playerCard1Used = true;
+                    } else {
+                        tvCenterMessage.setText(playerHoarded);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                    }
                 }
             }, 500);
 
@@ -3050,9 +3161,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (selectedCard == 2) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    playerCard2.setVisibility(View.INVISIBLE);
-                    playerCard2.setClickable(false);
-                    playerCard2Used = true;
+                    if (!playerIsHoarding){
+                        playerCard2.setVisibility(View.INVISIBLE);
+                        playerCard2.setClickable(false);
+                        playerCard2Used = true;
+                    } else {
+                        tvCenterMessage.setText(playerHoarded);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                    }
                 }
             }, 500);
 
@@ -3066,9 +3182,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (selectedCard == 3) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    playerCard3.setVisibility(View.INVISIBLE);
-                    playerCard3.setClickable(false);
-                    playerCard3Used = true;
+                    if (!playerIsHoarding){
+                        playerCard3.setVisibility(View.INVISIBLE);
+                        playerCard3.setClickable(false);
+                        playerCard3Used = true;
+                    } else {
+                        tvCenterMessage.setText(playerHoarded);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                    }
                 }
             }, 500);
 
@@ -3082,9 +3203,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (selectedCard == 4) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    playerCard4.setVisibility(View.INVISIBLE);
-                    playerCard4.setClickable(false);
-                    playerCard4Used = true;
+                    if (!playerIsHoarding){
+                        playerCard4.setVisibility(View.INVISIBLE);
+                        playerCard4.setClickable(false);
+                        playerCard4Used = true;
+                    } else {
+                        tvCenterMessage.setText(playerHoarded);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                    }
                 }
             }, 500);
 
@@ -3098,9 +3224,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (selectedCard == 5) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    playerCard5.setVisibility(View.INVISIBLE);
-                    playerCard5.setClickable(false);
-                    playerCard5Used = true;
+                    if (!playerIsHoarding){
+                        playerCard5.setVisibility(View.INVISIBLE);
+                        playerCard5.setClickable(false);
+                        playerCard5Used = true;
+                    } else {
+                        tvCenterMessage.setText(playerHoarded);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                    }
                 }
             }, 500);
 
@@ -3114,9 +3245,14 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (selectedCard == 6) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    playerCard6.setVisibility(View.INVISIBLE);
-                    playerCard6.setClickable(false);
-                    playerCard6Used = true;
+                    if (!playerIsHoarding){
+                        playerCard6.setVisibility(View.INVISIBLE);
+                        playerCard6.setClickable(false);
+                        playerCard6Used = true;
+                    } else {
+                        tvCenterMessage.setText(playerHoarded);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                    }
                 }
             }, 500);
 
@@ -3131,6 +3267,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             public void run() {
                 ivCenterCardFrame.clearAnimation();
                 ivCenterCardFrame.setVisibility(View.INVISIBLE);
+                if (playerIsHoarding){
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    playerIsHoarding = false;
+                    clearPlayerStatus("Hoard");
+                }
             }
         }, 2500);
 
@@ -3214,6 +3355,12 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if(playedCard.equals("Rewind")){
             cardRewind();
         }
+        if(playedCard.equals("Protect")){
+            cardProtect();
+        }
+        if(playedCard.equals("Hoard")){
+            cardHoard();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -3263,22 +3410,22 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* THIS METHOD FINDS WHICH ENEMY CARD IS PLAYED TO DETERMINE EFFECT */
     private void executeEnemyCardEffect(){
         if (enemyPickedCard == 0){
-            cardCure();
+            cardProtect();
         }
         if (enemyPickedCard == 1){
-            cardCure();
+            cardProtect();
         }
         if (enemyPickedCard == 2){
-            cardDeathSentence();
+            cardSlowDown();
         }
         if (enemyPickedCard == 3){
-            cardDeathSentence();
+            cardSlowDown();
         }
         if (enemyPickedCard == 4){
-            cardRewind();
+            cardHoard();
         }
         if (enemyPickedCard == 5){
-            cardRewind();
+            cardHoard();
         }
 
     }
@@ -3816,20 +3963,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* SLOW DOWN CARD EFFECT METHOD */
     private void cardSlowDown() {
         if (playerTurn) {
-            if (!Arrays.asList(enemyStatuses).contains("Slow Down")){
-                tvCenterMessage.setText(enemySlowed);
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Slow Down")){
-                        enemyIsSlowed = true;
-                        addEnemySlow();
-                        activeEnemyStatuses++;
-                    } else {
+            if (enemyHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
                         errorMsg = true;
-                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.setText(ailmentFailed);
                         tvCenterMessage.startAnimation(ani_fadeIn);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -3837,23 +3975,39 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(enemyStatuses).contains("Slow Down")){
+                    tvCenterMessage.setText(enemySlowed);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Slow Down")){
+                                enemyIsSlowed = true;
+                                addEnemySlow();
+                                activeEnemyStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
+
         } else {
-            if (!Arrays.asList(playerStatuses).contains("Slow Down")){
-                tvCenterMessage.setText(playerSlowed);
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Slow Down")){
-                        playerIsSlowed = true;
-                        addPlayerSlow();
-                        activePlayerStatuses++;
-                    } else {
+            if (playerHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
                         errorMsg = true;
-                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.setText(ailmentFailed);
                         tvCenterMessage.startAnimation(ani_fadeIn);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -3861,8 +4015,32 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(playerStatuses).contains("Slow Down")){
+                    tvCenterMessage.setText(playerSlowed);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Slow Down")){
+                                playerIsSlowed = true;
+                                addPlayerSlow();
+                                activePlayerStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
         }
     }
 
@@ -4028,20 +4206,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* CORRUPTION CARD EFFECT METHOD */
     private void cardCorruption(){
         if (!playerTurn) {
-            if (!Arrays.asList(playerStatuses).contains("Corruption")){
-                tvCenterMessage.setText(playerCorrupted);
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Corruption")){
-                        addPlayerCorruption();
-                        playerIsCorrupted = true;
-                        activePlayerStatuses++;
-                    } else {
+            if (playerHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
                         errorMsg = true;
-                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.setText(ailmentFailed);
                         tvCenterMessage.startAnimation(ani_fadeIn);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -4049,23 +4218,39 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(playerStatuses).contains("Corruption")){
+                    tvCenterMessage.setText(playerCorrupted);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Corruption")){
+                                addPlayerCorruption();
+                                playerIsCorrupted = true;
+                                activePlayerStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(buffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
+
         } else {
-            if (!Arrays.asList(enemyStatuses).contains("Corruption")){
-                tvCenterMessage.setText(enemyCorrupted);
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Corruption")){
-                        addEnemyCorruption();
-                        enemyIsCorrupted = true;
-                        activeEnemyStatuses++;
-                    } else {
+            if (enemyHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
                         errorMsg = true;
-                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.setText(ailmentFailed);
                         tvCenterMessage.startAnimation(ani_fadeIn);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -4073,28 +4258,43 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(enemyStatuses).contains("Corruption")){
+                    tvCenterMessage.setText(enemyCorrupted);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Corruption")){
+                                addEnemyCorruption();
+                                enemyIsCorrupted = true;
+                                activeEnemyStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(buffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
         }
     }
 
     /* CURSE CARD EFFECT METHOD */
     private void cardCurse() {
         if (playerTurn) {
-            if (!Arrays.asList(enemyStatuses).contains("Curse")){
-                tvCenterMessage.setText(enemyCursed);
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Curse")){
-                        enemyIsCursed = true;
-                        addEnemyCurse();
-                        activeEnemyStatuses++;
-                    } else {
+            if (enemyHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
                         errorMsg = true;
-                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.setText(ailmentFailed);
                         tvCenterMessage.startAnimation(ani_fadeIn);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -4102,23 +4302,38 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(enemyStatuses).contains("Curse")){
+                    tvCenterMessage.setText(enemyCursed);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Curse")){
+                                enemyIsCursed = true;
+                                addEnemyCurse();
+                                activeEnemyStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
         } else {
-            if (!Arrays.asList(playerStatuses).contains("Curse")){
-                tvCenterMessage.setText(playerCursed);
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Curse")){
-                        playerIsCursed = true;
-                        addPlayerCurse();
-                        activePlayerStatuses++;
-                    } else {
+            if (playerHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
                         errorMsg = true;
-                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.setText(ailmentFailed);
                         tvCenterMessage.startAnimation(ani_fadeIn);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -4126,28 +4341,43 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(playerStatuses).contains("Curse")){
+                    tvCenterMessage.setText(playerCursed);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Curse")){
+                                playerIsCursed = true;
+                                addPlayerCurse();
+                                activePlayerStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
         }
     }
 
     /* AGONY CARD EFFECT METHOD */
     private void cardAgony(){
         if (playerTurn) {
-            if (!Arrays.asList(enemyStatuses).contains("Agony")){
-                tvCenterMessage.setText(enemyAgonized);
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Agony")){
-                        enemyIsAgonized = true;
-                        addEnemyAgony();
-                        activeEnemyStatuses++;
-                    } else {
+            if (enemyHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
                         errorMsg = true;
-                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.setText(ailmentFailed);
                         tvCenterMessage.startAnimation(ani_fadeIn);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -4155,23 +4385,38 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(enemyStatuses).contains("Agony")){
+                    tvCenterMessage.setText(enemyAgonized);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Agony")){
+                                enemyIsAgonized = true;
+                                addEnemyAgony();
+                                activeEnemyStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
         } else {
-            if (!Arrays.asList(playerStatuses).contains("Agony")){
-                tvCenterMessage.setText(playerAgonized);
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Agony")){
-                        playerIsAgonized = true;
-                        addPlayerAgony();
-                        activePlayerStatuses++;
-                    } else {
+            if (playerHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
                         errorMsg = true;
-                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.setText(ailmentFailed);
                         tvCenterMessage.startAnimation(ani_fadeIn);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -4179,8 +4424,32 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(playerStatuses).contains("Agony")){
+                    tvCenterMessage.setText(playerAgonized);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Agony")){
+                                playerIsAgonized = true;
+                                addPlayerAgony();
+                                activePlayerStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
         }
     }
 
@@ -4504,6 +4773,30 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 2000);
                 }
+                if (lastEnemyPlayedCard.equals("Hoard")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardHoard();
+                        }
+                    }, 2000);
+                }
+                if (lastEnemyPlayedCard.equals("Protect")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardProtect();
+                        }
+                    }, 2000);
+                }
                 if (lastEnemyPlayedCard.equals("Mimic")){
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     tvCenterMessage.setText("Mimic failed");
@@ -4759,6 +5052,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                     }, 2000);
                 }
+                if (lastPlayerPlayedCard.equals("Protect")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardProtect();
+                        }
+                    }, 2000);
+                }
                 if (lastPlayerPlayedCard.equals("Rewind")){
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -4768,6 +5073,18 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             cardRewind();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Hoard")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardHoard();
                         }
                     }, 2000);
                 }
@@ -5215,20 +5532,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* MALEDICTION CARD EFFECT METHOD */
     private void cardMalediction(){
         if (playerTurn) {
-            if (!Arrays.asList(enemyStatuses).contains("Malediction")){
-                tvCenterMessage.setText(enemyMaledicted);
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Malediction")){
-                        enemyIsMaledicted = true;
-                        addEnemyMalediction();
-                        activeEnemyStatuses++;
-                    } else {
+            if (enemyHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
                         errorMsg = true;
-                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.setText(ailmentFailed);
                         tvCenterMessage.startAnimation(ani_fadeIn);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -5236,23 +5544,38 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(enemyStatuses).contains("Malediction")){
+                    tvCenterMessage.setText(enemyMaledicted);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Malediction")){
+                                enemyIsMaledicted = true;
+                                addEnemyMalediction();
+                                activeEnemyStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
         } else {
-            if (!Arrays.asList(playerStatuses).contains("Malediction")){
-                tvCenterMessage.setText(playerMaledicted);
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Malediction")){
-                        playerIsMaledicted = true;
-                        addPlayerMalediction();
-                        activePlayerStatuses++;
-                    } else {
+            if (playerHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
                         errorMsg = true;
-                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.setText(ailmentFailed);
                         tvCenterMessage.startAnimation(ani_fadeIn);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -5260,8 +5583,32 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(playerStatuses).contains("Malediction")){
+                    tvCenterMessage.setText(playerMaledicted);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Malediction")){
+                                playerIsMaledicted = true;
+                                addPlayerMalediction();
+                                activePlayerStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
         }
     }
 
@@ -5373,20 +5720,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     /* DEATH SENTENCE CARD EFFECT METHOD */
     private void cardDeathSentence(){
         if (playerTurn){
-            if (!Arrays.asList(enemyStatuses).contains("Death Sentence")){
-                tvCenterMessage.setText(enemySentenced);
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Death Sentence")){
-                        enemyIsSentenced = true;
-                        addEnemyDeathSentence();
-                        activeEnemyStatuses++;
-                    } else {
+            if (enemyHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
                         errorMsg = true;
-                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.setText(ailmentFailed);
                         tvCenterMessage.startAnimation(ani_fadeIn);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -5394,23 +5732,38 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(enemyStatuses).contains("Death Sentence")){
+                    tvCenterMessage.setText(enemySentenced);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Death Sentence")){
+                                enemyIsSentenced = true;
+                                addEnemyDeathSentence();
+                                activeEnemyStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
         } else {
-            if (!Arrays.asList(playerStatuses).contains("Death Sentence")){
-                tvCenterMessage.setText(playerSentenced);
-                tvCenterMessage.startAnimation(ani_fadeIn);
-            }
-            myHandler.postDelayed(new Runnable() {
-                public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Death Sentence")){
-                        playerIsSentenced = true;
-                        addPlayerDeathSentence();
-                        activePlayerStatuses++;
-                    } else {
+            if (playerHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
                         errorMsg = true;
-                        tvCenterMessage.setText(debuffAlreadyActiveError);
+                        tvCenterMessage.setText(ailmentFailed);
                         tvCenterMessage.startAnimation(ani_fadeIn);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -5418,8 +5771,32 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             }
                         }, 1500);
                     }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(playerStatuses).contains("Death Sentence")){
+                    tvCenterMessage.setText(playerSentenced);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Death Sentence")){
+                                playerIsSentenced = true;
+                                addPlayerDeathSentence();
+                                activePlayerStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
                 }
-            }, 1000);
+            }
         }
     }
 
@@ -5483,6 +5860,112 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Rewind")){
                         enemyHasAlteredTime = true;
                         addEnemyRewind();
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        }
+    }
+
+    /* PROTECT CARD EFFECT METHOD */
+    private void cardProtect(){
+        if (playerTurn) {
+            if (!Arrays.asList(playerStatuses).contains("Protect")){
+                tvCenterMessage.setText(playerProtected);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Protect")){
+                        playerHasProtect = true;
+                        addPlayerProtect();
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(enemyStatuses).contains("Protect")){
+                tvCenterMessage.setText(enemyProtected);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Protect")){
+                        enemyHasProtect = true;
+                        addEnemyProtect();
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        }
+    }
+
+    /* HOARD CARD EFFECT METHOD */
+    private void cardHoard(){
+        if (playerTurn) {
+            if (!Arrays.asList(playerStatuses).contains("Hoard")){
+                tvCenterMessage.setText(playerHoard);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Hoard")){
+                        playerIsHoarding = true;
+                        addPlayerHoard();
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(enemyStatuses).contains("Hoard")){
+                tvCenterMessage.setText(enemyHoard);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Hoard")){
+                        enemyIsHoarding = true;
+                        addEnemyHoard();
                         activeEnemyStatuses++;
                     } else {
                         errorMsg = true;
@@ -5571,6 +6054,43 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             }
     }
 
+    /* ADD PLAYER PROTECT */
+    private void addPlayerProtect(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                playerStatuses[0] = "Protect";
+                playerStatusIcon1.setImageResource(R.drawable.buff_protect);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                playerStatuses[1] = "Protect";
+                playerStatusIcon2.setImageResource(R.drawable.buff_protect);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                playerStatuses[2] = "Protect";
+                playerStatusIcon3.setImageResource(R.drawable.buff_protect);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                playerStatuses[3] = "Protect";
+                playerStatusIcon4.setImageResource(R.drawable.buff_protect);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                playerStatuses[4] = "Protect";
+                playerStatusIcon5.setImageResource(R.drawable.buff_protect);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD PLAYER REWIND */
     private void addPlayerRewind(){
         int freeSpot = getFreePlayerStatusSpot();
@@ -5602,6 +6122,43 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case 4:
                 playerStatuses[4] = "Rewind";
                 playerStatusIcon5.setImageResource(R.drawable.buff_rewind);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /* ADD PLAYER HOARD */
+    private void addPlayerHoard(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                playerStatuses[0] = "Hoard";
+                playerStatusIcon1.setImageResource(R.drawable.buff_hoard);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                playerStatuses[1] = "Hoard";
+                playerStatusIcon2.setImageResource(R.drawable.buff_hoard);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                playerStatuses[2] = "Hoard";
+                playerStatusIcon3.setImageResource(R.drawable.buff_hoard);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                playerStatuses[3] = "Hoard";
+                playerStatusIcon4.setImageResource(R.drawable.buff_hoard);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                playerStatuses[4] = "Hoard";
+                playerStatusIcon5.setImageResource(R.drawable.buff_hoard);
                 playerStatusIcon5.setBackgroundResource(R.drawable.frame_black);
                 playerStatusIcon5.setVisibility(View.VISIBLE);
                 break;
@@ -5972,6 +6529,80 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             case 4:
                 enemyStatuses[4] = "Rewind";
                 enemyStatusIcon5.setImageResource(R.drawable.buff_rewind);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /* ADD ENEMY HOARD*/
+    private void addEnemyHoard(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot){
+            case 0:
+                enemyStatuses[0] = "Hoard";
+                enemyStatusIcon1.setImageResource(R.drawable.buff_hoard);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                enemyStatuses[1] = "Hoard";
+                enemyStatusIcon2.setImageResource(R.drawable.buff_hoard);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                enemyStatuses[2] = "Hoard";
+                enemyStatusIcon3.setImageResource(R.drawable.buff_hoard);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                enemyStatuses[3] = "Hoard";
+                enemyStatusIcon4.setImageResource(R.drawable.buff_hoard);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                enemyStatuses[4] = "Hoard";
+                enemyStatusIcon5.setImageResource(R.drawable.buff_hoard);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /* ADD ENEMY PROTECT */
+    private void addEnemyProtect(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot){
+            case 0:
+                enemyStatuses[0] = "Protect";
+                enemyStatusIcon1.setImageResource(R.drawable.buff_protect);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                enemyStatuses[1] = "Protect";
+                enemyStatusIcon2.setImageResource(R.drawable.buff_protect);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                enemyStatuses[2] = "Protect";
+                enemyStatusIcon3.setImageResource(R.drawable.buff_protect);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                enemyStatuses[3] = "Protect";
+                enemyStatusIcon4.setImageResource(R.drawable.buff_protect);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                enemyStatuses[4] = "Protect";
+                enemyStatusIcon5.setImageResource(R.drawable.buff_protect);
                 enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
                 enemyStatusIcon5.setVisibility(View.VISIBLE);
                 break;
@@ -6387,9 +7018,31 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }, 6000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                playerTurn();
+                checkIfPlayerProtectEnds();
             }
         }, 7000);
+    }
+
+    private void playerProtectEnd(){
+        playerHasProtect = false;
+        playerProtectCountdown = -1;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText(playerName + " is no longer protected");
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearPlayerStatus("Protect");
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                playerTurn();
+            }
+        }, 3000);
     }
 
 
@@ -6544,9 +7197,31 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         }, 6000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                enemyTurn();
+                checkIfEnemyProtectEnds();
             }
         }, 7000);
+    }
+
+    private void enemyProtectEnd(){
+        enemyHasProtect = false;
+        enemyProtectCountdown = -1;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText("Enemy is no longer protected");
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearEnemyStatus("Protect");
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                enemyTurn();
+            }
+        }, 3000);
     }
 
 
