@@ -16,6 +16,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -184,6 +185,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_world001_lv001);
         layout_objectRow = (ViewGroup) findViewById(R.id.objectRow);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         db = new DBHandler(this);
 

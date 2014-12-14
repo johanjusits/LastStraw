@@ -62,6 +62,21 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bWorld001Lvl001:
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("LevelToLoad", "Activity_World001_Lv001");
+                editor.apply();
+                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
+                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(pickCards);
+                finish();
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.bWorld001Lvl002:
+                preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                editor = preferences.edit();
+                editor.putString("LevelToLoad", "Activity_World001_Lv002");
+                editor.apply();
                 pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(pickCards);
