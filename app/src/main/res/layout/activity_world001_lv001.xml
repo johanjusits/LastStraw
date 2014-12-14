@@ -718,6 +718,26 @@
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/obj015" />
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivLeftCoin"
+            android:visibility="visible"
+            android:background="#00000000"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/obj007"
+            android:layout_alignStart="@+id/obj007" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivRightCoin"
+            android:visibility="visible"
+            android:background="#00000000"
+            android:layout_alignTop="@+id/ivLeftCoin"
+            android:layout_toRightOf="@+id/obj009"
+            android:layout_toEndOf="@+id/obj009" />
+
     </RelativeLayout>
 
 </RelativeLayout>

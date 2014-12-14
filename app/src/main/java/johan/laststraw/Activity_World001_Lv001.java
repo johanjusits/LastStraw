@@ -41,6 +41,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             obj010, obj011, obj012, obj013, obj014, obj015, obj016;
     ImageButton playerCard1, playerCard2, playerCard3, playerCard4, playerCard5, playerCard6;
     ImageButton enemyCard1, enemyCard2, enemyCard3, enemyCard4, enemyCard5, enemyCard6;
+    ImageButton leftCoin, rightCoin;
     ImageView playerStatusIcon1, playerStatusIcon2, playerStatusIcon3, playerStatusIcon4, playerStatusIcon5;
     ImageView enemyStatusIcon1, enemyStatusIcon2, enemyStatusIcon3, enemyStatusIcon4, enemyStatusIcon5;
     ImageView ivCenterImage;
@@ -140,6 +141,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int enemySentenceCountdown = -1;
     int playerProtectCountdown = -1;
     int enemyProtectCountdown = -1;
+    int coinCycle;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
     boolean deviceIsTablet;
@@ -176,6 +178,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     boolean playerWon = false;
     boolean nextObjIsInfested = false;
     boolean resetWorked = false;
+    boolean playerStrawSelected = false;
+    boolean strawWon = false;
     private Handler myHandler = new Handler();
     DBHandler db;
     Cursor cursor;
@@ -279,6 +283,10 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
         /* SETS VARIOUS VIEWS */
         ivCenterImage = (ImageView) findViewById(R.id.ivCenterImage);
+        leftCoin = (ImageButton) findViewById(R.id.ivLeftCoin);
+        rightCoin = (ImageButton) findViewById(R.id.ivRightCoin);
+        leftCoin.setOnClickListener(this);
+        rightCoin.setOnClickListener(this);
         tvPlayerName = (TextView) findViewById(R.id.tvPlayerName);
         tvPlayerLevel = (TextView) findViewById(R.id.tvLvNumber);
         tvPlayerExp = (TextView) findViewById(R.id.tvExpNumber);
@@ -327,12 +335,58 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         enemyStatuses[2] = "";
         enemyStatuses[3] = "";
         enemyStatuses[4] = "";
+
+        coinFlipStart();
     }
 
     /* This Method contains a switch handling player clicks on wheat */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ivLeftCoin:
+                tvCenterMessage.clearAnimation();
+                coinCycle = genRand(2);
+                playerStrawSelected = false;
+                leftCoin.setEnabled(false);
+                rightCoin.setEnabled(false);
+                leftCoin.startAnimation(ani_fadeOut);
+                rightCoin.startAnimation(ani_fadeOut);
+                leftCoin.setVisibility(View.GONE);
+                rightCoin.setVisibility(View.GONE);
+
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        leftCoin.clearAnimation();
+                        rightCoin.clearAnimation();
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                        ivCenterImage.startAnimation(ani_fadeIn);
+                        spinCoin();
+                    }
+                }, 2000);
+
+                break;
+            case R.id.ivRightCoin:
+                tvCenterMessage.clearAnimation();
+                coinCycle = genRand(2);
+                playerStrawSelected = true;
+                leftCoin.setEnabled(false);
+                rightCoin.setEnabled(false);
+                leftCoin.startAnimation(ani_fadeOut);
+                rightCoin.startAnimation(ani_fadeOut);
+                leftCoin.setVisibility(View.GONE);
+                rightCoin.setVisibility(View.GONE);
+
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        leftCoin.clearAnimation();
+                        rightCoin.clearAnimation();
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                        ivCenterImage.startAnimation(ani_fadeIn);
+                        spinCoin();
+                    }
+                }, 2000);
+
+                break;
             case R.id.ibPlayerCard1:
                 selectedCard = 1;
                 if (playerCard1Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
@@ -2706,9 +2760,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     cost[i] = cursor.getInt(cursor.getColumnIndex("cost"));
                     i++;
                 } while (cursor.moveToNext());
+                db.close();
             }
         }
-        db.close();
         playerCard1Type = types[0];
         playerCard1Cost = cost[0];
         playerCard1Name = names[0];
@@ -7758,6 +7812,966 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         if (check != -1){
             enemyHasConcentrate = false;
             clearEnemyStatus("Concentrate");
+        }
+    }
+
+    /* COIN FLIP START */
+    private void coinFlipStart(){
+        btnEndTurn.setEnabled(false);
+        btnEndTurn.setText("");
+        disable(layout_objectRow);
+        disablePlayerCards();
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText("Pick a coin side");
+            }
+        }, 2000);
+
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+            }
+        }, 4000);
+
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                leftCoin.setImageResource(R.drawable.coin_rat_1);
+                rightCoin.setImageResource(R.drawable.coin_straw_1);
+                leftCoin.startAnimation(ani_fadeIn);
+                rightCoin.startAnimation(ani_fadeIn);
+                leftCoin.setEnabled(true);
+                rightCoin.setEnabled(true);
+            }
+        }, 5000);
+    }
+
+    /* COIN SPIN */
+    private void spinCoin(){
+        System.out.println(String.valueOf(coinCycle));
+        switch (coinCycle){
+            case 0:
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 25);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4);
+                    }
+                }, 50);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3);
+                    }
+                }, 75);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2);
+                    }
+                }, 100);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_1);
+                    }
+                }, 125);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2_rev);
+                    }
+                }, 150);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3_rev);
+                    }
+                }, 175);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4_rev);
+                    }
+                }, 200);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 225);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 250);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 275);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4_rev);
+                    }
+                }, 300);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3_rev);
+                    }
+                }, 325);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2_rev);
+                    }
+                }, 350);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_1);
+                    }
+                }, 375);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2);
+                    }
+                }, 400);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3);
+                    }
+                }, 425);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4);
+                    }
+                }, 450);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 475);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 500);
+
+                // 1 LAP
+
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 525);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4);
+                    }
+                }, 550);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3);
+                    }
+                }, 575);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2);
+                    }
+                }, 600);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_1);
+                    }
+                }, 625);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2_rev);
+                    }
+                }, 650);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3_rev);
+                    }
+                }, 675);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4_rev);
+                    }
+                }, 700);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 725);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 750);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 775);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4_rev);
+                    }
+                }, 800);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3_rev);
+                    }
+                }, 825);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2_rev);
+                    }
+                }, 850);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_1);
+                    }
+                }, 875);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2);
+                    }
+                }, 900);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3);
+                    }
+                }, 925);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4);
+                    }
+                }, 950);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 975);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 900);
+
+                // 2 LAPS
+
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 925);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4);
+                    }
+                }, 950);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3);
+                    }
+                }, 975);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2);
+                    }
+                }, 1000);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_1);
+                    }
+                }, 1025);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2_rev);
+                    }
+                }, 1050);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3_rev);
+                    }
+                }, 1075);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4_rev);
+                    }
+                }, 1100);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 1125);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 1150);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 1175);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4_rev);
+                    }
+                }, 1200);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3_rev);
+                    }
+                }, 1225);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2_rev);
+                    }
+                }, 1250);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_1);
+                    }
+                }, 1275);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2);
+                    }
+                }, 1300);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3);
+                    }
+                }, 1325);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4);
+                    }
+                }, 1350);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 1375);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 1400);
+
+                // 3 LAPS
+
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 1425);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4);
+                    }
+                }, 1450);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3);
+                    }
+                }, 1475);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2);
+                    }
+                }, 1500);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_1);
+                    }
+                }, 1525);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2_rev);
+                    }
+                }, 1550);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3_rev);
+                    }
+                }, 1575);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4_rev);
+                    }
+                }, 1600);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 1625);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 1650);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 1675);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4_rev);
+                    }
+                }, 1700);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3_rev);
+                    }
+                }, 1725);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2_rev);
+                    }
+                }, 1750);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_1);
+                    }
+                }, 1775);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2);
+                    }
+                }, 1800);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3);
+                    }
+                }, 1825);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4);
+                    }
+                }, 1850);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 1875);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 1900);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 1925);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4);
+                    }
+                }, 1950);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3);
+                    }
+                }, 1975);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2);
+                    }
+                }, 2000);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_1);
+                    }
+                }, 2025);
+                break;
+            case 1:
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 25);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4);
+                    }
+                }, 50);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3);
+                    }
+                }, 75);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2);
+                    }
+                }, 100);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_1);
+                    }
+                }, 125);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2_rev);
+                    }
+                }, 150);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3_rev);
+                    }
+                }, 175);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4_rev);
+                    }
+                }, 200);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 225);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 250);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 275);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4_rev);
+                    }
+                }, 300);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3_rev);
+                    }
+                }, 325);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2_rev);
+                    }
+                }, 350);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_1);
+                    }
+                }, 375);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2);
+                    }
+                }, 400);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3);
+                    }
+                }, 425);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4);
+                    }
+                }, 450);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 475);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 500);
+
+                // 1 LAP
+
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 525);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4);
+                    }
+                }, 550);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3);
+                    }
+                }, 575);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2);
+                    }
+                }, 600);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_1);
+                    }
+                }, 625);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2_rev);
+                    }
+                }, 650);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3_rev);
+                    }
+                }, 675);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4_rev);
+                    }
+                }, 700);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 725);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 750);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 775);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4_rev);
+                    }
+                }, 800);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3_rev);
+                    }
+                }, 825);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2_rev);
+                    }
+                }, 850);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_1);
+                    }
+                }, 875);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2);
+                    }
+                }, 900);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3);
+                    }
+                }, 925);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4);
+                    }
+                }, 950);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 975);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 900);
+
+                // 2 LAPS
+
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 925);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4);
+                    }
+                }, 950);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3);
+                    }
+                }, 975);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2);
+                    }
+                }, 1000);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_1);
+                    }
+                }, 1025);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2_rev);
+                    }
+                }, 1050);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3_rev);
+                    }
+                }, 1075);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4_rev);
+                    }
+                }, 1100);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 1125);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 1150);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 1175);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4_rev);
+                    }
+                }, 1200);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3_rev);
+                    }
+                }, 1225);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2_rev);
+                    }
+                }, 1250);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_1);
+                    }
+                }, 1275);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2);
+                    }
+                }, 1300);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3);
+                    }
+                }, 1325);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4);
+                    }
+                }, 1350);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 1375);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 1400);
+
+                // 3 LAPS
+
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 1425);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4);
+                    }
+                }, 1450);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3);
+                    }
+                }, 1475);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2);
+                    }
+                }, 1500);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_1);
+                    }
+                }, 1525);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2_rev);
+                    }
+                }, 1550);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3_rev);
+                    }
+                }, 1575);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4_rev);
+                    }
+                }, 1600);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 1625);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 1650);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 1675);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4_rev);
+                    }
+                }, 1700);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3_rev);
+                    }
+                }, 1725);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2_rev);
+                    }
+                }, 1750);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_1);
+                    }
+                }, 1775);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2);
+                    }
+                }, 1800);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3);
+                    }
+                }, 1825);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4);
+                    }
+                }, 1850);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 1875);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 1900);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 1925);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4);
+                    }
+                }, 1950);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3);
+                    }
+                }, 1975);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2);
+                    }
+                }, 2000);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_1);
+                    }
+                }, 2025);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_2_rev);
+                    }
+                }, 2050);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_3_rev);
+                    }
+                }, 2075);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_4_rev);
+                    }
+                }, 2100);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_side);
+                    }
+                }, 2125);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_side);
+                    }
+                }, 2250);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_rat_side);
+                    }
+                }, 2275);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_4_rev);
+                    }
+                }, 2300);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_3_rev);
+                    }
+                }, 2325);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_2_rev);
+                    }
+                }, 2350);
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        ivCenterImage.setImageResource(R.drawable.coin_straw_1);
+                    }
+                }, 2375);
+                break;
         }
     }
 }
