@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.graphics.Color.TRANSPARENT;
 
@@ -29,6 +32,7 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
     TextView tvCardsInHNr, tvSlots;
     Button bStart, bViewHand;
     Intent startGame;
+    String chosenLevel;
     Cursor cursor1, cursor2, cursor3, handCursor, playerCursor;
     int currentTab, cardsInHand, cardsAllowed;
     private ListView fieldCardsList, ailmentCardsList, boostingCardsList;
@@ -74,6 +78,9 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        chosenLevel = preferences.getString("LevelToLoad", "");
+        System.out.println(chosenLevel);
         getPlayerInfo();
         setHandCursor();
         setFieldCardsList();
@@ -86,8 +93,7 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
     private void getPlayerInfo() {
         playerCursor = db.getPlayerInfo();
         if (playerCursor != null && playerCursor.moveToFirst()) {
-            //cardsAllowed = playerCursor.getInt(playerCursor.getColumnIndex("slots"));
-            cardsAllowed = 6;
+            cardsAllowed = playerCursor.getInt(playerCursor.getColumnIndex("slots"));
             tvSlots.setText(String.valueOf(cardsAllowed));
         }
     }
@@ -285,11 +291,18 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bStartGame:
-                startGame = new Intent(Activity_CardSelection.this, Activity_World001_Lv001.class);
-                startGame.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(startGame);
-                finish();
-                break;
+                if (chosenLevel.equals("Activity_World001_Lv001")){
+                    startGame = new Intent(Activity_CardSelection.this,  Activity_World001_Lv001.class);
+                    startGame.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(startGame);
+                    finish();
+                    break;
+                } else {
+                    Toast.makeText(getApplicationContext(), "Level 002 not found.",
+                            Toast.LENGTH_LONG).show();
+                    break;
+                }
+
             case R.id.bViewCards:
                 startGame = new Intent(Activity_CardSelection.this, Activity_ViewHand.class);
                 startGame.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
