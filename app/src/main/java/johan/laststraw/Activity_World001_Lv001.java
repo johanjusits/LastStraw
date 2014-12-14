@@ -336,7 +336,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
         enemyStatuses[3] = "";
         enemyStatuses[4] = "";
 
-        coinFlipStart();
+        //coinFlipStart();
     }
 
     /* This Method contains a switch handling player clicks on wheat */
@@ -2520,6 +2520,24 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     private void updateExp() {
         myHandler.postDelayed(new Runnable() {
             public void run() {
+                int xpPenalty = 1;
+                //lv2-3
+                if (playerLevel >= 2 && playerLevel < 4 ){
+                    xpPenalty = 2;
+                }
+                //lv4-5
+                if (playerLevel >= 4 && playerLevel < 6){
+                    xpPenalty = 3;
+                }
+                //lv5-7
+                if (playerLevel >= 4 && playerLevel < 6){
+                    xpPenalty = 4;
+                }
+                //lv7+
+                if (playerLevel >= 7){
+                    xpPenalty = 5;
+                }
+                final int gainedXp = finalPlayerScore / xpPenalty;
                 final Dialog dialog = new Dialog(Activity_World001_Lv001.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.confirmdialog_exp_gain);
@@ -2534,10 +2552,8 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 final TextView tvTitle = (TextView) dialog.findViewById(R.id.tvExpGainTitle);
                 final TextView tvExpText = (TextView) dialog.findViewById(R.id.tvExp);
                 final TextView tvGainedExp = (TextView) dialog.findViewById(R.id.tvGainedExp);
-                tvGainedExp.setText(String.valueOf(finalPlayerScore));
+                tvGainedExp.setText(String.valueOf(gainedXp));
                 expBar.setProgress(playerExp);
-
-                checkIfExpRoof = playerExp + finalPlayerScore;
 
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
@@ -2548,9 +2564,9 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                             animation.setInterpolator(new DecelerateInterpolator());
                             animation.start();
                         } else {
-                            expBar.setProgress(playerExp + finalPlayerScore);
+                            expBar.setProgress(playerExp + gainedXp);
                         }
-                        checkIfExpRoof = playerExp + finalPlayerScore;
+                        checkIfExpRoof = playerExp + gainedXp;
 
                         if (checkIfExpRoof > 100) {
                             expToNextLevel = checkIfExpRoof - 100;
@@ -2563,11 +2579,11 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                         }
                         cursor = db.getPlayerInfo();
                         if (cursor != null && cursor.moveToFirst()) {
-                            newExp = playerExp + finalPlayerScore;
+                            newExp = playerExp + gainedXp;
                             db.updatePlayerExp(newExp);
                         }
                         db.close();
-                        expBar.setProgress(playerExp + finalPlayerScore);
+                        expBar.setProgress(playerExp + gainedXp);
 
                         if (expBar.getProgress() >= 100) {
                             myHandler.postDelayed(new Runnable() {
@@ -7848,7 +7864,6 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
     /* COIN SPIN */
     private void spinCoin(){
-        System.out.println(String.valueOf(coinCycle));
         switch (coinCycle){
             case 0:
                 myHandler.postDelayed(new Runnable() {
@@ -8287,6 +8302,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }, 2025);
                 break;
             case 1:
+                strawWon = true;
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         ivCenterImage.setImageResource(R.drawable.coin_rat_side);
@@ -8773,6 +8789,28 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 }, 2375);
                 break;
         }
+
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                ivCenterImage.startAnimation(ani_fadeOut);
+            }
+        }, 3000);
+
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                ivCenterImage.clearAnimation();
+                ivCenterImage.setVisibility(View.GONE);
+                if (playerStrawSelected && strawWon){
+                    playerTurnStart();
+                }
+                else if (!playerStrawSelected && !strawWon){
+                    playerTurnStart();
+                } else {
+                    btnEndTurn.setText("Enemy Turn");
+                    enemyTurnStart();
+                }
+            }
+        }, 4000);
     }
 }
 
