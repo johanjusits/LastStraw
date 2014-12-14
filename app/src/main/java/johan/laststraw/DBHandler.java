@@ -381,6 +381,55 @@ public class DBHandler {
             li.put(KEY_LVLHIGHSCORE, 0);
             db.insert(LevelsInfo, null, li);
 
+            ContentValues li002 = new ContentValues();
+            li002.put(KEY_NAME, "W001LVL002");
+            li002.put(KEY_WORLDID, 2);
+            li002.put(KEY_LVLCLEARED, 0);
+            li002.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li002);
+
+            ContentValues li003 = new ContentValues();
+            li003.put(KEY_NAME, "W001LVL003");
+            li003.put(KEY_WORLDID, 3);
+            li003.put(KEY_LVLCLEARED, 0);
+            li003.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li003);
+
+            ContentValues li004 = new ContentValues();
+            li004.put(KEY_NAME, "W001LVL004");
+            li004.put(KEY_WORLDID, 4);
+            li004.put(KEY_LVLCLEARED, 0);
+            li004.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li004);
+
+            ContentValues li005 = new ContentValues();
+            li005.put(KEY_NAME, "W001LVL005");
+            li005.put(KEY_WORLDID, 5);
+            li005.put(KEY_LVLCLEARED, 0);
+            li005.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li005);
+
+            ContentValues li006 = new ContentValues();
+            li006.put(KEY_NAME, "W001LVL006");
+            li006.put(KEY_WORLDID, 6);
+            li006.put(KEY_LVLCLEARED, 0);
+            li006.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li006);
+
+            ContentValues li007 = new ContentValues();
+            li007.put(KEY_NAME, "W001LVL007");
+            li007.put(KEY_WORLDID, 7);
+            li007.put(KEY_LVLCLEARED, 0);
+            li007.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li007);
+
+            ContentValues li008 = new ContentValues();
+            li008.put(KEY_NAME, "W001LVL008");
+            li008.put(KEY_WORLDID, 8);
+            li008.put(KEY_LVLCLEARED, 0);
+            li008.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li008);
+
             /* WORLDS INFO */
             ContentValues worldInfo = new ContentValues();
             worldInfo.put(KEY_NAME, "Fields");

@@ -107,7 +107,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int expToNextLevel;
     int checkIfExpRoof;
     int playerLevel;
-    int playerExp = 95;
+    int playerExp;
     int playerProgress;
     int playerScore = 0, enemyScore = 0, finalPlayerScore, finalEnemyScore;
     int playerCard1Type = 0, playerCard2Type = 0, playerCard3Type = 0, playerCard4Type = 0,
@@ -1352,7 +1352,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             int cardOrClear = genRand(100);
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
-            if (cardOrClear >= 20){
+            if (cardOrClear >= 80){
                 enemyPickedCard = randomizeEnemyCardSelect();
 
                 if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost + enemyCorruptedPenalty){
@@ -1609,7 +1609,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
             } else {
                /* If number is less than 80, the AI will clear */
-                if (cardOrClear < 20) {
+                if (cardOrClear < 80) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             aiClearObject();
@@ -1703,7 +1703,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                if (enemyMoves <= 0 || enemyCorruptedPenalty != 0){
+                if (enemyMoves <= 0 || enemyCorruptedPenalty != 0 || objectsRemaining == 1){
                     enemyTurnEnd();
                 } else {
                     if (objectsRemaining == 0){
@@ -2300,6 +2300,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 tvEnemyScore.setText(String.valueOf(enemyScore));
             }
         }
+
     }
 
     /* Selects random card among the ones the enemy has left. This method will have to
@@ -2667,7 +2668,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerName = cursor.getString(cursor.getColumnIndex("name"));
             playerLevel = cursor.getInt(cursor.getColumnIndex("level"));
             tvPlayerLevel.setText(String.valueOf(playerLevel));
-            //playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
+            playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
             tvPlayerExp.setText(String.valueOf(playerExp));
             playerGender = cursor.getString(cursor.getColumnIndex("gender"));
             playerProgress = cursor.getInt(cursor.getColumnIndex("lvlsbeaten"));
