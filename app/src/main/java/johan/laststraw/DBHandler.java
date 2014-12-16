@@ -149,7 +149,7 @@ public class DBHandler {
             ac4.put(KEY_IMAGE, "card_slowdown");
             ac4.put(KEY_TYPE, 2);
             ac4.put(KEY_DESC, "Reduces opponent's moves by 1 next turn.");
-            ac4.put(KEY_REQUIRESLVL, 5);
+            ac4.put(KEY_REQUIRESLVL, 4);
             ac4.put(KEY_COST, 1);
             ac4.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac4);
@@ -160,7 +160,7 @@ public class DBHandler {
             ac5.put(KEY_TYPE, 3);
             ac5.put(KEY_DESC, "You gain 1 more move on next turn.");
             ac5.put(KEY_COST, 1);
-            ac5.put(KEY_REQUIRESLVL, 6);
+            ac5.put(KEY_REQUIRESLVL, 5);
             ac5.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac5);
 
@@ -170,7 +170,7 @@ public class DBHandler {
             ac6.put(KEY_TYPE, 1);
             ac6.put(KEY_DESC, "Steals 1-3 points from the opponent.");
             ac6.put(KEY_COST, 1);
-            ac6.put(KEY_REQUIRESLVL, 8);
+            ac6.put(KEY_REQUIRESLVL, 6);
             ac6.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac6);
 

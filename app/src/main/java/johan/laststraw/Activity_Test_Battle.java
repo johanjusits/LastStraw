@@ -35,7 +35,7 @@ import static android.graphics.Color.TRANSPARENT;
 /**
  * Created by Johan on 2014-09-27.
  */
-public class Activity_World001_Lv001 extends Activity implements View.OnClickListener, Animation.AnimationListener {
+public class Activity_Test_Battle extends Activity implements View.OnClickListener, Animation.AnimationListener {
 
     ImageButton obj001, obj002, obj003, obj004, obj005, obj006, obj007, obj008, obj009,
             obj010, obj011, obj012, obj013, obj014, obj015, obj016;
@@ -108,7 +108,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     int expToNextLevel;
     int checkIfExpRoof;
     int playerLevel;
-    int playerExp;
+    int playerExp = 98;
     int playerProgress;
     int playerScore = 0, enemyScore = 0, finalPlayerScore, finalEnemyScore;
     int playerCard1Type = 0, playerCard2Type = 0, playerCard3Type = 0, playerCard4Type = 0,
@@ -391,42 +391,42 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                 selectedCard = 1;
                 if (playerCard1Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_World001_Lv001.this);
+                    playCardConfirm(message, Activity_Test_Battle.this);
                 }
                 break;
             case R.id.ibPlayerCard2:
                 selectedCard = 2;
                 if (playerCard2Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_World001_Lv001.this);
+                    playCardConfirm(message, Activity_Test_Battle.this);
                 }
                 break;
             case R.id.ibPlayerCard3:
                 selectedCard = 3;
                 if (playerCard3Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_World001_Lv001.this);
+                    playCardConfirm(message, Activity_Test_Battle.this);
                 }
                 break;
             case R.id.ibPlayerCard4:
                 selectedCard = 4;
                 if (playerCard4Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_World001_Lv001.this);
+                    playCardConfirm(message, Activity_Test_Battle.this);
                 }
                 break;
             case R.id.ibPlayerCard5:
                 selectedCard = 5;
                 if (playerCard5Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_World001_Lv001.this);
+                    playCardConfirm(message, Activity_Test_Battle.this);
                 }
                 break;
             case R.id.ibPlayerCard6:
                 selectedCard = 6;
                 if (playerCard6Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_World001_Lv001.this);
+                    playCardConfirm(message, Activity_Test_Battle.this);
                 }
                 break;
             case R.id.bEndTurn:
@@ -2408,7 +2408,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
     private void gameOver() {
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                final Dialog dialog = new Dialog(Activity_World001_Lv001.this);
+                final Dialog dialog = new Dialog(Activity_Test_Battle.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.confirmdialog_finalscore);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
@@ -2538,7 +2538,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
                     xpPenalty = 5;
                 }
                 final int gainedXp = finalPlayerScore / xpPenalty;
-                final Dialog dialog = new Dialog(Activity_World001_Lv001.this);
+                final Dialog dialog = new Dialog(Activity_Test_Battle.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.confirmdialog_exp_gain);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
@@ -2738,7 +2738,7 @@ public class Activity_World001_Lv001 extends Activity implements View.OnClickLis
             playerName = cursor.getString(cursor.getColumnIndex("name"));
             playerLevel = cursor.getInt(cursor.getColumnIndex("level"));
             tvPlayerLevel.setText(String.valueOf(playerLevel));
-            playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
+            //playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
             tvPlayerExp.setText(String.valueOf(playerExp));
             playerGender = cursor.getString(cursor.getColumnIndex("gender"));
             playerProgress = cursor.getInt(cursor.getColumnIndex("lvlsbeaten"));
