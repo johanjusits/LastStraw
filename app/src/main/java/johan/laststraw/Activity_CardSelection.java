@@ -291,8 +291,8 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bStartGame:
-                if (chosenLevel.equals("Activity_World001_Lv001")){
-                    startGame = new Intent(Activity_CardSelection.this,  Activity_World001_Lv001.class);
+                if (chosenLevel.equals("Activity_Test_Battle")){
+                    startGame = new Intent(Activity_CardSelection.this,  Activity_Test_Battle.class);
                     startGame.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(startGame);
                     finish();
