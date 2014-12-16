@@ -336,7 +336,7 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
         enemyStatuses[3] = "";
         enemyStatuses[4] = "";
 
-        //coinFlipStart();
+        coinFlipStart();
     }
 
     /* This Method contains a switch handling player clicks on wheat */
