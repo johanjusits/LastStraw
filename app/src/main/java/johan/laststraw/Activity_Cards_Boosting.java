@@ -69,7 +69,12 @@ public class Activity_Cards_Boosting extends Activity implements AdapterView.OnI
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmdialog_display_card);
-        dialog.getWindow().setLayout(500, 450);
+        String density = DeviceDensity.getDensityName(this);
+        if (density.equals("xxhdpi")){
+            dialog.getWindow().setLayout(1000,900);
+        } else if (density.equals("hdpi")) {
+            dialog.getWindow().setLayout(500, 450);
+        }
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
         String cardName = cursor.getString(cursor.getColumnIndex("name"));
