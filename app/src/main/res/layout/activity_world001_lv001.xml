@@ -509,14 +509,15 @@
         android:visibility="visible" />
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:id="@+id/objectRow">
+        android:id="@+id/objectRow"
+        android:layout_centerHorizontal="true">
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj001"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -528,8 +529,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj002"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -540,8 +541,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj003"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -552,8 +553,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj004"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -564,8 +565,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj005"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -577,8 +578,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj006"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -590,8 +591,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj007"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -603,8 +604,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj008"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -616,8 +617,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj009"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -629,8 +630,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj010"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -642,8 +643,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj011"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -655,8 +656,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj012"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -668,8 +669,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj013"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -681,8 +682,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj014"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -694,8 +695,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj015"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -707,8 +708,8 @@
 
         <ImageButton
             android:contentDescription="@null"
-            android:layout_width="32dp"
-            android:layout_height="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/obj016"
             android:src="@drawable/object_wheat"
             android:scaleType="fitCenter"
@@ -717,26 +718,6 @@
             android:focusableInTouchMode="false"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/obj015" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ivLeftCoin"
-            android:visibility="visible"
-            android:background="#00000000"
-            android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/obj007"
-            android:layout_alignStart="@+id/obj007" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ivRightCoin"
-            android:visibility="visible"
-            android:background="#00000000"
-            android:layout_alignTop="@+id/ivLeftCoin"
-            android:layout_toRightOf="@+id/obj009"
-            android:layout_toEndOf="@+id/obj009" />
 
     </RelativeLayout>
 

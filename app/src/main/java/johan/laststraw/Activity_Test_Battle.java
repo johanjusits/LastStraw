@@ -41,7 +41,6 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
             obj010, obj011, obj012, obj013, obj014, obj015, obj016;
     ImageButton playerCard1, playerCard2, playerCard3, playerCard4, playerCard5, playerCard6;
     ImageButton enemyCard1, enemyCard2, enemyCard3, enemyCard4, enemyCard5, enemyCard6;
-    ImageButton leftCoin, rightCoin;
     ImageView playerStatusIcon1, playerStatusIcon2, playerStatusIcon3, playerStatusIcon4, playerStatusIcon5;
     ImageView enemyStatusIcon1, enemyStatusIcon2, enemyStatusIcon3, enemyStatusIcon4, enemyStatusIcon5;
     ImageView ivCenterImage;
@@ -283,10 +282,6 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
 
         /* SETS VARIOUS VIEWS */
         ivCenterImage = (ImageView) findViewById(R.id.ivCenterImage);
-        leftCoin = (ImageButton) findViewById(R.id.ivLeftCoin);
-        rightCoin = (ImageButton) findViewById(R.id.ivRightCoin);
-        leftCoin.setOnClickListener(this);
-        rightCoin.setOnClickListener(this);
         tvPlayerName = (TextView) findViewById(R.id.tvPlayerName);
         tvPlayerLevel = (TextView) findViewById(R.id.tvLvNumber);
         tvPlayerExp = (TextView) findViewById(R.id.tvExpNumber);
@@ -343,50 +338,6 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ivLeftCoin:
-                tvCenterMessage.clearAnimation();
-                coinCycle = genRand(2);
-                playerStrawSelected = false;
-                leftCoin.setEnabled(false);
-                rightCoin.setEnabled(false);
-                leftCoin.startAnimation(ani_fadeOut);
-                rightCoin.startAnimation(ani_fadeOut);
-                leftCoin.setVisibility(View.GONE);
-                rightCoin.setVisibility(View.GONE);
-
-                myHandler.postDelayed(new Runnable() {
-                    public void run() {
-                        leftCoin.clearAnimation();
-                        rightCoin.clearAnimation();
-                        ivCenterImage.setImageResource(R.drawable.coin_side);
-                        ivCenterImage.startAnimation(ani_fadeIn);
-                        spinCoin();
-                    }
-                }, 2000);
-
-                break;
-            case R.id.ivRightCoin:
-                tvCenterMessage.clearAnimation();
-                coinCycle = genRand(2);
-                playerStrawSelected = true;
-                leftCoin.setEnabled(false);
-                rightCoin.setEnabled(false);
-                leftCoin.startAnimation(ani_fadeOut);
-                rightCoin.startAnimation(ani_fadeOut);
-                leftCoin.setVisibility(View.GONE);
-                rightCoin.setVisibility(View.GONE);
-
-                myHandler.postDelayed(new Runnable() {
-                    public void run() {
-                        leftCoin.clearAnimation();
-                        rightCoin.clearAnimation();
-                        ivCenterImage.setImageResource(R.drawable.coin_side);
-                        ivCenterImage.startAnimation(ani_fadeIn);
-                        spinCoin();
-                    }
-                }, 2000);
-
-                break;
             case R.id.ibPlayerCard1:
                 selectedCard = 1;
                 if (playerCard1Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
@@ -2406,13 +2357,18 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
 
     /* METHOD CALLED WHEN THE GAME IS OVER */
     private void gameOver() {
+        final String density = DeviceDensity.getDensityName(this);
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 final Dialog dialog = new Dialog(Activity_Test_Battle.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.confirmdialog_finalscore);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
-                dialog.getWindow().setLayout(500, 300);
+                if (density.equals("xxhdpi")){
+                    dialog.getWindow().setLayout(1000,600);
+                } else if (density.equals("hdpi")) {
+                    dialog.getWindow().setLayout(500, 300);
+                }
                 dialog.setCancelable(false);
 
                 TextView tvPlayer = (TextView) dialog.findViewById(R.id.tvPlayer);
@@ -2518,6 +2474,7 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
 
     /* METHOD TO UPDATE EXP/LEVEL UP */
     private void updateExp() {
+        final String density = DeviceDensity.getDensityName(this);
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 int xpPenalty = 1;
@@ -2542,7 +2499,11 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.confirmdialog_exp_gain);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
-                dialog.getWindow().setLayout(500, 300);
+                if (density.equals("xxhdpi")){
+                    dialog.getWindow().setLayout(1000,600);
+                } else if (density.equals("hdpi")) {
+                    dialog.getWindow().setLayout(500, 300);
+                }
                 dialog.setCancelable(false);
 
                 final ProgressBar expBar = (ProgressBar) dialog.findViewById(R.id.expBarUpd);
@@ -2969,7 +2930,7 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
         enemyCard6.setImageResource(R.drawable.card_type_ailment);
     }
 
-    /* THIS METHOD DETERMINES IF DEVICE IS A TABLET OR PHONE */
+    /* THIS METHOD DETERMINES SCREEN SIZE */
     private void getScreenSize() {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -2983,11 +2944,11 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
 
         float smallestWidth = Math.min(widthDp, heightDp);
 
-        if (smallestWidth > 720) {
-            //Device is a 10" tablet
+        if (smallestWidth > 1000) {
+            //Device is a 5" screen
             deviceIsTablet = true;
         } else if (smallestWidth < 600) {
-            //Device is a 7" tablet
+            //Device is a 4" screen
             deviceIsTablet = false;
         }
     }
@@ -7837,29 +7798,51 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
         btnEndTurn.setText("");
         disable(layout_objectRow);
         disablePlayerCards();
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                tvCenterMessage.startAnimation(ani_fadeIn);
-                tvCenterMessage.setText("Pick a coin side");
-            }
-        }, 2000);
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                tvCenterMessage.startAnimation(ani_fadeOut);
+                chooseCoinSide(Activity_Test_Battle.this);
             }
-        }, 4000);
+        }, 1500);
+    }
 
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                leftCoin.setImageResource(R.drawable.coin_rat_1);
-                rightCoin.setImageResource(R.drawable.coin_straw_1);
-                leftCoin.startAnimation(ani_fadeIn);
-                rightCoin.startAnimation(ani_fadeIn);
-                leftCoin.setEnabled(true);
-                rightCoin.setEnabled(true);
+    /* CHOOSE COIN SIDE WINDOW */
+    private void chooseCoinSide(Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_coinflip);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+        dialog.setCancelable(false);
+
+        ImageButton ibRat = (ImageButton) dialog.findViewById(R.id.ibRat);
+        ImageButton ibStraw = (ImageButton) dialog.findViewById(R.id.ibStraw);
+
+        ibRat.setImageResource(R.drawable.coin_rat_1);
+        ibStraw.setImageResource(R.drawable.coin_straw_1);
+
+        /* YES CLICKED */
+        ImageButton buttonDialogYes = (ImageButton) dialog.findViewById(R.id.ibRat);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                playerStrawSelected = false;
+                coinCycle = genRand(2);
+                dialog.dismiss();
+                spinCoin();
             }
-        }, 5000);
+        });
+
+        /* NO CLICKED */
+        ImageButton buttonDialogNo = (ImageButton) dialog.findViewById(R.id.ibStraw);
+        buttonDialogNo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                playerStrawSelected = true;
+                coinCycle = genRand(2);
+                dialog.dismiss();
+                spinCoin();
+            }
+        });
+
+        dialog.show();
     }
 
     /* COIN SPIN */
