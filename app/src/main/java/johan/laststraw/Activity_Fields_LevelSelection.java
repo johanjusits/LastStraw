@@ -56,6 +56,13 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
         bLv006.setOnClickListener(this);
         bLv007.setOnClickListener(this);
         bLv008.setOnClickListener(this);
+        bLv002.setClickable(false);
+        bLv003.setClickable(false);
+        bLv004.setClickable(false);
+        bLv005.setClickable(false);
+        bLv006.setClickable(false);
+        bLv007.setClickable(false);
+        bLv008.setClickable(false);
     }
 
     @Override
@@ -64,7 +71,8 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             case R.id.bWorld001Lvl001:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_Test_Battle");
+                editor.putString("LevelToLoad", ".Activity_W001_L001");
+                editor.putString("LevelName", "Fields - Level 1");
                 editor.apply();
                 pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -75,7 +83,8 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             case R.id.bWorld001Lvl002:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_World001_Lv002");
+                editor.putString("LevelToLoad", ".Activity_W001_L002");
+                editor.putString("LevelName", "Fields - Level 2");
                 editor.apply();
                 pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -161,6 +170,11 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             bLv002.setImageResource(R.drawable.icon_touch);
             bLv002.setBackgroundResource(R.drawable.lvlselection_button);
             bLv002.setClickable(true);
+        }
+        if (lv002Cleared == 1){
+            bLv003.setImageResource(R.drawable.icon_touch);
+            bLv003.setBackgroundResource(R.drawable.lvlselection_button);
+            bLv003.setClickable(true);
         }
     }
 }
