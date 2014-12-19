@@ -2,6 +2,7 @@ package johan.laststraw;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,6 +35,7 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
     TextView tvCardsInHNr, tvSlots;
     Button bStart, bViewHand;
     Intent startGame;
+    String packageName = "johan.laststraw";
     String chosenLevel;
     Cursor cursor1, cursor2, cursor3, handCursor, playerCursor;
     int currentTab, cardsInHand, cardsAllowed;
@@ -296,18 +300,12 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bStartGame:
-                if (chosenLevel.equals("Activity_Test_Battle")){
-                    startGame = new Intent(Activity_CardSelection.this,  Activity_Test_Battle.class);
-                    startGame.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(startGame);
-                    finish();
-                    break;
-                } else {
-                    Toast.makeText(getApplicationContext(), "Level 002 not found.",
-                            Toast.LENGTH_LONG).show();
-                    break;
-                }
-
+                Intent startGame = new Intent();
+                startGame.setComponent(new ComponentName(packageName,packageName+chosenLevel));
+                startActivity(startGame);
+                finish();
+                overridePendingTransition(0, 0);
+                break;
             case R.id.bViewCards:
                 startGame = new Intent(Activity_CardSelection.this, Activity_ViewHand.class);
                 startGame.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
