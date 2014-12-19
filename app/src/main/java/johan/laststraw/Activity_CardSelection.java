@@ -32,11 +32,11 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
     CustomCursorAdapter cursorAdapter;
     TabHost th;
     DBHandler db;
-    TextView tvCardsInHNr, tvSlots;
+    TextView tvCardsInHNr, tvSlots, tvLevelName;
     Button bStart, bViewHand;
     Intent startGame;
     String packageName = "johan.laststraw";
-    String chosenLevel;
+    String chosenLevel, levelName;
     Cursor cursor1, cursor2, cursor3, handCursor, playerCursor;
     int currentTab, cardsInHand, cardsAllowed;
     private ListView fieldCardsList, ailmentCardsList, boostingCardsList;
@@ -48,6 +48,7 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
 
         tvCardsInHNr = (TextView) findViewById(R.id.tvCardsInHNr);
         tvSlots = (TextView) findViewById(R.id.tvSlots);
+        tvLevelName = (TextView) findViewById(R.id.tvLevelName);
 
         bStart = (Button) findViewById(R.id.bStartGame);
         bViewHand = (Button) findViewById(R.id.bViewCards);
@@ -84,7 +85,8 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
         }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         chosenLevel = preferences.getString("LevelToLoad", "");
-        System.out.println(chosenLevel);
+        levelName = preferences.getString("LevelName", "");
+        tvLevelName.setText(levelName);
         getPlayerInfo();
         setHandCursor();
         setFieldCardsList();
