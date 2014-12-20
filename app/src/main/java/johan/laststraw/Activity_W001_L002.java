@@ -2491,6 +2491,10 @@ public class Activity_W001_L002 extends Activity implements View.OnClickListener
                 if (playerLevel >= 9){
                     xpPenalty = 5;
                 }
+                if (playerLevel == 20){
+                    finish();
+                    overridePendingTransition(0, 0);
+                }
                 final int gainedXp = finalPlayerScore / xpPenalty;
                 final Dialog dialog = new Dialog(Activity_W001_L002.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -2576,6 +2580,7 @@ public class Activity_W001_L002 extends Activity implements View.OnClickListener
                                         public void run() {
                                             dialog.dismiss();
                                             finish();
+                                            overridePendingTransition(0, 0);
                                         }
                                     }, 4000);
                                 }
