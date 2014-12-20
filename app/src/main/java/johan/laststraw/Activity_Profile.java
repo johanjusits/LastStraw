@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,34 +24,30 @@ import static android.graphics.Color.TRANSPARENT;
 public class Activity_Profile extends Activity implements View.OnClickListener {
 
     DBHandler db;
-    Button bSelectGender, bSave, bBack;
-    TextView tvGender, tvLevelNumber, tvName;
-    ImageView ivImg;
+    Button bSave;
+    TextView tvGender, tvLevelNumber;
+    ImageButton ivImg;
     EditText etName;
     Cursor cursor;
     ProgressBar expBar;
     String playerGender = "";
-    int level, exp;
+    int level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_new_profile);
 
         tvLevelNumber = (TextView) findViewById(R.id.tvLevelNumber);
-        tvGender = (TextView) findViewById(R.id.tvGender);
-        ivImg = (ImageView) findViewById(R.id.ivImg);
+        ivImg = (ImageButton) findViewById(R.id.ivImg);
         etName = (EditText) findViewById(R.id.etName);
         expBar = (ProgressBar) findViewById(R.id.expBar);
         Drawable draw = getResources().getDrawable(R.drawable.customprogressbar);
         expBar.setProgressDrawable(draw);
-        bSelectGender = (Button) findViewById(R.id.bSelectGender);
         bSave = (Button) findViewById(R.id.bSave);
-        bBack = (Button) findViewById(R.id.bBack);
 
-        bBack.setOnClickListener(this);
         bSave.setOnClickListener(this);
-        bSelectGender.setOnClickListener(this);
+        ivImg.setOnClickListener(this);
 
         db = new DBHandler(this);
 
@@ -65,7 +62,6 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
         if (cursor != null && cursor.moveToFirst()) {
             etName.setText(cursor.getString(cursor.getColumnIndex("name")));
             etName.setSelection(etName.getText().length());
-            tvGender.setText(cursor.getString(cursor.getColumnIndex("gender")));
             level = cursor.getInt(cursor.getColumnIndex("level"));
             tvLevelNumber.setText(String.valueOf(level));
             expBar.setProgress(cursor.getInt(cursor.getColumnIndex("exp")));
@@ -84,11 +80,7 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.bBack:
-                finish();
-                overridePendingTransition(0, 0);
-                break;
-            case R.id.bSelectGender:
+            case R.id.ivImg:
                 confirmSelectGender(Activity_Profile.this);
                 break;
             case R.id.bSave:
@@ -105,7 +97,6 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
                 db.close();
                 String message = "Info successfully updated";
                 confirmSuccess(message, Activity_Profile.this);
-                tvGender.setText(cursor.getString(cursor.getColumnIndex("gender")));
                 playerGender = cursor.getString(cursor.getColumnIndex("gender"));
                 if (playerGender.equals("Male")){
                     ivImg.setImageResource(R.drawable.portrait_placeholder_boy);
