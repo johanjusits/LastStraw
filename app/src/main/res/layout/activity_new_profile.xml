@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/bg_menus">
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/expBar"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/customprogressbar"
+        android:layout_marginBottom="37dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lvl000"
+        android:id="@+id/tvLevelNumber"
+        android:layout_gravity="center_horizontal"
+        android:textSize="40sp"
+        android:textColor="@color/textBlack"
+        android:layout_above="@+id/expBar"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/levelTitle"
+        android:id="@+id/tvLevelLabel"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/textBlack"
+        android:textSize="40sp"
+        android:layout_above="@+id/tvLevelNumber"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivImg"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/portrait_placeholder_boy"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:background="#000000"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:id="@+id/etName"
+        android:background="@drawable/startscreen_btncolor"
+        android:textSize="20sp"
+        android:maxLines="1"
+        android:inputType="textPersonName"
+        android:maxLength="10"
+        android:textStyle="bold"
+        android:imeOptions="flagNoExtractUi"
+        android:paddingLeft="8dp"
+        android:layout_below="@+id/ivImg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:layout_width="128dp"
+        android:layout_height="50dp"
+        android:text="@string/saveInfo"
+        android:id="@+id/bSave"
+        android:background="@drawable/lvlselection_button"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp" />
+</RelativeLayout>

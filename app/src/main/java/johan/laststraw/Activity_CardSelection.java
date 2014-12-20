@@ -22,6 +22,10 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 import static android.graphics.Color.TRANSPARENT;
 
 /**
@@ -34,12 +38,12 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
     DBHandler db;
     TextView tvCardsInHNr, tvSlots, tvLevelName;
     Button bStart, bViewHand;
-    Intent startGame;
     String packageName = "johan.laststraw";
     String chosenLevel, levelName;
     Cursor cursor1, cursor2, cursor3, handCursor, playerCursor;
     int currentTab, cardsInHand, cardsAllowed;
     private ListView fieldCardsList, ailmentCardsList, boostingCardsList;
+    ArrayList<String>cardsArray = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +91,14 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
         chosenLevel = preferences.getString("LevelToLoad", "");
         levelName = preferences.getString("LevelName", "");
         tvLevelName.setText(levelName);
+        cardsAllowed = 6;
         getPlayerInfo();
+        cardsArray.add("Empty");
+        cardsArray.add("Empty");
+        cardsArray.add("Empty");
+        cardsArray.add("Empty");
+        cardsArray.add("Empty");
+        cardsArray.add("Empty");
         setHandCursor();
         setFieldCardsList();
         setAilmentCardsList();
@@ -99,16 +110,90 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
     private void getPlayerInfo() {
         playerCursor = db.getPlayerInfo();
         if (playerCursor != null && playerCursor.moveToFirst()) {
-            cardsAllowed = playerCursor.getInt(playerCursor.getColumnIndex("slots"));
+            //cardsAllowed = playerCursor.getInt(playerCursor.getColumnIndex("slots"));
             tvSlots.setText(String.valueOf(cardsAllowed));
         }
     }
 
     private void setHandCursor() {
+        String names[] = new String[6];
+        int i = 0;
         handCursor = db.getAllSelectedCards();
         cardsInHand = handCursor.getCount();
         String cards = String.valueOf(cardsInHand);
+        if (handCursor != null) {
+            if (handCursor.moveToFirst()) {
+                do {
+                    names[i] = handCursor.getString(handCursor.getColumnIndex("name"));
+                    i++;
+                } while (handCursor.moveToNext());
+            }
+        }
+        if (names[0] != null){
+            cardsArray.set(0, names[0]);
+        } else {
+            if (!cardsArray.isEmpty()){
+                int size = cardsArray.size();
+                if (size >= 1){
+                    cardsArray.set(0, "Empty");
+                }
+            }
+        }
+        if (names[1] != null){
+            cardsArray.set(1, names[1]);
+        } else {
+            if (!cardsArray.isEmpty()){
+                int size = cardsArray.size();
+                if (size >= 2){
+                    cardsArray.set(1, "Empty");
+                }
+            }
+        }
+        if (names[2] != null){
+            cardsArray.set(2, names[2]);
+        } else {
+            if (!cardsArray.isEmpty()){
+                int size = cardsArray.size();
+                if (size >= 3){
+                    cardsArray.set(2, "Empty");
+                }
+            }
+        }
+        if (names[3] != null){
+            cardsArray.set(3, names[3]);
+        } else {
+            if (!cardsArray.isEmpty()){
+                int size = cardsArray.size();
+                if (size >= 4){
+                    cardsArray.set(3, "Empty");
+                }
+            }
+        }
+        if (names[4] != null){
+            cardsArray.set(4, names[4]);
+        } else {
+            if (!cardsArray.isEmpty()){
+                int size = cardsArray.size();
+                if (size >= 5){
+                    cardsArray.set(4, "Empty");
+                }
+            }
+        }
+        if (names[5] != null){
+            cardsArray.set(5, names[5]);
+        } else {
+            if (!cardsArray.isEmpty()){
+                int size = cardsArray.size();
+                if (size >= 6){
+                    cardsArray.set(5, "Empty");
+                }
+            }
+        }
         tvCardsInHNr.setText(cards);
+        System.out.println(Arrays.toString(names));
+        for (String s : cardsArray){
+            System.out.println("My array list content: " + s);
+        }
     }
 
     private void setFieldCardsList() {
@@ -168,13 +253,57 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         currentTab = th.getCurrentTab();
-        if (cardsInHand < cardsAllowed) {
-            String message = "Use this card?";
-            confirmSelectCard(message, Activity_CardSelection.this);
-        } else {
-            String message = "Can't add more cards.";
-            confirmError(message, Activity_CardSelection.this);
+        String cardName;
+        int occurrences;
+        if (currentTab == 0) {
+            cardName = cursor1.getString(cursor1.getColumnIndex("name"));
+            occurrences = Collections.frequency(cardsArray, cardName);
+            if (occurrences < 2){
+                if (cardsInHand < cardsAllowed) {
+                    String message = "Use this card?";
+                    confirmSelectCard(message, Activity_CardSelection.this);
+                } else {
+                    String message = "Can't add more cards.";
+                    confirmError(message, Activity_CardSelection.this);
+                }
+            } else {
+                String message = "You already have 2 of this card in your hand.";
+                confirmError(message, Activity_CardSelection.this);
+            }
         }
+        if (currentTab == 1) {
+            cardName = cursor2.getString(cursor2.getColumnIndex("name"));
+            occurrences = Collections.frequency(cardsArray, cardName);
+            if (occurrences < 2){
+                if (cardsInHand < cardsAllowed) {
+                    String message = "Use this card?";
+                    confirmSelectCard(message, Activity_CardSelection.this);
+                } else {
+                    String message = "Can't add more cards.";
+                    confirmError(message, Activity_CardSelection.this);
+                }
+            } else {
+                String message = "You already have 2 of this card in your hand.";
+                confirmError(message, Activity_CardSelection.this);
+            }
+        }
+        if (currentTab == 2) {
+            cardName = cursor3.getString(cursor3.getColumnIndex("name"));
+            occurrences = Collections.frequency(cardsArray, cardName);
+            if (occurrences < 2){
+                if (cardsInHand < cardsAllowed) {
+                    String message = "Use this card?";
+                    confirmSelectCard(message, Activity_CardSelection.this);
+                } else {
+                    String message = "Can't add more cards.";
+                    confirmError(message, Activity_CardSelection.this);
+                }
+            } else {
+                String message = "You already have 2 of this card in your hand.";
+                confirmError(message, Activity_CardSelection.this);
+            }
+        }
+
     }
 
     private void confirmSelectCard(String message, final Context context) {
@@ -216,7 +345,6 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
             tvText.setText(message);
             tvDesc.setText(desc);
             ivCard.setImageResource(getResources().getIdentifier(image, "drawable", getPackageName()));
-
         }
 
         if (currentTab == 2) {
@@ -231,7 +359,6 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
             tvText.setText(message);
             tvDesc.setText(desc);
             ivCard.setImageResource(getResources().getIdentifier(image, "drawable", getPackageName()));
-
         }
 
 
@@ -241,6 +368,30 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
             public void onClick(View v) {
                 String message = "Card added to hand";
                 confirmSuccess(message, Activity_CardSelection.this);
+                if (currentTab == 0) {
+                    String cardName = cursor1.getString(cursor1.getColumnIndex("name"));
+                    if(cardsInHand == 5){
+                        cardsArray.set(5, cardName);
+                    } else {
+                        cardsArray.set(cardsInHand, cardName);
+                    }
+                }
+                if (currentTab == 1) {
+                    String cardName = cursor2.getString(cursor2.getColumnIndex("name"));
+                    if(cardsInHand == 5){
+                        cardsArray.set(5, cardName);
+                    } else {
+                        cardsArray.set(cardsInHand, cardName);
+                    }
+                }
+                if (currentTab == 2) {
+                    String cardName = cursor3.getString(cursor3.getColumnIndex("name"));
+                    if(cardsInHand == 5){
+                        cardsArray.set(5, cardName);
+                    } else {
+                        cardsArray.set(cardsInHand, cardName);
+                    }
+                }
                 addCardToHand();
                 dialog.dismiss();
             }
@@ -327,4 +478,5 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
         super.onResume();
         setHandCursor();
     }
+
 }
