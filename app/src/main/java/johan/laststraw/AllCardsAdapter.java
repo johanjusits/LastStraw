@@ -44,7 +44,11 @@ public class AllCardsAdapter extends CursorAdapter {
             viewLocked = (LockedHolder) view.getTag();
             viewLocked.nameHolder.setText(cursor.getString(cursor.getColumnIndex("name")));
             viewLocked.awardedAtHolder.setText("Awarded at level:");
-            viewLocked.reqLvlHolder.setText(cursor.getString(cursor.getColumnIndex("reqlvl")));
+            if (cursor.getString(cursor.getColumnIndex("reqlvl")).equals("0")){
+                viewLocked.reqLvlHolder.setText("??");
+            } else {
+                viewLocked.reqLvlHolder.setText(cursor.getString(cursor.getColumnIndex("reqlvl")));
+            }
 
             String imagePath = cursor.getString(cursor.getColumnIndex("image"));
 
