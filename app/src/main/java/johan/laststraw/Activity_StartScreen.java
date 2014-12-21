@@ -29,7 +29,6 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
     TextView tvdblvl, tvsplvl;
     int dbLvl, sharedPrefLvl;
     int lvlcleared;
-    boolean world1MiniBossCardAwarded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,23 +108,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         db.close();
 
-        int checkMiniBoss1 = getLevelInfo(4);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean player2ndSlotAwarded = preferences.getBoolean("player2ndSlotAwarded", false);
-        if (checkMiniBoss1 == 1 && !player2ndSlotAwarded){
-            try {
-                db.open();
-            } catch (java.sql.SQLException e) {
-                e.printStackTrace();
-            }
-            db.updatePlayerSlots(2);
-            preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("player2ndSlotAwarded", true);
-            editor.apply();
-            confirmSuccess("New have unlocked a new card slot!", Activity_StartScreen.this);
-            db.close();
-        }
+        //CHECK IF MINI BOSS 1 HAS BEEN BEATEN
+        checkMiniBoss1();
     }
 
     private void awardNewCard() {
@@ -334,5 +318,25 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         db.close();
         return lvlcleared;
+    }
+
+    private void checkMiniBoss1(){
+        int checkMiniBoss1 = getLevelInfo(4);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean player2ndSlotAwarded = preferences.getBoolean("player2ndSlotAwarded", false);
+        if (checkMiniBoss1 == 1 && !player2ndSlotAwarded){
+            try {
+                db.open();
+            } catch (java.sql.SQLException e) {
+                e.printStackTrace();
+            }
+            db.updatePlayerSlots(2);
+            preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("player2ndSlotAwarded", true);
+            editor.apply();
+            confirmSuccess("New have unlocked a new card slot!", Activity_StartScreen.this);
+            db.close();
+        }
     }
 }
