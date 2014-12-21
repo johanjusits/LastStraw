@@ -630,7 +630,12 @@ public class DBHandler {
         return appDB.insert(OwnedCards, null, oc1);
     }
 
-    /* UPDATE LVL INFO */
+    public Cursor getWorldInfo(int worldId){
+        String selectQuery = "SELECT  * FROM levelsInfo WHERE " + "_id=" + worldId;
+        SQLiteDatabase db = ourHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        return cursor;
+    }
 
     public Cursor getLvlInfo(int lvlid){
         String selectQuery = "SELECT  * FROM levelsInfo WHERE " + "_id=" + lvlid;
@@ -646,6 +651,7 @@ public class DBHandler {
         return cursor;
     }
 
+    /* UPDATE LVL INFO */
     public long updateLvlInfo(int lvlId, int cleared, int highScore){
         ContentValues up = new ContentValues();
         up.put(KEY_LVLCLEARED, cleared);
