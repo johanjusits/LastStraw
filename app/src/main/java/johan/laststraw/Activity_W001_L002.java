@@ -93,8 +93,8 @@ public class Activity_W001_L002 extends Activity implements View.OnClickListener
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
-    String enemyCard1Name = "Reinforce", enemyCard2Name = "Protect", enemyCard3Name = "Slow Down", enemyCard4Name = "Slow Down",
-            enemyCard5Name = "Dispel", enemyCard6Name = "Dispel";
+    String enemyCard1Name = "Reinforce", enemyCard2Name = "Reinforce II", enemyCard3Name = "", enemyCard4Name = "",
+            enemyCard5Name = "", enemyCard6Name = "";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
     String[] playerStatuses = new String[5];
@@ -187,7 +187,7 @@ public class Activity_W001_L002 extends Activity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_world001_lv001);
+        setContentView(R.layout.activity_world001);
         layout_objectRow = (ViewGroup) findViewById(R.id.objectRow);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -2299,22 +2299,26 @@ public class Activity_W001_L002 extends Activity implements View.OnClickListener
     public int randomizeEnemyCardSelect(){
         int randomizedCard;
 
+        //IF ENEMY ONLY HAS ONE CARD, USE THIS
         if (enemyStartingCards == 1){
             return 0;
         }
 
+        //IF ENEMY HAS 6 CARDS AND ALL REMAINING
         if (enemyCardsRemaining == 6){
             randomizedCard = genRand(6);
             return randomizedCard;
         }
 
-        if (enemyCardsRemaining <= 1 & enemyStartingCards == 2){
+        //IF ENEMY STARTS WITH TWO CARDS
+        if (enemyStartingCards == 2){
             do{
                 randomizedCard = genRand(2);
             }while( pool.contains(randomizedCard) );
             return randomizedCard;
         }
 
+        //IF ENEMY STARTED WITH 6 CARDS AND HAS LESS THAN 6 REMAINING
         if (enemyCardsRemaining <= 5 & enemyStartingCards == 6){
             do{
                 randomizedCard = genRand(6);

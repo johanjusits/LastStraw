@@ -186,7 +186,7 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_world001_lv001);
+        setContentView(R.layout.activity_world001);
         layout_objectRow = (ViewGroup) findViewById(R.id.objectRow);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

@@ -35,7 +35,7 @@
                 android:id="@+id/bWorld001Lvl001"
                 android:layout_gravity="center_horizontal"
                 android:textSize="40sp"
-                android:src="@drawable/icon_touch"
+                android:src="@drawable/icon_fields"
                 android:background="@drawable/lvlselection_button"
                 style="@style/lvlSelectionButton"
                 android:scaleType="fitCenter" />

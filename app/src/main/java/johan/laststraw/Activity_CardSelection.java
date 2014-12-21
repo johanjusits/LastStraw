@@ -91,7 +91,6 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
         chosenLevel = preferences.getString("LevelToLoad", "");
         levelName = preferences.getString("LevelName", "");
         tvLevelName.setText(levelName);
-        cardsAllowed = 6;
         getPlayerInfo();
         cardsArray.add("Empty");
         cardsArray.add("Empty");
@@ -110,7 +109,7 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
     private void getPlayerInfo() {
         playerCursor = db.getPlayerInfo();
         if (playerCursor != null && playerCursor.moveToFirst()) {
-            //cardsAllowed = playerCursor.getInt(playerCursor.getColumnIndex("slots"));
+            cardsAllowed = playerCursor.getInt(playerCursor.getColumnIndex("slots"));
             tvSlots.setText(String.valueOf(cardsAllowed));
         }
     }
@@ -190,10 +189,6 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
             }
         }
         tvCardsInHNr.setText(cards);
-        System.out.println(Arrays.toString(names));
-        for (String s : cardsArray){
-            System.out.println("My array list content: " + s);
-        }
     }
 
     private void setFieldCardsList() {
