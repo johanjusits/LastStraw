@@ -142,6 +142,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
     int playerProtectCountdown = -1;
     int enemyProtectCountdown = -1;
     int coinCycle;
+    int enemyTurnCounter = 0;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
     boolean deviceIsTablet;
@@ -1338,14 +1339,23 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
 
     /* ENEMY TURN MOVES */
     private void enemyTurn(){
+        enemyTurnCounter++;
         /* Checks if enemy has any cards left and decides move pattern accordingly */
         if (enemyCardsRemaining > 0){
-            int cardOrClear = genRand(100);
+            int cardOrClear;
+            if (enemyTurnCounter == 1){
+                cardOrClear = 99;
+            } else {
+                cardOrClear = genRand(100);
+            }
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
             if (cardOrClear >= 80){
-                enemyPickedCard = randomizeEnemyCardSelect();
-
+                if (enemyTurnCounter == 1){
+                    enemyPickedCard = 0;
+                } else {
+                    enemyPickedCard = randomizeEnemyCardSelect();
+                }
                 if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost + enemyCorruptedPenalty){
                     lastEnemyPlayedCard = enemyCard1Name;
                     enemyCard1.setColorFilter(Color.argb(255, 255, 255, 255));

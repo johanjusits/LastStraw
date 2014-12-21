@@ -107,7 +107,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
     int expToNextLevel;
     int checkIfExpRoof;
     int playerLevel;
-    int playerExp = 95;
+    int playerExp;
     int playerProgress;
     int playerScore = 0, enemyScore = 0, finalPlayerScore, finalEnemyScore;
     int playerCard1Type = 0, playerCard2Type = 0, playerCard3Type = 0, playerCard4Type = 0,
@@ -2695,7 +2695,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
             playerName = cursor.getString(cursor.getColumnIndex("name"));
             playerLevel = cursor.getInt(cursor.getColumnIndex("level"));
             tvPlayerLevel.setText(String.valueOf(playerLevel));
-            //playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
+            playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
             tvPlayerExp.setText(String.valueOf(playerExp));
             playerGender = cursor.getString(cursor.getColumnIndex("gender"));
             playerProgress = cursor.getInt(cursor.getColumnIndex("lvlsbeaten"));
