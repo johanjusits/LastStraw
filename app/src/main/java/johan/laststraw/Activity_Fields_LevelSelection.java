@@ -92,6 +92,30 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
                 finish();
                 overridePendingTransition(0, 0);
                 break;
+            case R.id.bWorld001Lvl003:
+                preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                editor = preferences.edit();
+                editor.putString("LevelToLoad", ".Activity_W001_L003");
+                editor.putString("LevelName", "Fields - Level 3");
+                editor.apply();
+                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
+                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(pickCards);
+                finish();
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.bWorld001Lvl004:
+                preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                editor = preferences.edit();
+                editor.putString("LevelToLoad", ".Activity_W001_L004");
+                editor.putString("LevelName", "Fields - Level 4");
+                editor.apply();
+                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
+                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(pickCards);
+                finish();
+                overridePendingTransition(0, 0);
+                break;
         }
     }
 
@@ -167,14 +191,24 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
 
     private void unlockLevels(){
         if (lv001Cleared == 1){
-            bLv002.setImageResource(R.drawable.icon_touch);
+            bLv002.setImageResource(R.drawable.icon_fields);
             bLv002.setBackgroundResource(R.drawable.lvlselection_button);
             bLv002.setClickable(true);
         }
         if (lv002Cleared == 1){
-            bLv003.setImageResource(R.drawable.icon_touch);
+            bLv003.setImageResource(R.drawable.icon_fields);
             bLv003.setBackgroundResource(R.drawable.lvlselection_button);
             bLv003.setClickable(true);
+        }
+        if (lv003Cleared == 1){
+            bLv004.setImageResource(R.drawable.icon_miniboss);
+            bLv004.setBackgroundResource(R.drawable.lvlselection_button);
+            bLv004.setClickable(true);
+        }
+        if (lv004Cleared == 1){
+            bLv005.setImageResource(R.drawable.icon_fields);
+            bLv005.setBackgroundResource(R.drawable.lvlselection_button);
+            bLv005.setClickable(true);
         }
     }
 }

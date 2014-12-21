@@ -437,6 +437,36 @@ public class DBHandler {
             worldInfo.put(KEY_WORLDHIGHSCORE, 0);
             db.insert(WorldsInfo, null, worldInfo);
 
+            ContentValues worldInfo2 = new ContentValues();
+            worldInfo2.put(KEY_NAME, "Dungeon");
+            worldInfo2.put(KEY_WORLDCLEARED, 0);
+            worldInfo2.put(KEY_WORLDHIGHSCORE, 0);
+            db.insert(WorldsInfo, null, worldInfo2);
+
+            ContentValues worldInfo3 = new ContentValues();
+            worldInfo3.put(KEY_NAME, "Mountains");
+            worldInfo3.put(KEY_WORLDCLEARED, 0);
+            worldInfo3.put(KEY_WORLDHIGHSCORE, 0);
+            db.insert(WorldsInfo, null, worldInfo3);
+
+            ContentValues worldInfo4 = new ContentValues();
+            worldInfo4.put(KEY_NAME, "Wreckage");
+            worldInfo4.put(KEY_WORLDCLEARED, 0);
+            worldInfo4.put(KEY_WORLDHIGHSCORE, 0);
+            db.insert(WorldsInfo, null, worldInfo4);
+
+            ContentValues worldInfo5 = new ContentValues();
+            worldInfo5.put(KEY_NAME, "Woods");
+            worldInfo5.put(KEY_WORLDCLEARED, 0);
+            worldInfo5.put(KEY_WORLDHIGHSCORE, 0);
+            db.insert(WorldsInfo, null, worldInfo5);
+
+            ContentValues worldInfo6 = new ContentValues();
+            worldInfo6.put(KEY_NAME, "Trainyard");
+            worldInfo6.put(KEY_WORLDCLEARED, 0);
+            worldInfo6.put(KEY_WORLDHIGHSCORE, 0);
+            db.insert(WorldsInfo, null, worldInfo6);
+
         }
 
         @Override
@@ -498,6 +528,13 @@ public class DBHandler {
     public long updatePlayerName(String name) {
         ContentValues cv = new ContentValues();
         cv.put(KEY_NAME, name);
+        return appDB.update(PlayerInfo, cv, "_id "+"="+1, null);
+    }
+
+    /* Method for updating player slots */
+    public long updatePlayerSlots(int slots) {
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_UNLOCKEDSLOTS, slots);
         return appDB.update(PlayerInfo, cv, "_id "+"="+1, null);
     }
 
