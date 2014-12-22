@@ -263,9 +263,9 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 }
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt("CurrentLevel", 0);
+                editor.clear();
                 editor.apply();
-                sharedPrefLvl = preferences.getInt("CurrentLevel", 0);
+                sharedPrefLvl = preferences.getInt("CurrentLevel", 1);
                 tvsplvl.setText(String.valueOf(sharedPrefLvl));
                 tvdblvl.setText("1");
                 db.reset();
