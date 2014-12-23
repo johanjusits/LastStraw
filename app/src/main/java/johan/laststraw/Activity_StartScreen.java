@@ -108,8 +108,10 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         db.close();
 
-        //CHECK IF MINI BOSS 1 HAS BEEN BEATEN
+        //CHECKS IF MINI BOSS 1 HAS BEEN BEATEN
         checkMiniBoss1();
+        //CHECKS IF BOSS 1 HAS BEEN BEATEN
+        checkBoss1();
     }
 
     private void awardNewCard() {
@@ -336,6 +338,26 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             editor.putBoolean("player2ndSlotAwarded", true);
             editor.apply();
             confirmSuccess("New have unlocked a new card slot!", Activity_StartScreen.this);
+            db.close();
+        }
+    }
+
+    private void checkBoss1(){
+        int checkBoss1 = getLevelInfo(8);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean stealCardAwarded = preferences.getBoolean("stealCardAwarded", false);
+        if (checkBoss1 == 1 && !stealCardAwarded){
+            try {
+                db.open();
+            } catch (java.sql.SQLException e) {
+                e.printStackTrace();
+            }
+            preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("stealCardAwarded", true);
+            editor.apply();
+            addCard("Steal", "card_steal_3", 1, 1, "Steals 1-3 points from the opponent.", 6);
+            confirmSuccess("You have unlocked the Steal card!", Activity_StartScreen.this);
             db.close();
         }
     }

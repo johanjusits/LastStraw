@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/highscoreNr"
-                android:id="@+id/textView9"
+                android:id="@+id/world002High"
                 android:layout_gravity="center_horizontal"
                 android:textStyle="bold"
                 android:textColor="@color/textBlack" />
