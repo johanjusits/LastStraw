@@ -26,7 +26,6 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
     Intent play, profile, cards, rules;
     DBHandler db;
     Cursor cursor;
-    TextView tvdblvl, tvsplvl;
     int dbLvl, sharedPrefLvl;
     int lvlcleared;
 
@@ -41,9 +40,6 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         rulesButton = (Button) findViewById(R.id.Btn_Rules);
         newCardMsg = (Button) findViewById(R.id.newCardMsg);
         resetButton = (ImageButton) findViewById(R.id.Btn_Reset);
-
-        tvdblvl = (TextView) findViewById(R.id.tvDbLvl);
-        tvsplvl = (TextView) findViewById(R.id.tvSharedPrefLvl);
 
         profileButton.setOnClickListener(this);
         playButton.setOnClickListener(this);
@@ -99,9 +95,6 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             dbLvl = cursor.getInt(cursor.getColumnIndex("level"));
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             sharedPrefLvl = preferences.getInt("CurrentLevel", 0);
-
-            tvdblvl.setText(String.valueOf(dbLvl));
-            tvsplvl.setText(String.valueOf(sharedPrefLvl));
         }
         if (sharedPrefLvl < dbLvl){
             awardNewCard();
@@ -268,8 +261,6 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 editor.clear();
                 editor.apply();
                 sharedPrefLvl = preferences.getInt("CurrentLevel", 1);
-                tvsplvl.setText(String.valueOf(sharedPrefLvl));
-                tvdblvl.setText("1");
                 db.reset();
                 db.close();
                 confirmSuccess(message, Activity_StartScreen.this);

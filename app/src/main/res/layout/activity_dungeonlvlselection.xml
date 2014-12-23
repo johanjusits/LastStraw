@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_menus"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level 1"
+                android:id="@+id/textView2"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:text="@string/lvl001"
+                android:id="@+id/bWorld001Lvl001"
+                android:layout_gravity="center_horizontal"
+                android:textSize="40sp"
+                android:src="@drawable/icon_dungeon"
+                android:background="@drawable/lvlselection_button"
+                style="@style/lvlSelectionButton"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/tvLv1Score"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level 2"
+                android:id="@+id/textView4"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:text="@string/lvl002"
+                android:id="@+id/bWorld001Lvl002"
+                android:layout_gravity="center_horizontal"
+                android:textSize="40sp"
+                android:clickable="false"
+                android:scaleType="fitCenter"
+                android:background="@drawable/gray_button"
+                android:src="@drawable/world_locked"
+                style="@style/lvlSelectionButton" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView9"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/tvLv2Score"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level 3"
+                android:id="@+id/textView5"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:text="@string/lvl003"
+                android:id="@+id/bWorld001Lvl003"
+                style="@style/lvlSelectionButton"
+                android:layout_gravity="center_horizontal"
+                android:textSize="40sp"
+                android:clickable="false"
+                android:src="@drawable/world_locked"
+                android:scaleType="fitCenter"
+                android:background="@drawable/gray_button" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView17"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/tvLv3Score"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Miniboss"
+                android:id="@+id/textView8"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:text="@string/lvl004"
+                android:id="@+id/bWorld001Lvl004"
+                style="@style/lvlSelectionButton"
+                android:layout_gravity="center_horizontal"
+                android:textSize="40sp"
+                android:clickable="false"
+                android:src="@drawable/icon_miniboss_black"
+                android:scaleType="center"
+                android:background="@drawable/gray_button" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView21"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/tvLv4Score"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level 5"
+                android:id="@+id/textView11"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:text="@string/lvl005"
+                android:id="@+id/bWorld001Lvl005"
+                android:layout_gravity="center_horizontal"
+                style="@style/lvlSelectionButton"
+                android:textSize="40sp"
+                android:clickable="false"
+                android:scaleType="fitCenter"
+                android:src="@drawable/world_locked"
+                android:background="@drawable/gray_button" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView6"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/tvLv5Score"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level 6"
+                android:id="@+id/textView12"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:text="@string/lvl006"
+                android:id="@+id/bWorld001Lvl006"
+                android:layout_gravity="center_horizontal"
+                style="@style/lvlSelectionButton"
+                android:textSize="40sp"
+                android:clickable="false"
+                android:src="@drawable/world_locked"
+                android:scaleType="fitCenter"
+                android:background="@drawable/gray_button" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView13"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/tvLv6Score"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level 7"
+                android:id="@+id/textView14"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:text="@string/lvl007"
+                android:id="@+id/bWorld001Lvl007"
+                android:layout_gravity="center_horizontal"
+                style="@style/lvlSelectionButton"
+                android:textSize="40sp"
+                android:clickable="false"
+                android:scaleType="fitCenter"
+                android:src="@drawable/world_locked"
+                android:background="@drawable/gray_button" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView24"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/tvLv7Score"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="World Boss"
+                android:id="@+id/textView16"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:id="@+id/bWorld001Lvl008"
+                android:layout_gravity="center_horizontal"
+                style="@style/lvlSelectionButton"
+                android:textSize="40sp"
+                android:text="@string/lvl008"
+                android:src="@drawable/icon_boss_black"
+                android:clickable="false"
+                android:scaleType="center"
+                android:background="@drawable/gray_button" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscore"
+                android:id="@+id/textView27"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/highscoreNr"
+                android:id="@+id/tvLv8Score"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

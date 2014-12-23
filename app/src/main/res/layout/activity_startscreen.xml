@@ -65,44 +65,6 @@
         android:layout_above="@+id/Btn_Play"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DB Level = "
-        android:id="@+id/textView"
-        android:textColor="@color/textBlack"
-        android:layout_below="@+id/textView3"
-        android:layout_toLeftOf="@+id/tvSharedPrefLvl"
-        android:layout_toStartOf="@+id/tvSharedPrefLvl" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SharedPrefLevel = "
-        android:id="@+id/textView3"
-        android:textColor="@color/textBlack"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/tvSharedPrefLvl"
-        android:layout_toStartOf="@+id/tvSharedPrefLvl" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:id="@+id/tvSharedPrefLvl"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/Btn_Cards"
-        android:layout_alignEnd="@+id/Btn_Cards" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:id="@+id/tvDbLvl"
-        android:layout_below="@+id/textView3"
-        android:layout_alignRight="@+id/Btn_Cards"
-        android:layout_alignEnd="@+id/Btn_Cards" />
-
     <Button
         android:layout_width="150dp"
         android:layout_height="50dp"

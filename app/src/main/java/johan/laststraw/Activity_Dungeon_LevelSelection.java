@@ -8,13 +8,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by Johan on 2014-09-27.
+ * Created by Johan on 2014-12-23.
  */
-public class Activity_Fields_LevelSelection extends Activity implements View.OnClickListener {
+public class Activity_Dungeon_LevelSelection extends Activity implements View.OnClickListener {
 
     ImageButton bLv001, bLv002, bLv003, bLv004, bLv005, bLv006, bLv007, bLv008;
     Intent pickCards;
@@ -22,14 +21,14 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
     DBHandler db;
     Cursor cursor;
     int lv001Cleared, lv002Cleared, lv003Cleared, lv004Cleared, lv005Cleared, lv006Cleared,
-        lv007Cleared, lv008Cleared;
+            lv007Cleared, lv008Cleared;
     int lv001Score, lv002Score, lv003Score, lv004Score, lv005Score, lv006Score,
             lv007Score, lv008Score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fieldslvlselection);
+        setContentView(R.layout.activity_dungeonlvlselection);
 
         lv1score = (TextView) findViewById(R.id.tvLv1Score);
         lv2score = (TextView) findViewById(R.id.tvLv2Score);
@@ -71,94 +70,10 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             case R.id.bWorld001Lvl001:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W001_L001");
-                editor.putString("LevelName", "Fields - Level 1");
+                editor.putString("LevelToLoad", ".Activity_W002_L001");
+                editor.putString("LevelName", "Dungeon - Level 1");
                 editor.apply();
-                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
-                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(pickCards);
-                finish();
-                overridePendingTransition(0, 0);
-                break;
-            case R.id.bWorld001Lvl002:
-                preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W001_L002");
-                editor.putString("LevelName", "Fields - Level 2");
-                editor.apply();
-                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
-                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(pickCards);
-                finish();
-                overridePendingTransition(0, 0);
-                break;
-            case R.id.bWorld001Lvl003:
-                preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W001_L003");
-                editor.putString("LevelName", "Fields - Level 3");
-                editor.apply();
-                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
-                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(pickCards);
-                finish();
-                overridePendingTransition(0, 0);
-                break;
-            case R.id.bWorld001Lvl004:
-                preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W001_L004");
-                editor.putString("LevelName", "Fields - Level 4");
-                editor.apply();
-                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
-                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(pickCards);
-                finish();
-                overridePendingTransition(0, 0);
-                break;
-            case R.id.bWorld001Lvl005:
-                preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W001_L005");
-                editor.putString("LevelName", "Fields - Level 5");
-                editor.apply();
-                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
-                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(pickCards);
-                finish();
-                overridePendingTransition(0, 0);
-                break;
-            case R.id.bWorld001Lvl006:
-                preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W001_L006");
-                editor.putString("LevelName", "Fields - Level 6");
-                editor.apply();
-                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
-                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(pickCards);
-                finish();
-                overridePendingTransition(0, 0);
-                break;
-            case R.id.bWorld001Lvl007:
-                preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W001_L007");
-                editor.putString("LevelName", "Fields - Level 7");
-                editor.apply();
-                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
-                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(pickCards);
-                finish();
-                overridePendingTransition(0, 0);
-                break;
-            case R.id.bWorld001Lvl008:
-                preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W001_L008");
-                editor.putString("LevelName", "Fields - Level 8");
-                editor.apply();
-                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
+                pickCards = new Intent(Activity_Dungeon_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(pickCards);
                 finish();
@@ -199,7 +114,7 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
-        cursor = db.getFieldsLvlsInfo(1);
+        cursor = db.getFieldsLvlsInfo(2);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
@@ -239,12 +154,12 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
 
     private void unlockLevels(){
         if (lv001Cleared == 1){
-            bLv002.setImageResource(R.drawable.icon_fields);
+            bLv002.setImageResource(R.drawable.icon_dungeon);
             bLv002.setBackgroundResource(R.drawable.lvlselection_button);
             bLv002.setClickable(true);
         }
         if (lv002Cleared == 1){
-            bLv003.setImageResource(R.drawable.icon_fields);
+            bLv003.setImageResource(R.drawable.icon_dungeon);
             bLv003.setBackgroundResource(R.drawable.lvlselection_button);
             bLv003.setClickable(true);
         }
@@ -254,17 +169,17 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             bLv004.setClickable(true);
         }
         if (lv004Cleared == 1){
-            bLv005.setImageResource(R.drawable.icon_fields);
+            bLv005.setImageResource(R.drawable.icon_dungeon);
             bLv005.setBackgroundResource(R.drawable.lvlselection_button);
             bLv005.setClickable(true);
         }
         if (lv005Cleared == 1){
-            bLv006.setImageResource(R.drawable.icon_fields);
+            bLv006.setImageResource(R.drawable.icon_dungeon);
             bLv006.setBackgroundResource(R.drawable.lvlselection_button);
             bLv006.setClickable(true);
         }
         if (lv006Cleared == 1){
-            bLv007.setImageResource(R.drawable.icon_fields);
+            bLv007.setImageResource(R.drawable.icon_dungeon);
             bLv007.setBackgroundResource(R.drawable.lvlselection_button);
             bLv007.setClickable(true);
         }
@@ -275,4 +190,3 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
         }
     }
 }
-
