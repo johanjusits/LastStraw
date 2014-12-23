@@ -53,7 +53,7 @@ public class Activity_W002_L001 extends Activity implements View.OnClickListener
     /* STRINGS */
     String playerGender = "";
     String playerName = "";
-    String enemyName = "Ghost";
+    String enemyName = "Eerie Ghost";
     String boardIsFullError = "Board is full. No effect";
     String infestMsg = "Spiders infests the skeleton";
     String infestError = "Skeleton is already infested";
@@ -259,7 +259,7 @@ public class Activity_W002_L001 extends Activity implements View.OnClickListener
         /* SETS CARDS  */
         ivPlayerPortrait = (ImageView) findViewById(R.id.ivPlayerPortrait);
         ivEnemyPortrait = (ImageView) findViewById(R.id.ivEnemyPortrait);
-        ivEnemyPortrait.setImageResource(R.drawable.portrait_placeholder_cpu);
+        ivEnemyPortrait.setImageResource(R.drawable.portrait_dungeon);
         ivCenterCardFrame = (ImageView) findViewById(R.id.ivCenterCardFrame);
         playerCard1 = (ImageButton) findViewById(R.id.ibPlayerCard1);
         playerCard2 = (ImageButton) findViewById(R.id.ibPlayerCard2);
@@ -2470,19 +2470,19 @@ public class Activity_W002_L001 extends Activity implements View.OnClickListener
             public void run() {
                 int xpPenalty = 1;
                 //lv2-3
-                if (playerLevel >= 3 && playerLevel < 5 ){
+                if (playerLevel >= 5 && playerLevel < 7 ){
                     xpPenalty = 2;
                 }
                 //lv4-5
-                if (playerLevel >= 5 && playerLevel < 7){
+                if (playerLevel >= 7 && playerLevel < 9){
                     xpPenalty = 3;
                 }
                 //lv5-7
-                if (playerLevel >= 7 && playerLevel < 9){
+                if (playerLevel >= 9 && playerLevel < 11){
                     xpPenalty = 4;
                 }
                 //lv7+
-                if (playerLevel >= 9){
+                if (playerLevel >= 11){
                     xpPenalty = 5;
                 }
                 if (playerLevel == 20){

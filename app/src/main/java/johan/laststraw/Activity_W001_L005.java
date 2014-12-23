@@ -259,7 +259,7 @@ public class Activity_W001_L005 extends Activity implements View.OnClickListener
         /* SETS CARDS  */
         ivPlayerPortrait = (ImageView) findViewById(R.id.ivPlayerPortrait);
         ivEnemyPortrait = (ImageView) findViewById(R.id.ivEnemyPortrait);
-        ivEnemyPortrait.setImageResource(R.drawable.portrait_placeholder_cpu);
+        ivEnemyPortrait.setImageResource(R.drawable.portrait_fields);
         ivCenterCardFrame = (ImageView) findViewById(R.id.ivCenterCardFrame);
         playerCard1 = (ImageButton) findViewById(R.id.ibPlayerCard1);
         playerCard2 = (ImageButton) findViewById(R.id.ibPlayerCard2);
