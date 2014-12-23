@@ -31,6 +31,8 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         bFields.setOnClickListener(this);
         bDungeon.setOnClickListener(this);
 
+        bDungeon.setClickable(false);
+
         world001High = (TextView) findViewById(R.id.world001High);
         world002High = (TextView) findViewById(R.id.world002High);
 
@@ -46,6 +48,13 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.imgBtnWorld001:
                 worldSelected = new Intent(Activity_WorldSelection.this, Activity_Fields_LevelSelection.class);
+                worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(worldSelected);
+                finish();
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.imgBtnWorld002:
+                worldSelected = new Intent(Activity_WorldSelection.this, Activity_Dungeon_LevelSelection.class);
                 worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(worldSelected);
                 finish();
@@ -114,7 +123,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
 
     private void unlockWorlds(){
         if (world001Cleared == 1){
-            bDungeon.setImageResource(R.drawable.icon_dungeon);
+            bDungeon.setImageResource(R.drawable.world_dungeon);
             bDungeon.setBackgroundResource(R.drawable.lvlselection_button);
             bDungeon.setClickable(true);
         }

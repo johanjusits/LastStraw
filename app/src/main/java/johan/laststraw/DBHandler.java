@@ -373,7 +373,7 @@ public class DBHandler {
             playerInfo.put(KEY_UNLOCKEDSLOTS, 1);
             db.insert(PlayerInfo, null, playerInfo);
 
-            /* LEVELS INFO */
+            /* WORLD 1 LEVEL INFO */
             ContentValues li = new ContentValues();
             li.put(KEY_NAME, "W001LVL001");
             li.put(KEY_WORLDID, 1);
@@ -429,6 +429,70 @@ public class DBHandler {
             li008.put(KEY_LVLCLEARED, 0);
             li008.put(KEY_LVLHIGHSCORE, 0);
             db.insert(LevelsInfo, null, li008);
+
+            /* WORLD 2 LEVEL INFO */
+            ContentValues li009 = new ContentValues();
+            li009.put(KEY_NAME, "W002LVL001");
+            li009.put(KEY_WORLDID, 2);
+            li009.put(KEY_LVLCLEARED, 0);
+            li009.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li009);
+
+            ContentValues li010 = new ContentValues();
+            li010.put(KEY_NAME, "W002LVL002");
+            li010.put(KEY_WORLDID, 2);
+            li010.put(KEY_LVLCLEARED, 0);
+            li010.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li010);
+
+            ContentValues li011 = new ContentValues();
+            li011.put(KEY_NAME, "W002LVL003");
+            li011.put(KEY_WORLDID, 2);
+            li011.put(KEY_LVLCLEARED, 0);
+            li011.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li011);
+
+            ContentValues li012 = new ContentValues();
+            li012.put(KEY_NAME, "W002LVL003");
+            li012.put(KEY_WORLDID, 2);
+            li012.put(KEY_LVLCLEARED, 0);
+            li012.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li012);
+
+            ContentValues li013 = new ContentValues();
+            li013.put(KEY_NAME, "W002LVL004");
+            li013.put(KEY_WORLDID, 2);
+            li013.put(KEY_LVLCLEARED, 0);
+            li013.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li013);
+
+            ContentValues li014 = new ContentValues();
+            li014.put(KEY_NAME, "W002LVL005");
+            li014.put(KEY_WORLDID, 2);
+            li014.put(KEY_LVLCLEARED, 0);
+            li014.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li014);
+
+            ContentValues li015 = new ContentValues();
+            li015.put(KEY_NAME, "W002LVL006");
+            li015.put(KEY_WORLDID, 2);
+            li015.put(KEY_LVLCLEARED, 0);
+            li015.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li015);
+
+            ContentValues li016 = new ContentValues();
+            li016.put(KEY_NAME, "W002LVL007");
+            li016.put(KEY_WORLDID, 2);
+            li016.put(KEY_LVLCLEARED, 0);
+            li016.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li016);
+
+            ContentValues li017 = new ContentValues();
+            li017.put(KEY_NAME, "W002LVL008");
+            li017.put(KEY_WORLDID, 2);
+            li017.put(KEY_LVLCLEARED, 0);
+            li017.put(KEY_LVLHIGHSCORE, 0);
+            db.insert(LevelsInfo, null, li017);
 
             /* WORLDS INFO */
             ContentValues worldInfo = new ContentValues();
