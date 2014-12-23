@@ -140,6 +140,30 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
                 finish();
                 overridePendingTransition(0, 0);
                 break;
+            case R.id.bWorld001Lvl007:
+                preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                editor = preferences.edit();
+                editor.putString("LevelToLoad", ".Activity_W001_L007");
+                editor.putString("LevelName", "Fields - Level 7");
+                editor.apply();
+                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
+                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(pickCards);
+                finish();
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.bWorld001Lvl008:
+                preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                editor = preferences.edit();
+                editor.putString("LevelToLoad", ".Activity_W001_L008");
+                editor.putString("LevelName", "Fields - Level 8");
+                editor.apply();
+                pickCards = new Intent(Activity_Fields_LevelSelection.this, Activity_CardSelection.class);
+                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(pickCards);
+                finish();
+                overridePendingTransition(0, 0);
+                break;
         }
     }
 
@@ -243,6 +267,11 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             bLv007.setImageResource(R.drawable.icon_fields);
             bLv007.setBackgroundResource(R.drawable.lvlselection_button);
             bLv007.setClickable(true);
+        }
+        if (lv007Cleared == 1){
+            bLv008.setImageResource(R.drawable.icon_boss);
+            bLv008.setBackgroundResource(R.drawable.lvlselection_button);
+            bLv008.setClickable(true);
         }
     }
 }

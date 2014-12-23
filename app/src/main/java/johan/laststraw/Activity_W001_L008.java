@@ -33,9 +33,9 @@ import java.util.Random;
 import static android.graphics.Color.TRANSPARENT;
 
 /**
- * Created by Johan on 2014-12-21.
+ * Created by Johan on 2014-12-23.
  */
-public class Activity_W001_L004 extends Activity implements View.OnClickListener, Animation.AnimationListener {
+public class Activity_W001_L008 extends Activity implements View.OnClickListener, Animation.AnimationListener {
 
     ImageButton obj001, obj002, obj003, obj004, obj005, obj006, obj007, obj008, obj009,
             obj010, obj011, obj012, obj013, obj014, obj015, obj016;
@@ -53,7 +53,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
     /* STRINGS */
     String playerGender = "";
     String playerName = "";
-    String enemyName = "Farmboss Leo";
+    String enemyName = "Farmlord Dwayne";
     String boardIsFullError = "Board is full. No effect";
     String infestMsg = "Spiders infests the wheat";
     String infestError = "Wheat is already infested";
@@ -93,8 +93,8 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
-    String enemyCard1Name = "Speed Up", enemyCard2Name = "Reinforce III", enemyCard3Name = "Slow Down", enemyCard4Name = "",
-            enemyCard5Name = "", enemyCard6Name = "";
+    String enemyCard1Name = "Speed Up", enemyCard2Name = "Concentrate", enemyCard3Name = "Steal", enemyCard4Name = "",
+            enemyCard5Name = "Reinforce II", enemyCard6Name = "";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
     String[] playerStatuses = new String[5];
@@ -102,6 +102,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
     String lastEnemyPlayedCard = "";
     String lastPlayerPlayedCard = "";
     /* INTS */
+    int aiChance;
     int infestedObjRemainingHits = -1;
     int newExp;
     int expToNextLevel;
@@ -114,8 +115,8 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             playerCard5Type = 0, playerCard6Type = 0;
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
-    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 1, enemyCard4Cost = 1,
-            enemyCard5Cost = 1, enemyCard6Cost = 1;
+    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 0, enemyCard4Cost = 1,
+            enemyCard5Cost = 0, enemyCard6Cost = 1;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
     int selectedCard = 0;
@@ -143,6 +144,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
     int enemyProtectCountdown = -1;
     int coinCycle;
     int enemyTurnCounter = 0;
+    int enemyMoveCounter = 0;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
     boolean deviceIsTablet;
@@ -181,6 +183,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
     boolean resetWorked = false;
     boolean playerStrawSelected = false;
     boolean strawWon = false;
+    boolean aiNotRandomStart = false;
     private Handler myHandler = new Handler();
     DBHandler db;
     Cursor cursor;
@@ -260,7 +263,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
         /* SETS CARDS  */
         ivPlayerPortrait = (ImageView) findViewById(R.id.ivPlayerPortrait);
         ivEnemyPortrait = (ImageView) findViewById(R.id.ivEnemyPortrait);
-        ivEnemyPortrait.setImageResource(R.drawable.portraint_miniboss);
+        ivEnemyPortrait.setImageResource(R.drawable.portrait_boss);
         ivCenterCardFrame = (ImageView) findViewById(R.id.ivCenterCardFrame);
         playerCard1 = (ImageButton) findViewById(R.id.ibPlayerCard1);
         playerCard2 = (ImageButton) findViewById(R.id.ibPlayerCard2);
@@ -334,6 +337,11 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
         enemyStatuses[3] = "";
         enemyStatuses[4] = "";
 
+        aiChance = genRand(100);
+        if (aiChance >= 50){
+            aiNotRandomStart = true;
+        }
+
         coinFlipStart();
     }
 
@@ -345,42 +353,42 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
                 selectedCard = 1;
                 if (playerCard1Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_W001_L004.this);
+                    playCardConfirm(message, Activity_W001_L008.this);
                 }
                 break;
             case R.id.ibPlayerCard2:
                 selectedCard = 2;
                 if (playerCard2Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_W001_L004.this);
+                    playCardConfirm(message, Activity_W001_L008.this);
                 }
                 break;
             case R.id.ibPlayerCard3:
                 selectedCard = 3;
                 if (playerCard3Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_W001_L004.this);
+                    playCardConfirm(message, Activity_W001_L008.this);
                 }
                 break;
             case R.id.ibPlayerCard4:
                 selectedCard = 4;
                 if (playerCard4Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_W001_L004.this);
+                    playCardConfirm(message, Activity_W001_L008.this);
                 }
                 break;
             case R.id.ibPlayerCard5:
                 selectedCard = 5;
                 if (playerCard5Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_W001_L004.this);
+                    playCardConfirm(message, Activity_W001_L008.this);
                 }
                 break;
             case R.id.ibPlayerCard6:
                 selectedCard = 6;
                 if (playerCard6Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_W001_L004.this);
+                    playCardConfirm(message, Activity_W001_L008.this);
                 }
                 break;
             case R.id.bEndTurn:
@@ -1250,6 +1258,8 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
 
     /* ENEMY TURN START METHOD */
     private void enemyTurnStart() {
+        enemyTurnCounter++;
+        enemyMoveCounter = 0;
         if (playerHasAlteredTime){
             playerHasAlteredTime = false;
             tvCenterMessage.setText(playerGainAnother);
@@ -1339,22 +1349,34 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
 
     /* ENEMY TURN MOVES */
     private void enemyTurn(){
-        enemyTurnCounter++;
+        enemyMoveCounter++;
         /* Checks if enemy has any cards left and decides move pattern accordingly */
         if (enemyCardsRemaining > 0){
             int cardOrClear;
-            if (enemyTurnCounter == 1){
-                cardOrClear = 99;
+            if (aiNotRandomStart){
+                if (enemyTurnCounter == 1 && enemyMoveCounter < 2 || enemyTurnCounter == 2 && enemyMoveCounter < 2 ){
+                    cardOrClear = 99;
+                } else {
+                    cardOrClear = genRand(100);
+                }
             } else {
                 cardOrClear = genRand(100);
             }
             /* If number is higher than 80 the AI will play a card */
             if (cardOrClear >= 80){
-                if (enemyTurnCounter == 1){
-                    enemyPickedCard = 0;
+                if (aiNotRandomStart){
+                    if (enemyTurnCounter == 1 && !enemyCard2Used){
+                        enemyPickedCard = 1;
+                    } else if (enemyTurnCounter == 2 && !enemyCard3Used) {
+                        enemyPickedCard = 2;
+                    }
+                    else {
+                        enemyPickedCard = randomizeEnemyCardSelect();
+                    }
                 } else {
                     enemyPickedCard = randomizeEnemyCardSelect();
                 }
+
                 if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost + enemyCorruptedPenalty){
                     lastEnemyPlayedCard = enemyCard1Name;
                     enemyCard1.setColorFilter(Color.argb(255, 255, 255, 255));
@@ -2335,6 +2357,22 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             return randomizedCard;
         }
 
+        //IF ENEMY STARTS WITH FOUR CARDS
+        if (enemyStartingCards == 4){
+            do{
+                randomizedCard = genRand(4);
+            }while( pool.contains(randomizedCard) );
+            return randomizedCard;
+        }
+
+        //IF ENEMY STARTS WITH FIVE CARDS
+        if (enemyStartingCards == 5){
+            do{
+                randomizedCard = genRand(5);
+            }while( pool.contains(randomizedCard) );
+            return randomizedCard;
+        }
+
         //IF ENEMY STARTED WITH 6 CARDS AND HAS LESS THAN 6 REMAINING
         if (enemyCardsRemaining <= 5 & enemyStartingCards == 6){
             do{
@@ -2378,7 +2416,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
         final String density = DeviceDensity.getDensityName(this);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                final Dialog dialog = new Dialog(Activity_W001_L004.this);
+                final Dialog dialog = new Dialog(Activity_W001_L008.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.confirmdialog_finalscore);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
@@ -2450,21 +2488,21 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
                 e.printStackTrace();
             }
             if (finalPlayerScore > lvlhighscore){
-                cursor = db.getLvlInfo(4);
+                cursor = db.getLvlInfo(8);
                 if (cursor != null && cursor.moveToFirst()) {
                     if (playerWon){
-                        db.updateLvlInfo(4, 1, finalPlayerScore);
+                        db.updateLvlInfo(8, 1, finalPlayerScore);
                     } else {
-                        db.updateLvlInfo(4, lvlcleared, finalPlayerScore);
+                        db.updateLvlInfo(8, lvlcleared, finalPlayerScore);
                     }
                 }
             } else {
-                cursor = db.getLvlInfo(4);
+                cursor = db.getLvlInfo(8);
                 if (cursor != null && cursor.moveToFirst()) {
                     if (playerWon){
-                        db.updateLvlInfo(4, 1, lvlhighscore);
+                        db.updateLvlInfo(8, 1, lvlhighscore);
                     } else {
-                        db.updateLvlInfo(4, lvlcleared, lvlhighscore);
+                        db.updateLvlInfo(8, lvlcleared, lvlhighscore);
                     }
                 }
             }
@@ -2476,14 +2514,14 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
                 e.printStackTrace();
             }
             if (finalPlayerScore > lvlhighscore){
-                cursor = db.getLvlInfo(4);
+                cursor = db.getLvlInfo(8);
                 if (cursor != null && cursor.moveToFirst()) {
-                    db.updateLvlInfo(4, lvlcleared, finalPlayerScore);
+                    db.updateLvlInfo(8, lvlcleared, finalPlayerScore);
                 }
             } else {
-                cursor = db.getLvlInfo(4);
+                cursor = db.getLvlInfo(8);
                 if (cursor != null && cursor.moveToFirst()) {
-                    db.updateLvlInfo(4, lvlcleared, lvlhighscore);
+                    db.updateLvlInfo(8, lvlcleared, lvlhighscore);
                 }
             }
         }
@@ -2517,7 +2555,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
                     overridePendingTransition(0, 0);
                 }
                 final int gainedXp = finalPlayerScore / xpPenalty;
-                final Dialog dialog = new Dialog(Activity_W001_L004.this);
+                final Dialog dialog = new Dialog(Activity_W001_L008.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.confirmdialog_exp_gain);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
@@ -2937,17 +2975,17 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
         enemyCard1.setBackgroundResource(R.drawable.card_icon_boosting);
         enemyCard1.setImageResource(R.drawable.card_type_boosting);
         enemyCard2.setVisibility(View.VISIBLE);
-        enemyCard2.setBackgroundResource(R.drawable.card_icon_field);
-        enemyCard2.setImageResource(R.drawable.card_type_field);
+        enemyCard2.setBackgroundResource(R.drawable.card_icon_boosting);
+        enemyCard2.setImageResource(R.drawable.card_type_boosting);
         enemyCard3.setVisibility(View.VISIBLE);
-        enemyCard3.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard3.setImageResource(R.drawable.card_type_ailment);
+        enemyCard3.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard3.setImageResource(R.drawable.card_type_field);
         /*enemyCard4.setVisibility(View.VISIBLE);
-        enemyCard4.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard4.setImageResource(R.drawable.card_type_ailment);
+        enemyCard4.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard4.setImageResource(R.drawable.card_type_field);
         enemyCard5.setVisibility(View.VISIBLE);
-        enemyCard5.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard5.setImageResource(R.drawable.card_type_ailment);
+        enemyCard5.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard5.setImageResource(R.drawable.card_type_field);
         enemyCard6.setVisibility(View.VISIBLE);
         enemyCard6.setBackgroundResource(R.drawable.card_icon_ailment);
         enemyCard6.setImageResource(R.drawable.card_type_ailment);*/
@@ -3106,7 +3144,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_obj_plus_3);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_concentrate);
                 }
             }, 1000);
         }
@@ -3125,7 +3163,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_slowdown);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
                 }
             }, 1000);
         }
@@ -3144,7 +3182,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_slowdown);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_obj_plus_3);
                 }
             }, 1000);
         }
@@ -3163,7 +3201,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_dispel);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_obj_plus_2);
                 }
             }, 1000);
         }
@@ -3477,16 +3515,20 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             cardSpeedUp();
         }
         if (enemyPickedCard == 1){
-            cardReinforce3();
+            cardConcentrate();
         }
         if (enemyPickedCard == 2){
-            cardSlowDown();
+            if (enemyClearAward == 4){
+                cardSteal(2,6);
+            } else {
+                cardSteal(1,3);
+            }
         }
         /*if (enemyPickedCard == 3){
-            cardSlowDown();
+            cardReinforce3();
         }
         if (enemyPickedCard == 4){
-            cardDispel();
+            cardReinforce2();
         }
         if (enemyPickedCard == 5){
             cardDispel();
@@ -6223,7 +6265,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
-        cursor = db.getLvlInfo(4);
+        cursor = db.getLvlInfo(8);
         if (cursor != null && cursor.moveToFirst()) {
             lvlcleared = cursor.getInt(cursor.getColumnIndex("lvlcleared"));
             lvlhighscore = cursor.getInt(cursor.getColumnIndex("lvlhighscore"));
@@ -7824,7 +7866,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                chooseCoinSide(Activity_W001_L004.this);
+                chooseCoinSide(Activity_W001_L008.this);
             }
         }, 1500);
     }
@@ -8829,4 +8871,3 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
         }
     }
 }
-

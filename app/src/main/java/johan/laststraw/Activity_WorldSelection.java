@@ -13,27 +13,32 @@ import android.widget.TextView;
  */
 public class Activity_WorldSelection extends Activity implements View.OnClickListener {
 
-    ImageButton toolShedWorldButton;
+    ImageButton bFields, bDungeon;
     Intent worldSelected;
     DBHandler db;
     Cursor cursor;
-    TextView world001High;
+    TextView world001High, world002High;
     int w001lv001score, w001lv002score, w001lv003score, w001lv004score, w001lv005score, w001lv006score, w001lv007score, w001lv008score;
+    int world001Cleared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worldselection);
 
-        toolShedWorldButton = (ImageButton) findViewById(R.id.imgBtnWorld001);
-        toolShedWorldButton.setOnClickListener(this);
+        bFields = (ImageButton) findViewById(R.id.imgBtnWorld001);
+        bDungeon = (ImageButton) findViewById(R.id.imgBtnWorld002);
+        bFields.setOnClickListener(this);
+        bDungeon.setOnClickListener(this);
 
         world001High = (TextView) findViewById(R.id.world001High);
+        world002High = (TextView) findViewById(R.id.world002High);
 
         db = new DBHandler(this);
 
         getWorldHighScores(1);
-
+        checkWorld1();
+        unlockWorlds();
     }
 
     @Override
@@ -60,6 +65,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             e.printStackTrace();
         }
         cursor = db.getFieldsLvlsInfo(worldId);
+
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
@@ -86,6 +92,32 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
     public void onBackPressed() {
         this.finish();
         overridePendingTransition(0, 0);
+    }
+
+    private void checkWorld1(){
+        getLevelInfo(8);
+    }
+
+    private int getLevelInfo(int id){
+        try {
+            db.open();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+        cursor = db.getLvlInfo(id);
+        if (cursor != null && cursor.moveToFirst()) {
+            world001Cleared = cursor.getInt(cursor.getColumnIndex("lvlcleared"));
+        }
+        db.close();
+        return world001Cleared;
+    }
+
+    private void unlockWorlds(){
+        if (world001Cleared == 1){
+            bDungeon.setImageResource(R.drawable.icon_dungeon);
+            bDungeon.setBackgroundResource(R.drawable.lvlselection_button);
+            bDungeon.setClickable(true);
+        }
     }
 }
 
