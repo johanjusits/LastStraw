@@ -64,7 +64,7 @@
         android:layout_width="192dp"
         android:layout_height="192dp"
         android:id="@+id/ivEnemyPortrait"
-        android:src="@drawable/portrait_placeholder_cpu"
+        android:src="@drawable/portrait_fields"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:scaleType="fitCenter"
@@ -270,12 +270,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Messages Here"
+        android:text="Enemy suffers Death Sentence"
         android:id="@+id/tvcenterMessage"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:visibility="visible"
-        android:textSize="42sp" />
+        android:textSize="42sp"
+        android:textColor="@color/textWhite" />
 
     <ImageView
         android:contentDescription="@null"
@@ -290,144 +291,143 @@
     <!-- PLAYER CARDS -->
     <ImageButton
         android:contentDescription="@null"
-        android:layout_width="106dp"
-        android:layout_height="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ibPlayerCard1"
         android:layout_below="@+id/tvPlayerDebuff"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:scaleType="fitCenter"
-        android:background="#0000" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_ailment_2" />
 
     <ImageButton
         android:contentDescription="@null"
-        android:layout_width="106dp"
-        android:layout_height="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ibPlayerCard2"
         android:layout_alignBottom="@+id/ibPlayerCard1"
         android:layout_toRightOf="@+id/ibPlayerCard1"
         android:layout_toEndOf="@+id/ibPlayerCard1"
-        android:scaleType="fitCenter"
-        android:background="#0000" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_field_2"
+        android:layout_alignParentEnd="false" />
 
     <ImageButton
         android:contentDescription="@null"
-        android:layout_width="106dp"
-        android:layout_height="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ibPlayerCard3"
         android:layout_toEndOf="@+id/ibPlayerCard2"
         android:layout_alignBottom="@+id/ibPlayerCard2"
         android:layout_toRightOf="@+id/ibPlayerCard2"
-        android:background="#0000"
-        android:scaleType="fitCenter" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_boosting_2" />
 
     <ImageButton
         android:contentDescription="@null"
-        android:layout_width="106dp"
-        android:layout_height="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ibPlayerCard4"
         android:layout_below="@+id/ibPlayerCard1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:scaleType="fitCenter"
-        android:background="#0000" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_boosting_2" />
 
     <ImageButton
         android:contentDescription="@null"
-        android:layout_width="106dp"
-        android:layout_height="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ibPlayerCard5"
         android:layout_alignBottom="@+id/ibPlayerCard4"
         android:layout_toRightOf="@+id/ibPlayerCard4"
         android:layout_toEndOf="@+id/ibPlayerCard5"
-        android:background="#0000"
-        android:scaleType="fitCenter" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_ailment_2" />
 
     <ImageButton
         android:contentDescription="@null"
-        android:layout_width="106dp"
-        android:layout_height="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ibPlayerCard6"
         android:layout_toEndOf="@+id/ibPlayerCard5"
         android:layout_alignBottom="@+id/ibPlayerCard5"
         android:layout_toRightOf="@+id/ibPlayerCard5"
-        android:scaleType="fitCenter"
-        android:background="#0000" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_boosting_2" />
 
     <!-- ENEMY CARDS -->
     <ImageButton
         android:contentDescription="@null"
-        android:layout_width="106dp"
-        android:layout_height="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ibEnemyCard1"
         android:layout_below="@+id/tvEnemyDebuff"
         android:layout_alignParentRight="true"
-        android:scaleType="fitCenter"
-        android:background="#0000" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_boosting_2" />
 
     <ImageButton
         android:contentDescription="@null"
-        android:layout_width="106dp"
-        android:layout_height="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ibEnemyCard2"
         android:layout_alignBottom="@+id/ibEnemyCard1"
         android:layout_toLeftOf="@+id/ibEnemyCard1"
         android:layout_toStartOf="@+id/ibEnemyCard1"
-        android:background="#0000"
-        android:scaleType="fitCenter" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_ailment_2" />
 
     <ImageButton
         android:contentDescription="@null"
-        android:layout_width="106dp"
-        android:layout_height="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ibEnemyCard3"
         android:layout_alignBottom="@+id/ibEnemyCard1"
         android:layout_toLeftOf="@+id/ibEnemyCard2"
         android:layout_toStartOf="@+id/ibEnemyCard2"
-        android:scaleType="fitCenter"
-        android:background="#0000" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_ailment_2" />
 
     <ImageButton
         android:contentDescription="@null"
-        android:layout_width="106dp"
-        android:layout_height="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ibEnemyCard4"
         android:layout_below="@+id/ibEnemyCard1"
         android:layout_alignParentRight="true"
-        android:scaleType="fitCenter"
-        android:background="#0000" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_boosting_2" />
 
     <ImageButton
         android:contentDescription="@null"
-        android:layout_width="106dp"
-        android:layout_height="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ibEnemyCard5"
         android:layout_alignBottom="@+id/ibEnemyCard4"
         android:layout_toLeftOf="@+id/ibEnemyCard4"
         android:layout_toStartOf="@+id/ibEnemyCard4"
-        android:background="#0000"
-        android:scaleType="fitCenter" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_field_2" />
 
     <ImageButton
         android:contentDescription="@null"
-        android:layout_width="106dp"
-        android:layout_height="128dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ibEnemyCard6"
         android:layout_alignBottom="@+id/ibEnemyCard4"
         android:layout_toLeftOf="@+id/ibEnemyCard5"
         android:layout_toStartOf="@+id/ibEnemyCard5"
-        android:background="#0000"
-        android:scaleType="fitCenter" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_field_2" />
 
 
     <!-- OBJECT ROW -->
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:id="@+id/objectRow"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/tvEnemyDebuff"
-        android:layout_alignEnd="@+id/tvEnemyDebuff">
+        android:layout_centerHorizontal="true">
 
         <ImageButton
             android:contentDescription="@null"
