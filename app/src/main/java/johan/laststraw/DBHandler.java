@@ -452,13 +452,6 @@ public class DBHandler {
             li011.put(KEY_LVLHIGHSCORE, 0);
             db.insert(LevelsInfo, null, li011);
 
-            ContentValues li012 = new ContentValues();
-            li012.put(KEY_NAME, "W002LVL003");
-            li012.put(KEY_WORLDID, 2);
-            li012.put(KEY_LVLCLEARED, 0);
-            li012.put(KEY_LVLHIGHSCORE, 0);
-            db.insert(LevelsInfo, null, li012);
-
             ContentValues li013 = new ContentValues();
             li013.put(KEY_NAME, "W002LVL004");
             li013.put(KEY_WORLDID, 2);

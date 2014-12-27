@@ -115,7 +115,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             playerCard5Type = 0, playerCard6Type = 0;
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
-    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 0, enemyCard4Cost = 1,
+    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 1, enemyCard4Cost = 1,
             enemyCard5Cost = 0, enemyCard6Cost = 1;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
