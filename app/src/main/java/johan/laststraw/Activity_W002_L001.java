@@ -336,8 +336,7 @@ public class Activity_W002_L001 extends Activity implements View.OnClickListener
         enemyStatuses[3] = "";
         enemyStatuses[4] = "";
 
-        aiPattern = genRand(2);
-        //aiPattern = 1;
+        aiPattern = genRand(5);
         System.out.println("aiPattern: " + String.valueOf(aiPattern));
 
         coinFlipStart();
@@ -8836,18 +8835,97 @@ public class Activity_W002_L001 extends Activity implements View.OnClickListener
                 return genRand(100);
             }
         }
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1) {
+                return 99;
+            }
+            if (enemyTurnCounter == 1 && enemyMoveCounter > 1) {
+                return 0;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1 || enemyTurnCounter == 2 && enemyMoveCounter == 2){
+                return 99;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter > 2){
+                return genRand(100);
+            }
+        }
+        if (aiPattern == 3){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1) {
+                return 99;
+            }
+            if (enemyTurnCounter == 1 && enemyMoveCounter > 1) {
+                return 0;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1 || enemyTurnCounter == 2 && enemyMoveCounter == 2){
+                return 99;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter > 2){
+                return genRand(100);
+            }
+        }
+        if (aiPattern == 4){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1 || enemyTurnCounter == 1 && enemyMoveCounter == 2) {
+                return 99;
+            }
+            if (enemyTurnCounter > 1){
+                return genRand(100);
+            }
+        }
         return genRand(100);
     }
 
     private int aiPatternPickCard(){
-        System.out.println(String.valueOf("enemyturncounter:" + enemyTurnCounter));
-        System.out.println(String.valueOf("enemymovecounter:" + enemyMoveCounter));
         if (aiPattern == 1){
             if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
                 return 3;
             }
             if (enemyTurnCounter == 1 && enemyMoveCounter == 2){
                 return 0;
+            }
+            if (enemyTurnCounter > 1){
+                return randomizeEnemyCardSelect();
+            }
+        }
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 1){
+                return 2;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 3;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 2){
+                return 0;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter > 2){
+                return randomizeEnemyCardSelect();
+            }
+            if (enemyTurnCounter > 2){
+                return randomizeEnemyCardSelect();
+            }
+        }
+        if (aiPattern == 3){
+            if (enemyTurnCounter == 1){
+                return 1;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 3;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 2){
+                return 0;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter > 2){
+                return randomizeEnemyCardSelect();
+            }
+            if (enemyTurnCounter > 2){
+                return randomizeEnemyCardSelect();
+            }
+        }
+        if (aiPattern == 4){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 1;
+            }
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 2){
+                return 3;
             }
             if (enemyTurnCounter > 1){
                 return randomizeEnemyCardSelect();
