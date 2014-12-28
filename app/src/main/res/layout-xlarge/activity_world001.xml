@@ -124,20 +124,21 @@
     <!-- END TURN / ENEMY TURN PORTRAIT -->
     <Button
         style="@style/world001endturnbtn"
-        android:layout_width="106dp"
-        android:layout_height="wrap_content"
+        android:layout_width="266dp"
+        android:layout_height="96dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="End Turn"
         android:id="@+id/bEndTurn"
         android:layout_marginBottom="5dp"
-        android:enabled="true" />
+        android:enabled="true"
+        android:textSize="36sp" />
 
     <!-- PLAYER PORTRAIT -->
     <ImageView
         android:contentDescription="@null"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="192dp"
+        android:layout_height="192dp"
         android:id="@+id/ivPlayerPortrait"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -150,10 +151,10 @@
     <!-- ENEMY PORTRAIT -->
     <ImageView
         android:contentDescription="@null"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="192dp"
+        android:layout_height="192dp"
         android:id="@+id/ivEnemyPortrait"
-        android:src="@drawable/portrait_placeholder_cpu"
+        android:src="@drawable/portrait_fields"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:scaleType="fitCenter"
@@ -164,13 +165,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PLAYER NAME"
+        android:text="WWWWWWWWWWWW"
         android:id="@+id/tvPlayerName"
         android:layout_below="@+id/ivPlayerPortrait"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivPlayerPortrait"
         android:textStyle="bold"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:textSize="28sp" />
 
     <!-- PLAYER LEVEL TITLE -->
     <TextView
@@ -181,7 +183,8 @@
         android:text="Lv: "
         android:id="@+id/tvLvTitle"
         android:textStyle="bold"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:textSize="28sp" />
 
     <!-- PLAYER LEVEL NUMBER -->
     <TextView
@@ -193,7 +196,8 @@
         android:id="@+id/tvLvNumber"
         android:textStyle="bold"
         android:textColor="@color/textBlack"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:textSize="28sp" />
 
     <!-- PLAYER EXP TITLE -->
     <TextView
@@ -204,7 +208,8 @@
         android:text="Exp: "
         android:id="@+id/tvExpTitle"
         android:textStyle="bold"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:textSize="28sp" />
 
     <!-- PLAYER EXP NUMBER -->
     <TextView
@@ -215,7 +220,8 @@
         android:text="0 "
         android:id="@+id/tvExpNumber"
         android:textStyle="bold"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:textSize="28sp" />
 
     <!-- PLAYER EXP OF HUNDRED -->
 
@@ -227,7 +233,8 @@
         android:text="/100"
         android:id="@+id/tvExpOfHundred"
         android:textStyle="bold"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:textSize="28sp" />
 
     <!-- REMOVALS LEFT TITLE -->
     <TextView
@@ -238,7 +245,8 @@
         android:text="Moves: "
         android:id="@+id/tvPlayerMovesTitle"
         android:textStyle="bold"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:textSize="28sp" />
 
     <!-- REMOVALS LEFT NUMBER -->
     <TextView
@@ -249,7 +257,8 @@
         android:text="3"
         android:id="@+id/tvPlayerMovesLeftNumber"
         android:textStyle="bold"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:textSize="28sp" />
 
     <!-- ENEMY NAME -->
     <TextView
@@ -261,7 +270,8 @@
         android:layout_toRightOf="@+id/ivPlayerPortrait"
         android:textColor="@color/textBlack"
         android:textStyle="bold"
-        android:layout_marginRight="2dp" />
+        android:layout_marginRight="2dp"
+        android:textSize="28sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -272,18 +282,20 @@
         android:layout_below="@+id/tvPlayerMovesTitle"
         android:id="@+id/tvPlayerScore"
         android:textColor="@color/textBlack"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="28sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ENEMY NAME"
+        android:text="Angry Farmhand"
         android:id="@+id/tvEnemyName"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/ivEnemyPortrait"
         android:layout_toStartOf="@+id/ivEnemyPortrait"
         android:textStyle="bold"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:textSize="28sp" />
 
     <!-- ENEMY LEVEL -->
     <TextView
@@ -294,7 +306,9 @@
         android:text="Lv: 1 "
         android:id="@+id/tvEnemyLvl"
         android:textStyle="bold"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:textIsSelectable="false"
+        android:textSize="28sp" />
 
     <!-- ENEMY MOVES TITLE LEVEL -->
     <TextView
@@ -305,7 +319,8 @@
         android:text="Moves: "
         android:id="@+id/tvEnemyMovesTitle"
         android:textStyle="bold"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:textSize="28sp" />
 
     <!-- ENEMY MOVES NUMBER -->
     <TextView
@@ -316,7 +331,8 @@
         android:text="0"
         android:id="@+id/tvEnemyMovesNr"
         android:textStyle="bold"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:textSize="28sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -327,7 +343,8 @@
         android:id="@+id/tvEnemyScoreTitle"
         android:textColor="@color/textBlack"
         android:textStyle="bold"
-        android:layout_marginRight="2dp" />
+        android:layout_marginRight="2dp"
+        android:textSize="28sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -337,30 +354,31 @@
         android:text="@string/lvl000"
         android:id="@+id/tvEnemyScore"
         android:textColor="@color/textBlack"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="28sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Farmhand Zack suffers Death Sentence"
+        android:text="Enemy suffers Death Sentence"
         android:id="@+id/tvcenterMessage"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:visibility="visible"
-        android:textColor="@color/textWhite"
-        android:textSize="20sp"
-        style="@style/WhiteTextBlackOutline" />
+        android:textSize="42sp"
+        android:textColor="@color/textWhite" />
 
     <ImageView
         android:contentDescription="@null"
-        android:layout_width="78dp"
-        android:layout_height="90dp"
+        android:layout_width="156dp"
+        android:layout_height="180dp"
         android:id="@+id/ivCenterCardFrame"
         android:layout_below="@+id/bEndTurn"
         android:layout_centerHorizontal="true"
         android:scaleType="fitCenter"
         android:visibility="visible" />
 
+    <!-- PLAYER CARDS -->
     <ImageButton
         android:contentDescription="@null"
         android:layout_width="wrap_content"
@@ -369,31 +387,31 @@
         android:layout_below="@+id/tvPlayerStatus1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/card_not_available"
-        android:background="@drawable/frame_black" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_ailment_tablet" />
 
-    <!-- PLAYER CARDS -->
     <ImageButton
         android:contentDescription="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibPlayerCard2"
-        android:src="@drawable/card_not_available"
         android:layout_alignBottom="@+id/ibPlayerCard1"
         android:layout_toRightOf="@+id/ibPlayerCard1"
         android:layout_toEndOf="@+id/ibPlayerCard1"
-        android:background="@drawable/frame_black" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_field_tablet"
+        android:layout_alignParentEnd="false" />
 
     <ImageButton
         android:contentDescription="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibPlayerCard3"
-        android:src="@drawable/card_not_available"
         android:layout_toEndOf="@+id/ibPlayerCard2"
         android:layout_alignBottom="@+id/ibPlayerCard2"
         android:layout_toRightOf="@+id/ibPlayerCard2"
-        android:background="@drawable/frame_black" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_boosting_tablet" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -403,19 +421,19 @@
         android:layout_below="@+id/ibPlayerCard1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/card_not_available"
-        android:background="@drawable/frame_black" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_boosting_tablet" />
 
     <ImageButton
         android:contentDescription="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibPlayerCard5"
-        android:src="@drawable/card_not_available"
         android:layout_alignBottom="@+id/ibPlayerCard4"
         android:layout_toRightOf="@+id/ibPlayerCard4"
         android:layout_toEndOf="@+id/ibPlayerCard5"
-        android:background="@drawable/frame_black" />
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_ailment_tablet" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -426,7 +444,7 @@
         android:layout_alignBottom="@+id/ibPlayerCard5"
         android:layout_toRightOf="@+id/ibPlayerCard5"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_not_available" />
+        android:src="@drawable/card_type_boosting_tablet" />
 
     <!-- ENEMY CARDS -->
     <ImageButton
@@ -434,21 +452,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibEnemyCard1"
-        android:src="@drawable/card_not_available"
-        android:background="@drawable/frame_black"
         android:layout_below="@+id/tvEnemyStatus1"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_boosting_tablet" />
 
     <ImageButton
         android:contentDescription="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibEnemyCard2"
-        android:src="@drawable/card_not_available"
         android:layout_alignBottom="@+id/ibEnemyCard1"
         android:layout_toLeftOf="@+id/ibEnemyCard1"
         android:layout_toStartOf="@+id/ibEnemyCard1"
         android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_ailment_tablet"
         android:visibility="invisible" />
 
     <ImageButton
@@ -456,11 +474,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibEnemyCard3"
-        android:src="@drawable/card_not_available"
         android:layout_alignBottom="@+id/ibEnemyCard1"
         android:layout_toLeftOf="@+id/ibEnemyCard2"
         android:layout_toStartOf="@+id/ibEnemyCard2"
         android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_ailment_tablet"
         android:visibility="invisible" />
 
     <ImageButton
@@ -468,10 +486,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibEnemyCard4"
-        android:src="@drawable/card_not_available"
         android:layout_below="@+id/ibEnemyCard1"
         android:layout_alignParentRight="true"
         android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_boosting_tablet"
         android:visibility="invisible" />
 
     <ImageButton
@@ -479,11 +497,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibEnemyCard5"
-        android:src="@drawable/card_not_available"
         android:layout_alignBottom="@+id/ibEnemyCard4"
         android:layout_toLeftOf="@+id/ibEnemyCard4"
         android:layout_toStartOf="@+id/ibEnemyCard4"
         android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_field_tablet"
         android:visibility="invisible" />
 
     <ImageButton
@@ -491,11 +509,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibEnemyCard6"
-        android:src="@drawable/card_not_available"
         android:layout_alignBottom="@+id/ibEnemyCard4"
         android:layout_toLeftOf="@+id/ibEnemyCard5"
         android:layout_toStartOf="@+id/ibEnemyCard5"
         android:background="@drawable/frame_black"
+        android:src="@drawable/card_type_field_tablet"
         android:visibility="invisible" />
 
 

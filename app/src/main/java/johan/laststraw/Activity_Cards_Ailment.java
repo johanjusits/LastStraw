@@ -70,10 +70,14 @@ public class Activity_Cards_Ailment extends Activity implements AdapterView.OnIt
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmdialog_display_card);
         String density = DeviceDensity.getDensityName(this);
+        String size = DeviceDensity.getSizeName(this);
         if (density.equals("xxhdpi")){
             dialog.getWindow().setLayout(1000,900);
         } else if (density.equals("hdpi")) {
             dialog.getWindow().setLayout(500, 450);
+        }
+        if (size.equals("xlarge")) {
+            dialog.getWindow().setLayout(600, 500);
         }
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
