@@ -1204,8 +1204,6 @@ public class Activity_W001_L005 extends Activity implements View.OnClickListener
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-                    playerScore = playerScore + playerClearAward;
-                    tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj016.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
@@ -1225,8 +1223,6 @@ public class Activity_W001_L005 extends Activity implements View.OnClickListener
                 }
                 if (objectsRemaining == 1 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-                    playerScore = playerScore + playerClearAward;
-                    tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj016.setImageResource(R.drawable.object_wheatbroken);
                     disable(layout_objectRow);
@@ -2279,16 +2275,12 @@ public class Activity_W001_L005 extends Activity implements View.OnClickListener
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 obj016.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
-                enemyScore = enemyScore + enemyClearAward;
-                tvEnemyScore.setText(String.valueOf(enemyScore));
                 nextObjIsInfested = false;
                 return;
             }
             if (!nextObjIsInfested){
                 obj016.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
-                enemyScore = enemyScore + enemyClearAward;
-                tvEnemyScore.setText(String.valueOf(enemyScore));
             }
         }
 
