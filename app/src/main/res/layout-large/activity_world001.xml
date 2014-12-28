@@ -298,7 +298,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_ailment_2" />
+        android:src="@drawable/card_type_ailment_tablet" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -309,7 +309,7 @@
         android:layout_toRightOf="@+id/ibPlayerCard1"
         android:layout_toEndOf="@+id/ibPlayerCard1"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_field_2"
+        android:src="@drawable/card_type_field_tablet"
         android:layout_alignParentEnd="false" />
 
     <ImageButton
@@ -321,7 +321,7 @@
         android:layout_alignBottom="@+id/ibPlayerCard2"
         android:layout_toRightOf="@+id/ibPlayerCard2"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_boosting_2" />
+        android:src="@drawable/card_type_boosting_tablet" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -332,7 +332,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_boosting_2" />
+        android:src="@drawable/card_type_boosting_tablet" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -343,7 +343,7 @@
         android:layout_toRightOf="@+id/ibPlayerCard4"
         android:layout_toEndOf="@+id/ibPlayerCard5"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_ailment_2" />
+        android:src="@drawable/card_type_ailment_tablet" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -354,7 +354,7 @@
         android:layout_alignBottom="@+id/ibPlayerCard5"
         android:layout_toRightOf="@+id/ibPlayerCard5"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_boosting_2" />
+        android:src="@drawable/card_type_boosting_tablet" />
 
     <!-- ENEMY CARDS -->
     <ImageButton
@@ -365,7 +365,7 @@
         android:layout_below="@+id/tvEnemyDebuff"
         android:layout_alignParentRight="true"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_boosting_2" />
+        android:src="@drawable/card_type_boosting_tablet" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -376,7 +376,8 @@
         android:layout_toLeftOf="@+id/ibEnemyCard1"
         android:layout_toStartOf="@+id/ibEnemyCard1"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_ailment_2" />
+        android:src="@drawable/card_type_ailment_tablet"
+        android:visibility="invisible" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -387,7 +388,8 @@
         android:layout_toLeftOf="@+id/ibEnemyCard2"
         android:layout_toStartOf="@+id/ibEnemyCard2"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_ailment_2" />
+        android:src="@drawable/card_type_ailment_tablet"
+        android:visibility="invisible" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -397,7 +399,8 @@
         android:layout_below="@+id/ibEnemyCard1"
         android:layout_alignParentRight="true"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_boosting_2" />
+        android:src="@drawable/card_type_boosting_tablet"
+        android:visibility="invisible" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -408,7 +411,8 @@
         android:layout_toLeftOf="@+id/ibEnemyCard4"
         android:layout_toStartOf="@+id/ibEnemyCard4"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_field_2" />
+        android:src="@drawable/card_type_field_tablet"
+        android:visibility="invisible" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -419,10 +423,19 @@
         android:layout_toLeftOf="@+id/ibEnemyCard5"
         android:layout_toStartOf="@+id/ibEnemyCard5"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_field_2" />
+        android:src="@drawable/card_type_field_tablet"
+        android:visibility="invisible" />
 
 
     <!-- OBJECT ROW -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivCenterImage"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible" />
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
@@ -452,8 +465,7 @@
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj001"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/obj001"
-            android:layout_marginLeft="36dp" />
+            android:layout_toRightOf="@+id/obj001" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -464,9 +476,8 @@
             android:scaleType="fitCenter"
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj002"
-            android:layout_alignTop="@+id/obj001"
-            android:layout_toRightOf="@+id/obj002"
-            android:layout_marginLeft="41dp" />
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/obj002" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -477,9 +488,8 @@
             android:scaleType="fitCenter"
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj003"
-            android:layout_alignTop="@+id/obj002"
-            android:layout_toRightOf="@+id/obj003"
-            android:layout_marginLeft="35dp" />
+            android:layout_alignTop="@+id/obj001"
+            android:layout_toRightOf="@+id/obj003" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -490,9 +500,9 @@
             android:scaleType="fitCenter"
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj004"
-            android:layout_alignTop="@+id/obj003"
+            android:layout_alignTop="@+id/obj004"
             android:layout_toRightOf="@+id/obj004"
-            android:layout_marginLeft="35dp" />
+            android:focusableInTouchMode="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -503,9 +513,9 @@
             android:scaleType="fitCenter"
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj005"
-            android:layout_alignTop="@+id/obj004"
-            android:layout_toRightOf="@+id/obj005"
-            android:layout_marginLeft="36dp" />
+            android:focusableInTouchMode="false"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/obj005" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -516,9 +526,9 @@
             android:scaleType="fitCenter"
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj006"
+            android:focusableInTouchMode="false"
             android:layout_alignTop="@+id/obj005"
-            android:layout_toRightOf="@+id/obj006"
-            android:layout_marginLeft="35dp" />
+            android:layout_toRightOf="@+id/obj006" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -529,8 +539,9 @@
             android:scaleType="fitCenter"
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj007"
-            android:layout_alignTop="@+id/obj006"
-            android:layout_centerHorizontal="true" />
+            android:focusableInTouchMode="false"
+            android:layout_alignBottom="@+id/obj007"
+            android:layout_toRightOf="@+id/obj007" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -541,9 +552,9 @@
             android:scaleType="fitCenter"
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj008"
-            android:layout_alignTop="@+id/obj008"
-            android:layout_toRightOf="@+id/obj008"
-            android:layout_marginLeft="47dp" />
+            android:focusableInTouchMode="false"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/obj008" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -554,8 +565,8 @@
             android:scaleType="fitCenter"
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj009"
-            android:layout_marginLeft="38dp"
-            android:layout_alignTop="@+id/obj007"
+            android:focusableInTouchMode="false"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/obj009" />
 
         <ImageButton
@@ -567,7 +578,8 @@
             android:scaleType="fitCenter"
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj010"
-            android:layout_alignTop="@+id/obj010"
+            android:focusableInTouchMode="false"
+            android:layout_alignTop="@+id/obj008"
             android:layout_toRightOf="@+id/obj010" />
 
         <ImageButton
@@ -579,10 +591,9 @@
             android:scaleType="fitCenter"
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj011"
+            android:focusableInTouchMode="false"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/obj011"
-            android:layout_marginLeft="42dp"
-            android:focusableInTouchMode="false" />
+            android:layout_toRightOf="@+id/obj011" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -594,9 +605,8 @@
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj012"
             android:focusableInTouchMode="false"
-            android:layout_alignTop="@+id/obj012"
-            android:layout_toRightOf="@+id/obj012"
-            android:layout_marginLeft="36dp" />
+            android:layout_alignTop="@+id/obj011"
+            android:layout_toRightOf="@+id/obj012" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -608,9 +618,8 @@
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj013"
             android:focusableInTouchMode="false"
-            android:layout_alignTop="@+id/obj011"
-            android:layout_toRightOf="@+id/obj013"
-            android:layout_marginLeft="33dp" />
+            android:layout_alignBottom="@+id/obj013"
+            android:layout_toRightOf="@+id/obj013" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -622,7 +631,7 @@
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj014"
             android:focusableInTouchMode="false"
-            android:layout_alignTop="@+id/obj013"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/obj014" />
 
         <ImageButton
@@ -635,7 +644,7 @@
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj015"
             android:focusableInTouchMode="false"
-            android:layout_alignTop="@+id/obj014"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/obj015" />
 
     </RelativeLayout>

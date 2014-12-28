@@ -46,7 +46,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
     ImageView ivCenterImage;
     Button btnEndTurn;
     TextView tvCenterMessage, tvPlayerMovesNumber, tvEnemyMovesNumber;
-    TextView tvPlayerName, tvPlayerExp, tvPlayerLevel, tvPlayerScore, tvEnemyScore, tvEnemyName;
+    TextView tvPlayerName, tvPlayerExp, tvPlayerLevel, tvPlayerScore, tvEnemyScore, tvEnemyName, tvEnemyLvl;
     ImageView ivPlayerPortrait, ivEnemyPortrait, ivCenterCardFrame;
     ViewGroup layout_objectRow;
     Animation ani_fadeIn, ani_fadeOut, ani_zoomIn, ani_shake, ani_scoregain, ani_resetscore, ani_infest_shake;
@@ -298,6 +298,8 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         tvEnemyName = (TextView) findViewById(R.id.tvEnemyName);
         tvCenterMessage.setText("");
         tvEnemyName.setText(enemyName);
+        tvEnemyLvl = (TextView) findViewById(R.id.tvEnemyLvl);
+        tvEnemyLvl.setText("Lv: 4");
         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
         tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
 
