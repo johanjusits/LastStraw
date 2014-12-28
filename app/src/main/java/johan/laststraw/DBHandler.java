@@ -607,7 +607,7 @@ public class DBHandler {
 
     /* ALL OWNED FIELD CARDS */
     public Cursor getAllOwnedFieldCards() {
-        String selectQuery = "SELECT  * FROM allOwnedCards WHERE " + "type=" + 1;
+        String selectQuery = "SELECT  * FROM allOwnedCards WHERE " + "type=" + 1 + " " + "ORDER BY name ASC";
         SQLiteDatabase db = ourHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
@@ -615,7 +615,7 @@ public class DBHandler {
 
     /* ALL FIELD CARDS */
     public Cursor getAllFieldCards() {
-        String selectQuery = "SELECT  * FROM allCards WHERE " + "type=" + 1 + " " + "ORDER BY reqlvl ASC";
+        String selectQuery = "SELECT  * FROM allCards WHERE " + "type=" + 1 + " " + "ORDER BY name ASC";
         SQLiteDatabase db = ourHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
@@ -623,7 +623,7 @@ public class DBHandler {
 
     /* ALL OWNED AILMENT CARDS */
     public Cursor getAllOwnedAilmentCards() {
-        String selectQuery = "SELECT  * FROM allOwnedCards WHERE " + "type=" + 2;
+        String selectQuery = "SELECT  * FROM allOwnedCards WHERE " + "type=" + 2 + " " + "ORDER BY name ASC";
         SQLiteDatabase db = ourHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
@@ -631,7 +631,7 @@ public class DBHandler {
 
     /* ALL AILMENT CARDS */
     public Cursor getAllAilmentCards() {
-        String selectQuery = "SELECT  * FROM allCards WHERE " + "type=" + 2 + " " + "ORDER BY reqlvl ASC";
+        String selectQuery = "SELECT  * FROM allCards WHERE " + "type=" + 2 + " " + "ORDER BY name ASC";
         SQLiteDatabase db = ourHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
@@ -639,7 +639,7 @@ public class DBHandler {
 
     /* ALL OWNED BOOSTING CARDS */
     public Cursor getAllOwnedBoostingCards() {
-        String selectQuery = "SELECT  * FROM allOwnedCards WHERE " + "type=" + 3;
+        String selectQuery = "SELECT  * FROM allOwnedCards WHERE " + "type=" + 3 + " " + "ORDER BY name ASC";
         SQLiteDatabase db = ourHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
@@ -647,7 +647,7 @@ public class DBHandler {
 
     /* ALL BOOSTING CARDS */
     public Cursor getAllBoostingCards() {
-        String selectQuery = "SELECT  * FROM allCards WHERE " + "type=" + 3 + " " + "ORDER BY reqlvl ASC";
+        String selectQuery = "SELECT  * FROM allCards WHERE " + "type=" + 3 + " " + "ORDER BY name ASC";
         SQLiteDatabase db = ourHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
