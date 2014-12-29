@@ -104,6 +104,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
     String sizeName;
     String densityName;
     /* INTS */
+    int clearSoundId;
     int infestedObjRemainingHits = -1;
     int newExp;
     int expToNextLevel;
@@ -336,6 +337,9 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
         enemyStatuses[3] = "";
         enemyStatuses[4] = "";
 
+        SoundEffects.setupSounds(this);
+        clearSoundId = 0;
+
         coinFlipStart();
     }
 
@@ -426,6 +430,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -444,6 +449,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 16 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -478,6 +484,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -496,6 +503,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 15 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -530,6 +538,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -548,6 +557,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 14 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -582,6 +592,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -600,6 +611,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 13 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -634,6 +646,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -652,6 +665,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 12 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -686,6 +700,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -704,6 +719,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 11 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -738,6 +754,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -756,6 +773,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 10 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -790,6 +808,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -808,6 +827,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 9 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -842,6 +862,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -860,6 +881,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 8 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -894,6 +916,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -912,6 +935,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 7 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -946,6 +970,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -964,6 +989,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 6 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -998,6 +1024,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1016,6 +1043,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 5 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1051,6 +1079,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1069,6 +1098,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 4 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1103,6 +1133,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1121,6 +1152,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 3 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1155,6 +1187,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1173,6 +1206,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 2 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1207,6 +1241,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj016.setImageResource(R.drawable.object_wheatbroken);
@@ -1226,6 +1261,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 1 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj016.setImageResource(R.drawable.object_wheatbroken);
@@ -1947,6 +1983,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj001.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -1955,6 +1992,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj001.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -1969,6 +2007,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj002.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -1977,6 +2016,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj002.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -1991,6 +2031,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj003.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -1999,6 +2040,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj003.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2013,6 +2055,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj004.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2021,6 +2064,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj004.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2035,6 +2079,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj005.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2043,6 +2088,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj005.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2057,6 +2103,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj006.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2065,6 +2112,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj006.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2079,6 +2127,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj007.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2087,6 +2136,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj007.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2101,6 +2151,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj008.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2109,6 +2160,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj008.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2123,6 +2175,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj009.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2131,6 +2184,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj009.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2145,6 +2199,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj010.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2153,6 +2208,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj010.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2167,6 +2223,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj011.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2175,6 +2232,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj011.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2189,6 +2247,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj012.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2197,6 +2256,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj012.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2211,6 +2271,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj013.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2219,6 +2280,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj013.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2233,6 +2295,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj014.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2241,6 +2304,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj014.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2255,6 +2319,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj015.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2263,6 +2328,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj015.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2277,12 +2343,14 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj016.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 nextObjIsInfested = false;
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj016.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
             }

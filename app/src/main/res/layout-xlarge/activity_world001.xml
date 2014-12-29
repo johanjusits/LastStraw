@@ -388,7 +388,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_ailment_tablet" />
+        android:src="@drawable/card_type_ailment_tablet"
+        android:soundEffectsEnabled="false" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -400,7 +401,8 @@
         android:layout_toEndOf="@+id/ibPlayerCard1"
         android:background="@drawable/frame_black"
         android:src="@drawable/card_type_field_tablet"
-        android:layout_alignParentEnd="false" />
+        android:layout_alignParentEnd="false"
+        android:soundEffectsEnabled="false" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -411,7 +413,8 @@
         android:layout_alignBottom="@+id/ibPlayerCard2"
         android:layout_toRightOf="@+id/ibPlayerCard2"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_boosting_tablet" />
+        android:src="@drawable/card_type_boosting_tablet"
+        android:soundEffectsEnabled="false" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -422,7 +425,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_boosting_tablet" />
+        android:src="@drawable/card_type_boosting_tablet"
+        android:soundEffectsEnabled="false" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -433,7 +437,8 @@
         android:layout_toRightOf="@+id/ibPlayerCard4"
         android:layout_toEndOf="@+id/ibPlayerCard5"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_ailment_tablet" />
+        android:src="@drawable/card_type_ailment_tablet"
+        android:soundEffectsEnabled="false" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -444,7 +449,8 @@
         android:layout_alignBottom="@+id/ibPlayerCard5"
         android:layout_toRightOf="@+id/ibPlayerCard5"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_boosting_tablet" />
+        android:src="@drawable/card_type_boosting_tablet"
+        android:soundEffectsEnabled="false" />
 
     <!-- ENEMY CARDS -->
     <ImageButton
@@ -455,7 +461,8 @@
         android:layout_below="@+id/tvEnemyStatus1"
         android:layout_alignParentRight="true"
         android:background="@drawable/frame_black"
-        android:src="@drawable/card_type_boosting_tablet" />
+        android:src="@drawable/card_type_boosting_tablet"
+        android:soundEffectsEnabled="false" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -467,7 +474,8 @@
         android:layout_toStartOf="@+id/ibEnemyCard1"
         android:background="@drawable/frame_black"
         android:src="@drawable/card_type_ailment_tablet"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:soundEffectsEnabled="false" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -479,7 +487,8 @@
         android:layout_toStartOf="@+id/ibEnemyCard2"
         android:background="@drawable/frame_black"
         android:src="@drawable/card_type_ailment_tablet"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:soundEffectsEnabled="false" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -490,7 +499,8 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/frame_black"
         android:src="@drawable/card_type_boosting_tablet"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:soundEffectsEnabled="false" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -502,7 +512,8 @@
         android:layout_toStartOf="@+id/ibEnemyCard4"
         android:background="@drawable/frame_black"
         android:src="@drawable/card_type_field_tablet"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:soundEffectsEnabled="false" />
 
     <ImageButton
         android:contentDescription="@null"
@@ -514,7 +525,8 @@
         android:layout_toStartOf="@+id/ibEnemyCard5"
         android:background="@drawable/frame_black"
         android:src="@drawable/card_type_field_tablet"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:soundEffectsEnabled="false"/>
 
 
     <!-- OBJECT ROW -->
@@ -543,7 +555,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="25dp"
-            android:background="#00000000" />
+            android:background="#00000000"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -555,7 +568,8 @@
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj001"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/obj001" />
+            android:layout_toRightOf="@+id/obj001"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -567,7 +581,8 @@
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj002"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/obj002" />
+            android:layout_toRightOf="@+id/obj002"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -579,7 +594,8 @@
             android:background="#00000000"
             android:layout_toEndOf="@+id/obj003"
             android:layout_alignTop="@+id/obj001"
-            android:layout_toRightOf="@+id/obj003" />
+            android:layout_toRightOf="@+id/obj003"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -592,7 +608,8 @@
             android:layout_toEndOf="@+id/obj004"
             android:layout_alignTop="@+id/obj004"
             android:layout_toRightOf="@+id/obj004"
-            android:focusableInTouchMode="false" />
+            android:focusableInTouchMode="false"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -605,7 +622,8 @@
             android:layout_toEndOf="@+id/obj005"
             android:focusableInTouchMode="false"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/obj005" />
+            android:layout_toRightOf="@+id/obj005"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -618,7 +636,8 @@
             android:layout_toEndOf="@+id/obj006"
             android:focusableInTouchMode="false"
             android:layout_alignTop="@+id/obj005"
-            android:layout_toRightOf="@+id/obj006" />
+            android:layout_toRightOf="@+id/obj006"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -631,7 +650,8 @@
             android:layout_toEndOf="@+id/obj007"
             android:focusableInTouchMode="false"
             android:layout_alignBottom="@+id/obj007"
-            android:layout_toRightOf="@+id/obj007" />
+            android:layout_toRightOf="@+id/obj007"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -644,7 +664,8 @@
             android:layout_toEndOf="@+id/obj008"
             android:focusableInTouchMode="false"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/obj008" />
+            android:layout_toRightOf="@+id/obj008"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -657,7 +678,8 @@
             android:layout_toEndOf="@+id/obj009"
             android:focusableInTouchMode="false"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/obj009" />
+            android:layout_toRightOf="@+id/obj009"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -670,7 +692,8 @@
             android:layout_toEndOf="@+id/obj010"
             android:focusableInTouchMode="false"
             android:layout_alignTop="@+id/obj008"
-            android:layout_toRightOf="@+id/obj010" />
+            android:layout_toRightOf="@+id/obj010"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -683,7 +706,8 @@
             android:layout_toEndOf="@+id/obj011"
             android:focusableInTouchMode="false"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/obj011" />
+            android:layout_toRightOf="@+id/obj011"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -696,7 +720,8 @@
             android:layout_toEndOf="@+id/obj012"
             android:focusableInTouchMode="false"
             android:layout_alignTop="@+id/obj011"
-            android:layout_toRightOf="@+id/obj012" />
+            android:layout_toRightOf="@+id/obj012"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -709,7 +734,8 @@
             android:layout_toEndOf="@+id/obj013"
             android:focusableInTouchMode="false"
             android:layout_alignBottom="@+id/obj013"
-            android:layout_toRightOf="@+id/obj013" />
+            android:layout_toRightOf="@+id/obj013"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -722,7 +748,8 @@
             android:layout_toEndOf="@+id/obj014"
             android:focusableInTouchMode="false"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/obj014" />
+            android:layout_toRightOf="@+id/obj014"
+            android:soundEffectsEnabled="false" />
 
         <ImageButton
             android:contentDescription="@null"
@@ -735,7 +762,8 @@
             android:layout_toEndOf="@+id/obj015"
             android:focusableInTouchMode="false"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/obj015" />
+            android:layout_toRightOf="@+id/obj015"
+            android:soundEffectsEnabled="false" />
 
     </RelativeLayout>
 
