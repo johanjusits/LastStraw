@@ -2425,7 +2425,6 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 } else if (density.equals("mdpi")) {
                     dialog.getWindow().setLayout(400, 250);
                 }
-
                 dialog.setCancelable(false);
 
                 TextView tvPlayer = (TextView) dialog.findViewById(R.id.tvPlayer);

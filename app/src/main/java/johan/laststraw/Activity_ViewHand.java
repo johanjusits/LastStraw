@@ -27,6 +27,8 @@ public class Activity_ViewHand extends Activity implements View.OnClickListener,
     Cursor cursor;
     int totalCardsInHand = 0;
     private ListView handList;
+    String sizeName;
+    String densityName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class Activity_ViewHand extends Activity implements View.OnClickListener,
         bEmptyHand = (Button) findViewById(R.id.bEmptyHand);
         bBack.setOnClickListener(this);
         bEmptyHand.setOnClickListener(this);
+
+        getScreenSize();
 
         /* Creates a connection to the database, opens it, fetches
         all data, sets the ListView, sets the adapter to the fieldCursor,
@@ -126,6 +130,9 @@ public class Activity_ViewHand extends Activity implements View.OnClickListener,
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmdialog_removehandcard);
+        if (sizeName.equals("xlarge")){
+            dialog.getWindow().setLayout(650, 275);
+        }
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
         String cardName = cursor.getString(cursor.getColumnIndex("name"));
@@ -161,6 +168,9 @@ public class Activity_ViewHand extends Activity implements View.OnClickListener,
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmdialog_removeall);
+        if (sizeName.equals("xlarge")){
+            dialog.getWindow().setLayout(600, 225);
+        }
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
         TextView tvText = (TextView) dialog.findViewById(R.id.tvError);
@@ -228,6 +238,13 @@ public class Activity_ViewHand extends Activity implements View.OnClickListener,
             }
         });
         dialog.show();
+    }
+
+    private void getScreenSize() {
+        sizeName = DeviceDensity.getSizeName(this);
+        densityName = DeviceDensity.getDensityName(this);
+        System.out.println("Screen size:" + sizeName);
+        System.out.println("Screen dpi:" + densityName);
     }
 
     @Override

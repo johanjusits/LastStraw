@@ -2432,6 +2432,8 @@ public class Activity_W001_L002 extends Activity implements View.OnClickListener
                     dialog.getWindow().setLayout(1000,600);
                 } else if (density.equals("hdpi")) {
                     dialog.getWindow().setLayout(500, 300);
+                } else if (density.equals("mdpi")) {
+                    dialog.getWindow().setLayout(400, 250);
                 }
                 dialog.setCancelable(false);
 
