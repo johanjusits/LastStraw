@@ -101,7 +101,10 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
     String[] enemyStatuses = new String[5];
     String lastEnemyPlayedCard = "";
     String lastPlayerPlayedCard = "";
+    String sizeName;
+    String densityName;
     /* INTS */
+    int clearSoundId;
     int aiChance;
     int infestedObjRemainingHits = -1;
     int newExp;
@@ -147,7 +150,6 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
     int enemyMoveCounter = 0;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
-    boolean deviceIsTablet;
     boolean enemyIsSlowed = false;
     boolean playerIsSlowed = false;
     boolean enemyHasHaste = false;
@@ -344,6 +346,9 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             aiNotRandomStart = true;
         }
 
+        SoundEffects.setupSounds(this);
+        clearSoundId = 0;
+
         coinFlipStart();
     }
 
@@ -434,6 +439,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -452,6 +458,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 16 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -486,6 +493,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -504,6 +512,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 15 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -538,6 +547,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -556,6 +566,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 14 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -590,6 +601,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -608,6 +620,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 13 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -642,6 +655,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -660,6 +674,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 12 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -694,6 +709,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -712,6 +728,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 11 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -746,6 +763,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -764,6 +782,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 10 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -798,6 +817,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -816,6 +836,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 9 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -850,6 +871,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -868,6 +890,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 8 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -902,6 +925,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -920,6 +944,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 7 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -954,6 +979,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -972,6 +998,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 6 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1006,6 +1033,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1024,6 +1052,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 5 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1058,6 +1087,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1076,6 +1106,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 4 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1110,6 +1141,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1128,6 +1160,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 3 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1162,6 +1195,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1180,6 +1214,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 2 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
@@ -1214,6 +1249,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj016.setImageResource(R.drawable.object_wheatbroken);
@@ -1233,6 +1269,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     break;
                 }
                 if (objectsRemaining == 1 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                     obj016.setImageResource(R.drawable.object_wheatbroken);
@@ -1976,6 +2013,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj001.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -1984,6 +2022,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj001.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -1998,6 +2037,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj002.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2006,6 +2046,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj002.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2020,6 +2061,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj003.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2028,6 +2070,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj003.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2042,6 +2085,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj004.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2050,6 +2094,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj004.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2064,6 +2109,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj005.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2072,6 +2118,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj005.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2086,6 +2133,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj006.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2094,6 +2142,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj006.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2108,6 +2157,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj007.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2116,6 +2166,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj007.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2130,6 +2181,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj008.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2138,6 +2190,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj008.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2152,6 +2205,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj009.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2160,6 +2214,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj009.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2174,6 +2229,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj010.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2182,6 +2238,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj010.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2196,6 +2253,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj011.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2204,6 +2262,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj011.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2218,6 +2277,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj012.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2226,6 +2286,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj012.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2240,6 +2301,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj013.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2248,6 +2310,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj013.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2262,6 +2325,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj014.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2270,6 +2334,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj014.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2284,6 +2349,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj015.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2292,6 +2358,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj015.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
@@ -2306,12 +2373,14 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 return;
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                SoundEffects.playSound(clearSoundId);
                 obj016.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
                 nextObjIsInfested = false;
                 return;
             }
             if (!nextObjIsInfested){
+                SoundEffects.playSound(clearSoundId);
                 obj016.setImageResource(R.drawable.object_wheatbroken);
                 objectsRemaining = objectsRemaining - 1;
             }
@@ -2823,157 +2892,193 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
 
     /* THIS METHOD SETS THE PLAYER CARD ICONS */
     private void setPlayerCardIcons() {
-
-        if (deviceIsTablet) {
             /* CARD 1 */
-            if (playerCard1Type == 0) {
-                playerCard1.setVisibility(View.GONE);
-            } else {
-                playerCard1.setImageResource(getResources().getIdentifier(playerCard1Img, "drawable", getPackageName()));
-            }
-            /* CARD 2 */
-            if (playerCard2Type == 0) {
-                playerCard2.setVisibility(View.GONE);
-            } else {
-                playerCard2.setImageResource(getResources().getIdentifier(playerCard2Img, "drawable", getPackageName()));
-            }
-            /* CARD 3 */
-            if (playerCard3Type == 0) {
-                playerCard3.setVisibility(View.GONE);
-            } else {
-                playerCard3.setImageResource(getResources().getIdentifier(playerCard3Img, "drawable", getPackageName()));
-            }
-            /* CARD 4 */
-            if (playerCard4Type == 0) {
-                playerCard4.setVisibility(View.GONE);
-            } else {
-                playerCard4.setImageResource(getResources().getIdentifier(playerCard4Img, "drawable", getPackageName()));
-            }
-            /* CARD 5 */
-            if (playerCard5Type == 0) {
-                playerCard5.setVisibility(View.GONE);
-            } else {
-                playerCard5.setImageResource(getResources().getIdentifier(playerCard5Img, "drawable", getPackageName()));
-            }
-            /* CARD 2 */
-            if (playerCard6Type == 0) {
-                playerCard6.setVisibility(View.GONE);
-            } else {
-                playerCard6.setImageResource(getResources().getIdentifier(playerCard6Img, "drawable", getPackageName()));
-            }
-
-        } else {
-            /* CARD 1 */
-            if (playerCard1Type == 0) {
-                playerCard1.setVisibility(View.GONE);
-            }
-            if (playerCard1Type == 1) {
-                playerCard1.setBackgroundResource(R.drawable.card_icon_field);
+        if (playerCard1Type == 0) {
+            playerCard1.setVisibility(View.GONE);
+        }
+        if (playerCard1Type == 1) {
+            playerCard1.setBackgroundResource(R.drawable.card_icon_field);
+            if (!sizeName.equals("xlarge")){
                 playerCard1.setImageResource(R.drawable.card_type_field);
-            }
-            if (playerCard1Type == 2) {
-                playerCard1.setBackgroundResource(R.drawable.card_icon_ailment);
-                playerCard1.setImageResource(R.drawable.card_type_ailment);
-            }
-            if (playerCard1Type == 3) {
-                playerCard1.setBackgroundResource(R.drawable.card_icon_boosting);
-                playerCard1.setImageResource(R.drawable.card_type_boosting);
-            }
-        /* CARD 2 */
-            if (playerCard2Type == 0) {
-                playerCard2.setVisibility(View.GONE);
-            }
-            if (playerCard2Type == 1) {
-                playerCard2.setBackgroundResource(R.drawable.card_icon_field);
-                playerCard2.setImageResource(R.drawable.card_type_field);
-            }
-            if (playerCard2Type == 2) {
-                playerCard2.setBackgroundResource(R.drawable.card_icon_ailment);
-                playerCard2.setImageResource(R.drawable.card_type_ailment);
-            }
-            if (playerCard2Type == 3) {
-                playerCard2.setBackgroundResource(R.drawable.card_icon_boosting);
-                playerCard2.setImageResource(R.drawable.card_type_boosting);
-            }
-        /* CARD 3 */
-            if (playerCard3Type == 0) {
-                playerCard3.setVisibility(View.GONE);
-            }
-            if (playerCard3Type == 1) {
-                playerCard3.setBackgroundResource(R.drawable.card_icon_field);
-                playerCard3.setImageResource(R.drawable.card_type_field);
-            }
-            if (playerCard3Type == 2) {
-                playerCard3.setBackgroundResource(R.drawable.card_icon_ailment);
-                playerCard3.setImageResource(R.drawable.card_type_ailment);
-            }
-            if (playerCard3Type == 3) {
-                playerCard3.setBackgroundResource(R.drawable.card_icon_boosting);
-                playerCard3.setImageResource(R.drawable.card_type_boosting);
-            }
-        /* CARD 4 */
-            if (playerCard4Type == 0) {
-                playerCard4.setVisibility(View.GONE);
-            }
-            if (playerCard4Type == 1) {
-                playerCard4.setBackgroundResource(R.drawable.card_icon_field);
-                playerCard4.setImageResource(R.drawable.card_type_field);
-            }
-            if (playerCard4Type == 2) {
-                playerCard4.setBackgroundResource(R.drawable.card_icon_ailment);
-                playerCard4.setImageResource(R.drawable.card_type_ailment);
-            }
-            if (playerCard4Type == 3) {
-                playerCard4.setBackgroundResource(R.drawable.card_icon_boosting);
-                playerCard4.setImageResource(R.drawable.card_type_boosting);
-            }
-        /* CARD 5 */
-            if (playerCard5Type == 0) {
-                playerCard5.setVisibility(View.GONE);
-            }
-            if (playerCard5Type == 1) {
-                playerCard5.setBackgroundResource(R.drawable.card_icon_field);
-                playerCard5.setImageResource(R.drawable.card_type_field);
-            }
-            if (playerCard5Type == 2) {
-                playerCard5.setBackgroundResource(R.drawable.card_icon_ailment);
-                playerCard5.setImageResource(R.drawable.card_type_ailment);
-            }
-            if (playerCard5Type == 3) {
-                playerCard5.setBackgroundResource(R.drawable.card_icon_boosting);
-                playerCard5.setImageResource(R.drawable.card_type_boosting);
-            }
-        /* CARD 6 */
-            if (playerCard6Type == 0) {
-                playerCard6.setVisibility(View.GONE);
-            }
-            if (playerCard6Type == 1) {
-                playerCard6.setBackgroundResource(R.drawable.card_icon_field);
-                playerCard6.setImageResource(R.drawable.card_type_field);
-            }
-            if (playerCard6Type == 2) {
-                playerCard6.setBackgroundResource(R.drawable.card_icon_ailment);
-                playerCard6.setImageResource(R.drawable.card_type_ailment);
-            }
-            if (playerCard6Type == 3) {
-                playerCard6.setBackgroundResource(R.drawable.card_icon_boosting);
-                playerCard6.setImageResource(R.drawable.card_type_boosting);
+            } else {
+                playerCard1.setImageResource(R.drawable.card_type_field_tablet);
             }
         }
-
+        if (playerCard1Type == 2) {
+            if (!sizeName.equals("xlarge")){
+                playerCard1.setImageResource(R.drawable.card_type_ailment);
+            } else {
+                playerCard1.setImageResource(R.drawable.card_type_ailment_tablet);
+            }
+        }
+        if (playerCard1Type == 3) {
+            playerCard1.setBackgroundResource(R.drawable.card_icon_boosting);
+            if (!sizeName.equals("xlarge")){
+                playerCard1.setImageResource(R.drawable.card_type_boosting);
+            } else {
+                playerCard1.setImageResource(R.drawable.card_type_boosting_tablet);
+            }
+        }
+        /* CARD 2 */
+        if (playerCard2Type == 0) {
+            playerCard2.setVisibility(View.GONE);
+        }
+        if (playerCard2Type == 1) {
+            playerCard2.setBackgroundResource(R.drawable.card_icon_field);
+            if (!sizeName.equals("xlarge")){
+                playerCard2.setImageResource(R.drawable.card_type_field);
+            } else {
+                playerCard2.setImageResource(R.drawable.card_type_field_tablet);
+            }
+        }
+        if (playerCard2Type == 2) {
+            if (!sizeName.equals("xlarge")){
+                playerCard2.setImageResource(R.drawable.card_type_ailment);
+            } else {
+                playerCard2.setImageResource(R.drawable.card_type_ailment_tablet);
+            }
+        }
+        if (playerCard2Type == 3) {
+            playerCard2.setBackgroundResource(R.drawable.card_icon_boosting);
+            if (!sizeName.equals("xlarge")){
+                playerCard2.setImageResource(R.drawable.card_type_boosting);
+            } else {
+                playerCard2.setImageResource(R.drawable.card_type_boosting_tablet);
+            }
+        }
+        /* CARD 3 */
+        if (playerCard3Type == 0) {
+            playerCard3.setVisibility(View.GONE);
+        }
+        if (playerCard3Type == 1) {
+            playerCard3.setBackgroundResource(R.drawable.card_icon_field);
+            if (!sizeName.equals("xlarge")){
+                playerCard3.setImageResource(R.drawable.card_type_field);
+            } else {
+                playerCard3.setImageResource(R.drawable.card_type_field_tablet);
+            }
+        }
+        if (playerCard3Type == 2) {
+            if (!sizeName.equals("xlarge")){
+                playerCard3.setImageResource(R.drawable.card_type_ailment);
+            } else {
+                playerCard3.setImageResource(R.drawable.card_type_ailment_tablet);
+            }
+        }
+        if (playerCard3Type == 3) {
+            playerCard3.setBackgroundResource(R.drawable.card_icon_boosting);
+            if (!sizeName.equals("xlarge")){
+                playerCard3.setImageResource(R.drawable.card_type_boosting);
+            } else {
+                playerCard3.setImageResource(R.drawable.card_type_boosting_tablet);
+            }
+        }
+        /* CARD 4 */
+        if (playerCard4Type == 0) {
+            playerCard4.setVisibility(View.GONE);
+        }
+        if (playerCard4Type == 1) {
+            playerCard4.setBackgroundResource(R.drawable.card_icon_field);
+            if (!sizeName.equals("xlarge")){
+                playerCard4.setImageResource(R.drawable.card_type_field);
+            } else {
+                playerCard4.setImageResource(R.drawable.card_type_field_tablet);
+            }
+        }
+        if (playerCard4Type == 2) {
+            if (!sizeName.equals("xlarge")){
+                playerCard4.setImageResource(R.drawable.card_type_ailment);
+            } else {
+                playerCard4.setImageResource(R.drawable.card_type_ailment_tablet);
+            }
+        }
+        if (playerCard4Type == 3) {
+            playerCard4.setBackgroundResource(R.drawable.card_icon_boosting);
+            if (!sizeName.equals("xlarge")){
+                playerCard4.setImageResource(R.drawable.card_type_boosting);
+            } else {
+                playerCard4.setImageResource(R.drawable.card_type_boosting_tablet);
+            }
+        }
+        /* CARD 5 */
+        if (playerCard5Type == 0) {
+            playerCard5.setVisibility(View.GONE);
+        }
+        if (playerCard5Type == 1) {
+            playerCard5.setBackgroundResource(R.drawable.card_icon_field);
+            if (!sizeName.equals("xlarge")){
+                playerCard5.setImageResource(R.drawable.card_type_field);
+            } else {
+                playerCard5.setImageResource(R.drawable.card_type_field_tablet);
+            }
+        }
+        if (playerCard5Type == 2) {
+            if (!sizeName.equals("xlarge")){
+                playerCard5.setImageResource(R.drawable.card_type_ailment);
+            } else {
+                playerCard5.setImageResource(R.drawable.card_type_ailment_tablet);
+            }
+        }
+        if (playerCard5Type == 3) {
+            playerCard5.setBackgroundResource(R.drawable.card_icon_boosting);
+            if (!sizeName.equals("xlarge")){
+                playerCard5.setImageResource(R.drawable.card_type_boosting);
+            } else {
+                playerCard5.setImageResource(R.drawable.card_type_boosting_tablet);
+            }
+        }
+        /* CARD 6 */
+        if (playerCard6Type == 0) {
+            playerCard6.setVisibility(View.GONE);
+        }
+        if (playerCard6Type == 1) {
+            playerCard6.setBackgroundResource(R.drawable.card_icon_field);
+            if (!sizeName.equals("xlarge")){
+                playerCard6.setImageResource(R.drawable.card_type_field);
+            } else {
+                playerCard6.setImageResource(R.drawable.card_type_field_tablet);
+            }
+        }
+        if (playerCard6Type == 2) {
+            if (!sizeName.equals("xlarge")){
+                playerCard6.setImageResource(R.drawable.card_type_ailment);
+            } else {
+                playerCard6.setImageResource(R.drawable.card_type_ailment_tablet);
+            }
+        }
+        if (playerCard6Type == 3) {
+            playerCard6.setBackgroundResource(R.drawable.card_icon_boosting);
+            if (!sizeName.equals("xlarge")){
+                playerCard6.setImageResource(R.drawable.card_type_boosting);
+            } else {
+                playerCard6.setImageResource(R.drawable.card_type_boosting_tablet);
+            }
+        }
     }
 
     /* THIS METHOD SETS ENEMY CARDS */
     private void setEnemyCardsIcons(){
         enemyCard1.setVisibility(View.VISIBLE);
         enemyCard1.setBackgroundResource(R.drawable.card_icon_boosting);
-        enemyCard1.setImageResource(R.drawable.card_type_boosting);
+        if (!sizeName.equals("xlarge")){
+            enemyCard1.setImageResource(R.drawable.card_type_boosting);
+        } else {
+            enemyCard1.setImageResource(R.drawable.card_type_boosting_tablet);
+        }
         enemyCard2.setVisibility(View.VISIBLE);
         enemyCard2.setBackgroundResource(R.drawable.card_icon_boosting);
-        enemyCard2.setImageResource(R.drawable.card_type_boosting);
+        if (!sizeName.equals("xlarge")){
+            enemyCard2.setImageResource(R.drawable.card_type_boosting);
+        } else {
+            enemyCard2.setImageResource(R.drawable.card_type_boosting_tablet);
+        }
         enemyCard3.setVisibility(View.VISIBLE);
         enemyCard3.setBackgroundResource(R.drawable.card_icon_field);
-        enemyCard3.setImageResource(R.drawable.card_type_field);
+        if (!sizeName.equals("xlarge")){
+            enemyCard3.setImageResource(R.drawable.card_type_field);
+        } else {
+            enemyCard3.setImageResource(R.drawable.card_type_field_tablet);
+        }
         /*enemyCard4.setVisibility(View.VISIBLE);
         enemyCard4.setBackgroundResource(R.drawable.card_icon_field);
         enemyCard4.setImageResource(R.drawable.card_type_field);
@@ -2987,25 +3092,8 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
 
     /* THIS METHOD DETERMINES SCREEN SIZE */
     private void getScreenSize() {
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        int widthPixels = metrics.widthPixels;
-        int heightPixels = metrics.heightPixels;
-
-        float scaleFactor = metrics.density;
-        float widthDp = widthPixels / scaleFactor;
-        float heightDp = heightPixels / scaleFactor;
-
-        float smallestWidth = Math.min(widthDp, heightDp);
-
-        if (smallestWidth > 1000) {
-            //Device is a 5" screen
-            deviceIsTablet = true;
-        } else if (smallestWidth < 600) {
-            //Device is a 4" screen
-            deviceIsTablet = false;
-        }
+        sizeName = DeviceDensity.getSizeName(this);
+        densityName = DeviceDensity.getDensityName(this);
     }
 
     /* THIS METHOD SETS THE GRAPHIC FOR PREVIEW AND PLAYED CARD */
