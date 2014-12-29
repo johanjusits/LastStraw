@@ -25,12 +25,14 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
 
     DBHandler db;
     Button bSave;
-    TextView tvGender, tvLevelNumber;
+    TextView tvLevelNumber;
     ImageButton ivImg;
     EditText etName;
     Cursor cursor;
     ProgressBar expBar;
     String playerGender = "";
+    String sizeName;
+    String densityName;
     int level;
 
     @Override
@@ -48,6 +50,8 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
 
         bSave.setOnClickListener(this);
         ivImg.setOnClickListener(this);
+
+        getScreenSize();
 
         db = new DBHandler(this);
 
@@ -157,6 +161,9 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmdialog_success);
+        if (sizeName.equals("xlarge")){
+            dialog.getWindow().setLayout(700, 350);
+        }
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
         TextView tvText = (TextView) dialog.findViewById(R.id.tvSuccess);
@@ -172,6 +179,13 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
             }
         });
         dialog.show();
+    }
+
+    private void getScreenSize() {
+        sizeName = DeviceDensity.getSizeName(this);
+        densityName = DeviceDensity.getDensityName(this);
+        System.out.println("Screen size:" + sizeName);
+        System.out.println("Screen dpi:" + densityName);
     }
 
     @Override

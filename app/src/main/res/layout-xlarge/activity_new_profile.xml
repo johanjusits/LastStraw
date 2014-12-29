@@ -5,13 +5,12 @@
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="64dp"
         android:id="@+id/expBar"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/customprogressbar"
-        android:layout_marginBottom="37dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/tvLevelNumber"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -20,9 +19,9 @@
         android:text="@string/lvl000"
         android:id="@+id/tvLevelNumber"
         android:layout_gravity="center_horizontal"
-        android:textSize="40sp"
+        android:textSize="80sp"
         android:textColor="@color/textBlack"
-        android:layout_above="@+id/expBar"
+        android:layout_below="@+id/tvLevelLabel"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -32,28 +31,28 @@
         android:id="@+id/tvLevelLabel"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/textBlack"
-        android:textSize="40sp"
-        android:layout_above="@+id/tvLevelNumber"
+        android:textSize="80sp"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:id="@+id/ivImg"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/portrait_placeholder_boy"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
         android:background="@drawable/frame_black"
-        android:layout_marginTop="16dp" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp" />
 
     <EditText
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="350dp"
+        android:layout_height="96dp"
         android:id="@+id/etName"
         android:background="@drawable/startscreen_btncolor"
-        android:textSize="20sp"
+        android:textSize="40sp"
         android:maxLines="1"
         android:inputType="textPersonName"
         android:maxLength="10"
@@ -62,11 +61,11 @@
         android:paddingLeft="8dp"
         android:layout_below="@+id/ivImg"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="32dp" />
 
     <Button
-        android:layout_width="128dp"
-        android:layout_height="50dp"
+        android:layout_width="256dp"
+        android:layout_height="96dp"
         android:text="@string/saveInfo"
         android:id="@+id/bSave"
         android:background="@drawable/lvlselection_button"
@@ -74,6 +73,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="40sp" />
 </RelativeLayout>

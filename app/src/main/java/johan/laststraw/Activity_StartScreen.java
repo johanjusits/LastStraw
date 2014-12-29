@@ -28,6 +28,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
     Cursor cursor;
     int dbLvl, sharedPrefLvl;
     int lvlcleared;
+    String sizeName;
+    String densityName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         cardStoreButton.setOnClickListener(this);
         rulesButton.setOnClickListener(this);
         resetButton.setOnClickListener(this);
+
+        getScreenSize();
 
     }
 
@@ -241,6 +245,9 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmdialog_removeall);
+        if (sizeName.equals("xlarge")){
+            dialog.getWindow().setLayout(600, 350);
+        }
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
         TextView tvText = (TextView) dialog.findViewById(R.id.tvError);
@@ -351,5 +358,12 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             confirmSuccess("You have unlocked the Steal card!", Activity_StartScreen.this);
             db.close();
         }
+    }
+
+    private void getScreenSize() {
+        sizeName = DeviceDensity.getSizeName(this);
+        densityName = DeviceDensity.getDensityName(this);
+        System.out.println("Screen size:" + sizeName);
+        System.out.println("Screen dpi:" + densityName);
     }
 }
