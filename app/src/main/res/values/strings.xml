@@ -77,7 +77,7 @@
     <string name="world001_lv008_enemy_name">Farmboss Oakley</string>
 
     <!-- Card Selection Activity -->
-    <string name="cardSelectTitle">Available Cards</string>
+    <string name="cardSelectTitle">Card Selection</string>
     <string name="cardsInHand">Cards In Your Hand</string>
     <string name="startGame">Start Game!</string>
     <string name="viewCards">View Hand</string>
@@ -85,7 +85,7 @@
     <string name="selectCardConfirmTitle">Use This Card?</string>
     <string name="cardAdded">Card Added To Hand</string>
     <string name="removeHandCardTitle">Remove This Card?</string>
-    <string name="emptyHand">Empty Hand</string>
+    <string name="emptyHand">Clear</string>
 
     <!-- Cards Activity -->
     <string name="cardsListTitle">Cards</string>

@@ -52,6 +52,6 @@
         android:textColor="@color/textBlack"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginTop="10dp"
-        android:textSize="28sp" />
+        android:textSize="24sp" />
 
 </LinearLayout>

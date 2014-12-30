@@ -1,0 +1,74 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="16dp"
+    android:background="@drawable/bg_menus">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select a card category:"
+            android:id="@+id/textView"
+            android:textSize="40sp"
+            android:textColor="@color/textBlack"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You got a new card!"
+            android:id="@+id/tvNewCardTxt"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/textBlack"
+            android:textStyle="bold"
+            android:textSize="40sp"
+            android:visibility="invisible"
+            android:layout_marginTop="20dp" />
+
+        <Button
+            android:layout_width="256dp"
+            android:layout_height="96dp"
+            android:text="FIELD"
+            android:id="@+id/bField"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/field_card_button"
+            android:textColor="@color/textBlack"
+            android:layout_marginTop="10dp"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="256dp"
+            android:layout_height="96dp"
+            android:text="AILMENT"
+            android:id="@+id/bAilment"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ailment_card_button"
+            android:textColor="@color/textBlack"
+            android:layout_marginTop="5dp"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="256dp"
+            android:layout_height="96dp"
+            android:text="BOOSTING"
+            android:id="@+id/bBoosting"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/boosting_card_button"
+            android:textColor="@color/textBlack"
+            android:layout_marginTop="5dp"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -2360,6 +2360,8 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
                     dialog.getWindow().setLayout(1000,600);
                 } else if (density.equals("hdpi")) {
                     dialog.getWindow().setLayout(500, 300);
+                } else if (density.equals("mdpi")) {
+                    dialog.getWindow().setLayout(400, 250);
                 }
                 dialog.setCancelable(false);
 
@@ -2495,6 +2497,8 @@ public class Activity_Test_Battle extends Activity implements View.OnClickListen
                     dialog.getWindow().setLayout(1000,600);
                 } else if (density.equals("hdpi")) {
                     dialog.getWindow().setLayout(500, 300);
+                } else if (density.equals("mdpi")) {
+                    dialog.getWindow().setLayout(400, 250);
                 }
                 dialog.setCancelable(false);
 
