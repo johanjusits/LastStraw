@@ -71,6 +71,6 @@
         android:layout_alignRight="@+id/textView5"
         android:layout_alignEnd="@+id/textView5"
         android:background="@drawable/startscreen_btncolor"
-        android:textSize="40sp" />
+        android:textSize="36sp" />
 
 </RelativeLayout>

@@ -262,7 +262,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
         /* SETS CARDS  */
         ivPlayerPortrait = (ImageView) findViewById(R.id.ivPlayerPortrait);
         ivEnemyPortrait = (ImageView) findViewById(R.id.ivEnemyPortrait);
-        ivEnemyPortrait.setImageResource(R.drawable.portraint_miniboss);
+        ivEnemyPortrait.setImageResource(R.drawable.portrait_miniboss);
         ivCenterCardFrame = (ImageView) findViewById(R.id.ivCenterCardFrame);
         playerCard1 = (ImageButton) findViewById(R.id.ibPlayerCard1);
         playerCard2 = (ImageButton) findViewById(R.id.ibPlayerCard2);
@@ -2590,6 +2590,8 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
                     dialog.getWindow().setLayout(1000,600);
                 } else if (density.equals("hdpi")) {
                     dialog.getWindow().setLayout(500, 300);
+                } else if (density.equals("mdpi")) {
+                    dialog.getWindow().setLayout(400, 250);
                 }
                 dialog.setCancelable(false);
 

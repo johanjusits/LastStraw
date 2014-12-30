@@ -12,21 +12,22 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textColor="@color/textBlack"
-        android:textSize="20sp"
+        android:textSize="40sp"
         android:layout_marginBottom="8dp" />
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="384dp"
+        android:layout_width="600dp"
+        android:layout_height="750dp"
         android:id="@+id/linearLayout"
         android:layout_below="@+id/tvLevelName"
         android:layout_centerHorizontal="true">
 
         <TabHost
             android:id="@+id/tabhost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,10 +40,11 @@
                     android:text="@string/cardSelectTitle"
                     android:id="@+id/textView15"
                     android:textColor="@color/textBlack"
-                    android:textSize="24sp"
+                    android:textSize="48sp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="16dp" />
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -56,7 +58,8 @@
                         android:text="Available Slots:"
                         android:id="@+id/textView18"
                         android:textColor="@color/textBlack"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:textSize="30sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -65,7 +68,8 @@
                         android:id="@+id/tvSlots"
                         android:textColor="@color/textBlack"
                         android:textStyle="bold"
-                        android:layout_marginLeft="4dp" />
+                        android:layout_marginLeft="4dp"
+                        android:textSize="30sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -81,7 +85,8 @@
                         android:id="@+id/textView20"
                         android:layout_gravity="center_horizontal"
                         android:textColor="@color/textBlack"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:textSize="30sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -91,12 +96,13 @@
                         android:layout_gravity="center_horizontal"
                         android:textColor="@color/textBlack"
                         android:textStyle="bold"
-                        android:layout_marginLeft="8dp" />
+                        android:layout_marginLeft="8dp"
+                        android:textSize="30sp" />
                 </LinearLayout>
 
                 <TabWidget
                     android:id="@android:id/tabs"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/startscreen_btncolor" />
 
@@ -147,25 +153,27 @@
 
     <Button
         style="@style/startscreen_button"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
+        android:layout_width="256dp"
+        android:layout_height="96dp"
         android:text="@string/viewCards"
         android:id="@+id/bViewCards"
         android:textColor="@color/textBlack"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="36dp" />
 
     <Button
         style="@style/startscreen_button"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
+        android:layout_width="256dp"
+        android:layout_height="96dp"
         android:text="@string/startGame"
         android:id="@+id/bStartGame"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/textBlack"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textSize="36dp" />
 
 </RelativeLayout>

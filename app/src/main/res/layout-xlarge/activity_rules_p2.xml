@@ -84,7 +84,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/startscreen_btncolor"
-        android:textSize="40sp" />
+        android:textSize="36sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -107,6 +107,6 @@
         android:layout_alignRight="@+id/textView7"
         android:layout_alignEnd="@+id/textView7"
         android:background="@drawable/startscreen_btncolor"
-        android:textSize="40sp" />
+        android:textSize="36sp" />
 
 </RelativeLayout>
