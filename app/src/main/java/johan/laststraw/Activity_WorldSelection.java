@@ -39,6 +39,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         db = new DBHandler(this);
 
         getWorldHighScores(1);
+        getWorldHighScores(2);
         checkWorld1();
         unlockWorlds();
     }
@@ -94,7 +95,12 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         w001lv007score = highScores[6];
         w001lv008score = highScores[7];
 
-        world001High.setText(String.valueOf(totalScore));
+        if (worldId == 1){
+            world001High.setText(String.valueOf(totalScore));
+        }
+        if (worldId == 2){
+            world002High.setText(String.valueOf(totalScore));
+        }
     }
 
     @Override
