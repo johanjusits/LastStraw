@@ -128,6 +128,7 @@ public class Activity_W001_L006 extends Activity implements View.OnClickListener
     int lvlcleared;
     int lvlhighscore;
     int lvlId;
+    int worldId;
     int activePlayerStatuses = 0;
     int activeEnemyStatuses = 0;
     int playerClearAward = 2;
@@ -2559,28 +2560,19 @@ public class Activity_W001_L006 extends Activity implements View.OnClickListener
         final String density = DeviceDensity.getDensityName(this);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                int xpPenalty = 1;
-                //lv2-3
-                if (playerLevel >= 3 && playerLevel < 5 ){
-                    xpPenalty = 2;
-                }
-                //lv4-5
-                if (playerLevel >= 5 && playerLevel < 7){
-                    xpPenalty = 3;
-                }
-                //lv5-7
-                if (playerLevel >= 7 && playerLevel < 9){
-                    xpPenalty = 4;
-                }
-                //lv7+
-                if (playerLevel >= 9){
-                    xpPenalty = 5;
-                }
                 if (playerLevel == 20){
                     finish();
                     overridePendingTransition(0, 0);
                 }
-                final int gainedXp = finalPlayerScore / xpPenalty;
+                int xpPenalty;
+                final int gainedXp;
+                boolean penaltyOrNot = UpdateExp.getXpReward(worldId, playerLevel);
+                if (penaltyOrNot){
+                    xpPenalty = UpdateExp.getExpPenalty(worldId, playerLevel);
+                    gainedXp = UpdateExp.getGainedXp(finalPlayerScore, xpPenalty);
+                } else {
+                    gainedXp = finalPlayerScore * 2;
+                }
                 final Dialog dialog = new Dialog(Activity_W001_L006.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.confirmdialog_exp_gain);
@@ -2608,7 +2600,7 @@ public class Activity_W001_L006 extends Activity implements View.OnClickListener
                     public void run() {
 
                         if (android.os.Build.VERSION.SDK_INT >= 11) {
-                            ObjectAnimator animation = ObjectAnimator.ofInt(expBar, "progress", playerExp + finalPlayerScore);
+                            ObjectAnimator animation = ObjectAnimator.ofInt(expBar, "progress", playerExp + gainedXp);
                             animation.setDuration(1000);
                             animation.setInterpolator(new DecelerateInterpolator());
                             animation.start();
@@ -6317,6 +6309,7 @@ public class Activity_W001_L006 extends Activity implements View.OnClickListener
             lvlcleared = cursor.getInt(cursor.getColumnIndex("lvlcleared"));
             lvlhighscore = cursor.getInt(cursor.getColumnIndex("lvlhighscore"));
             lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
+            worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
         db.close();
     }
