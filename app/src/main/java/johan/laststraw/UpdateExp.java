@@ -5,24 +5,32 @@ package johan.laststraw;
  */
 public class UpdateExp {
 
-    public static boolean getXpReward(int playerLevel, int worldId){
-        if (worldId == 1 && playerLevel > 2){
-            return true;
+    public static boolean getXpReward(int worldId, int playerLevel){
+        if (worldId == 1){
+            if (playerLevel >= 3){
+                return true;
+            } else {
+                return false;
+            }
         }
-        if (worldId == 2 && playerLevel > 4){
-            return true;
+        if (worldId == 2){
+            if (playerLevel >= 5){
+                return true;
+            } else {
+                return false;
+            }
         }
         return false;
     }
 
-    public static int getExpPenalty(int playerLevel, int worldId){
+    public static int getExpPenalty(int worldId, int playerLevel){
         int xpPenalty;
         if (worldId == 1){
             if (playerLevel > 2 && playerLevel < 5){
                 xpPenalty = 1;
                 return xpPenalty;
             }
-            if (playerLevel > 4){
+            if (playerLevel >= 5){
                 xpPenalty = 2;
                 return xpPenalty;
             }

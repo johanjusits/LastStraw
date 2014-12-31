@@ -1378,7 +1378,6 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
         /* Checks if enemy has any cards left and decides move pattern accordingly */
         if (enemyCardsRemaining > 0){
             int cardOrClear = genRand(100);
-            System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
             if (cardOrClear >= 80){
                 enemyPickedCard = randomizeEnemyCardSelect();
@@ -3017,8 +3016,6 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
     private void getScreenSize() {
         sizeName = DeviceDensity.getSizeName(this);
         densityName = DeviceDensity.getDensityName(this);
-        System.out.println("Screen size:" + sizeName);
-        System.out.println("Screen dpi:" + densityName);
     }
 
     /* THIS METHOD SETS THE GRAPHIC FOR PREVIEW AND PLAYED CARD */
@@ -8873,7 +8870,6 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
         } else if (density.equals("hdpi")) {
             tvCenterMessage.setTextSize(20);
         }
-        System.out.println(density);
     }
 }
 
