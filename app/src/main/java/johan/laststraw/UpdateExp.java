@@ -51,4 +51,5 @@ public class UpdateExp {
     public static int getGainedXp(int finalPlayerScore, int xpPenalty){
         return finalPlayerScore / xpPenalty;
     }
+
 }

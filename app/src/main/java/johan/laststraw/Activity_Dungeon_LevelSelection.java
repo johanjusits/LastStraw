@@ -103,6 +103,18 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
                 finish();
                 overridePendingTransition(0, 0);
                 break;
+            case R.id.bWorld001Lvl004:
+                preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                editor = preferences.edit();
+                editor.putString("LevelToLoad", ".Activity_W002_L004");
+                editor.putString("LevelName", "Dungeon - Level 4");
+                editor.apply();
+                pickCards = new Intent(Activity_Dungeon_LevelSelection.this, Activity_CardSelection.class);
+                pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(pickCards);
+                finish();
+                overridePendingTransition(0, 0);
+                break;
         }
     }
 

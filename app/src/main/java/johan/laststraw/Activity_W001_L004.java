@@ -2863,6 +2863,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             }
         }
         if (playerCard1Type == 2) {
+            playerCard1.setBackgroundResource(R.drawable.card_icon_ailment);
             if (!sizeName.equals("xlarge")){
                 playerCard1.setImageResource(R.drawable.card_type_ailment);
             } else {
@@ -2890,6 +2891,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             }
         }
         if (playerCard2Type == 2) {
+            playerCard2.setBackgroundResource(R.drawable.card_icon_ailment);
             if (!sizeName.equals("xlarge")){
                 playerCard2.setImageResource(R.drawable.card_type_ailment);
             } else {
@@ -2917,6 +2919,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             }
         }
         if (playerCard3Type == 2) {
+            playerCard3.setBackgroundResource(R.drawable.card_icon_ailment);
             if (!sizeName.equals("xlarge")){
                 playerCard3.setImageResource(R.drawable.card_type_ailment);
             } else {
@@ -2944,6 +2947,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             }
         }
         if (playerCard4Type == 2) {
+            playerCard4.setBackgroundResource(R.drawable.card_icon_ailment);
             if (!sizeName.equals("xlarge")){
                 playerCard4.setImageResource(R.drawable.card_type_ailment);
             } else {
@@ -2971,6 +2975,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             }
         }
         if (playerCard5Type == 2) {
+            playerCard5.setBackgroundResource(R.drawable.card_icon_ailment);
             if (!sizeName.equals("xlarge")){
                 playerCard5.setImageResource(R.drawable.card_type_ailment);
             } else {
@@ -2998,6 +3003,7 @@ public class Activity_W001_L004 extends Activity implements View.OnClickListener
             }
         }
         if (playerCard6Type == 2) {
+            playerCard6.setBackgroundResource(R.drawable.card_icon_ailment);
             if (!sizeName.equals("xlarge")){
                 playerCard6.setImageResource(R.drawable.card_type_ailment);
             } else {
