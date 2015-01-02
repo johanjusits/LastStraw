@@ -148,16 +148,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity_Test_Battle"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".Activity_W001_L001"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
@@ -259,6 +249,16 @@
         </activity>
         <activity
             android:name=".Activity_W002_L003"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity_W002_L004"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
             <intent-filter>

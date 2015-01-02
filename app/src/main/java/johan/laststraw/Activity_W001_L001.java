@@ -2823,32 +2823,33 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
     /* THIS METHOD SETS THE PLAYER CARD ICONS */
     private void setPlayerCardIcons() {
             /* CARD 1 */
-            if (playerCard1Type == 0) {
-                playerCard1.setVisibility(View.GONE);
+        if (playerCard1Type == 0) {
+            playerCard1.setVisibility(View.GONE);
+        }
+        if (playerCard1Type == 1) {
+            playerCard1.setBackgroundResource(R.drawable.card_icon_field);
+            if (!sizeName.equals("xlarge")){
+                playerCard1.setImageResource(R.drawable.card_type_field);
+            } else {
+                playerCard1.setImageResource(R.drawable.card_type_field_tablet);
             }
-            if (playerCard1Type == 1) {
-                playerCard1.setBackgroundResource(R.drawable.card_icon_field);
-                if (!sizeName.equals("xlarge")){
-                    playerCard1.setImageResource(R.drawable.card_type_field);
-                } else {
-                    playerCard1.setImageResource(R.drawable.card_type_field_tablet);
-                }
+        }
+        if (playerCard1Type == 2) {
+            playerCard1.setBackgroundResource(R.drawable.card_icon_ailment);
+            if (!sizeName.equals("xlarge")){
+                playerCard1.setImageResource(R.drawable.card_type_ailment);
+            } else {
+                playerCard1.setImageResource(R.drawable.card_type_ailment_tablet);
             }
-            if (playerCard1Type == 2) {
-                if (!sizeName.equals("xlarge")){
-                    playerCard1.setImageResource(R.drawable.card_type_ailment);
-                } else {
-                    playerCard1.setImageResource(R.drawable.card_type_ailment_tablet);
-                }
+        }
+        if (playerCard1Type == 3) {
+            playerCard1.setBackgroundResource(R.drawable.card_icon_boosting);
+            if (!sizeName.equals("xlarge")){
+                playerCard1.setImageResource(R.drawable.card_type_boosting);
+            } else {
+                playerCard1.setImageResource(R.drawable.card_type_boosting_tablet);
             }
-            if (playerCard1Type == 3) {
-                playerCard1.setBackgroundResource(R.drawable.card_icon_boosting);
-                if (!sizeName.equals("xlarge")){
-                    playerCard1.setImageResource(R.drawable.card_type_boosting);
-                } else {
-                    playerCard1.setImageResource(R.drawable.card_type_boosting_tablet);
-                }
-            }
+        }
         /* CARD 2 */
         if (playerCard2Type == 0) {
             playerCard2.setVisibility(View.GONE);
@@ -2862,6 +2863,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
             }
         }
         if (playerCard2Type == 2) {
+            playerCard2.setBackgroundResource(R.drawable.card_icon_ailment);
             if (!sizeName.equals("xlarge")){
                 playerCard2.setImageResource(R.drawable.card_type_ailment);
             } else {
@@ -2889,6 +2891,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
             }
         }
         if (playerCard3Type == 2) {
+            playerCard3.setBackgroundResource(R.drawable.card_icon_ailment);
             if (!sizeName.equals("xlarge")){
                 playerCard3.setImageResource(R.drawable.card_type_ailment);
             } else {
@@ -2916,6 +2919,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
             }
         }
         if (playerCard4Type == 2) {
+            playerCard4.setBackgroundResource(R.drawable.card_icon_ailment);
             if (!sizeName.equals("xlarge")){
                 playerCard4.setImageResource(R.drawable.card_type_ailment);
             } else {
@@ -2943,6 +2947,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
             }
         }
         if (playerCard5Type == 2) {
+            playerCard5.setBackgroundResource(R.drawable.card_icon_ailment);
             if (!sizeName.equals("xlarge")){
                 playerCard5.setImageResource(R.drawable.card_type_ailment);
             } else {
@@ -2970,6 +2975,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
             }
         }
         if (playerCard6Type == 2) {
+            playerCard6.setBackgroundResource(R.drawable.card_icon_ailment);
             if (!sizeName.equals("xlarge")){
                 playerCard6.setImageResource(R.drawable.card_type_ailment);
             } else {
