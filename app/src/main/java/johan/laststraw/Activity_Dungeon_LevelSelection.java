@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -19,6 +20,9 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
     Intent pickCards;
     TextView lv1score, lv2score, lv3score, lv4score, lv5score, lv6score, lv7score, lv8score;
     DBHandler db;
+    ImageView lv1star1, lv1star2, lv1star3, lv2star1, lv2star2, lv2star3, lv3star1, lv3star2, lv3star3,
+            lv4star1, lv4star2, lv4star3, lv5star1, lv5star2, lv5star3, lv6star1, lv6star2, lv6star3,
+            lv7star1, lv7star2, lv7star3, lv8star1, lv8star2, lv8star3;
     Cursor cursor;
     int lv001Cleared, lv002Cleared, lv003Cleared, lv004Cleared, lv005Cleared, lv006Cleared,
             lv007Cleared, lv008Cleared;
@@ -38,6 +42,31 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
         lv6score = (TextView) findViewById(R.id.tvLv6Score);
         lv7score = (TextView) findViewById(R.id.tvLv7Score);
         lv8score = (TextView) findViewById(R.id.tvLv8Score);
+
+        lv1star1 = (ImageView) findViewById(R.id.ivLv1Star1);
+        lv1star2 = (ImageView) findViewById(R.id.ivLv1Star2);
+        lv1star3 = (ImageView) findViewById(R.id.ivLv1Star3);
+        lv2star1 = (ImageView) findViewById(R.id.ivLv2Star1);
+        lv2star2 = (ImageView) findViewById(R.id.ivLv2Star2);
+        lv2star3 = (ImageView) findViewById(R.id.ivLv2Star3);
+        lv3star1 = (ImageView) findViewById(R.id.ivLv3Star1);
+        lv3star2 = (ImageView) findViewById(R.id.ivLv3Star2);
+        lv3star3 = (ImageView) findViewById(R.id.ivLv3Star3);
+        lv4star1 = (ImageView) findViewById(R.id.ivLv4Star1);
+        lv4star2 = (ImageView) findViewById(R.id.ivLv4Star2);
+        lv4star3 = (ImageView) findViewById(R.id.ivLv4Star3);
+        lv5star1 = (ImageView) findViewById(R.id.ivLv5Star1);
+        lv5star2 = (ImageView) findViewById(R.id.ivLv5Star2);
+        lv5star3 = (ImageView) findViewById(R.id.ivLv5Star3);
+        lv6star1 = (ImageView) findViewById(R.id.ivLv6Star1);
+        lv6star2 = (ImageView) findViewById(R.id.ivLv6Star2);
+        lv6star3 = (ImageView) findViewById(R.id.ivLv6Star3);
+        lv7star1 = (ImageView) findViewById(R.id.ivLv7Star1);
+        lv7star2 = (ImageView) findViewById(R.id.ivLv7Star2);
+        lv7star3 = (ImageView) findViewById(R.id.ivLv7Star3);
+        lv8star1 = (ImageView) findViewById(R.id.ivLv8Star1);
+        lv8star2 = (ImageView) findViewById(R.id.ivLv8Star2);
+        lv8star3 = (ImageView) findViewById(R.id.ivLv8Star3);
 
         bLv001 = (ImageButton) findViewById(R.id.bWorld001Lvl001);
         bLv002 = (ImageButton) findViewById(R.id.bWorld001Lvl002);
@@ -203,13 +232,21 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
         lv008Score = highScores[7];
 
         lv1score.setText(String.valueOf(lv001Score));
+        setLv1Stars();
         lv2score.setText(String.valueOf(lv002Score));
+        setLv2Stars();
         lv3score.setText(String.valueOf(lv003Score));
+        setLv3Stars();
         lv4score.setText(String.valueOf(lv004Score));
+        setLv4Stars();
         lv5score.setText(String.valueOf(lv005Score));
+        setLv5Stars();
         lv6score.setText(String.valueOf(lv006Score));
+        setLv6Stars();
         lv7score.setText(String.valueOf(lv007Score));
+        setLv7Stars();
         lv8score.setText(String.valueOf(lv008Score));
+        setLv8Stars();
     }
 
     private void unlockLevels(){
@@ -247,6 +284,126 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
             bLv008.setImageResource(R.drawable.icon_boss);
             bLv008.setBackgroundResource(R.drawable.lvlselection_button);
             bLv008.setClickable(true);
+        }
+    }
+
+    private void setLv1Stars(){
+        if (lv001Score >= 15 && lv001Score < 21){
+            lv1star1.setImageResource(R.drawable.star_full);
+        }
+        if (lv001Score >= 20 && lv001Score < 25){
+            lv1star1.setImageResource(R.drawable.star_full);
+            lv1star2.setImageResource(R.drawable.star_full);
+        }
+        if (lv001Score > 24){
+            lv1star1.setImageResource(R.drawable.star_full);
+            lv1star2.setImageResource(R.drawable.star_full);
+            lv1star3.setImageResource(R.drawable.star_full);
+        }
+    }
+
+    private void setLv2Stars(){
+        if (lv002Score >= 15 && lv002Score < 21){
+            lv2star1.setImageResource(R.drawable.star_full);
+        }
+        if (lv002Score >= 20 && lv002Score < 25){
+            lv2star1.setImageResource(R.drawable.star_full);
+            lv2star2.setImageResource(R.drawable.star_full);
+        }
+        if (lv002Score > 24){
+            lv2star1.setImageResource(R.drawable.star_full);
+            lv2star2.setImageResource(R.drawable.star_full);
+            lv2star3.setImageResource(R.drawable.star_full);
+        }
+    }
+
+    private void setLv3Stars(){
+        if (lv003Score >= 15 && lv003Score < 21){
+            lv3star1.setImageResource(R.drawable.star_full);
+        }
+        if (lv003Score >= 20 && lv003Score < 25){
+            lv3star1.setImageResource(R.drawable.star_full);
+            lv3star2.setImageResource(R.drawable.star_full);
+        }
+        if (lv003Score > 24){
+            lv3star1.setImageResource(R.drawable.star_full);
+            lv3star2.setImageResource(R.drawable.star_full);
+            lv3star3.setImageResource(R.drawable.star_full);
+        }
+    }
+
+    private void setLv4Stars(){
+        if (lv004Score >= 15 && lv004Score < 21){
+            lv4star1.setImageResource(R.drawable.star_full);
+        }
+        if (lv004Score >= 20 && lv004Score < 25){
+            lv4star1.setImageResource(R.drawable.star_full);
+            lv4star2.setImageResource(R.drawable.star_full);
+        }
+        if (lv004Score > 24){
+            lv4star1.setImageResource(R.drawable.star_full);
+            lv4star2.setImageResource(R.drawable.star_full);
+            lv4star3.setImageResource(R.drawable.star_full);
+        }
+    }
+
+    private void setLv5Stars(){
+        if (lv005Score >= 15 && lv005Score < 21){
+            lv5star1.setImageResource(R.drawable.star_full);
+        }
+        if (lv005Score >= 20 && lv005Score < 25){
+            lv5star1.setImageResource(R.drawable.star_full);
+            lv5star2.setImageResource(R.drawable.star_full);
+        }
+        if (lv005Score > 24){
+            lv5star1.setImageResource(R.drawable.star_full);
+            lv5star2.setImageResource(R.drawable.star_full);
+            lv5star3.setImageResource(R.drawable.star_full);
+        }
+    }
+
+    private void setLv6Stars(){
+        if (lv006Score >= 15 && lv006Score < 21){
+            lv6star1.setImageResource(R.drawable.star_full);
+        }
+        if (lv006Score >= 20 && lv006Score < 25){
+            lv6star1.setImageResource(R.drawable.star_full);
+            lv6star2.setImageResource(R.drawable.star_full);
+        }
+        if (lv006Score > 24){
+            lv6star1.setImageResource(R.drawable.star_full);
+            lv6star2.setImageResource(R.drawable.star_full);
+            lv6star3.setImageResource(R.drawable.star_full);
+        }
+    }
+
+    private void setLv7Stars(){
+        if (lv007Score >= 15 && lv007Score < 21){
+            lv7star1.setImageResource(R.drawable.star_full);
+        }
+        if (lv007Score >= 20 && lv007Score < 25){
+            lv7star1.setImageResource(R.drawable.star_full);
+            lv7star2.setImageResource(R.drawable.star_full);
+        }
+        if (lv007Score > 24){
+            lv7star1.setImageResource(R.drawable.star_full);
+            lv7star2.setImageResource(R.drawable.star_full);
+            lv7star3.setImageResource(R.drawable.star_full);
+        }
+    }
+
+    private void setLv8Stars(){
+        if (lv008Score >= 15 && lv008Score < 21){
+            lv8star1.setImageResource(R.drawable.star_full);
+        }
+        if (lv008Score >= 20 && lv008Score < 25){
+            lv8star1.setImageResource(R.drawable.star_full);
+            lv8star2.setImageResource(R.drawable.star_full);
+        }
+        if (lv008Score > 24){
+            lv8star1.setImageResource(R.drawable.star_full);
+            lv8star2.setImageResource(R.drawable.star_full);
+            lv8star3.setImageResource(R.drawable.star_full);
         }
     }
 }
