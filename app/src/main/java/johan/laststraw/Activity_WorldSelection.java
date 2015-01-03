@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -13,13 +14,16 @@ import android.widget.TextView;
  */
 public class Activity_WorldSelection extends Activity implements View.OnClickListener {
 
-    ImageButton bFields, bDungeon;
+    ImageButton bFields, bDungeon, bMountains;
     Intent worldSelected;
     DBHandler db;
     Cursor cursor;
-    TextView world001High, world002High;
+    TextView world001High, world002High, world003High;
     int w001lv001score, w001lv002score, w001lv003score, w001lv004score, w001lv005score, w001lv006score, w001lv007score, w001lv008score;
-    int world001Cleared;
+    int world001Cleared, world002Cleared;
+    int totalScore;
+    ImageView w1star1, w1star2, w1star3, w2star1, w2star2, w2star3, w3star1, w3star2, w3star3,
+            w4star1, w4star2, w4star3, w5star1, w5star2, w5star3, w6star1, w6star2, w6star3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,20 +32,45 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
 
         bFields = (ImageButton) findViewById(R.id.imgBtnWorld001);
         bDungeon = (ImageButton) findViewById(R.id.imgBtnWorld002);
+        bMountains = (ImageButton) findViewById(R.id.imgBtnWorld003);
         bFields.setOnClickListener(this);
         bDungeon.setOnClickListener(this);
+        bMountains.setOnClickListener(this);
 
         bDungeon.setClickable(false);
+        bMountains.setClickable(false);
+
+        w1star1 = (ImageView) findViewById(R.id.ivW1Star1);
+        w1star2 = (ImageView) findViewById(R.id.ivW1Star2);
+        w1star3 = (ImageView) findViewById(R.id.ivW1Star3);
+        w2star1 = (ImageView) findViewById(R.id.ivW2Star1);
+        w2star2 = (ImageView) findViewById(R.id.ivW2Star2);
+        w2star3 = (ImageView) findViewById(R.id.ivW2Star3);
+        w3star1 = (ImageView) findViewById(R.id.ivW3Star1);
+        w3star2 = (ImageView) findViewById(R.id.ivW3Star2);
+        w3star3 = (ImageView) findViewById(R.id.ivW3Star3);
+        w4star1 = (ImageView) findViewById(R.id.ivW4Star1);
+        w4star2 = (ImageView) findViewById(R.id.ivW4Star2);
+        w4star3 = (ImageView) findViewById(R.id.ivW4Star3);
+        w5star1 = (ImageView) findViewById(R.id.ivW5Star1);
+        w5star2 = (ImageView) findViewById(R.id.ivW5Star2);
+        w5star3 = (ImageView) findViewById(R.id.ivW5Star3);
+        w6star1 = (ImageView) findViewById(R.id.ivW6Star1);
+        w6star2 = (ImageView) findViewById(R.id.ivW6Star2);
+        w6star3 = (ImageView) findViewById(R.id.ivW6Star3);
 
         world001High = (TextView) findViewById(R.id.world001High);
         world002High = (TextView) findViewById(R.id.world002High);
+        world003High = (TextView) findViewById(R.id.world003High);
 
         db = new DBHandler(this);
 
         getWorldHighScores(1);
         getWorldHighScores(2);
-        checkWorld1();
-        unlockWorlds();
+        //Check World 1 if is cleared
+        getLevelInfo(8);
+        //Check World 2 if is cleared
+        getLevelInfo(16);
     }
 
     @Override
@@ -67,7 +96,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
     private void getWorldHighScores(int worldId){
         int highScores[] = new int[8];
         int i = 0;
-        int totalScore = 0;
+        totalScore = 0;
 
         try {
             db.open();
@@ -97,9 +126,15 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
 
         if (worldId == 1){
             world001High.setText(String.valueOf(totalScore));
+            setW1Stars();
         }
         if (worldId == 2){
             world002High.setText(String.valueOf(totalScore));
+            setW2Stars();
+        }
+        if (worldId == 3){
+            world003High.setText(String.valueOf(totalScore));
+            setW3Stars();
         }
     }
 
@@ -109,11 +144,9 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         overridePendingTransition(0, 0);
     }
 
-    private void checkWorld1(){
-        getLevelInfo(8);
-    }
-
-    private int getLevelInfo(int id){
+    private void getLevelInfo(int id){
+        int worldCleared = 0;
+        int worldId = 0;
         try {
             db.open();
         } catch (java.sql.SQLException e) {
@@ -121,17 +154,68 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         }
         cursor = db.getLvlInfo(id);
         if (cursor != null && cursor.moveToFirst()) {
-            world001Cleared = cursor.getInt(cursor.getColumnIndex("lvlcleared"));
+            worldCleared = cursor.getInt(cursor.getColumnIndex("lvlcleared"));
+            worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
+        unlockWorlds(worldId, worldCleared);
         db.close();
-        return world001Cleared;
     }
 
-    private void unlockWorlds(){
-        if (world001Cleared == 1){
+    private void unlockWorlds(int worldId, int worldCleared){
+        if (worldId == 1 && worldCleared == 1){
             bDungeon.setImageResource(R.drawable.world_dungeon);
             bDungeon.setBackgroundResource(R.drawable.lvlselection_button);
             bDungeon.setClickable(true);
+        }
+        if (worldId == 2 && worldCleared == 1){
+            bMountains.setImageResource(R.drawable.world_mountains);
+            bMountains.setBackgroundResource(R.drawable.lvlselection_button);
+            bMountains.setClickable(true);
+        }
+    }
+
+    private void setW1Stars(){
+        if (totalScore >= 120 && totalScore < 160){
+            w1star1.setImageResource(R.drawable.star_full);
+        }
+        if (totalScore >= 160 && totalScore < 200){
+            w1star1.setImageResource(R.drawable.star_full);
+            w1star2.setImageResource(R.drawable.star_full);
+        }
+        if (totalScore >= 200){
+            w1star1.setImageResource(R.drawable.star_full);
+            w1star2.setImageResource(R.drawable.star_full);
+            w1star3.setImageResource(R.drawable.star_full);
+        }
+    }
+
+    private void setW2Stars(){
+        if (totalScore >= 120 && totalScore < 160){
+            w2star1.setImageResource(R.drawable.star_full);
+        }
+        if (totalScore >= 160 && totalScore < 200){
+            w2star1.setImageResource(R.drawable.star_full);
+            w2star2.setImageResource(R.drawable.star_full);
+        }
+        if (totalScore >= 200){
+            w2star1.setImageResource(R.drawable.star_full);
+            w2star2.setImageResource(R.drawable.star_full);
+            w2star3.setImageResource(R.drawable.star_full);
+        }
+    }
+
+    private void setW3Stars(){
+        if (totalScore >= 120 && totalScore < 160){
+            w3star1.setImageResource(R.drawable.star_full);
+        }
+        if (totalScore >= 160 && totalScore < 200){
+            w3star1.setImageResource(R.drawable.star_full);
+            w3star2.setImageResource(R.drawable.star_full);
+        }
+        if (totalScore >= 200){
+            w3star1.setImageResource(R.drawable.star_full);
+            w3star2.setImageResource(R.drawable.star_full);
+            w3star3.setImageResource(R.drawable.star_full);
         }
     }
 }
