@@ -54,8 +54,8 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
     String playerName = "";
     String enemyName = "Climber Sarah";
     String boardIsFullError = "Board is full. No effect";
-    String infestMsg = "Spiders infests the skeleton";
-    String infestError = "Skeleton is already infested";
+    String infestMsg = "Spiders infests the snowman";
+    String infestError = "Snowman is already infested";
     String ailmentFailed = "Protect wards off ailment.";
     String enemySlowed = "Enemy suffers Slow";
     String enemyHaste = "Enemy gains Haste";
@@ -92,8 +92,8 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
-    String enemyCard1Name = "Reinforce III", enemyCard2Name = "Reinforce III", enemyCard3Name = "Agony", enemyCard4Name = "Mimic",
-            enemyCard5Name = "Curse", enemyCard6Name = "Corruption";
+    String enemyCard1Name = "Concentrate", enemyCard2Name = "Speed Up", enemyCard3Name = "Steal II", enemyCard4Name = "Steal II",
+            enemyCard5Name = "", enemyCard6Name = "";
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
     String[] playerStatuses = new String[5];
@@ -119,14 +119,14 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
             playerCard5Type = 0, playerCard6Type = 0;
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
-    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 2, enemyCard4Cost = 2,
-            enemyCard5Cost = 2, enemyCard6Cost = 1;
+    int enemyCard1Cost = 2, enemyCard2Cost = 1, enemyCard3Cost = 2, enemyCard4Cost = 2,
+            enemyCard5Cost = 0, enemyCard6Cost = 0;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
     int selectedCard = 0;
     int enemyPickedCard;
-    int enemyStartingCards = 6;
-    int enemyCardsRemaining = 6;
+    int enemyStartingCards = 4;
+    int enemyCardsRemaining = 4;
     int lvlcleared;
     int lvlhighscore;
     int lvlId;
@@ -350,7 +350,8 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
         objectBrokenImg = getResources().getIdentifier(objectBrokenImgName, "drawable", getPackageName());
         objectWebbedImg = getResources().getIdentifier(objectWebbedImgName, "drawable", getPackageName());
 
-        aiPattern = genRand(5);
+        //aiPattern = genRand(5);
+        aiPattern = 0;
 
         SoundEffects.setupSounds(this);
         clearSoundId = 2;
@@ -3028,34 +3029,34 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
     /* THIS METHOD SETS ENEMY CARDS */
     private void setEnemyCardsIcons(){
         enemyCard1.setVisibility(View.VISIBLE);
-        enemyCard1.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard1.setBackgroundResource(R.drawable.card_icon_boosting);
         if (!sizeName.equals("xlarge")){
-            enemyCard1.setImageResource(R.drawable.card_type_field);
+            enemyCard1.setImageResource(R.drawable.card_type_boosting);
         } else {
-            enemyCard1.setImageResource(R.drawable.card_type_field_tablet);
+            enemyCard1.setImageResource(R.drawable.card_type_boosting_tablet);
         }
         enemyCard2.setVisibility(View.VISIBLE);
-        enemyCard2.setBackgroundResource(R.drawable.card_icon_field);
+        enemyCard2.setBackgroundResource(R.drawable.card_icon_boosting);
         if (!sizeName.equals("xlarge")){
-            enemyCard2.setImageResource(R.drawable.card_type_field);
+            enemyCard2.setImageResource(R.drawable.card_type_boosting);
         } else {
-            enemyCard2.setImageResource(R.drawable.card_type_field_tablet);
+            enemyCard2.setImageResource(R.drawable.card_type_boosting_tablet);
         }
         enemyCard3.setVisibility(View.VISIBLE);
-        enemyCard3.setBackgroundResource(R.drawable.card_icon_ailment);
+        enemyCard3.setBackgroundResource(R.drawable.card_icon_field);
         if (!sizeName.equals("xlarge")){
-            enemyCard3.setImageResource(R.drawable.card_type_ailment);
+            enemyCard3.setImageResource(R.drawable.card_type_field);
         } else {
-            enemyCard3.setImageResource(R.drawable.card_type_ailment_tablet);
+            enemyCard3.setImageResource(R.drawable.card_type_field_tablet);
         }
         enemyCard4.setVisibility(View.VISIBLE);
-        enemyCard4.setBackgroundResource(R.drawable.card_icon_boosting);
+        enemyCard4.setBackgroundResource(R.drawable.card_icon_field);
         if (!sizeName.equals("xlarge")){
-            enemyCard4.setImageResource(R.drawable.card_type_boosting);
+            enemyCard4.setImageResource(R.drawable.card_type_field);
         } else {
-            enemyCard4.setImageResource(R.drawable.card_type_boosting_tablet);
+            enemyCard4.setImageResource(R.drawable.card_type_field_tablet);
         }
-        enemyCard5.setVisibility(View.VISIBLE);
+        /*enemyCard5.setVisibility(View.VISIBLE);
         enemyCard5.setBackgroundResource(R.drawable.card_icon_ailment);
         if (!sizeName.equals("xlarge")){
             enemyCard5.setImageResource(R.drawable.card_type_ailment);
@@ -3068,7 +3069,7 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
             enemyCard6.setImageResource(R.drawable.card_type_ailment);
         } else {
             enemyCard6.setImageResource(R.drawable.card_type_ailment_tablet);
-        }
+        }*/
     }
 
     /* THIS METHOD DETERMINES SCREEN SIZE */
@@ -3188,7 +3189,7 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_obj_plus_3);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_concentrate);
                 }
             }, 1000);
         }
@@ -3207,7 +3208,7 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_obj_plus_3);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_speed_up);
                 }
             }, 1000);
         }
@@ -3226,7 +3227,7 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_agony);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_5);
                 }
             }, 1000);
         }
@@ -3245,7 +3246,7 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_mimic);
+                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_5);
                 }
             }, 1000);
         }
@@ -3575,23 +3576,31 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
     /* THIS METHOD FINDS WHICH ENEMY CARD IS PLAYED TO DETERMINE EFFECT */
     private void executeEnemyCardEffect(){
         if (enemyPickedCard == 0){
-            cardReinforce3();
+            cardConcentrate();
         }
         if (enemyPickedCard == 1){
-            cardReinforce3();
+            cardSpeedUp();
         }
         if (enemyPickedCard == 2){
-            cardAgony();
+            if (enemyHasConcentrate){
+                cardSteal(6,10);
+            } else {
+                cardSteal(3,5);
+            }
         }
         if (enemyPickedCard == 3){
-            cardMimic();
+            if (enemyHasConcentrate){
+                cardSteal(6,10);
+            } else {
+                cardSteal(3,5);
+            }
         }
-        if (enemyPickedCard == 4){
+        /*if (enemyPickedCard == 4){
             cardCurse();
         }
         if (enemyPickedCard == 5){
             cardCorruption();
-        }
+        }*/
 
     }
 
