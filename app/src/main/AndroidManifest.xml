@@ -146,6 +146,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Activity_Mountains_LevelSelection"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Activity_CardSelection"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
@@ -317,6 +327,16 @@
         </activity>
         <activity
             android:name=".Activity_W002_L008"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity_W003_L001"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
             <intent-filter>

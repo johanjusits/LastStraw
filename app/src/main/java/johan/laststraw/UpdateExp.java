@@ -20,6 +20,13 @@ public class UpdateExp {
                 return false;
             }
         }
+        if (worldId == 2){
+            if (playerLevel >= 8){
+                return true;
+            } else {
+                return false;
+            }
+        }
         return false;
     }
 
@@ -41,6 +48,16 @@ public class UpdateExp {
                 return xpPenalty;
             }
             if (playerLevel > 7){
+                xpPenalty = 2;
+                return xpPenalty;
+            }
+        }
+        if (worldId == 3){
+            if (playerLevel > 7 && playerLevel < 10){
+                xpPenalty = 1;
+                return xpPenalty;
+            }
+            if (playerLevel > 9){
                 xpPenalty = 2;
                 return xpPenalty;
             }
