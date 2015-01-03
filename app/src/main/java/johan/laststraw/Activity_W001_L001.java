@@ -2435,7 +2435,7 @@ public class Activity_W001_L001 extends Activity implements View.OnClickListener
                 tvPlayer.setText(playerName);
                 tvEnemy.setText(enemyName);
                 if (finalPlayerScore > finalEnemyScore) {
-                    tvWhoWon.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvWhoWon.setTextColor(getResources().getColor(R.color.textWhite));
                     tvWhoWon.setText("You Win!");
                     playerWon = true;
                     checkLevelInfo();
