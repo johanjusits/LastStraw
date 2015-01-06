@@ -52,7 +52,7 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
     /* STRINGS */
     String playerGender = "";
     String playerName = "";
-    String enemyName = "Climber Sarah";
+    String enemyName = "Lost Climber";
     String boardIsFullError = "Board is full. No effect";
     String infestMsg = "Spiders infests the snowman";
     String infestError = "Snowman is already infested";
@@ -119,7 +119,7 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
             playerCard5Type = 0, playerCard6Type = 0;
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
-    int enemyCard1Cost = 2, enemyCard2Cost = 1, enemyCard3Cost = 2, enemyCard4Cost = 2,
+    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 2, enemyCard4Cost = 2,
             enemyCard5Cost = 0, enemyCard6Cost = 0;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
@@ -350,8 +350,7 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
         objectBrokenImg = getResources().getIdentifier(objectBrokenImgName, "drawable", getPackageName());
         objectWebbedImg = getResources().getIdentifier(objectWebbedImgName, "drawable", getPackageName());
 
-        //aiPattern = genRand(5);
-        aiPattern = 0;
+        aiPattern = genRand(5);
 
         SoundEffects.setupSounds(this);
         clearSoundId = 2;
@@ -8946,10 +8945,32 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
         if (aiPattern == 0){
             return genRand(100);
         }
-        //Curse on first then random
+        //Concentrate on first and Speed Up on first, then steal on second, then random
         if (aiPattern == 1){
             //Turn 1
             if (enemyTurnCounter == 1 && enemyMoveCounter == 1) {
+                return 99;
+            }
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 2) {
+                return 99;
+            }
+            //Turn 2
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1) {
+                return 99;
+            }
+            //Turn 2+
+            if (enemyTurnCounter > 2 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining > 1){
+                return genRand(100);
+            }
+            return 0;
+        }
+        //Concentrate on first then random
+        if (aiPattern == 2){
+            //Turn 1
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
                 return 99;
             }
             //Turn 1+
@@ -8961,26 +8982,7 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
             }
             return 0;
         }
-        //Curse on first then double reinforce III + corruption on turn 2, then random
-        if (aiPattern == 2){
-            //Turn 1
-            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
-                return 99;
-            }
-            //Turn 2
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 1 || enemyTurnCounter == 2 && enemyMoveCounter == 2 || enemyTurnCounter == 2 && enemyMoveCounter == 3){
-                return 99;
-            }
-            //Turn 2+
-            if (enemyTurnCounter > 2 && objectsRemaining == 1){
-                return 99;
-            }
-            if (enemyTurnCounter > 2 && objectsRemaining > 1){
-                return genRand(100);
-            }
-            return 0;
-        }
-        //Corruption on first, Curse on second, then random
+        //Speed Up on first then Steal x2 on second
         if (aiPattern == 3){
             //Turn 1
             if (enemyTurnCounter == 1 && enemyMoveCounter == 1) {
@@ -8990,6 +8992,9 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
             if (enemyTurnCounter == 2 && enemyMoveCounter == 1) {
                 return 99;
             }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 2) {
+                return 99;
+            }
             //Turn 2+
             if (enemyTurnCounter > 2 && objectsRemaining == 1){
                 return 99;
@@ -8999,17 +9004,13 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
             }
             return 0;
         }
-        //Agony on first, Curse on second, then random
+        //Steal on second, then random
         if (aiPattern == 4){
             //Turn 1
-            if (enemyTurnCounter == 1 && enemyMoveCounter == 1) {
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
                 return 99;
             }
-            //Turn 2
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 1) {
-                return 99;
-            }
-            //Turn 2+
+            //Turn 1+
             if (enemyTurnCounter > 2 && objectsRemaining == 1){
                 return 99;
             }
@@ -9024,46 +9025,43 @@ public class Activity_W003_L001 extends Activity implements View.OnClickListener
     private int aiPatternPickCard(){
         if (aiPattern == 1){
             if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
-                return 4;
-            }
-            if (enemyTurnCounter > 1 && objectsRemaining >= 1){
-                return randomizeEnemyCardSelect();
-            }
-        }
-        if (aiPattern == 2){
-            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
-                return 4;
-            }
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
                 return 0;
             }
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 2){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 2){
                 return 1;
             }
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 3){
-                return 5;
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 2;
             }
             if (enemyTurnCounter > 2 && objectsRemaining >= 1){
                 return randomizeEnemyCardSelect();
             }
         }
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 0;
+            }
+            if (enemyTurnCounter > 1 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect();
+            }
+        }
         if (aiPattern == 3){
             if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
-                return 5;
+                return 0;
             }
             if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
-                return 4;
+                return 2;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 2){
+                return 3;
             }
             if (enemyTurnCounter > 2 && objectsRemaining >= 1){
                 return randomizeEnemyCardSelect();
             }
         }
         if (aiPattern == 4){
-            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
-                return 2;
-            }
             if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
-                return 4;
+                return 3;
             }
             if (enemyTurnCounter > 2 && objectsRemaining >= 1){
                 return randomizeEnemyCardSelect();
