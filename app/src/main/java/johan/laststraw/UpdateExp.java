@@ -20,8 +20,29 @@ public class UpdateExp {
                 return false;
             }
         }
-        if (worldId == 2){
+        if (worldId == 3){
             if (playerLevel >= 8){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (worldId == 4){
+            if (playerLevel >= 10){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (worldId == 5){
+            if (playerLevel >= 12){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (worldId == 6){
+            if (playerLevel >= 16){
                 return true;
             } else {
                 return false;
@@ -37,8 +58,16 @@ public class UpdateExp {
                 xpPenalty = 1;
                 return xpPenalty;
             }
-            if (playerLevel >= 5){
+            if (playerLevel > 4){
                 xpPenalty = 2;
+                return xpPenalty;
+            }
+            if (playerLevel > 6){
+                xpPenalty = 3;
+                return xpPenalty;
+            }
+            if (playerLevel > 8){
+                xpPenalty = 4;
                 return xpPenalty;
             }
         }
@@ -51,6 +80,14 @@ public class UpdateExp {
                 xpPenalty = 2;
                 return xpPenalty;
             }
+            if (playerLevel > 9){
+                xpPenalty = 3;
+                return xpPenalty;
+            }
+            if (playerLevel > 11){
+                xpPenalty = 4;
+                return xpPenalty;
+            }
         }
         if (worldId == 3){
             if (playerLevel > 7 && playerLevel < 10){
@@ -58,6 +95,60 @@ public class UpdateExp {
                 return xpPenalty;
             }
             if (playerLevel > 9){
+                xpPenalty = 2;
+                return xpPenalty;
+            }
+            if (playerLevel > 11){
+                xpPenalty = 3;
+                return xpPenalty;
+            }
+            if (playerLevel > 13){
+                xpPenalty = 4;
+                return xpPenalty;
+            }
+        }
+        if (worldId == 4){
+            if (playerLevel > 9 && playerLevel < 12){
+                xpPenalty = 1;
+                return xpPenalty;
+            }
+            if (playerLevel > 11){
+                xpPenalty = 2;
+                return xpPenalty;
+            }
+            if (playerLevel > 13){
+                xpPenalty = 3;
+                return xpPenalty;
+            }
+            if (playerLevel > 15){
+                xpPenalty = 4;
+                return xpPenalty;
+            }
+        }
+        if (worldId == 5){
+            if (playerLevel > 11 && playerLevel < 14){
+                xpPenalty = 1;
+                return xpPenalty;
+            }
+            if (playerLevel > 13){
+                xpPenalty = 2;
+                return xpPenalty;
+            }
+            if (playerLevel > 15){
+                xpPenalty = 3;
+                return xpPenalty;
+            }
+            if (playerLevel > 17){
+                xpPenalty = 4;
+                return xpPenalty;
+            }
+        }
+        if (worldId == 6){
+            if (playerLevel > 15 && playerLevel < 18){
+                xpPenalty = 1;
+                return xpPenalty;
+            }
+            if (playerLevel > 17){
                 xpPenalty = 2;
                 return xpPenalty;
             }
