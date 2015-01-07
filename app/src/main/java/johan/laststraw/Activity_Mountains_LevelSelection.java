@@ -99,8 +99,9 @@ public class Activity_Mountains_LevelSelection extends Activity implements View.
             case R.id.bWorld001Lvl001:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W003_L001");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Mountains - Level 1");
+                editor.putInt("LoadedLevelId", 17);
                 editor.apply();
                 pickCards = new Intent(Activity_Mountains_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

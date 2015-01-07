@@ -99,8 +99,9 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
             case R.id.bWorld001Lvl001:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W002_L001");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Dungeon - Level 1");
+                editor.putInt("LoadedLevelId", 9);
                 editor.apply();
                 pickCards = new Intent(Activity_Dungeon_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -111,8 +112,9 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
             case R.id.bWorld001Lvl002:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W002_L002");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Dungeon - Level 2");
+                editor.putInt("LoadedLevelId", 10);
                 editor.apply();
                 pickCards = new Intent(Activity_Dungeon_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -123,8 +125,9 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
             case R.id.bWorld001Lvl003:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W002_L003");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Dungeon - Level 3");
+                editor.putInt("LoadedLevelId", 11);
                 editor.apply();
                 pickCards = new Intent(Activity_Dungeon_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -135,8 +138,9 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
             case R.id.bWorld001Lvl004:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W002_L004");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Dungeon - Level 4");
+                editor.putInt("LoadedLevelId", 12);
                 editor.apply();
                 pickCards = new Intent(Activity_Dungeon_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -147,8 +151,9 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
             case R.id.bWorld001Lvl005:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W002_L005");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Dungeon - Level 5");
+                editor.putInt("LoadedLevelId", 13);
                 editor.apply();
                 pickCards = new Intent(Activity_Dungeon_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -159,8 +164,9 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
             case R.id.bWorld001Lvl006:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W002_L006");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Dungeon - Level 6");
+                editor.putInt("LoadedLevelId", 14);
                 editor.apply();
                 pickCards = new Intent(Activity_Dungeon_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -171,8 +177,9 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
             case R.id.bWorld001Lvl007:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W002_L007");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Dungeon - Level 7");
+                editor.putInt("LoadedLevelId", 15);
                 editor.apply();
                 pickCards = new Intent(Activity_Dungeon_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -183,8 +190,9 @@ public class Activity_Dungeon_LevelSelection extends Activity implements View.On
             case R.id.bWorld001Lvl008:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W002_L008");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Dungeon - Level 8");
+                editor.putInt("LoadedLevelId", 16);
                 editor.apply();
                 pickCards = new Intent(Activity_Dungeon_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
