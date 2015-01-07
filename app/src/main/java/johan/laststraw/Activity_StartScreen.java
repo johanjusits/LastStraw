@@ -339,7 +339,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("player2ndSlotAwarded", true);
             editor.apply();
-            confirmSuccess("New have unlocked a new card slot!", Activity_StartScreen.this);
+            confirmSuccess("You have unlocked a new card slot!", Activity_StartScreen.this);
             db.close();
         }
     }
@@ -359,7 +359,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("player3rdSlotAwarded", true);
             editor.apply();
-            confirmSuccess("New have unlocked a new card slot!", Activity_StartScreen.this);
+            confirmSuccess("You have unlocked a new card slot!", Activity_StartScreen.this);
             db.close();
         }
     }

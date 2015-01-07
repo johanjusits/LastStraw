@@ -12,7 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -26,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -33,9 +33,9 @@ import java.util.Random;
 import static android.graphics.Color.TRANSPARENT;
 
 /**
- * Created by Johan on 2014-12-23.
+ * Created by Johan on 2015-01-07.
  */
-public class Activity_W001_L008 extends Activity implements View.OnClickListener, Animation.AnimationListener {
+public class Activity_PlayGame extends Activity implements View.OnClickListener, Animation.AnimationListener {
 
     ImageButton obj001, obj002, obj003, obj004, obj005, obj006, obj007, obj008, obj009,
             obj010, obj011, obj012, obj013, obj014, obj015, obj016;
@@ -53,10 +53,10 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
     /* STRINGS */
     String playerGender = "";
     String playerName = "";
-    String enemyName = "Farmlord Dwayne";
+    String enemyName;
     String boardIsFullError = "Board is full. No effect";
-    String infestMsg = "Spiders infests the wheat";
-    String infestError = "Wheat is already infested";
+    String infestMsg = "Spiders infests the snowman";
+    String infestError = "Snowman is already infested";
     String ailmentFailed = "Protect wards off ailment.";
     String enemySlowed = "Enemy suffers Slow";
     String enemyHaste = "Enemy gains Haste";
@@ -93,19 +93,34 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
             playerCard5Name = "", playerCard6Name = "";
     /* Modify enemy card names to make Mimic card work properly */
-    String enemyCard1Name = "Speed Up", enemyCard2Name = "Concentrate", enemyCard3Name = "Steal", enemyCard4Name = "",
-            enemyCard5Name = "Reinforce II", enemyCard6Name = "";
+    String enemyCard1Name;
+    String enemyCard2Name;
+    String enemyCard3Name;
+    String enemyCard4Name;
+    String enemyCard5Name;
+    String enemyCard6Name;
     String playerCard1Img = "", playerCard2Img = "", playerCard3Img = "", playerCard4Img = "",
             playerCard5Img = "", playerCard6Img = "";
+    String enemyCard1ImgName = "", enemyCard2ImgName = "", enemyCard3ImgName = "", enemyCard4ImgName = "",
+            enemyCard5ImgName = "", enemyCard6ImgName = "";
     String[] playerStatuses = new String[5];
     String[] enemyStatuses = new String[5];
     String lastEnemyPlayedCard = "";
     String lastPlayerPlayedCard = "";
     String sizeName;
     String densityName;
+    String layoutName;
+    String enemyPortraitName;
+    String textColorName;
     /* INTS */
+    int textColor;
+    int enemyPortraitImg;
+    int loadedLevelId;
+    int layoutId;
+    int objectImg;
+    int objectBrokenImg;
+    int objectWebbedImg;
     int clearSoundId;
-    int aiChance;
     int infestedObjRemainingHits = -1;
     int newExp;
     int expToNextLevel;
@@ -118,14 +133,24 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             playerCard5Type = 0, playerCard6Type = 0;
     int playerCard1Cost, playerCard2Cost, playerCard3Cost, playerCard4Cost,
             playerCard5Cost, playerCard6Cost;
-    int enemyCard1Cost = 1, enemyCard2Cost = 1, enemyCard3Cost = 1, enemyCard4Cost = 1,
-            enemyCard5Cost = 0, enemyCard6Cost = 1;
+    int enemyCard1Cost;
+    int enemyCard2Cost;
+    int enemyCard3Cost;
+    int enemyCard4Cost;
+    int enemyCard5Cost;
+    int enemyCard6Cost;
+    int enemyCard1Img;
+    int enemyCard2Img;
+    int enemyCard3Img;
+    int enemyCard4Img;
+    int enemyCard5Img;
+    int enemyCard6Img;
     int playerMoves = 3, enemyMoves = 0;
     int objectsRemaining = 16;
     int selectedCard = 0;
     int enemyPickedCard;
-    int enemyStartingCards = 3;
-    int enemyCardsRemaining = 3;
+    int enemyStartingCards;
+    int enemyCardsRemaining;
     int lvlcleared;
     int lvlhighscore;
     int lvlId;
@@ -149,6 +174,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
     int coinCycle;
     int enemyTurnCounter = 0;
     int enemyMoveCounter = 0;
+    int aiPattern = 0;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
     boolean enemyIsSlowed = false;
@@ -186,20 +212,32 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
     boolean resetWorked = false;
     boolean playerStrawSelected = false;
     boolean strawWon = false;
-    boolean aiNotRandomStart = false;
     private Handler myHandler = new Handler();
     DBHandler db;
     Cursor cursor;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_world001);
+        db = new DBHandler(this);
+
+        getLevelInfo();
+
+        layoutName = GameInfo.getWorldBackground(worldId);
+        layoutId = getResources().getIdentifier(layoutName, "layout", getPackageName());
+        setContentView(layoutId);
+
+        enemyStartingCards = EnemyCards.getEnemyTotalCards(lvlId);
+        enemyCardsRemaining = EnemyCards.getEnemyTotalCards(lvlId);
+
+        textColorName = GameInfo.getTextColor(worldId);
+        textColor = getResources().getIdentifier(textColorName, "color", getPackageName());
+
+        context = Activity_PlayGame.this;
         layout_objectRow = (ViewGroup) findViewById(R.id.objectRow);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        db = new DBHandler(this);
 
         /* SETS ANIMATIONS */
         ani_fadeIn = AnimationUtils.loadAnimation(getApplicationContext(),
@@ -266,7 +304,9 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         /* SETS CARDS  */
         ivPlayerPortrait = (ImageView) findViewById(R.id.ivPlayerPortrait);
         ivEnemyPortrait = (ImageView) findViewById(R.id.ivEnemyPortrait);
-        ivEnemyPortrait.setImageResource(R.drawable.portrait_boss);
+        enemyPortraitName = EnemyInfo.getPortraitImgName(worldId, lvlId);
+        enemyPortraitImg = getResources().getIdentifier(enemyPortraitName, "drawable", getPackageName());
+        ivEnemyPortrait.setImageResource(enemyPortraitImg);
         ivCenterCardFrame = (ImageView) findViewById(R.id.ivCenterCardFrame);
         playerCard1 = (ImageButton) findViewById(R.id.ibPlayerCard1);
         playerCard2 = (ImageButton) findViewById(R.id.ibPlayerCard2);
@@ -300,9 +340,9 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         tvEnemyScore = (TextView) findViewById(R.id.tvEnemyScore);
         tvEnemyName = (TextView) findViewById(R.id.tvEnemyName);
         tvCenterMessage.setText("");
-        tvEnemyName.setText(enemyName);
+        tvEnemyName.setText(EnemyInfo.getEnemyName(worldId, lvlId));
         tvEnemyLvl = (TextView) findViewById(R.id.tvEnemyLvl);
-        tvEnemyLvl.setText("Lv: 4");
+        tvEnemyLvl.setText("Lv: " + String.valueOf(EnemyInfo.getEnemyLevel(lvlId)));
         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
         tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
 
@@ -342,18 +382,52 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         enemyStatuses[3] = "";
         enemyStatuses[4] = "";
 
-        aiChance = genRand(100);
-        if (aiChance >= 50){
-            aiNotRandomStart = true;
-        }
+        enemyName = EnemyInfo.getEnemyName(worldId, lvlId);
+
+        enemyCard1Name = EnemyCards.getEnemyCardName(lvlId, 0);
+        enemyCard2Name = EnemyCards.getEnemyCardName(lvlId, 1);
+        enemyCard3Name = EnemyCards.getEnemyCardName(lvlId, 2);
+        enemyCard4Name = EnemyCards.getEnemyCardName(lvlId, 3);
+        enemyCard5Name = EnemyCards.getEnemyCardName(lvlId, 4);
+        enemyCard6Name = EnemyCards.getEnemyCardName(lvlId, 5);
+
+        enemyCard1Cost = EnemyCards.getEnemyCardCost(lvlId, 0);
+        enemyCard2Cost = EnemyCards.getEnemyCardCost(lvlId, 1);
+        enemyCard3Cost = EnemyCards.getEnemyCardCost(lvlId, 2);
+        enemyCard4Cost = EnemyCards.getEnemyCardCost(lvlId, 3);
+        enemyCard5Cost = EnemyCards.getEnemyCardCost(lvlId, 4);
+        enemyCard6Cost = EnemyCards.getEnemyCardCost(lvlId, 5);
+
+        enemyCard1ImgName = EnemyCards.getEnemyCardImgName(lvlId, 0);
+        enemyCard2ImgName = EnemyCards.getEnemyCardImgName(lvlId, 1);
+        enemyCard3ImgName = EnemyCards.getEnemyCardImgName(lvlId, 2);
+        enemyCard4ImgName = EnemyCards.getEnemyCardImgName(lvlId, 3);
+        enemyCard5ImgName = EnemyCards.getEnemyCardImgName(lvlId, 4);
+        enemyCard6ImgName = EnemyCards.getEnemyCardImgName(lvlId, 5);
+
+        enemyCard1Img = getResources().getIdentifier(enemyCard1ImgName, "drawable", getPackageName());
+        enemyCard2Img = getResources().getIdentifier(enemyCard2ImgName, "drawable", getPackageName());
+        enemyCard3Img = getResources().getIdentifier(enemyCard3ImgName, "drawable", getPackageName());
+        enemyCard4Img = getResources().getIdentifier(enemyCard4ImgName, "drawable", getPackageName());
+        enemyCard5Img = getResources().getIdentifier(enemyCard5ImgName, "drawable", getPackageName());
+        enemyCard6Img = getResources().getIdentifier(enemyCard6ImgName, "drawable", getPackageName());
+
+        String objectImgName = GameInfo.getObjectImgName(worldId);
+        String objectBrokenImgName = GameInfo.getObjectBrokenImgName(worldId);
+        String objectWebbedImgName = GameInfo.getObjectWebbedImgName(worldId);
+        objectImg = getResources().getIdentifier(objectImgName, "drawable", getPackageName());
+        objectBrokenImg = getResources().getIdentifier(objectBrokenImgName, "drawable", getPackageName());
+        objectWebbedImg = getResources().getIdentifier(objectWebbedImgName, "drawable", getPackageName());
+
+        aiPattern = genRand(AiPatterns.getAiPatternNr(lvlId));
 
         SoundEffects.setupSounds(this);
-        clearSoundId = 0;
+        clearSoundId = GameInfo.getClearSound(worldId);
 
         coinFlipStart();
     }
 
-    /* This Method contains a switch handling player clicks on wheat */
+    /* This Method contains a switch handling player clicks on object */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -361,42 +435,42 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 selectedCard = 1;
                 if (playerCard1Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_W001_L008.this);
+                    playCardConfirm(message, context);
                 }
                 break;
             case R.id.ibPlayerCard2:
                 selectedCard = 2;
                 if (playerCard2Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_W001_L008.this);
+                    playCardConfirm(message, context);
                 }
                 break;
             case R.id.ibPlayerCard3:
                 selectedCard = 3;
                 if (playerCard3Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_W001_L008.this);
+                    playCardConfirm(message, context);
                 }
                 break;
             case R.id.ibPlayerCard4:
                 selectedCard = 4;
                 if (playerCard4Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_W001_L008.this);
+                    playCardConfirm(message, context);
                 }
                 break;
             case R.id.ibPlayerCard5:
                 selectedCard = 5;
                 if (playerCard5Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_W001_L008.this);
+                    playCardConfirm(message, context);
                 }
                 break;
             case R.id.ibPlayerCard6:
                 selectedCard = 6;
                 if (playerCard6Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
-                    playCardConfirm(message, Activity_W001_L008.this);
+                    playCardConfirm(message, context);
                 }
                 break;
             case R.id.bEndTurn:
@@ -445,7 +519,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj001.setImageResource(R.drawable.object_wheatbroken);
+                    obj001.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -464,7 +538,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj001.setImageResource(R.drawable.object_wheatbroken);
+                    obj001.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -499,7 +573,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj002.setImageResource(R.drawable.object_wheatbroken);
+                    obj002.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -518,7 +592,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj002.setImageResource(R.drawable.object_wheatbroken);
+                    obj002.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -553,7 +627,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj003.setImageResource(R.drawable.object_wheatbroken);
+                    obj003.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -572,7 +646,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj003.setImageResource(R.drawable.object_wheatbroken);
+                    obj003.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -607,7 +681,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj004.setImageResource(R.drawable.object_wheatbroken);
+                    obj004.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -626,7 +700,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj004.setImageResource(R.drawable.object_wheatbroken);
+                    obj004.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -661,7 +735,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj005.setImageResource(R.drawable.object_wheatbroken);
+                    obj005.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -680,7 +754,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj005.setImageResource(R.drawable.object_wheatbroken);
+                    obj005.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -715,7 +789,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj006.setImageResource(R.drawable.object_wheatbroken);
+                    obj006.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -734,7 +808,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj006.setImageResource(R.drawable.object_wheatbroken);
+                    obj006.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -769,7 +843,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj007.setImageResource(R.drawable.object_wheatbroken);
+                    obj007.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -788,7 +862,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj007.setImageResource(R.drawable.object_wheatbroken);
+                    obj007.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -823,7 +897,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj008.setImageResource(R.drawable.object_wheatbroken);
+                    obj008.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -842,7 +916,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj008.setImageResource(R.drawable.object_wheatbroken);
+                    obj008.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -877,7 +951,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj009.setImageResource(R.drawable.object_wheatbroken);
+                    obj009.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -896,7 +970,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj009.setImageResource(R.drawable.object_wheatbroken);
+                    obj009.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -931,7 +1005,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj010.setImageResource(R.drawable.object_wheatbroken);
+                    obj010.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -950,7 +1024,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj010.setImageResource(R.drawable.object_wheatbroken);
+                    obj010.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -985,7 +1059,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj011.setImageResource(R.drawable.object_wheatbroken);
+                    obj011.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -1004,7 +1078,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj011.setImageResource(R.drawable.object_wheatbroken);
+                    obj011.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -1039,7 +1113,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj012.setImageResource(R.drawable.object_wheatbroken);
+                    obj012.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -1058,7 +1132,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj012.setImageResource(R.drawable.object_wheatbroken);
+                    obj012.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -1083,6 +1157,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                                 enable(layout_objectRow);
                                 enablePlayerCards();
                                 infestedObjRemainingHits--;
+
                             }
                         }, 1000);
                         break;
@@ -1093,7 +1168,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj013.setImageResource(R.drawable.object_wheatbroken);
+                    obj013.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -1112,7 +1187,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj013.setImageResource(R.drawable.object_wheatbroken);
+                    obj013.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -1147,7 +1222,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj014.setImageResource(R.drawable.object_wheatbroken);
+                    obj014.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -1166,7 +1241,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj014.setImageResource(R.drawable.object_wheatbroken);
+                    obj014.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -1201,7 +1276,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj015.setImageResource(R.drawable.object_wheatbroken);
+                    obj015.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -1220,7 +1295,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     playerScore = playerScore + playerClearAward;
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj015.setImageResource(R.drawable.object_wheatbroken);
+                    obj015.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -1253,7 +1328,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj016.setImageResource(R.drawable.object_wheatbroken);
+                    obj016.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     myHandler.postDelayed(new Runnable() {
@@ -1273,7 +1348,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj016.setImageResource(R.drawable.object_wheatbroken);
+                    obj016.setImageResource(objectBrokenImg);
                     disable(layout_objectRow);
                     disablePlayerCards();
                     btnEndTurn.setClickable(false);
@@ -1388,31 +1463,15 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         enemyMoveCounter++;
         /* Checks if enemy has any cards left and decides move pattern accordingly */
         if (enemyCardsRemaining > 0){
-            int cardOrClear;
-            if (aiNotRandomStart){
-                if (enemyTurnCounter == 1 && enemyMoveCounter < 2 || enemyTurnCounter == 2 && enemyMoveCounter < 2 ){
-                    cardOrClear = 99;
-                } else {
-                    cardOrClear = genRand(100);
-                }
-            } else {
-                cardOrClear = genRand(100);
-            }
+            int cardOrClear = aiPatternCardOrNot();
+            System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
             if (cardOrClear >= 80){
-                if (aiNotRandomStart){
-                    if (enemyTurnCounter == 1 && !enemyCard2Used){
-                        enemyPickedCard = 1;
-                    } else if (enemyTurnCounter == 2 && !enemyCard3Used) {
-                        enemyPickedCard = 2;
-                    }
-                    else {
-                        enemyPickedCard = randomizeEnemyCardSelect();
-                    }
-                } else {
+                if (aiPattern == 0){
                     enemyPickedCard = randomizeEnemyCardSelect();
+                } else {
+                    enemyPickedCard = aiPatternPickCard();
                 }
-
                 if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost + enemyCorruptedPenalty){
                     lastEnemyPlayedCard = enemyCard1Name;
                     enemyCard1.setColorFilter(Color.argb(255, 255, 255, 255));
@@ -1433,7 +1492,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     }
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            executeEnemyCardEffect();
+                            executeEnemyCardEffect(enemyCard1Name);
                         }
                     }, 6500);
 
@@ -1472,7 +1531,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     }
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            executeEnemyCardEffect();
+                            executeEnemyCardEffect(enemyCard2Name);
                         }
                     }, 6500);
 
@@ -1511,7 +1570,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     }
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            executeEnemyCardEffect();
+                            executeEnemyCardEffect(enemyCard3Name);
                         }
                     }, 6500);
 
@@ -1550,7 +1609,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     }
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            executeEnemyCardEffect();
+                            executeEnemyCardEffect(enemyCard4Name);
                         }
                     }, 6500);
 
@@ -1589,7 +1648,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     }
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            executeEnemyCardEffect();
+                            executeEnemyCardEffect(enemyCard5Name);
                         }
                     }, 6500);
 
@@ -1637,7 +1696,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                     }
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            executeEnemyCardEffect();
+                            executeEnemyCardEffect(enemyCard6Name);
                         }
                     }, 6500);
 
@@ -1725,7 +1784,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    tvEnemyScore.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvEnemyScore.setTextColor(getResources().getColor(textColor));
                     tvEnemyScore.setText(String.valueOf(enemyScore));
                     tvEnemyScore.startAnimation(ani_resetscore);
                     tvPlayerScore.clearAnimation();
@@ -1929,7 +1988,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    tvPlayerScore.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvPlayerScore.setTextColor(getResources().getColor(textColor));
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerScore.startAnimation(ani_resetscore);
                     tvEnemyScore.clearAnimation();
@@ -2015,7 +2074,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj001.setImageResource(R.drawable.object_wheatbroken);
+                obj001.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2024,7 +2083,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj001.setImageResource(R.drawable.object_wheatbroken);
+                obj001.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2039,7 +2098,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj002.setImageResource(R.drawable.object_wheatbroken);
+                obj002.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2048,7 +2107,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj002.setImageResource(R.drawable.object_wheatbroken);
+                obj002.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2063,7 +2122,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj003.setImageResource(R.drawable.object_wheatbroken);
+                obj003.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2072,7 +2131,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj003.setImageResource(R.drawable.object_wheatbroken);
+                obj003.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2087,7 +2146,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj004.setImageResource(R.drawable.object_wheatbroken);
+                obj004.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2096,7 +2155,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj004.setImageResource(R.drawable.object_wheatbroken);
+                obj004.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2111,7 +2170,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj005.setImageResource(R.drawable.object_wheatbroken);
+                obj005.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2120,7 +2179,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj005.setImageResource(R.drawable.object_wheatbroken);
+                obj005.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2135,7 +2194,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj006.setImageResource(R.drawable.object_wheatbroken);
+                obj006.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2144,7 +2203,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj006.setImageResource(R.drawable.object_wheatbroken);
+                obj006.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2159,7 +2218,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj007.setImageResource(R.drawable.object_wheatbroken);
+                obj007.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2168,7 +2227,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj007.setImageResource(R.drawable.object_wheatbroken);
+                obj007.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2183,7 +2242,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj008.setImageResource(R.drawable.object_wheatbroken);
+                obj008.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2192,7 +2251,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj008.setImageResource(R.drawable.object_wheatbroken);
+                obj008.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2207,7 +2266,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj009.setImageResource(R.drawable.object_wheatbroken);
+                obj009.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2216,7 +2275,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj009.setImageResource(R.drawable.object_wheatbroken);
+                obj009.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2231,7 +2290,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj010.setImageResource(R.drawable.object_wheatbroken);
+                obj010.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2240,7 +2299,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj010.setImageResource(R.drawable.object_wheatbroken);
+                obj010.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2255,7 +2314,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj011.setImageResource(R.drawable.object_wheatbroken);
+                obj011.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2264,7 +2323,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj011.setImageResource(R.drawable.object_wheatbroken);
+                obj011.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2279,7 +2338,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj012.setImageResource(R.drawable.object_wheatbroken);
+                obj012.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2288,7 +2347,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj012.setImageResource(R.drawable.object_wheatbroken);
+                obj012.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2303,7 +2362,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj013.setImageResource(R.drawable.object_wheatbroken);
+                obj013.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2312,7 +2371,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj013.setImageResource(R.drawable.object_wheatbroken);
+                obj013.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2327,7 +2386,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj014.setImageResource(R.drawable.object_wheatbroken);
+                obj014.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2336,7 +2395,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj014.setImageResource(R.drawable.object_wheatbroken);
+                obj014.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2351,7 +2410,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj015.setImageResource(R.drawable.object_wheatbroken);
+                obj015.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2360,7 +2419,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj015.setImageResource(R.drawable.object_wheatbroken);
+                obj015.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 enemyScore = enemyScore + enemyClearAward;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -2375,14 +2434,14 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             }
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                 SoundEffects.playSound(clearSoundId);
-                obj016.setImageResource(R.drawable.object_wheatbroken);
+                obj016.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
                 nextObjIsInfested = false;
                 return;
             }
             if (!nextObjIsInfested){
                 SoundEffects.playSound(clearSoundId);
-                obj016.setImageResource(R.drawable.object_wheatbroken);
+                obj016.setImageResource(objectBrokenImg);
                 objectsRemaining = objectsRemaining - 1;
             }
         }
@@ -2394,15 +2453,8 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
     public int randomizeEnemyCardSelect(){
         int randomizedCard;
 
-        //IF ENEMY ONLY HAS ONE CARD, USE THIS
         if (enemyStartingCards == 1){
             return 0;
-        }
-
-        //IF ENEMY HAS 6 CARDS AND ALL REMAINING
-        if (enemyCardsRemaining == 6){
-            randomizedCard = genRand(6);
-            return randomizedCard;
         }
 
         //IF ENEMY STARTS WITH TWO CARDS
@@ -2437,8 +2489,8 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             return randomizedCard;
         }
 
-        //IF ENEMY STARTED WITH 6 CARDS AND HAS LESS THAN 6 REMAINING
-        if (enemyCardsRemaining <= 5 & enemyStartingCards == 6){
+        //IF ENEMY STARTS WITH SIX CARDS
+        if (enemyStartingCards == 6){
             do{
                 randomizedCard = genRand(6);
             }while( pool.contains(randomizedCard) );
@@ -2480,7 +2532,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         final String density = DeviceDensity.getDensityName(this);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                final Dialog dialog = new Dialog(Activity_W001_L008.this);
+                final Dialog dialog = new Dialog(context);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.confirmdialog_finalscore);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
@@ -2554,21 +2606,21 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 e.printStackTrace();
             }
             if (finalPlayerScore > lvlhighscore){
-                cursor = db.getLvlInfo(8);
+                cursor = db.getLvlInfo(lvlId);
                 if (cursor != null && cursor.moveToFirst()) {
                     if (playerWon){
-                        db.updateLvlInfo(8, 1, finalPlayerScore);
+                        db.updateLvlInfo(lvlId, 1, finalPlayerScore);
                     } else {
-                        db.updateLvlInfo(8, lvlcleared, finalPlayerScore);
+                        db.updateLvlInfo(lvlId, lvlcleared, finalPlayerScore);
                     }
                 }
             } else {
-                cursor = db.getLvlInfo(8);
+                cursor = db.getLvlInfo(17);
                 if (cursor != null && cursor.moveToFirst()) {
                     if (playerWon){
-                        db.updateLvlInfo(8, 1, lvlhighscore);
+                        db.updateLvlInfo(lvlId, 1, lvlhighscore);
                     } else {
-                        db.updateLvlInfo(8, lvlcleared, lvlhighscore);
+                        db.updateLvlInfo(lvlId, lvlcleared, lvlhighscore);
                     }
                 }
             }
@@ -2580,14 +2632,14 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 e.printStackTrace();
             }
             if (finalPlayerScore > lvlhighscore){
-                cursor = db.getLvlInfo(8);
+                cursor = db.getLvlInfo(lvlId);
                 if (cursor != null && cursor.moveToFirst()) {
-                    db.updateLvlInfo(8, lvlcleared, finalPlayerScore);
+                    db.updateLvlInfo(lvlId, lvlcleared, finalPlayerScore);
                 }
             } else {
-                cursor = db.getLvlInfo(8);
+                cursor = db.getLvlInfo(lvlId);
                 if (cursor != null && cursor.moveToFirst()) {
-                    db.updateLvlInfo(8, lvlcleared, lvlhighscore);
+                    db.updateLvlInfo(lvlId, lvlcleared, lvlhighscore);
                 }
             }
         }
@@ -2612,7 +2664,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 } else {
                     gainedXp = finalPlayerScore * 2;
                 }
-                final Dialog dialog = new Dialog(Activity_W001_L008.this);
+                final Dialog dialog = new Dialog(context);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.confirmdialog_exp_gain);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
@@ -3060,36 +3112,73 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
 
     /* THIS METHOD SETS ENEMY CARDS */
     private void setEnemyCardsIcons(){
-        enemyCard1.setVisibility(View.VISIBLE);
-        enemyCard1.setBackgroundResource(R.drawable.card_icon_boosting);
-        if (!sizeName.equals("xlarge")){
-            enemyCard1.setImageResource(R.drawable.card_type_boosting);
-        } else {
-            enemyCard1.setImageResource(R.drawable.card_type_boosting_tablet);
+        boolean enemyCard1Present = EnemyCards.getCardPresent(lvlId, 0);
+        boolean enemyCard2Present = EnemyCards.getCardPresent(lvlId, 1);
+        boolean enemyCard3Present = EnemyCards.getCardPresent(lvlId, 2);
+        boolean enemyCard4Present = EnemyCards.getCardPresent(lvlId, 3);
+        boolean enemyCard5Present = EnemyCards.getCardPresent(lvlId, 4);
+        boolean enemyCard6Present = EnemyCards.getCardPresent(lvlId, 5);
+        if (enemyCard1Present){
+            enemyCard1.setVisibility(View.VISIBLE);
+            String iconBackgroundName = EnemyCards.getEnemyCardIconName(lvlId, 0);
+            int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
+            enemyCard1.setBackgroundResource(iconBackground);
+
+            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 0, sizeName);
+            int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
+            enemyCard1.setImageResource(typeBackground);
         }
-        enemyCard2.setVisibility(View.VISIBLE);
-        enemyCard2.setBackgroundResource(R.drawable.card_icon_boosting);
-        if (!sizeName.equals("xlarge")){
-            enemyCard2.setImageResource(R.drawable.card_type_boosting);
-        } else {
-            enemyCard2.setImageResource(R.drawable.card_type_boosting_tablet);
+        if (enemyCard2Present){
+            enemyCard2.setVisibility(View.VISIBLE);
+            String iconBackgroundName = EnemyCards.getEnemyCardIconName(lvlId, 1);
+            int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
+            enemyCard2.setBackgroundResource(iconBackground);
+
+            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 1, sizeName);
+            int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
+            enemyCard2.setImageResource(typeBackground);
         }
-        enemyCard3.setVisibility(View.VISIBLE);
-        enemyCard3.setBackgroundResource(R.drawable.card_icon_field);
-        if (!sizeName.equals("xlarge")){
-            enemyCard3.setImageResource(R.drawable.card_type_field);
-        } else {
-            enemyCard3.setImageResource(R.drawable.card_type_field_tablet);
+        if (enemyCard3Present){
+            enemyCard3.setVisibility(View.VISIBLE);
+            String iconBackgroundName = EnemyCards.getEnemyCardIconName(lvlId, 2);
+            int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
+            enemyCard3.setBackgroundResource(iconBackground);
+
+            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 2, sizeName);
+            int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
+            enemyCard3.setImageResource(typeBackground);
         }
-        /*enemyCard4.setVisibility(View.VISIBLE);
-        enemyCard4.setBackgroundResource(R.drawable.card_icon_field);
-        enemyCard4.setImageResource(R.drawable.card_type_field);
-        enemyCard5.setVisibility(View.VISIBLE);
-        enemyCard5.setBackgroundResource(R.drawable.card_icon_field);
-        enemyCard5.setImageResource(R.drawable.card_type_field);
-        enemyCard6.setVisibility(View.VISIBLE);
-        enemyCard6.setBackgroundResource(R.drawable.card_icon_ailment);
-        enemyCard6.setImageResource(R.drawable.card_type_ailment);*/
+        if (enemyCard4Present){
+            enemyCard4.setVisibility(View.VISIBLE);
+            String iconBackgroundName = EnemyCards.getEnemyCardIconName(lvlId, 3);
+            int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
+            enemyCard4.setBackgroundResource(iconBackground);
+
+            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 3, sizeName);
+            int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
+            enemyCard4.setImageResource(typeBackground);
+        }
+        if (enemyCard5Present){
+            enemyCard5.setVisibility(View.VISIBLE);
+            String iconBackgroundName = EnemyCards.getEnemyCardIconName(lvlId, 4);
+            int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
+            enemyCard5.setBackgroundResource(iconBackground);
+
+            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 4, sizeName);
+            int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
+            enemyCard5.setImageResource(typeBackground);
+        }
+        if (enemyCard6Present){
+            enemyCard6.setVisibility(View.VISIBLE);
+            String iconBackgroundName = EnemyCards.getEnemyCardIconName(lvlId, 5);
+            int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
+            enemyCard6.setBackgroundResource(iconBackground);
+
+            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 5, sizeName);
+            int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
+            enemyCard6.setImageResource(typeBackground);
+        }
+
     }
 
     /* THIS METHOD DETERMINES SCREEN SIZE */
@@ -3209,7 +3298,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_speed_up);
+                    ivCenterCardFrame.setImageResource(enemyCard1Img);
                 }
             }, 1000);
         }
@@ -3228,7 +3317,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_concentrate);
+                    ivCenterCardFrame.setImageResource(enemyCard2Img);
                 }
             }, 1000);
         }
@@ -3247,7 +3336,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_steal_3);
+                    ivCenterCardFrame.setImageResource(enemyCard3Img);
                 }
             }, 1000);
         }
@@ -3266,7 +3355,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_obj_plus_3);
+                    ivCenterCardFrame.setImageResource(enemyCard4Img);
                 }
             }, 1000);
         }
@@ -3285,7 +3374,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_obj_plus_2);
+                    ivCenterCardFrame.setImageResource(enemyCard5Img);
                 }
             }, 1000);
         }
@@ -3304,7 +3393,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     ivCenterCardFrame.startAnimation(ani_zoomIn);
-                    ivCenterCardFrame.setImageResource(R.drawable.card_dispel);
+                    ivCenterCardFrame.setImageResource(enemyCard6Img);
                 }
             }, 1000);
         }
@@ -3594,30 +3683,94 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
     }
 
     /* THIS METHOD FINDS WHICH ENEMY CARD IS PLAYED TO DETERMINE EFFECT */
-    private void executeEnemyCardEffect(){
-        if (enemyPickedCard == 0){
+    private void executeEnemyCardEffect(String cardName){
+        if (cardName.equals("Reinforce")){
+            cardReinforce1();
+        }
+        if (cardName.equals("Reinforce II")){
+            cardReinforce2();
+        }
+        if (cardName.equals("Reinforce III")){
+            cardReinforce3();
+        }
+        if (cardName.equals("Slow Down")){
+            cardSlowDown();
+        }
+        if (cardName.equals("Speed Up")){
             cardSpeedUp();
         }
-        if (enemyPickedCard == 1){
+        if (cardName.equals("Speed Up II")){
+            cardSpeedUp2();
+        }
+        if (cardName.equals("Concentrate")){
             cardConcentrate();
         }
-        if (enemyPickedCard == 2){
-            if (enemyClearAward == 4){
+        if (cardName.equals("Corruption")){
+            cardCorruption();
+        }
+        if (cardName.equals("Curse")){
+            cardCurse();
+        }
+        if (cardName.equals("Agony")){
+            cardAgony();
+        }
+        if (cardName.equals("Steal")){
+            if (enemyHasConcentrate){
                 cardSteal(2,6);
             } else {
                 cardSteal(1,3);
             }
         }
-        /*if (enemyPickedCard == 3){
-            cardReinforce3();
+        if (cardName.equals("Steal II")){
+            if (enemyHasConcentrate){
+                cardSteal(6,10);
+            } else {
+                cardSteal(3,5);
+            }
         }
-        if (enemyPickedCard == 4){
-            cardReinforce2();
+        if (cardName.equals("Steal III")){
+            if (enemyHasConcentrate){
+                cardSteal(10,14);
+            } else {
+                cardSteal(5,7);
+            }
         }
-        if (enemyPickedCard == 5){
+        if (cardName.equals("Agony")){
+            cardAgony();
+        }
+        if (cardName.equals("Mimic")){
+            cardMimic();
+        }
+        if (cardName.equals("Infest")){
+            cardInfest();
+        }
+        if (cardName.equals("Restore")){
+            cardRestore();
+        }
+        if (cardName.equals("Malediction")){
+            cardMalediction();
+        }
+        if (cardName.equals("Demonic Prayer")){
+            cardDemonicPrayer();
+        }
+        if (cardName.equals("Death Sentence")){
+            cardDeathSentence();
+        }
+        if (cardName.equals("Cure")){
+            cardCure();
+        }
+        if (cardName.equals("Rewind")){
+            cardRewind();
+        }
+        if (cardName.equals("Protect")){
+            cardProtect();
+        }
+        if (cardName.equals("Hoard")){
+            cardHoard();
+        }
+        if (cardName.equals("Dispel")){
             cardDispel();
-        }*/
-
+        }
     }
 
     /* -----------------------------------------
@@ -3637,136 +3790,136 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         }
         if (objectsRemaining == 15) {
             if (nextObjIsInfested){
-                obj001.setImageResource(R.drawable.object_wheat_webbed);
-                obj002.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
             } else {
-                obj001.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
             if (nextObjIsInfested){
-                obj002.setImageResource(R.drawable.object_wheat_webbed);
-                obj003.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(objectWebbedImg);
+                obj003.setImageResource(objectImg);
             } else {
-                obj002.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 13) {
             if (nextObjIsInfested){
-                obj003.setImageResource(R.drawable.object_wheat_webbed);
-                obj004.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(objectWebbedImg);
+                obj004.setImageResource(objectImg);
             } else {
-                obj003.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 12) {
             if (nextObjIsInfested){
-                obj004.setImageResource(R.drawable.object_wheat_webbed);
-                obj005.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(objectWebbedImg);
+                obj005.setImageResource(objectImg);
             } else {
-                obj004.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 11) {
             if (nextObjIsInfested){
-                obj005.setImageResource(R.drawable.object_wheat_webbed);
-                obj006.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(objectWebbedImg);
+                obj006.setImageResource(objectImg);
             } else {
-                obj005.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 10) {
             if (nextObjIsInfested){
-                obj006.setImageResource(R.drawable.object_wheat_webbed);
-                obj007.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(objectWebbedImg);
+                obj007.setImageResource(objectImg);
             } else {
-                obj006.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 9) {
             if (nextObjIsInfested){
-                obj007.setImageResource(R.drawable.object_wheat_webbed);
-                obj008.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(objectWebbedImg);
+                obj008.setImageResource(objectImg);
             } else {
-                obj007.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 8) {
             if (nextObjIsInfested){
-                obj008.setImageResource(R.drawable.object_wheat_webbed);
-                obj009.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(objectWebbedImg);
+                obj009.setImageResource(objectImg);
             } else {
-                obj008.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 7) {
             if (nextObjIsInfested){
-                obj009.setImageResource(R.drawable.object_wheat_webbed);
-                obj010.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(objectWebbedImg);
+                obj010.setImageResource(objectImg);
             } else {
-                obj009.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 6) {
             if (nextObjIsInfested){
-                obj010.setImageResource(R.drawable.object_wheat_webbed);
-                obj011.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(objectWebbedImg);
+                obj011.setImageResource(objectImg);
             } else {
-                obj010.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 5) {
             if (nextObjIsInfested){
-                obj011.setImageResource(R.drawable.object_wheat_webbed);
-                obj012.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(objectWebbedImg);
+                obj012.setImageResource(objectImg);
             } else {
-                obj011.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 4) {
             if (nextObjIsInfested){
-                obj012.setImageResource(R.drawable.object_wheat_webbed);
-                obj013.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(objectWebbedImg);
+                obj013.setImageResource(objectImg);
             } else {
-                obj012.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 3) {
             if (nextObjIsInfested){
-                obj013.setImageResource(R.drawable.object_wheat_webbed);
-                obj014.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(objectWebbedImg);
+                obj014.setImageResource(objectImg);
             } else {
-                obj013.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 2) {
             if (nextObjIsInfested){
-                obj014.setImageResource(R.drawable.object_wheat_webbed);
-                obj015.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(objectWebbedImg);
+                obj015.setImageResource(objectImg);
             } else {
-                obj014.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 1) {
             if (nextObjIsInfested){
-                obj015.setImageResource(R.drawable.object_wheat_webbed);
-                obj016.setImageResource(R.drawable.object_wheat);
+                obj015.setImageResource(objectWebbedImg);
+                obj016.setImageResource(objectImg);
             } else {
-                obj015.setImageResource(R.drawable.object_wheat);
+                obj015.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
@@ -3785,164 +3938,164 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         }
         if (objectsRemaining == 15) {
             if (nextObjIsInfested){
-                obj001.setImageResource(R.drawable.object_wheat_webbed);
-                obj002.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
             } else {
-                obj001.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
             if (nextObjIsInfested){
-                obj001.setImageResource(R.drawable.object_wheat_webbed);
-                obj002.setImageResource(R.drawable.object_wheat);
-                obj003.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
             } else {
-                obj001.setImageResource(R.drawable.object_wheat);
-                obj002.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectImg);
+                obj002.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 13) {
             if (nextObjIsInfested){
-                obj002.setImageResource(R.drawable.object_wheat_webbed);
-                obj003.setImageResource(R.drawable.object_wheat);
-                obj004.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(objectWebbedImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
             } else {
-                obj002.setImageResource(R.drawable.object_wheat);
-                obj003.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 12) {
             if (nextObjIsInfested){
-                obj003.setImageResource(R.drawable.object_wheat_webbed);
-                obj004.setImageResource(R.drawable.object_wheat);
-                obj005.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(objectWebbedImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
             } else {
-                obj003.setImageResource(R.drawable.object_wheat);
-                obj004.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 11) {
             if (nextObjIsInfested){
-                obj004.setImageResource(R.drawable.object_wheat_webbed);
-                obj005.setImageResource(R.drawable.object_wheat);
-                obj006.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(objectWebbedImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
             } else {
-                obj004.setImageResource(R.drawable.object_wheat);
-                obj005.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 10) {
             if (nextObjIsInfested){
-                obj005.setImageResource(R.drawable.object_wheat_webbed);
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(objectWebbedImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
             } else {
-                obj005.setImageResource(R.drawable.object_wheat);
-                obj006.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 9) {
             if (nextObjIsInfested){
-                obj006.setImageResource(R.drawable.object_wheat_webbed);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(objectWebbedImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
             } else {
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 8) {
             if (nextObjIsInfested){
-                obj007.setImageResource(R.drawable.object_wheat_webbed);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(objectWebbedImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
             } else {
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 7) {
             if (nextObjIsInfested){
-                obj008.setImageResource(R.drawable.object_wheat_webbed);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(objectWebbedImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
             } else {
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 6) {
             if (nextObjIsInfested){
-                obj009.setImageResource(R.drawable.object_wheat_webbed);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(objectWebbedImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
             } else {
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 5) {
             if (nextObjIsInfested){
-                obj010.setImageResource(R.drawable.object_wheat_webbed);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(objectWebbedImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
             } else {
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 4) {
             if (nextObjIsInfested){
-                obj011.setImageResource(R.drawable.object_wheat_webbed);
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(objectWebbedImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
             } else {
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 3) {
             if (nextObjIsInfested){
-                obj012.setImageResource(R.drawable.object_wheat_webbed);
-                obj013.setImageResource(R.drawable.object_wheat);
-                obj014.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(objectWebbedImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
             } else {
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 2) {
             if (nextObjIsInfested){
-                obj013.setImageResource(R.drawable.object_wheat_webbed);
-                obj014.setImageResource(R.drawable.object_wheat);
-                obj015.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(objectWebbedImg);
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
             } else {
-                obj013.setImageResource(R.drawable.object_wheat);
-                obj014.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 1) {
             if (nextObjIsInfested){
-                obj014.setImageResource(R.drawable.object_wheat_webbed);
-                obj015.setImageResource(R.drawable.object_wheat);
-                obj016.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(objectWebbedImg);
+                obj015.setImageResource(objectImg);
+                obj016.setImageResource(objectImg);
             } else {
-                obj014.setImageResource(R.drawable.object_wheat);
-                obj015.setImageResource(R.drawable.object_wheat);
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
@@ -3961,190 +4114,190 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         }
         if (objectsRemaining == 15) {
             if (nextObjIsInfested){
-                obj001.setImageResource(R.drawable.object_wheat_webbed);
-                obj002.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
             } else {
-                obj001.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
             if (nextObjIsInfested){
-                obj001.setImageResource(R.drawable.object_wheat_webbed);
-                obj002.setImageResource(R.drawable.object_wheat);
-                obj003.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
             } else {
-                obj001.setImageResource(R.drawable.object_wheat);
-                obj002.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectImg);
+                obj002.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 13) {
             if (nextObjIsInfested){
-                obj001.setImageResource(R.drawable.object_wheat_webbed);
-                obj002.setImageResource(R.drawable.object_wheat);
-                obj003.setImageResource(R.drawable.object_wheat);
-                obj004.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
             } else {
-                obj001.setImageResource(R.drawable.object_wheat);
-                obj002.setImageResource(R.drawable.object_wheat);
-                obj003.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectImg);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 12) {
             if (nextObjIsInfested){
-                obj002.setImageResource(R.drawable.object_wheat_webbed);
-                obj003.setImageResource(R.drawable.object_wheat);
-                obj004.setImageResource(R.drawable.object_wheat);
-                obj005.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(objectWebbedImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
             } else {
-                obj002.setImageResource(R.drawable.object_wheat);
-                obj003.setImageResource(R.drawable.object_wheat);
-                obj004.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 11) {
             if (nextObjIsInfested){
-                obj003.setImageResource(R.drawable.object_wheat_webbed);
-                obj004.setImageResource(R.drawable.object_wheat);
-                obj005.setImageResource(R.drawable.object_wheat);
-                obj006.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(objectWebbedImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
             } else {
-                obj003.setImageResource(R.drawable.object_wheat);
-                obj004.setImageResource(R.drawable.object_wheat);
-                obj005.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 10) {
             if (nextObjIsInfested){
-                obj004.setImageResource(R.drawable.object_wheat_webbed);
-                obj005.setImageResource(R.drawable.object_wheat);
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(objectWebbedImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
             } else {
-                obj004.setImageResource(R.drawable.object_wheat);
-                obj005.setImageResource(R.drawable.object_wheat);
-                obj006.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 9) {
             if (nextObjIsInfested){
-                obj005.setImageResource(R.drawable.object_wheat_webbed);
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(objectWebbedImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
             } else {
-                obj005.setImageResource(R.drawable.object_wheat);
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 8) {
             if (nextObjIsInfested){
-                obj006.setImageResource(R.drawable.object_wheat_webbed);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(objectWebbedImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
             } else {
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 7) {
             if (nextObjIsInfested){
-                obj007.setImageResource(R.drawable.object_wheat_webbed);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(objectWebbedImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
             } else {
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 6) {
             if (nextObjIsInfested){
-                obj008.setImageResource(R.drawable.object_wheat_webbed);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(objectWebbedImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
             } else {
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 5) {
             if (nextObjIsInfested){
-                obj009.setImageResource(R.drawable.object_wheat_webbed);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(objectWebbedImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
             } else {
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 4) {
             if (nextObjIsInfested){
-                obj010.setImageResource(R.drawable.object_wheat_webbed);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(objectWebbedImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
             } else {
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 3) {
             if (nextObjIsInfested){
-                obj011.setImageResource(R.drawable.object_wheat_webbed);
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
-                obj014.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(objectWebbedImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
             } else {
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 2) {
             if (nextObjIsInfested){
-                obj012.setImageResource(R.drawable.object_wheat_webbed);
-                obj013.setImageResource(R.drawable.object_wheat);
-                obj014.setImageResource(R.drawable.object_wheat);
-                obj015.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(objectWebbedImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
             } else {
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
-                obj014.setImageResource(R.drawable.object_wheat);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 1) {
             if (nextObjIsInfested){
-                obj013.setImageResource(R.drawable.object_wheat_webbed);
-                obj014.setImageResource(R.drawable.object_wheat);
-                obj015.setImageResource(R.drawable.object_wheat);
-                obj016.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(objectWebbedImg);
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
+                obj016.setImageResource(objectImg);
             } else {
-                obj013.setImageResource(R.drawable.object_wheat);
-                obj014.setImageResource(R.drawable.object_wheat);
-                obj015.setImageResource(R.drawable.object_wheat);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
@@ -4743,8 +4896,8 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvPlayerScore.setText(String.valueOf(playerScore));
-                    tvPlayerScore.setTextColor(getResources().getColor(R.color.textBlack));
-                    tvEnemyScore.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvPlayerScore.setTextColor(getResources().getColor(textColor));
+                    tvEnemyScore.setTextColor(getResources().getColor(textColor));
                     tvEnemyScore.setText(String.valueOf(enemyScore));
                     tvEnemyScore.startAnimation(ani_resetscore);
                     tvPlayerScore.startAnimation(ani_resetscore);
@@ -4775,8 +4928,8 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvPlayerScore.setText(String.valueOf(playerScore));
-                    tvPlayerScore.setTextColor(getResources().getColor(R.color.textBlack));
-                    tvEnemyScore.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvPlayerScore.setTextColor(getResources().getColor(textColor));
+                    tvEnemyScore.setTextColor(getResources().getColor(textColor));
                     tvEnemyScore.setText(String.valueOf(enemyScore));
                     tvEnemyScore.startAnimation(ani_resetscore);
                     tvPlayerScore.startAnimation(ani_resetscore);
@@ -5406,7 +5559,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj001.setImageResource(R.drawable.object_wheat_webbed);
+                        obj001.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5416,7 +5569,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj002.setImageResource(R.drawable.object_wheat_webbed);
+                        obj002.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5426,7 +5579,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj003.setImageResource(R.drawable.object_wheat_webbed);
+                        obj003.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5436,7 +5589,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj004.setImageResource(R.drawable.object_wheat_webbed);
+                        obj004.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5446,7 +5599,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj005.setImageResource(R.drawable.object_wheat_webbed);
+                        obj005.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5456,7 +5609,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj006.setImageResource(R.drawable.object_wheat_webbed);
+                        obj006.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5466,7 +5619,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj007.setImageResource(R.drawable.object_wheat_webbed);
+                        obj007.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5476,7 +5629,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj008.setImageResource(R.drawable.object_wheat_webbed);
+                        obj008.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5486,7 +5639,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj009.setImageResource(R.drawable.object_wheat_webbed);
+                        obj009.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5496,7 +5649,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj010.setImageResource(R.drawable.object_wheat_webbed);
+                        obj010.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5506,7 +5659,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj011.setImageResource(R.drawable.object_wheat_webbed);
+                        obj011.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5516,7 +5669,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj012.setImageResource(R.drawable.object_wheat_webbed);
+                        obj012.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5526,7 +5679,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj013.setImageResource(R.drawable.object_wheat_webbed);
+                        obj013.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5536,7 +5689,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj014.setImageResource(R.drawable.object_wheat_webbed);
+                        obj014.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5546,7 +5699,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj015.setImageResource(R.drawable.object_wheat_webbed);
+                        obj015.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5556,7 +5709,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        obj016.setImageResource(R.drawable.object_wheat_webbed);
+                        obj016.setImageResource(objectWebbedImg);
                     }
                 }, 1000);
             }
@@ -5586,230 +5739,230 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         }
         if (objectsRemaining == 15) {
             if (nextObjIsInfested){
-                obj001.setImageResource(R.drawable.object_wheat_webbed);
-                obj002.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
             } else {
-                obj001.setImageResource(R.drawable.object_wheat);
+                obj001.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
             if (nextObjIsInfested){
-                obj002.setImageResource(R.drawable.object_wheat_webbed);
-                obj003.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(objectWebbedImg);
+                obj003.setImageResource(objectImg);
             } else {
-                obj002.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 13) {
             if (nextObjIsInfested){
-                obj002.setImageResource(R.drawable.object_wheat_webbed);
-                obj003.setImageResource(R.drawable.object_wheat);
-                obj004.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(objectWebbedImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
             } else {
-                obj002.setImageResource(R.drawable.object_wheat);
-                obj003.setImageResource(R.drawable.object_wheat);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 12) {
             if (nextObjIsInfested){
-                obj003.setImageResource(R.drawable.object_wheat_webbed);
-                obj004.setImageResource(R.drawable.object_wheat);
-                obj005.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(objectWebbedImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
             } else {
-                obj003.setImageResource(R.drawable.object_wheat);
-                obj004.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 11) {
             if (nextObjIsInfested){
-                obj003.setImageResource(R.drawable.object_wheat_webbed);
-                obj004.setImageResource(R.drawable.object_wheat);
-                obj005.setImageResource(R.drawable.object_wheat);
-                obj006.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(objectWebbedImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
             } else {
-                obj003.setImageResource(R.drawable.object_wheat);
-                obj004.setImageResource(R.drawable.object_wheat);
-                obj005.setImageResource(R.drawable.object_wheat);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 10) {
             if (nextObjIsInfested){
-                obj004.setImageResource(R.drawable.object_wheat_webbed);
-                obj005.setImageResource(R.drawable.object_wheat);
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(objectWebbedImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
             } else {
-                obj004.setImageResource(R.drawable.object_wheat);
-                obj005.setImageResource(R.drawable.object_wheat);
-                obj006.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 9) {
             if (nextObjIsInfested){
-                obj004.setImageResource(R.drawable.object_wheat_webbed);
-                obj005.setImageResource(R.drawable.object_wheat);
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(objectWebbedImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
             } else {
-                obj004.setImageResource(R.drawable.object_wheat);
-                obj005.setImageResource(R.drawable.object_wheat);
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 4;
         }
         if (objectsRemaining == 8) {
             if (nextObjIsInfested){
-                obj005.setImageResource(R.drawable.object_wheat_webbed);
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(objectWebbedImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
             } else {
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 4;
         }
         if (objectsRemaining == 7) {
             if (nextObjIsInfested){
-                obj005.setImageResource(R.drawable.object_wheat_webbed);
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(objectWebbedImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
             } else {
-                obj005.setImageResource(R.drawable.object_wheat);
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 6) {
             if (nextObjIsInfested){
-                obj006.setImageResource(R.drawable.object_wheat_webbed);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(objectWebbedImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
             } else {
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 5) {
             if (nextObjIsInfested){
-                obj006.setImageResource(R.drawable.object_wheat_webbed);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(objectWebbedImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
             } else {
-                obj006.setImageResource(R.drawable.object_wheat);
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 6;
         }
         if (objectsRemaining == 4) {
             if (nextObjIsInfested){
-                obj007.setImageResource(R.drawable.object_wheat_webbed);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(objectWebbedImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
             } else {
-                obj007.setImageResource(R.drawable.object_wheat);
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 6;
         }
         if (objectsRemaining == 3) {
             if (nextObjIsInfested){
-                obj008.setImageResource(R.drawable.object_wheat_webbed);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
-                obj014.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(objectWebbedImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
             } else {
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 6;
         }
         if (objectsRemaining == 2) {
             if (nextObjIsInfested){
-                obj008.setImageResource(R.drawable.object_wheat_webbed);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
-                obj014.setImageResource(R.drawable.object_wheat);
-                obj015.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(objectWebbedImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
             } else {
-                obj008.setImageResource(R.drawable.object_wheat);
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
-                obj014.setImageResource(R.drawable.object_wheat);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 7;
         }
         if (objectsRemaining == 1) {
             if (nextObjIsInfested){
-                obj009.setImageResource(R.drawable.object_wheat_webbed);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
-                obj014.setImageResource(R.drawable.object_wheat);
-                obj015.setImageResource(R.drawable.object_wheat);
-                obj016.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(objectWebbedImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
+                obj016.setImageResource(objectImg);
             } else {
-                obj009.setImageResource(R.drawable.object_wheat);
-                obj010.setImageResource(R.drawable.object_wheat);
-                obj011.setImageResource(R.drawable.object_wheat);
-                obj012.setImageResource(R.drawable.object_wheat);
-                obj013.setImageResource(R.drawable.object_wheat);
-                obj014.setImageResource(R.drawable.object_wheat);
-                obj015.setImageResource(R.drawable.object_wheat);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 7;
         }
@@ -6007,12 +6160,12 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 if (playerTurn) {
-                    tvEnemyScore.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvEnemyScore.setTextColor(getResources().getColor(textColor));
                     tvEnemyScore.setText(String.valueOf(enemyScore));
                     tvEnemyScore.startAnimation(ani_resetscore);
                     tvPlayerScore.clearAnimation();
                 } else {
-                    tvPlayerScore.setTextColor(getResources().getColor(R.color.textBlack));
+                    tvPlayerScore.setTextColor(getResources().getColor(textColor));
                     tvPlayerScore.setText(String.valueOf(playerScore));
                     tvPlayerScore.startAnimation(ani_resetscore);
                     tvEnemyScore.clearAnimation();
@@ -6344,12 +6497,14 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
 
     /* FETCHES LEVEL INFO - CHANGE THIS FOR EVERY ACTIVITY */
     private void getLevelInfo(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        loadedLevelId = preferences.getInt("LoadedLevelId", 0);
         try {
             db.open();
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
-        cursor = db.getLvlInfo(8);
+        cursor = db.getLvlInfo(loadedLevelId);
         if (cursor != null && cursor.moveToFirst()) {
             lvlcleared = cursor.getInt(cursor.getColumnIndex("lvlcleared"));
             lvlhighscore = cursor.getInt(cursor.getColumnIndex("lvlhighscore"));
@@ -7240,7 +7395,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             public void run() {
                 playerScore = playerScore - halfPlayerScore;
                 tvPlayerScore.setText(String.valueOf(playerScore));
-                tvPlayerScore.setTextColor(getResources().getColor(R.color.textBlack));
+                tvPlayerScore.setTextColor(getResources().getColor(textColor));
                 tvPlayerScore.startAnimation(ani_resetscore);
                 tvEnemyScore.clearAnimation();
             }
@@ -7304,7 +7459,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             public void run() {
                 playerScore = playerScore - withdraw;
                 tvPlayerScore.setText(String.valueOf(playerScore));
-                tvPlayerScore.setTextColor(getResources().getColor(R.color.textBlack));
+                tvPlayerScore.setTextColor(getResources().getColor(textColor));
                 tvPlayerScore.startAnimation(ani_resetscore);
                 tvEnemyScore.clearAnimation();
             }
@@ -7352,7 +7507,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 tvPlayerScore.setText(String.valueOf(playerScore));
-                tvPlayerScore.setTextColor(getResources().getColor(R.color.textBlack));
+                tvPlayerScore.setTextColor(getResources().getColor(textColor));
                 tvPlayerScore.startAnimation(ani_resetscore);
                 tvEnemyScore.clearAnimation();
             }
@@ -7419,7 +7574,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             public void run() {
                 enemyScore = enemyScore - halfEnemyScore;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
-                tvEnemyScore.setTextColor(getResources().getColor(R.color.textBlack));
+                tvEnemyScore.setTextColor(getResources().getColor(textColor));
                 tvEnemyScore.startAnimation(ani_resetscore);
                 tvPlayerScore.clearAnimation();
             }
@@ -7483,7 +7638,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             public void run() {
                 enemyScore = enemyScore - withdraw;
                 tvEnemyScore.setText(String.valueOf(enemyScore));
-                tvEnemyScore.setTextColor(getResources().getColor(R.color.textBlack));
+                tvEnemyScore.setTextColor(getResources().getColor(textColor));
                 tvEnemyScore.startAnimation(ani_resetscore);
                 tvPlayerScore.clearAnimation();
             }
@@ -7531,7 +7686,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 tvEnemyScore.setText(String.valueOf(enemyScore));
-                tvEnemyScore.setTextColor(getResources().getColor(R.color.textBlack));
+                tvEnemyScore.setTextColor(getResources().getColor(textColor));
                 tvEnemyScore.startAnimation(ani_resetscore);
                 tvPlayerScore.clearAnimation();
             }
@@ -7951,7 +8106,7 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                chooseCoinSide(Activity_W001_L008.this);
+                chooseCoinSide(context);
             }
         }, 1500);
     }
@@ -8955,4 +9110,138 @@ public class Activity_W001_L008 extends Activity implements View.OnClickListener
             tvCenterMessage.setTextSize(20);
         }
     }
+
+    /* CHECKS IF AI SHOULD PLAY A CARD OR NOT */
+    private int aiPatternCardOrNot(){
+        //Go nuts with random
+        if (aiPattern == 0){
+            return genRand(100);
+        }
+        //Concentrate on first and Speed Up on first, then steal on second, then random
+        if (aiPattern == 1){
+            //Turn 1
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1) {
+                return 99;
+            }
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 2) {
+                return 99;
+            }
+            //Turn 2
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1) {
+                return 99;
+            }
+            //Turn 2+
+            if (enemyTurnCounter > 2 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining > 1){
+                return genRand(100);
+            }
+            return 0;
+        }
+        //Concentrate on first then random
+        if (aiPattern == 2){
+            //Turn 1
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 99;
+            }
+            //Turn 1+
+            if (enemyTurnCounter > 1 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 1 && objectsRemaining > 1){
+                return genRand(100);
+            }
+            return 0;
+        }
+        //Speed Up on first then Steal x2 on second
+        if (aiPattern == 3){
+            //Turn 1
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1) {
+                return 99;
+            }
+            //Turn 2
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1) {
+                return 99;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 2) {
+                return 99;
+            }
+            //Turn 2+
+            if (enemyTurnCounter > 2 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining > 1){
+                return genRand(100);
+            }
+            return 0;
+        }
+        //Steal on second, then random
+        if (aiPattern == 4){
+            //Turn 1
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 99;
+            }
+            //Turn 1+
+            if (enemyTurnCounter > 2 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining > 1){
+                return genRand(100);
+            }
+            return 0;
+        }
+        return genRand(100);
+    }
+
+    private int aiPatternPickCard(){
+        if (aiPattern == 1){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 0;
+            }
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 2){
+                return 1;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 2;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect();
+            }
+        }
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 0;
+            }
+            if (enemyTurnCounter > 1 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect();
+            }
+        }
+        if (aiPattern == 3){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 0;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 2;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 2){
+                return 3;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect();
+            }
+        }
+        if (aiPattern == 4){
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 3;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect();
+            }
+        }
+        return 0;
+    }
+
 }
+
+
