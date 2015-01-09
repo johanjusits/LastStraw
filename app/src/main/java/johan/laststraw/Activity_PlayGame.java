@@ -1463,14 +1463,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         enemyMoveCounter++;
         /* Checks if enemy has any cards left and decides move pattern accordingly */
         if (enemyCardsRemaining > 0){
-            int cardOrClear = aiPatternCardOrNot();
+            int cardOrClear = AiPatterns.initAiPatternCardOrNot(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
             if (cardOrClear >= 80){
                 if (aiPattern == 0){
                     enemyPickedCard = randomizeEnemyCardSelect();
                 } else {
-                    enemyPickedCard = aiPatternPickCard();
+                    enemyPickedCard = AiPatterns.initAiPatternPickCard(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
                 }
                 if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost + enemyCorruptedPenalty){
                     lastEnemyPlayedCard = enemyCard1Name;
@@ -9109,137 +9109,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         } else if (density.equals("hdpi")) {
             tvCenterMessage.setTextSize(20);
         }
-    }
-
-    /* CHECKS IF AI SHOULD PLAY A CARD OR NOT */
-    private int aiPatternCardOrNot(){
-        //Go nuts with random
-        if (aiPattern == 0){
-            return genRand(100);
-        }
-        //Concentrate on first and Speed Up on first, then steal on second, then random
-        if (aiPattern == 1){
-            //Turn 1
-            if (enemyTurnCounter == 1 && enemyMoveCounter == 1) {
-                return 99;
-            }
-            if (enemyTurnCounter == 1 && enemyMoveCounter == 2) {
-                return 99;
-            }
-            //Turn 2
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 1) {
-                return 99;
-            }
-            //Turn 2+
-            if (enemyTurnCounter > 2 && objectsRemaining == 1){
-                return 99;
-            }
-            if (enemyTurnCounter > 2 && objectsRemaining > 1){
-                return genRand(100);
-            }
-            return 0;
-        }
-        //Concentrate on first then random
-        if (aiPattern == 2){
-            //Turn 1
-            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
-                return 99;
-            }
-            //Turn 1+
-            if (enemyTurnCounter > 1 && objectsRemaining == 1){
-                return 99;
-            }
-            if (enemyTurnCounter > 1 && objectsRemaining > 1){
-                return genRand(100);
-            }
-            return 0;
-        }
-        //Speed Up on first then Steal x2 on second
-        if (aiPattern == 3){
-            //Turn 1
-            if (enemyTurnCounter == 1 && enemyMoveCounter == 1) {
-                return 99;
-            }
-            //Turn 2
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 1) {
-                return 99;
-            }
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 2) {
-                return 99;
-            }
-            //Turn 2+
-            if (enemyTurnCounter > 2 && objectsRemaining == 1){
-                return 99;
-            }
-            if (enemyTurnCounter > 2 && objectsRemaining > 1){
-                return genRand(100);
-            }
-            return 0;
-        }
-        //Steal on second, then random
-        if (aiPattern == 4){
-            //Turn 1
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
-                return 99;
-            }
-            //Turn 1+
-            if (enemyTurnCounter > 2 && objectsRemaining == 1){
-                return 99;
-            }
-            if (enemyTurnCounter > 2 && objectsRemaining > 1){
-                return genRand(100);
-            }
-            return 0;
-        }
-        return genRand(100);
-    }
-
-    private int aiPatternPickCard(){
-        if (aiPattern == 1){
-            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
-                return 0;
-            }
-            if (enemyTurnCounter == 1 && enemyMoveCounter == 2){
-                return 1;
-            }
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
-                return 2;
-            }
-            if (enemyTurnCounter > 2 && objectsRemaining >= 1){
-                return randomizeEnemyCardSelect();
-            }
-        }
-        if (aiPattern == 2){
-            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
-                return 0;
-            }
-            if (enemyTurnCounter > 1 && objectsRemaining >= 1){
-                return randomizeEnemyCardSelect();
-            }
-        }
-        if (aiPattern == 3){
-            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
-                return 0;
-            }
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
-                return 2;
-            }
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 2){
-                return 3;
-            }
-            if (enemyTurnCounter > 2 && objectsRemaining >= 1){
-                return randomizeEnemyCardSelect();
-            }
-        }
-        if (aiPattern == 4){
-            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
-                return 3;
-            }
-            if (enemyTurnCounter > 2 && objectsRemaining >= 1){
-                return randomizeEnemyCardSelect();
-            }
-        }
-        return 0;
     }
 
 }
