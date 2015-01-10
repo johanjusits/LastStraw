@@ -160,6 +160,25 @@ public class EnemyInfo {
                     case 16:
                         return "Lost Soul";
                 }
+            case 3:
+                switch (levelId){
+                    case 17:
+                        return "Lost Climber";
+                    case 18:
+                        return "Adventurer";
+                    case 19:
+                        return "Snow Wolf";
+                    case 20:
+                        return "Mad Hermit";
+                    case 21:
+                        return "Cougar";
+                    case 22:
+                        return "Wanderer";
+                    case 23:
+                        return "Giant Bear";
+                    case 24:
+                        return "Yeti";
+                }
         }
         return null;
     }
