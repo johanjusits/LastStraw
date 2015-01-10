@@ -5,6 +5,30 @@ package johan.laststraw;
  */
 public class GameInfo {
 
+    public static String getInfestMsg(int worldId){
+        switch (worldId){
+            case 1:
+                return "Spiders infests the wheat";
+            case 2:
+                return "Spiders infests the skeleton";
+            case 3:
+                return "Spiders infests the snowman";
+        }
+        return "";
+    }
+
+    public static String getInfestErrorMsg(int worldId){
+        switch (worldId){
+            case 1:
+                return "Wheat is already infested";
+            case 2:
+                return "Skeleton is already infested";
+            case 3:
+                return "Snowman is already infested";
+        }
+        return "";
+    }
+
     public static String getTextColor(int worldId){
         switch (worldId){
             case 1:

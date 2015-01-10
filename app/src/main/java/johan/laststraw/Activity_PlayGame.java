@@ -55,8 +55,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String playerName = "";
     String enemyName;
     String boardIsFullError = "Board is full. No effect";
-    String infestMsg = "Spiders infests the snowman";
-    String infestError = "Snowman is already infested";
+    String infestMsg;
+    String infestError;
     String ailmentFailed = "Protect wards off ailment.";
     String enemySlowed = "Enemy suffers Slow";
     String enemyHaste = "Enemy gains Haste";
@@ -371,6 +371,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         playerHoarded = playerName + " keeps played card!";
         playerHoard = playerName + " gains Hoard";
         playerDispelled = playerName + " suffers Dispel";
+
+        infestMsg = GameInfo.getInfestMsg(worldId);
+        infestError = GameInfo.getInfestErrorMsg(worldId);
+
         playerStatuses[0] = "";
         playerStatuses[1] = "";
         playerStatuses[2] = "";
