@@ -93,6 +93,23 @@ public class AiPatterns {
 
     public static int initAiPatternCardOrNot(int levelId, int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int objectsRemaining){
         switch (levelId){
+            //WORLD 1
+            case 1:
+                return genRand(100);
+            case 2:
+                return genRand(100);
+            case 3:
+                return genRand(100);
+            case 4:
+                return genRand(100);
+            case 5:
+                return genRand(100);
+            case 6:
+                return genRand(100);
+            case 7:
+                return genRand(100);
+            case 8:
+                return genRand(100);
             //WORLD 2
             case 9:
                 return w002_l001_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter);
