@@ -223,6 +223,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         db = new DBHandler(this);
 
         getLevelInfo();
+        System.out.println("Level ID: " + String.valueOf(lvlId));
 
         layoutName = GameInfo.getWorldBackground(worldId);
         layoutId = getResources().getIdentifier(layoutName, "layout", getPackageName());
@@ -420,6 +421,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         objectWebbedImg = getResources().getIdentifier(objectWebbedImgName, "drawable", getPackageName());
 
         aiPattern = genRand(AiPatterns.getAiPatternNr(lvlId));
+        System.out.println("AI Pattern: " + String.valueOf(aiPattern));
 
         SoundEffects.setupSounds(this);
         clearSoundId = GameInfo.getClearSound(worldId);
@@ -3710,9 +3712,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (cardName.equals("Curse")){
             cardCurse();
-        }
-        if (cardName.equals("Agony")){
-            cardAgony();
         }
         if (cardName.equals("Steal")){
             if (enemyHasConcentrate){
