@@ -109,11 +109,12 @@ public class Activity_Mountains_LevelSelection extends Activity implements View.
                 finish();
                 overridePendingTransition(0, 0);
                 break;
-            /*case R.id.bWorld001Lvl002:
+            case R.id.bWorld001Lvl002:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W003_L002");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Mountains - Level 2");
+                editor.putInt("LoadedLevelId", 18);
                 editor.apply();
                 pickCards = new Intent(Activity_Mountains_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -121,7 +122,7 @@ public class Activity_Mountains_LevelSelection extends Activity implements View.
                 finish();
                 overridePendingTransition(0, 0);
                 break;
-            case R.id.bWorld001Lvl003:
+            /*case R.id.bWorld001Lvl003:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_W003_L003");
