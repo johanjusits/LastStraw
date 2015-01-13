@@ -113,6 +113,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String enemyPortraitName;
     String textColorName;
     /* INTS */
+    int activePlayerDebuffs;
+    int activeEnemyDebuffs;
     int textColor;
     int enemyPortraitImg;
     int loadedLevelId;
@@ -1469,14 +1471,15 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         enemyMoveCounter++;
         /* Checks if enemy has any cards left and decides move pattern accordingly */
         if (enemyCardsRemaining > 0){
-            int cardOrClear = AiPatterns.initAiPatternCardOrNot(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
+            int cardOrClear = AiPatterns.initAiPatternCardOrNot(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining, activeEnemyDebuffs, enemyCard1Used);
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
             if (cardOrClear >= 80){
                 if (aiPattern == 0){
                     enemyPickedCard = randomizeEnemyCardSelect();
                 } else {
-                    enemyPickedCard = AiPatterns.initAiPatternPickCard(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
+                    enemyPickedCard = AiPatterns.initAiPatternPickCard(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining,
+                            enemyCard1Used, activeEnemyDebuffs);
                 }
                 if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost + enemyCorruptedPenalty){
                     lastEnemyPlayedCard = enemyCard1Name;
@@ -6711,30 +6714,35 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         int freeSpot = getFreePlayerStatusSpot();
         switch (freeSpot){
             case 0:
+                activePlayerDebuffs++;
                 playerStatuses[0] = "Slow Down";
                 playerStatusIcon1.setImageResource(R.drawable.debuff_slow);
                 playerStatusIcon1.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon1.setVisibility(View.VISIBLE);
                 break;
             case 1:
+                activePlayerDebuffs++;
                 playerStatuses[1] = "Slow Down";
                 playerStatusIcon2.setImageResource(R.drawable.debuff_slow);
                 playerStatusIcon2.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon2.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                activePlayerDebuffs++;
                 playerStatuses[2] = "Slow Down";
                 playerStatusIcon3.setImageResource(R.drawable.debuff_slow);
                 playerStatusIcon3.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon3.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                activePlayerDebuffs++;
                 playerStatuses[3] = "Slow Down";
                 playerStatusIcon4.setImageResource(R.drawable.debuff_slow);
                 playerStatusIcon4.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon4.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                activePlayerDebuffs++;
                 playerStatuses[4] = "Slow Down";
                 playerStatusIcon5.setImageResource(R.drawable.debuff_slow);
                 playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
@@ -6748,30 +6756,35 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         int freeSpot = getFreePlayerStatusSpot();
         switch (freeSpot){
             case 0:
+                activePlayerDebuffs++;
                 playerStatuses[0] = "Corruption";
                 playerStatusIcon1.setImageResource(R.drawable.debuff_corruption);
                 playerStatusIcon1.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon1.setVisibility(View.VISIBLE);
                 break;
             case 1:
+                activePlayerDebuffs++;
                 playerStatuses[1] = "Corruption";
                 playerStatusIcon2.setImageResource(R.drawable.debuff_corruption);
                 playerStatusIcon2.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon2.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                activePlayerDebuffs++;
                 playerStatuses[2] = "Corruption";
                 playerStatusIcon3.setImageResource(R.drawable.debuff_corruption);
                 playerStatusIcon3.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon3.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                activePlayerDebuffs++;
                 playerStatuses[3] = "Corruption";
                 playerStatusIcon4.setImageResource(R.drawable.debuff_corruption);
                 playerStatusIcon4.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon4.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                activePlayerDebuffs++;
                 playerStatuses[4] = "Corruption";
                 playerStatusIcon5.setImageResource(R.drawable.debuff_corruption);
                 playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
@@ -6785,30 +6798,35 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         int freeSpot = getFreePlayerStatusSpot();
         switch (freeSpot){
             case 0:
+                activePlayerDebuffs++;
                 playerStatuses[0] = "Curse";
                 playerStatusIcon1.setImageResource(R.drawable.debuff_curse);
                 playerStatusIcon1.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon1.setVisibility(View.VISIBLE);
                 break;
             case 1:
+                activePlayerDebuffs++;
                 playerStatuses[1] = "Curse";
                 playerStatusIcon2.setImageResource(R.drawable.debuff_curse);
                 playerStatusIcon2.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon2.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                activePlayerDebuffs++;
                 playerStatuses[2] = "Curse";
                 playerStatusIcon3.setImageResource(R.drawable.debuff_curse);
                 playerStatusIcon3.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon3.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                activePlayerDebuffs++;
                 playerStatuses[3] = "Curse";
                 playerStatusIcon4.setImageResource(R.drawable.debuff_curse);
                 playerStatusIcon4.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon4.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                activePlayerDebuffs++;
                 playerStatuses[4] = "Curse";
                 playerStatusIcon5.setImageResource(R.drawable.debuff_curse);
                 playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
@@ -6822,30 +6840,35 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         int freeSpot = getFreePlayerStatusSpot();
         switch (freeSpot){
             case 0:
+                activePlayerDebuffs++;
                 playerStatuses[0] = "Agony";
                 playerStatusIcon1.setImageResource(R.drawable.debuff_agony);
                 playerStatusIcon1.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon1.setVisibility(View.VISIBLE);
                 break;
             case 1:
+                activePlayerDebuffs++;
                 playerStatuses[1] = "Agony";
                 playerStatusIcon2.setImageResource(R.drawable.debuff_agony);
                 playerStatusIcon2.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon2.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                activePlayerDebuffs++;
                 playerStatuses[2] = "Agony";
                 playerStatusIcon3.setImageResource(R.drawable.debuff_agony);
                 playerStatusIcon3.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon3.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                activePlayerDebuffs++;
                 playerStatuses[3] = "Agony";
                 playerStatusIcon4.setImageResource(R.drawable.debuff_agony);
                 playerStatusIcon4.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon4.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                activePlayerDebuffs++;
                 playerStatuses[4] = "Agony";
                 playerStatusIcon5.setImageResource(R.drawable.debuff_agony);
                 playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
@@ -6859,30 +6882,35 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         int freeSpot = getFreePlayerStatusSpot();
         switch (freeSpot){
             case 0:
+                activePlayerDebuffs++;
                 playerStatuses[0] = "Malediction";
                 playerStatusIcon1.setImageResource(R.drawable.debuff_malediction);
                 playerStatusIcon1.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon1.setVisibility(View.VISIBLE);
                 break;
             case 1:
+                activePlayerDebuffs++;
                 playerStatuses[1] = "Malediction";
                 playerStatusIcon2.setImageResource(R.drawable.debuff_malediction);
                 playerStatusIcon2.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon2.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                activePlayerDebuffs++;
                 playerStatuses[2] = "Malediction";
                 playerStatusIcon3.setImageResource(R.drawable.debuff_malediction);
                 playerStatusIcon3.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon3.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                activePlayerDebuffs++;
                 playerStatuses[3] = "Malediction";
                 playerStatusIcon4.setImageResource(R.drawable.debuff_malediction);
                 playerStatusIcon4.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon4.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                activePlayerDebuffs++;
                 playerStatuses[4] = "Malediction";
                 playerStatusIcon5.setImageResource(R.drawable.debuff_malediction);
                 playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
@@ -6896,30 +6924,35 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         int freeSpot = getFreePlayerStatusSpot();
         switch (freeSpot){
             case 0:
+                activePlayerDebuffs++;
                 playerStatuses[0] = "Death Sentence";
                 playerStatusIcon1.setImageResource(R.drawable.debuff_death_sentence);
                 playerStatusIcon1.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon1.setVisibility(View.VISIBLE);
                 break;
             case 1:
+                activePlayerDebuffs++;
                 playerStatuses[1] = "Death Sentence";
                 playerStatusIcon2.setImageResource(R.drawable.debuff_death_sentence);
                 playerStatusIcon2.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon2.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                activePlayerDebuffs++;
                 playerStatuses[2] = "Death Sentence";
                 playerStatusIcon3.setImageResource(R.drawable.debuff_death_sentence);
                 playerStatusIcon3.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon3.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                activePlayerDebuffs++;
                 playerStatuses[3] = "Death Sentence";
                 playerStatusIcon4.setImageResource(R.drawable.debuff_death_sentence);
                 playerStatusIcon4.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon4.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                activePlayerDebuffs++;
                 playerStatuses[4] = "Death Sentence";
                 playerStatusIcon5.setImageResource(R.drawable.debuff_death_sentence);
                 playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
@@ -6933,30 +6966,35 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot){
             case 0:
+                activeEnemyDebuffs++;
                 enemyStatuses[0] = "Slow Down";
                 enemyStatusIcon1.setImageResource(R.drawable.debuff_slow);
                 enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon1.setVisibility(View.VISIBLE);
                 break;
             case 1:
+                activeEnemyDebuffs++;
                 enemyStatuses[1] = "Slow Down";
                 enemyStatusIcon2.setImageResource(R.drawable.debuff_slow);
                 enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon2.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                activeEnemyDebuffs++;
                 enemyStatuses[2] = "Slow Down";
                 enemyStatusIcon3.setImageResource(R.drawable.debuff_slow);
                 enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon3.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                activeEnemyDebuffs++;
                 enemyStatuses[3] = "Slow Down";
                 enemyStatusIcon4.setImageResource(R.drawable.debuff_slow);
                 enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon4.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                activeEnemyDebuffs++;
                 enemyStatuses[4] = "Slow Down";
                 enemyStatusIcon5.setImageResource(R.drawable.debuff_slow);
                 enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
@@ -7155,30 +7193,35 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
+                activeEnemyDebuffs++;
                 enemyStatuses[0] = "Corruption";
                 enemyStatusIcon1.setImageResource(R.drawable.debuff_corruption);
                 enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon1.setVisibility(View.VISIBLE);
                 break;
             case 1:
+                activeEnemyDebuffs++;
                 enemyStatuses[1] = "Corruption";
                 enemyStatusIcon2.setImageResource(R.drawable.debuff_corruption);
                 enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon2.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                activeEnemyDebuffs++;
                 enemyStatuses[2] = "Corruption";
                 enemyStatusIcon3.setImageResource(R.drawable.debuff_corruption);
                 enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon3.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                activeEnemyDebuffs++;
                 enemyStatuses[3] = "Corruption";
                 enemyStatusIcon4.setImageResource(R.drawable.debuff_corruption);
                 enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon4.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                activeEnemyDebuffs++;
                 enemyStatuses[4] = "Corruption";
                 enemyStatusIcon5.setImageResource(R.drawable.debuff_corruption);
                 enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
@@ -7192,30 +7235,35 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
+                activeEnemyDebuffs++;
                 enemyStatuses[0] = "Curse";
                 enemyStatusIcon1.setImageResource(R.drawable.debuff_curse);
                 enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon1.setVisibility(View.VISIBLE);
                 break;
             case 1:
+                activeEnemyDebuffs++;
                 enemyStatuses[1] = "Curse";
                 enemyStatusIcon2.setImageResource(R.drawable.debuff_curse);
                 enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon2.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                activeEnemyDebuffs++;
                 enemyStatuses[2] = "Curse";
                 enemyStatusIcon3.setImageResource(R.drawable.debuff_curse);
                 enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon3.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                activeEnemyDebuffs++;
                 enemyStatuses[3] = "Curse";
                 enemyStatusIcon4.setImageResource(R.drawable.debuff_curse);
                 enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon4.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                activeEnemyDebuffs++;
                 enemyStatuses[4] = "Curse";
                 enemyStatusIcon5.setImageResource(R.drawable.debuff_curse);
                 enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
@@ -7229,30 +7277,35 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
+                activeEnemyDebuffs++;
                 enemyStatuses[0] = "Agony";
                 enemyStatusIcon1.setImageResource(R.drawable.debuff_agony);
                 enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon1.setVisibility(View.VISIBLE);
                 break;
             case 1:
+                activeEnemyDebuffs++;
                 enemyStatuses[1] = "Agony";
                 enemyStatusIcon2.setImageResource(R.drawable.debuff_agony);
                 enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon2.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                activeEnemyDebuffs++;
                 enemyStatuses[2] = "Agony";
                 enemyStatusIcon3.setImageResource(R.drawable.debuff_agony);
                 enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon3.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                activeEnemyDebuffs++;
                 enemyStatuses[3] = "Agony";
                 enemyStatusIcon4.setImageResource(R.drawable.debuff_agony);
                 enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon4.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                activeEnemyDebuffs++;
                 enemyStatuses[4] = "Agony";
                 enemyStatusIcon5.setImageResource(R.drawable.debuff_agony);
                 enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
@@ -7266,30 +7319,35 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
+                activeEnemyDebuffs++;
                 enemyStatuses[0] = "Malediction";
                 enemyStatusIcon1.setImageResource(R.drawable.debuff_malediction);
                 enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon1.setVisibility(View.VISIBLE);
                 break;
             case 1:
+                activeEnemyDebuffs++;
                 enemyStatuses[1] = "Malediction";
                 enemyStatusIcon2.setImageResource(R.drawable.debuff_malediction);
                 enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon2.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                activeEnemyDebuffs++;
                 enemyStatuses[2] = "Malediction";
                 enemyStatusIcon3.setImageResource(R.drawable.debuff_malediction);
                 enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon3.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                activeEnemyDebuffs++;
                 enemyStatuses[3] = "Malediction";
                 enemyStatusIcon4.setImageResource(R.drawable.debuff_malediction);
                 enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon4.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                activeEnemyDebuffs++;
                 enemyStatuses[4] = "Malediction";
                 enemyStatusIcon5.setImageResource(R.drawable.debuff_malediction);
                 enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
@@ -7303,30 +7361,35 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
+                activeEnemyDebuffs++;
                 enemyStatuses[0] = "Death Sentence";
                 enemyStatusIcon1.setImageResource(R.drawable.debuff_death_sentence);
                 enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon1.setVisibility(View.VISIBLE);
                 break;
             case 1:
+                activeEnemyDebuffs++;
                 enemyStatuses[1] = "Death Sentence";
                 enemyStatusIcon2.setImageResource(R.drawable.debuff_death_sentence);
                 enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon2.setVisibility(View.VISIBLE);
                 break;
             case 2:
+                activeEnemyDebuffs++;
                 enemyStatuses[2] = "Death Sentence";
                 enemyStatusIcon3.setImageResource(R.drawable.debuff_death_sentence);
                 enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon3.setVisibility(View.VISIBLE);
                 break;
             case 3:
+                activeEnemyDebuffs++;
                 enemyStatuses[3] = "Death Sentence";
                 enemyStatusIcon4.setImageResource(R.drawable.debuff_death_sentence);
                 enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
                 enemyStatusIcon4.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                activeEnemyDebuffs++;
                 enemyStatuses[4] = "Death Sentence";
                 enemyStatusIcon5.setImageResource(R.drawable.debuff_death_sentence);
                 enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
@@ -7888,34 +7951,40 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     private void checkPlayerAilments(){
         int check = findPlayerAilment("Slow Down");
         if (check != -1){
+            activePlayerDebuffs--;
             playerIsSlowed = false;
             clearPlayerStatus("Slow Down");
         }
         check = findPlayerAilment("Corruption");
         if (check != -1){
+            activePlayerDebuffs--;
             playerIsCorrupted = false;
             clearPlayerStatus("Corruption");
         }
         check = findPlayerAilment("Curse");
         if (check != -1){
+            activePlayerDebuffs--;
             playerIsCursed = false;
             playerCurseCountdown = -1;
             clearPlayerStatus("Curse");
         }
         check = findPlayerAilment("Agony");
         if (check != -1){
+            activePlayerDebuffs--;
             playerIsAgonized = false;
             playerAgonyCountdown = -1;
             clearPlayerStatus("Agony");
         }
         check = findPlayerAilment("Malediction");
         if (check != -1){
+            activePlayerDebuffs--;
             playerIsMaledicted = false;
             playerMaledictionCountdown = -1;
             clearPlayerStatus("Malediction");
         }
         check = findPlayerAilment("Death Sentence");
         if (check != -1){
+            activePlayerDebuffs--;
             playerIsSentenced = false;
             playerSentenceCountdown = -1;
             clearPlayerStatus("Death Sentence");
@@ -7952,34 +8021,40 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     private void checkEnemyAilments(){
         int check = findEnemyAilments("Slow Down");
         if (check != -1){
+            activeEnemyDebuffs--;
             enemyIsSlowed = false;
             clearEnemyStatus("Slow Down");
         }
         check = findEnemyAilments("Corruption");
         if (check != -1){
+            activeEnemyDebuffs--;
             enemyIsCorrupted = false;
             clearEnemyStatus("Corruption");
         }
         check = findEnemyAilments("Curse");
         if (check != -1){
+            activeEnemyDebuffs--;
             enemyIsCursed = false;
             enemyCurseCountdown = -1;
             clearEnemyStatus("Curse");
         }
         check = findEnemyAilments("Agony");
         if (check != -1){
+            activeEnemyDebuffs--;
             enemyIsAgonized = false;
             enemyAgonyCountdown = -1;
             clearEnemyStatus("Agony");
         }
         check = findEnemyAilments("Malediction");
         if (check != -1){
+            activeEnemyDebuffs--;
             enemyIsMaledicted = false;
             enemyMaledictionCountdown = -1;
             clearEnemyStatus("Malediction");
         }
         check = findEnemyAilments("Death Sentence");
         if (check != -1){
+            activeEnemyDebuffs--;
             enemyIsSentenced = false;
             enemySentenceCountdown = -1;
             clearEnemyStatus("Death Sentence");
