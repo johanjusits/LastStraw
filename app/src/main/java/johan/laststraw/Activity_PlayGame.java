@@ -1471,15 +1471,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         enemyMoveCounter++;
         /* Checks if enemy has any cards left and decides move pattern accordingly */
         if (enemyCardsRemaining > 0){
-            int cardOrClear = AiPatterns.initAiPatternCardOrNot(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining, activeEnemyDebuffs, enemyCard1Used);
+            int cardOrClear = AiPatterns.initAiPatternCardOrNot(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
             if (cardOrClear >= 80){
                 if (aiPattern == 0){
                     enemyPickedCard = randomizeEnemyCardSelect();
                 } else {
-                    enemyPickedCard = AiPatterns.initAiPatternPickCard(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining,
-                            enemyCard1Used, activeEnemyDebuffs);
+                    enemyPickedCard = AiPatterns.initAiPatternPickCard(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
                 }
                 if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost + enemyCorruptedPenalty){
                     lastEnemyPlayedCard = enemyCard1Name;

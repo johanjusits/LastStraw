@@ -113,6 +113,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         checkMiniBoss2();
         //CHECKS IF BOSS 2 HAS BEEN BEATEN
         checkBoss2();
+        //CHECKS IF MINI BOSS 3 HAS BEEN BEATEN
+        checkMiniBoss3();
     }
 
     private void awardNewCard() {
@@ -358,6 +360,26 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             preferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("player3rdSlotAwarded", true);
+            editor.apply();
+            confirmSuccess("You have unlocked a new card slot!", Activity_StartScreen.this);
+            db.close();
+        }
+    }
+
+    private void checkMiniBoss3(){
+        int checkMiniBoss1 = getLevelInfo(20);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean player4thSlotAwarded = preferences.getBoolean("player4thSlotAwarded", false);
+        if (checkMiniBoss1 == 1 && !player4thSlotAwarded){
+            try {
+                db.open();
+            } catch (java.sql.SQLException e) {
+                e.printStackTrace();
+            }
+            db.updatePlayerSlots(4);
+            preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("player4thSlotAwarded", true);
             editor.apply();
             confirmSuccess("You have unlocked a new card slot!", Activity_StartScreen.this);
             db.close();
