@@ -89,12 +89,17 @@ public class AiPatterns {
                     return 5;
                 case 18:
                     return 4;
+                case 19:
+                    return 3;
+                case 20:
+                    return 3;
+                case 21:
+                    return 3;
             }
         return 1;
     }
 
-    public static int initAiPatternCardOrNot(int levelId, int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int objectsRemaining, int activeEnemyDebuffs,
-                                             boolean enemyCard1Used){
+    public static int initAiPatternCardOrNot(int levelId, int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int objectsRemaining){
         switch (levelId){
             //WORLD 1
             case 1:
@@ -134,13 +139,19 @@ public class AiPatterns {
             case 17:
                 return w003_l001_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
             case 18:
-                return w003_l002_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining, activeEnemyDebuffs, enemyCard1Used);
+                return w003_l002_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
+            case 19:
+                return w003_l003_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
+            case 20:
+                return w003_l004_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
+            case 21:
+                return w003_l005_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
         }
         return 0;
     }
 
     public static int initAiPatternPickCard(int levelId, int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int enemyStartingCards,
-                                            ArrayList<Integer> pool, int objectsRemaining, boolean enemyCard1Used, int activeEnemyDebuffs){
+                                            ArrayList<Integer> pool, int objectsRemaining){
         switch (levelId){
             //WORLD 2
             case 9:
@@ -163,7 +174,13 @@ public class AiPatterns {
             case 17:
                 return w003_l001_AI_PickCard(aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
             case 18:
-                return w003_l002_AI_PickCard(aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining, enemyCard1Used, activeEnemyDebuffs);
+                return w003_l002_AI_PickCard(aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
+            case 19:
+                return w003_l003_AI_PickCard(aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
+            case 20:
+                return w003_l004_AI_PickCard(aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
+            case 21:
+                return w003_l005_AI_PickCard(aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
         }
         return 0;
     }
@@ -1102,7 +1119,7 @@ public class AiPatterns {
     }
 
     //WORLD 3 LEVEL 2
-    public static int w003_l002_AI_CardOrNot(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int objectsRemaining, int activeEnemyDebuffs, boolean enemyCard1Used){
+    public static int w003_l002_AI_CardOrNot(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int objectsRemaining){
         //Go nuts with random
         if (aiPattern == 0){
             return genRand(100);
@@ -1117,8 +1134,8 @@ public class AiPatterns {
             if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
                 return 99;
             }
-            if (activeEnemyDebuffs > 0 && !enemyCard1Used){
-                return 99;
+            if (enemyTurnCounter > 3){
+                return genRand(100);
             }
         }
         if (aiPattern == 2){
@@ -1128,27 +1145,20 @@ public class AiPatterns {
             if (enemyTurnCounter > 1){
                 return genRand(100);
             }
-            if (activeEnemyDebuffs > 0 && !enemyCard1Used){
-                return 99;
-            }
         }
         if (aiPattern == 3){
             if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
                 return 99;
             }
-            if (enemyTurnCounter > 1 && objectsRemaining < 7){
-                return 99;
-            }
-            if (activeEnemyDebuffs > 0 && !enemyCard1Used){
+            if (enemyTurnCounter > 1 && objectsRemaining <= 7){
                 return 99;
             }
         }
         return 0;
     }
 
-    public static int w003_l002_AI_PickCard(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int enemyStartingCards, ArrayList<Integer> pool, int objectsRemaining,
-                                            boolean enemyCard1Used, int activeEnemyDebuffs){
-        //Infest on move 3 turn one and two, agony on turn 3 and cure if struck by an ailment
+    public static int w003_l002_AI_PickCard(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int enemyStartingCards, ArrayList<Integer> pool, int objectsRemaining){
+        //Infest on move 3 turn one and two, agony on turn 3
         if (aiPattern == 1){
             if (enemyTurnCounter == 1 && enemyMoveCounter == 3){
                 return 2;
@@ -1159,11 +1169,11 @@ public class AiPatterns {
             if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
                 return 1;
             }
-            if (activeEnemyDebuffs > 0 && !enemyCard1Used){
+            if (enemyTurnCounter > 3){
                 return 0;
             }
         }
-        //Agony on first then random and cure if struck by an ailment
+        //Agony on first then random
         if (aiPattern == 2){
             if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
                 return 1;
@@ -1171,20 +1181,197 @@ public class AiPatterns {
             if (enemyTurnCounter > 1){
                 return randomizeEnemyCardSelect(enemyStartingCards, pool);
             }
-            if (activeEnemyDebuffs > 0 && !enemyCard1Used){
-                return 0;
-            }
         }
         //Agony on first then infest when obj remaining less than 7
         if (aiPattern == 3){
             if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
                 return 1;
             }
-            if (enemyTurnCounter > 1 && objectsRemaining < 7 && enemyMoveCounter == 1){
+            if (enemyTurnCounter > 1 && objectsRemaining <= 7){
                 return randomizeEnemyCardSelect(enemyStartingCards, pool);
             }
-            if (activeEnemyDebuffs > 0 && !enemyCard1Used){
+        }
+        return 0;
+    }
+
+    //WORLD 3 LEVEL 3
+    public static int w003_l003_AI_CardOrNot(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int objectsRemaining){
+        //Go nuts with random
+        if (aiPattern == 0){
+            return genRand(100);
+        }
+        if (aiPattern == 1){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 3){
+                return 99;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 2){
+                return 99;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining > 1){
+                return genRand(100);
+            }
+        }
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 2){
+                return genRand(100);
+            }
+        }
+        return 0;
+    }
+
+    public static int w003_l003_AI_PickCard(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int enemyStartingCards, ArrayList<Integer> pool, int objectsRemaining){
+        //Corruption on first, concentrate on 2nd, then random
+        if (aiPattern == 1){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 3){
+                return 4;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 2){
+                return 2;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
+            }
+        }
+        //Concentrate on 1st, none on 2nd, then random
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 2;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
+            }
+        }
+        return 0;
+    }
+
+    //WORLD 3 LEVEL 4
+    public static int w003_l004_AI_CardOrNot(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int objectsRemaining){
+        //Go nuts with random
+        if (aiPattern == 0){
+            return genRand(100);
+        }
+        if (aiPattern == 1){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1 || enemyTurnCounter == 1 && enemyMoveCounter == 2 ){
+                return 99;
+            }
+            if (enemyTurnCounter > 1 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 1 && objectsRemaining > 1){
+                return genRand(100);
+            }
+        }
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 3){
+                return genRand(100);
+            }
+        }
+        return 0;
+    }
+
+    public static int w003_l004_AI_PickCard(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int enemyStartingCards, ArrayList<Integer> pool, int objectsRemaining){
+        // Speed up + concentrate on first then random
+        if (aiPattern == 1){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 5;
+            }
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 2){
+                return 3;
+            }
+            if (enemyTurnCounter > 1 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
+            }
+        }
+        // Steal II on 2nd and 3rd turn, rest random
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
                 return 0;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 1;
+            }
+            if (enemyTurnCounter > 3 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
+            }
+        }
+        return 0;
+    }
+
+    //WORLD 3 LEVEL 5
+    public static int w003_l005_AI_CardOrNot(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int objectsRemaining){
+        //Go nuts with random
+        if (aiPattern == 0){
+            return genRand(100);
+        }
+        if (aiPattern == 1){
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 3 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 3 && objectsRemaining > 1){
+                return genRand(100);
+            }
+        }
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 3 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 3){
+                return genRand(100);
+            }
+        }
+        return 0;
+    }
+
+    public static int w003_l005_AI_PickCard(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int enemyStartingCards, ArrayList<Integer> pool, int objectsRemaining){
+        // Mimic after 2 turns, agony on 3rd
+        if (aiPattern == 1){
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 2;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 1;
+            }
+            if (enemyTurnCounter > 3 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
+            }
+        }
+        // Agony on first, mimic on 3rd
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 1;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 2;
+            }
+            if (enemyTurnCounter > 3 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
             }
         }
         return 0;

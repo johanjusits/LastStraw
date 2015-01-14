@@ -122,11 +122,12 @@ public class Activity_Mountains_LevelSelection extends Activity implements View.
                 finish();
                 overridePendingTransition(0, 0);
                 break;
-            /*case R.id.bWorld001Lvl003:
+            case R.id.bWorld001Lvl003:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W003_L003");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Mountains - Level 3");
+                editor.putInt("LoadedLevelId", 19);
                 editor.apply();
                 pickCards = new Intent(Activity_Mountains_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -137,8 +138,9 @@ public class Activity_Mountains_LevelSelection extends Activity implements View.
             case R.id.bWorld001Lvl004:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W003_L004");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Mountains - Level 4");
+                editor.putInt("LoadedLevelId", 20);
                 editor.apply();
                 pickCards = new Intent(Activity_Mountains_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -149,8 +151,9 @@ public class Activity_Mountains_LevelSelection extends Activity implements View.
             case R.id.bWorld001Lvl005:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W003_L005");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Mountains - Level 5");
+                editor.putInt("LoadedLevelId", 21);
                 editor.apply();
                 pickCards = new Intent(Activity_Mountains_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -161,8 +164,9 @@ public class Activity_Mountains_LevelSelection extends Activity implements View.
             case R.id.bWorld001Lvl006:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W003_L006");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Mountains - Level 6");
+                editor.putInt("LoadedLevelId", 22);
                 editor.apply();
                 pickCards = new Intent(Activity_Mountains_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -173,8 +177,9 @@ public class Activity_Mountains_LevelSelection extends Activity implements View.
             case R.id.bWorld001Lvl007:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W003_L007");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Mountains - Level 7");
+                editor.putInt("LoadedLevelId", 23);
                 editor.apply();
                 pickCards = new Intent(Activity_Mountains_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -185,15 +190,16 @@ public class Activity_Mountains_LevelSelection extends Activity implements View.
             case R.id.bWorld001Lvl008:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
-                editor.putString("LevelToLoad", ".Activity_W003_L008");
+                editor.putString("LevelToLoad", ".Activity_PlayGame");
                 editor.putString("LevelName", "Mountains - Level 8");
+                editor.putInt("LoadedLevelId", 24);
                 editor.apply();
                 pickCards = new Intent(Activity_Mountains_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(pickCards);
                 finish();
                 overridePendingTransition(0, 0);
-                break;*/
+                break;
         }
     }
 
