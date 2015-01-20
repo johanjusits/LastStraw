@@ -54,6 +54,22 @@ public class EnemyInfo {
                 return 12;
             case 24:
                 return 12;
+            case 25:
+                return 13;
+            case 26:
+                return 13;
+            case 27:
+                return 14;
+            case 28:
+                return 14;
+            case 29:
+                return 15;
+            case 30:
+                return 15;
+            case 31:
+                return 16;
+            case 32:
+                return 16;
         }
         return 0;
     }
@@ -113,6 +129,25 @@ public class EnemyInfo {
                         return "portrait_mountains";
                     case 23:
                         return "portrait_mountains";
+                    case 24:
+                        return "portrait_boss";
+                }
+            case 4:
+                switch (levelId){
+                    case 17:
+                        return "portrait_wreckage";
+                    case 18:
+                        return "portrait_wreckage";
+                    case 19:
+                        return "portrait_wreckage";
+                    case 20:
+                        return "portrait_miniboss";
+                    case 21:
+                        return "portrait_wreckage";
+                    case 22:
+                        return "portrait_wreckage";
+                    case 23:
+                        return "portrait_wreckage";
                     case 24:
                         return "portrait_boss";
                 }
@@ -178,6 +213,25 @@ public class EnemyInfo {
                         return "Giant Bear";
                     case 24:
                         return "Yeti";
+                }
+            case 4:
+                switch (levelId){
+                    case 25:
+                        return "Fisherman";
+                    case 26:
+                        return "Deck Worker";
+                    case 27:
+                        return "Recruit Adam";
+                    case 28:
+                        return "Seaman John";
+                    case 29:
+                        return "Lieutenant Fay";
+                    case 30:
+                        return "Commander Lee";
+                    case 31:
+                        return "Captain Riker";
+                    case 32:
+                        return "Admiral Crone ";
                 }
         }
         return null;

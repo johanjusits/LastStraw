@@ -14,11 +14,11 @@ import android.widget.TextView;
  */
 public class Activity_WorldSelection extends Activity implements View.OnClickListener {
 
-    ImageButton bFields, bDungeon, bMountains;
+    ImageButton bFields, bDungeon, bMountains, bWreckage;
     Intent worldSelected;
     DBHandler db;
     Cursor cursor;
-    TextView world001High, world002High, world003High;
+    TextView world001High, world002High, world003High, world004High, world005High, world006High;
     int w001lv001score, w001lv002score, w001lv003score, w001lv004score, w001lv005score, w001lv006score, w001lv007score, w001lv008score;
     int totalScore;
     ImageView w1star1, w1star2, w1star3, w2star1, w2star2, w2star3, w3star1, w3star2, w3star3,
@@ -32,6 +32,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         bFields = (ImageButton) findViewById(R.id.imgBtnWorld001);
         bDungeon = (ImageButton) findViewById(R.id.imgBtnWorld002);
         bMountains = (ImageButton) findViewById(R.id.imgBtnWorld003);
+        bWreckage = (ImageButton) findViewById(R.id.imgBtnWorld004);
         bFields.setOnClickListener(this);
         bDungeon.setOnClickListener(this);
         bMountains.setOnClickListener(this);
@@ -61,16 +62,22 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         world001High = (TextView) findViewById(R.id.world001High);
         world002High = (TextView) findViewById(R.id.world002High);
         world003High = (TextView) findViewById(R.id.world003High);
+        world004High = (TextView) findViewById(R.id.world004High);
+        world005High = (TextView) findViewById(R.id.world005High);
+        world006High = (TextView) findViewById(R.id.world006High);
 
         db = new DBHandler(this);
 
         getWorldHighScores(1);
         getWorldHighScores(2);
         getWorldHighScores(3);
+        getWorldHighScores(4);
         //Check World 1 if is cleared
         getLevelInfo(8);
         //Check World 2 if is cleared
         getLevelInfo(16);
+        //Check World 3 if is cleared
+        getLevelInfo(24);
     }
 
     @Override
@@ -92,6 +99,13 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
                 break;
             case R.id.imgBtnWorld003:
                 worldSelected = new Intent(Activity_WorldSelection.this, Activity_Mountains_LevelSelection.class);
+                worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(worldSelected);
+                finish();
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.imgBtnWorld004:
+                worldSelected = new Intent(Activity_WorldSelection.this, Activity_Wreckage_LevelSelection.class);
                 worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(worldSelected);
                 finish();
@@ -143,6 +157,10 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             world003High.setText(String.valueOf(totalScore));
             setW3Stars();
         }
+        if (worldId == 4){
+            world004High.setText(String.valueOf(totalScore));
+            setW3Stars();
+        }
     }
 
     @Override
@@ -176,6 +194,11 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         }
         if (worldId == 2 && worldCleared == 1){
             bMountains.setImageResource(R.drawable.world_mountains);
+            bMountains.setBackgroundResource(R.drawable.lvlselection_button);
+            bMountains.setClickable(true);
+        }
+        if (worldId == 3 && worldCleared == 1){
+            bMountains.setImageResource(R.drawable.world_wreckage);
             bMountains.setBackgroundResource(R.drawable.lvlselection_button);
             bMountains.setClickable(true);
         }
