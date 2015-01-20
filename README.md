@@ -1,4 +1,3 @@
-# LastStraw
-Android Project
+# LastStraw - An Android Project
 
-My first game for Android.
+My very first game for Android. Work still in progress.
