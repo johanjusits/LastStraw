@@ -113,6 +113,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String enemyPortraitName;
     String textColorName;
     /* INTS */
+    int cardOrNotNumber;
     int activePlayerDebuffs;
     int activeEnemyDebuffs;
     int textColor;
@@ -426,7 +427,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         objectBrokenImg = getResources().getIdentifier(objectBrokenImgName, "drawable", getPackageName());
         objectWebbedImg = getResources().getIdentifier(objectWebbedImgName, "drawable", getPackageName());
 
+        cardOrNotNumber = GameInfo.getRandomCardOrNotNr();
         aiPattern = genRand(AiPatterns.getAiPatternNr(lvlId));
+        System.out.println("CardOrNotNumber: " + String.valueOf(cardOrNotNumber));
         System.out.println("AI Pattern: " + String.valueOf(aiPattern));
 
         SoundEffects.setupSounds(this);
@@ -1474,7 +1477,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             int cardOrClear = AiPatterns.initAiPatternCardOrNot(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
-            if (cardOrClear >= 80){
+            if (cardOrClear >= cardOrNotNumber){
                 if (aiPattern == 0){
                     enemyPickedCard = randomizeEnemyCardSelect();
                 } else {

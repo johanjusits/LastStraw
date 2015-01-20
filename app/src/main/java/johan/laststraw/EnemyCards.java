@@ -94,6 +94,8 @@ public class EnemyCards {
                 return 6;
             case 21:
                 return 3;
+            case 22:
+                return 5;
         }
         return 0;
     }
@@ -345,6 +347,20 @@ public class EnemyCards {
                         return cardIconAilment;
                     case 2:
                         return cardIconBoosting;
+                }
+            // WORLD 3 LEVEL 6
+            case 22:
+                switch (cardNr){
+                    case 0:
+                        return cardIconBoosting;
+                    case 1:
+                        return cardIconAilment;
+                    case 2:
+                        return cardIconBoosting;
+                    case 3:
+                        return cardIconBoosting;
+                    case 4:
+                        return cardIconField;
                 }
         }
         return "";
@@ -922,6 +938,40 @@ public class EnemyCards {
                             return cardTypeBoosting;
                         }
                 }
+            // WORLD 3 LEVEL 6
+            case 22:
+                switch (cardNr){
+                    case 0:
+                        if (screenSize.equals("xlarge")){
+                            return cardTypeBoostingTablet;
+                        } else {
+                            return cardTypeBoosting;
+                        }
+                    case 1:
+                        if (screenSize.equals("xlarge")){
+                            return cardTypeAilmentTablet;
+                        } else {
+                            return cardTypeAilment;
+                        }
+                    case 2:
+                        if (screenSize.equals("xlarge")){
+                            return cardTypeBoostingTablet;
+                        } else {
+                            return cardTypeBoosting;
+                        }
+                    case 3:
+                        if (screenSize.equals("xlarge")){
+                            return cardTypeBoostingTablet;
+                        } else {
+                            return cardTypeBoosting;
+                        }
+                    case 4:
+                        if (screenSize.equals("xlarge")){
+                            return cardTypeFieldTablet;
+                        } else {
+                            return cardTypeField;
+                        }
+                }
         }
         return "";
     }
@@ -1264,6 +1314,22 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
+            // WORLD 3 LEVEL 5
+            case 22:
+                switch (cardNr){
+                    case 0:
+                        return true;
+                    case 1:
+                        return true;
+                    case 2:
+                        return true;
+                    case 3:
+                        return true;
+                    case 4:
+                        return true;
+                    case 5:
+                        return false;
+                }
         }
         return false;
     }
@@ -1515,6 +1581,20 @@ public class EnemyCards {
                         return AgonyImgPath;
                     case 2:
                         return MimicImgPath;
+                }
+            // WORLD 3 LEVEL 6
+            case 22:
+                switch (cardNr){
+                    case 0:
+                        return ProtectImgPath;
+                    case 1:
+                        return CurseImgPath;
+                    case 2:
+                        return MimicImgPath;
+                    case 3:
+                        return CureImgPath;
+                    case 4:
+                        return Reinforce3ImgPath;
                 }
         }
         return "";
@@ -1858,7 +1938,22 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-
+            // WORLD 3 LEVEL 6
+            case 22:
+                switch (cardNr){
+                    case 0:
+                        return ProtectCardName;
+                    case 1:
+                        return CurseCardName;
+                    case 2:
+                        return MimicCardName;
+                    case 3:
+                        return CureCardName;
+                    case 4:
+                        return Reinforce3CardName;
+                    case 5:
+                        return "";
+                }
         }
         return "";
     }
@@ -2198,6 +2293,22 @@ public class EnemyCards {
                         return 0;
                     case 4:
                         return 0;
+                    case 5:
+                        return 0;
+                }
+            // WORLD 3 LEVEL 6
+            case 22:
+                switch (cardNr){
+                    case 0:
+                        return 1;
+                    case 1:
+                        return 2;
+                    case 2:
+                        return 2;
+                    case 3:
+                        return 1;
+                    case 4:
+                        return 1;
                     case 5:
                         return 0;
                 }

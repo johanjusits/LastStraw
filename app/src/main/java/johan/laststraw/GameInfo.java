@@ -1,9 +1,19 @@
 package johan.laststraw;
 
+import java.util.Random;
+
 /**
  * Created by Johan on 2015-01-07.
  */
 public class GameInfo {
+
+    public static int genRand(int max, int min) {
+        return new Random().nextInt((max - min) + 1) + min;
+    }
+
+    public static int getRandomCardOrNotNr(){
+        return genRand(85, 65);
+    }
 
     public static String getInfestMsg(int worldId){
         switch (worldId){
@@ -13,6 +23,8 @@ public class GameInfo {
                 return "Spiders infests the skeleton";
             case 3:
                 return "Spiders infests the snowman";
+            case 4:
+                return "Spiders infests the chest";
         }
         return "";
     }
@@ -25,6 +37,8 @@ public class GameInfo {
                 return "Skeleton is already infested";
             case 3:
                 return "Snowman is already infested";
+            case 4:
+                return "Chest is already infested";
         }
         return "";
     }
@@ -37,6 +51,8 @@ public class GameInfo {
                 return "textWhite";
             case 3:
                 return "textBlack";
+            case 4:
+                return "textWhite";
         }
         return "";
     }
@@ -49,6 +65,8 @@ public class GameInfo {
                 return 1;
             case 3:
                 return 2;
+            case 4:
+                return 3;
         }
         return 0;
     }
@@ -61,6 +79,8 @@ public class GameInfo {
                 return "activity_world002";
             case 3:
                 return "activity_world003";
+            case 4:
+                return "activity_world004";
         }
         return null;
     }
@@ -73,6 +93,8 @@ public class GameInfo {
                 return "object_skeleton";
             case 3:
                 return "object_snowman";
+            case 4:
+                return "object_chest";
         }
         return null;
     }
@@ -85,6 +107,8 @@ public class GameInfo {
                 return "object_skeleton_broken";
             case 3:
                 return "object_snowman_broken";
+            case 4:
+                return "object_chest_opened";
         }
         return null;
     }
@@ -97,6 +121,8 @@ public class GameInfo {
                 return "object_skeleton_webbed";
             case 3:
                 return "object_snowman_webbed";
+            case 4:
+                return "object_chest_webbed";
         }
         return null;
     }
