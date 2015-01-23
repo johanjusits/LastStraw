@@ -23,7 +23,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -47,9 +50,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     Button btnEndTurn;
     TextView tvCenterMessage, tvPlayerMovesNumber, tvEnemyMovesNumber;
     TextView tvPlayerName, tvPlayerExp, tvPlayerLevel, tvPlayerScore, tvEnemyScore, tvEnemyName, tvEnemyLvl;
+    TextView tvObjMsg;
     ImageView ivPlayerPortrait, ivEnemyPortrait, ivCenterCardFrame;
     ViewGroup layout_objectRow;
-    Animation ani_fadeIn, ani_fadeOut, ani_zoomIn, ani_shake, ani_scoregain, ani_resetscore, ani_infest_shake;
+    Animation ani_fadeIn, ani_fadeOut, ani_zoomIn, ani_shake, ani_scoregain, ani_resetscore, ani_infest_shake, ani_bounce;
     /* STRINGS */
     String playerGender = "";
     String playerName = "";
@@ -113,6 +117,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String enemyPortraitName;
     String textColorName;
     /* INTS */
+    int playerHitChance;
     int cardOrNotNumber;
     int activePlayerDebuffs;
     int activeEnemyDebuffs;
@@ -180,6 +185,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     int aiPattern = 0;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
+    boolean playerHit = false;
     boolean enemyIsSlowed = false;
     boolean playerIsSlowed = false;
     boolean enemyHasHaste = false;
@@ -254,6 +260,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         ani_infest_shake = AnimationUtils.loadAnimation(this, R.anim.ani_infest_shake);
         ani_scoregain = AnimationUtils.loadAnimation(this, R.anim.ani_scoregain);
         ani_resetscore = AnimationUtils.loadAnimation(this, R.anim.ani_resetscore);
+        ani_bounce = AnimationUtils.loadAnimation(this, R.anim.ani_bounce);
 
         /* SETS OBJECTS IN OBJECT ROW */
         obj001 = (ImageButton) findViewById(R.id.obj001);
@@ -333,6 +340,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         enemyCard6 = (ImageButton) findViewById((R.id.ibEnemyCard6));
 
         /* SETS VARIOUS VIEWS */
+        tvObjMsg = (TextView) findViewById(R.id.tvObjMsg);
+        tvObjMsg.setVisibility(View.INVISIBLE);
         ivCenterImage = (ImageView) findViewById(R.id.ivCenterImage);
         tvPlayerName = (TextView) findViewById(R.id.tvPlayerName);
         tvPlayerLevel = (TextView) findViewById(R.id.tvLvNumber);
@@ -435,7 +444,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         SoundEffects.setupSounds(this);
         clearSoundId = GameInfo.getClearSound(worldId);
 
-        coinFlipStart();
+        //coinFlipStart();
     }
 
     /* This Method contains a switch handling player clicks on object */
@@ -507,220 +516,320 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                 }
                 break;
+            /* OBJECT 1 */
             case R.id.obj001:
+                initiateObjClick();
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                    playerHitObject("Miss!", 0);
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvObjMsg.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                        }
+                    }, 1050);
+                    break;
+                }
                 if (nextObjIsInfested && infestedObjRemainingHits >= 1){
                     if (objectsRemaining == 16 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                         obj001.startAnimation(ani_infest_shake);
-                        disable(layout_objectRow);
-                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 enable(layout_objectRow);
                                 enablePlayerCards();
                                 infestedObjRemainingHits--;
                             }
-                        }, 1000);
+                        }, 1050);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerHitObject("+", playerClearAward);
                     SoundEffects.playSound(clearSoundId);
-                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-                    playerScore = playerScore + playerClearAward;
-                    tvPlayerScore.setText(String.valueOf(playerScore));
-                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    updatePlayerStatsOnObjClear();
                     obj001.setImageResource(objectBrokenImg);
-                    disable(layout_objectRow);
-                    disablePlayerCards();
+                    objectsRemaining--;
+                    nextObjIsInfested = false;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvObjMsg.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enable(layout_objectRow);
                             enablePlayerCards();
-                            objectsRemaining--;
-                            nextObjIsInfested = false;
                         }
-                    }, 100);
+                    }, 1050);
                     break;
                 }
                 if (objectsRemaining == 16 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerHitObject("+", playerClearAward);
                     SoundEffects.playSound(clearSoundId);
-                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-                    playerScore = playerScore + playerClearAward;
-                    tvPlayerScore.setText(String.valueOf(playerScore));
-                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    updatePlayerStatsOnObjClear();
                     obj001.setImageResource(objectBrokenImg);
-                    disable(layout_objectRow);
-                    disablePlayerCards();
+                    objectsRemaining--;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvObjMsg.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enable(layout_objectRow);
                             enablePlayerCards();
-                            objectsRemaining--;
                         }
-                    }, 100);
+                    }, 1050);
                 }
                 break;
+            /* OBJECT 2 */
             case R.id.obj002:
+                initiateObjClick();
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                    playerHitObject("Miss!", 0);
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvObjMsg.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                        }
+                    }, 1050);
+                    break;
+                }
                 if (nextObjIsInfested && infestedObjRemainingHits >= 1){
                     if (objectsRemaining == 15 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                         obj002.startAnimation(ani_infest_shake);
-                        disable(layout_objectRow);
-                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 enable(layout_objectRow);
                                 enablePlayerCards();
                                 infestedObjRemainingHits--;
                             }
-                        }, 1000);
+                        }, 1050);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerHitObject("+", playerClearAward);
                     SoundEffects.playSound(clearSoundId);
-                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-                    playerScore = playerScore + playerClearAward;
-                    tvPlayerScore.setText(String.valueOf(playerScore));
-                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    updatePlayerStatsOnObjClear();
                     obj002.setImageResource(objectBrokenImg);
-                    disable(layout_objectRow);
-                    disablePlayerCards();
+                    objectsRemaining--;
+                    nextObjIsInfested = false;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvObjMsg.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enable(layout_objectRow);
                             enablePlayerCards();
-                            objectsRemaining--;
-                            nextObjIsInfested = false;
                         }
-                    }, 100);
+                    }, 1050);
                     break;
                 }
                 if (objectsRemaining == 15 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerHitObject("+", playerClearAward);
                     SoundEffects.playSound(clearSoundId);
-                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-                    playerScore = playerScore + playerClearAward;
-                    tvPlayerScore.setText(String.valueOf(playerScore));
-                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    updatePlayerStatsOnObjClear();
                     obj002.setImageResource(objectBrokenImg);
-                    disable(layout_objectRow);
-                    disablePlayerCards();
+                    objectsRemaining--;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvObjMsg.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enable(layout_objectRow);
                             enablePlayerCards();
-                            objectsRemaining--;
                         }
-                    }, 100);
+                    }, 1050);
                 }
                 break;
+            /* OBJECT 3 */
             case R.id.obj003:
+                initiateObjClick();
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                    playerHitObject("Miss!", 0);
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvObjMsg.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                        }
+                    }, 1050);
+                    break;
+                }
                 if (nextObjIsInfested && infestedObjRemainingHits >= 1){
                     if (objectsRemaining == 14 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                         obj003.startAnimation(ani_infest_shake);
-                        disable(layout_objectRow);
-                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 enable(layout_objectRow);
                                 enablePlayerCards();
                                 infestedObjRemainingHits--;
                             }
-                        }, 1000);
+                        }, 1050);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerHitObject("+", playerClearAward);
                     SoundEffects.playSound(clearSoundId);
-                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-                    playerScore = playerScore + playerClearAward;
-                    tvPlayerScore.setText(String.valueOf(playerScore));
-                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    updatePlayerStatsOnObjClear();
                     obj003.setImageResource(objectBrokenImg);
-                    disable(layout_objectRow);
-                    disablePlayerCards();
+                    objectsRemaining--;
+                    nextObjIsInfested = false;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvObjMsg.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enable(layout_objectRow);
                             enablePlayerCards();
-                            objectsRemaining--;
-                            nextObjIsInfested = false;
                         }
-                    }, 100);
+                    }, 1050);
                     break;
                 }
                 if (objectsRemaining == 14 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerHitObject("+", playerClearAward);
                     SoundEffects.playSound(clearSoundId);
-                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-                    playerScore = playerScore + playerClearAward;
-                    tvPlayerScore.setText(String.valueOf(playerScore));
-                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    updatePlayerStatsOnObjClear();
                     obj003.setImageResource(objectBrokenImg);
-                    disable(layout_objectRow);
-                    disablePlayerCards();
+                    objectsRemaining--;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvObjMsg.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enable(layout_objectRow);
                             enablePlayerCards();
-                            objectsRemaining--;
                         }
-                    }, 100);
+                    }, 1050);
                 }
                 break;
+            /* OBJECT 4 */
             case R.id.obj004:
+                initiateObjClick();
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                    playerHitObject("Miss!", 0);
+                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvObjMsg.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            enable(layout_objectRow);
+                            enablePlayerCards();
+                        }
+                    }, 1050);
+                    break;
+                }
                 if (nextObjIsInfested && infestedObjRemainingHits >= 1){
                     if (objectsRemaining == 13 && playerMoves >= 1 + playerCorruptedPenalty){
+                        playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
                         obj004.startAnimation(ani_infest_shake);
-                        disable(layout_objectRow);
-                        disablePlayerCards();
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 enable(layout_objectRow);
                                 enablePlayerCards();
                                 infestedObjRemainingHits--;
                             }
-                        }, 1000);
+                        }, 1050);
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
+                    playerHitObject("+", playerClearAward);
                     SoundEffects.playSound(clearSoundId);
-                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-                    playerScore = playerScore + playerClearAward;
-                    tvPlayerScore.setText(String.valueOf(playerScore));
-                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    updatePlayerStatsOnObjClear();
                     obj004.setImageResource(objectBrokenImg);
-                    disable(layout_objectRow);
-                    disablePlayerCards();
+                    objectsRemaining--;
+                    nextObjIsInfested = false;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvObjMsg.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enable(layout_objectRow);
                             enablePlayerCards();
-                            objectsRemaining--;
-                            nextObjIsInfested = false;
                         }
-                    }, 100);
+                    }, 1050);
                     break;
                 }
                 if (objectsRemaining == 13 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    playerHitObject("+", playerClearAward);
                     SoundEffects.playSound(clearSoundId);
-                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-                    playerScore = playerScore + playerClearAward;
-                    tvPlayerScore.setText(String.valueOf(playerScore));
-                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                    updatePlayerStatsOnObjClear();
                     obj004.setImageResource(objectBrokenImg);
-                    disable(layout_objectRow);
-                    disablePlayerCards();
+                    objectsRemaining--;
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvObjMsg.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             enable(layout_objectRow);
                             enablePlayerCards();
-                            objectsRemaining--;
                         }
-                    }, 100);
+                    }, 1050);
                 }
                 break;
             case R.id.obj005:
@@ -9145,6 +9254,83 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         } else if (density.equals("hdpi")) {
             tvCenterMessage.setTextSize(20);
         }
+    }
+
+    /* SET OBJ TO ALIGN MSG TEXT TO */
+    private void setObjMsgLocation(){
+        RelativeLayout.LayoutParams objMsgSettings = (RelativeLayout.LayoutParams)tvObjMsg.getLayoutParams();
+        objMsgSettings.addRule(RelativeLayout.ABOVE, getCurrentObject(objectsRemaining));
+        objMsgSettings.addRule(RelativeLayout.ALIGN_START, getCurrentObject(objectsRemaining));
+        tvObjMsg.setLayoutParams(objMsgSettings);
+    }
+
+    /* GET OBJ TO ALIGN MSG TEXT TO */
+    private int getCurrentObject(int objectsRemaining){
+        switch (objectsRemaining){
+            case 16:
+                return obj001.getId();
+            case 15:
+                return obj002.getId();
+            case 14:
+                return obj003.getId();
+            case 13:
+                return obj004.getId();
+            case 12:
+                return obj005.getId();
+            case 11:
+                return obj006.getId();
+            case 10:
+                return obj007.getId();
+            case 9:
+                return obj008.getId();
+            case 8:
+                return obj009.getId();
+            case 7:
+                return obj010.getId();
+            case 6:
+                return obj011.getId();
+            case 5:
+                return obj012.getId();
+            case 4:
+                return obj013.getId();
+            case 3:
+                return obj014.getId();
+            case 2:
+                return obj015.getId();
+            case 1:
+                return obj016.getId();
+        }
+        return 0;
+    }
+
+    /* INITIATES STUFF WHEN PLAYER CLICKS AN OBJECT */
+    private void initiateObjClick(){
+        playerHitChance = genRand(100);
+        playerHit = playerHitChance >= 80;
+        System.out.println("Miss Chance: " + String.valueOf(playerHitChance));
+        setObjMsgLocation();
+        tvObjMsg.setVisibility(View.INVISIBLE);
+        disable(layout_objectRow);
+        disablePlayerCards();
+    }
+
+    /* METHOD FOR ANIMATING MSG ABOVE OBJECT */
+    private void playerHitObject(String msg, int value){
+        tvObjMsg.setVisibility(View.VISIBLE);
+        if (value != 0){
+            tvObjMsg.setText(msg + String.valueOf(value));
+        } else {
+            tvObjMsg.setText(msg);
+        }
+        tvObjMsg.startAnimation(ani_bounce);
+    }
+
+    /* METHOD FOR UPDATING PLAYER SCORE & MOVES WHEN CLEARING AN OBJECT */
+    private void updatePlayerStatsOnObjClear(){
+        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+        playerScore = playerScore + playerClearAward;
+        tvPlayerScore.setText(String.valueOf(playerScore));
+        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
     }
 
 }
