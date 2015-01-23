@@ -32,7 +32,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mountainslvlselection);
+        setContentView(R.layout.activity_wrecklvlselection);
 
         lv1score = (TextView) findViewById(R.id.tvLv1Score);
         lv2score = (TextView) findViewById(R.id.tvLv2Score);

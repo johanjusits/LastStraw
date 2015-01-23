@@ -6082,57 +6082,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         final int resetChance = genRand(100);
         ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect);
         ivCenterImage.startAnimation(ani_fadeIn);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_question);
+        if (resetChance >= 10){
+            ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_green);
+            resetWorked = false;
+        } else {
+            ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_red);
+            resetWorked = true;
             }
-        }, 3000);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect);
-            }
-        }, 4000);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_question);
-            }
-        }, 4200);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect);
-            }
-        }, 4400);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_question);
-            }
-        }, 4600);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect);
-            }
-        }, 4800);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_question);
-            }
-        }, 5000);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect);
-            }
-        }, 5200);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                if (resetChance >= 10){
-                    ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_green);
-                    resetWorked = false;
-                } else {
-                    ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_red);
-                    resetWorked = true;
-                }
-            }
-        }, 7200);
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 ivCenterImage.startAnimation(ani_fadeOut);
@@ -6155,7 +6111,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     tvCenterMessage.setText("Demonic Prayer failed!");
                 }
             }
-        }, 9200);
+        }, 1500);
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
@@ -6163,7 +6119,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 ivCenterImage.clearAnimation();
                 ivCenterImage.setVisibility(View.INVISIBLE);
             }
-        }, 10200);
+        }, 3000);
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
@@ -6179,7 +6135,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     tvEnemyScore.clearAnimation();
                 }
             }
-        }, 11200);
+        }, 4000);
     }
 
     /* DEATH SENTENCE CARD EFFECT METHOD */

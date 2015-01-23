@@ -115,6 +115,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         checkBoss2();
         //CHECKS IF MINI BOSS 3 HAS BEEN BEATEN
         checkMiniBoss3();
+        //CHECKS IF BOSS 3 HAS BEEN BEATEN
+        checkBoss3();
     }
 
     private void awardNewCard() {
@@ -422,6 +424,26 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             editor.apply();
             addCard("Curse", "card_curse", 2, 2, "Reduces score by half after three turns.", 15);
             confirmSuccess("You have unlocked the Curse card!", Activity_StartScreen.this);
+            db.close();
+        }
+    }
+
+    private void checkBoss3(){
+        int checkBoss2 = getLevelInfo(24);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean cureCardAwarded = preferences.getBoolean("cureCardAwarded", false);
+        if (checkBoss2 == 1 && !cureCardAwarded){
+            try {
+                db.open();
+            } catch (java.sql.SQLException e) {
+                e.printStackTrace();
+            }
+            preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("cureCardAwarded", true);
+            editor.apply();
+            addCard("Cure", "card_cure", 3, 1, "Removes all ailments from yourself.", 20);
+            confirmSuccess("You have unlocked the Cure card!", Activity_StartScreen.this);
             db.close();
         }
     }
