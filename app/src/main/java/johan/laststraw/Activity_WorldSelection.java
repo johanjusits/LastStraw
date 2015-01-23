@@ -36,9 +36,11 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         bFields.setOnClickListener(this);
         bDungeon.setOnClickListener(this);
         bMountains.setOnClickListener(this);
+        bWreckage.setOnClickListener(this);
 
         bDungeon.setClickable(false);
         bMountains.setClickable(false);
+        bWreckage.setClickable(false);
 
         w1star1 = (ImageView) findViewById(R.id.ivW1Star1);
         w1star2 = (ImageView) findViewById(R.id.ivW1Star2);
@@ -159,7 +161,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         }
         if (worldId == 4){
             world004High.setText(String.valueOf(totalScore));
-            setW3Stars();
+            setW4Stars();
         }
     }
 
@@ -198,9 +200,9 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             bMountains.setClickable(true);
         }
         if (worldId == 3 && worldCleared == 1){
-            bMountains.setImageResource(R.drawable.world_wreckage);
-            bMountains.setBackgroundResource(R.drawable.lvlselection_button);
-            bMountains.setClickable(true);
+            bWreckage.setImageResource(R.drawable.world_wreckage);
+            bWreckage.setBackgroundResource(R.drawable.lvlselection_button);
+            bWreckage.setClickable(true);
         }
     }
 
@@ -246,6 +248,20 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             w3star1.setImageResource(R.drawable.star_full);
             w3star2.setImageResource(R.drawable.star_full);
             w3star3.setImageResource(R.drawable.star_full);
+        }
+    }
+    private void setW4Stars(){
+        if (totalScore >= 120 && totalScore < 160){
+            w4star1.setImageResource(R.drawable.star_full);
+        }
+        if (totalScore >= 160 && totalScore < 200){
+            w4star1.setImageResource(R.drawable.star_full);
+            w4star2.setImageResource(R.drawable.star_full);
+        }
+        if (totalScore >= 200){
+            w4star1.setImageResource(R.drawable.star_full);
+            w4star2.setImageResource(R.drawable.star_full);
+            w4star3.setImageResource(R.drawable.star_full);
         }
     }
 }
