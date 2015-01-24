@@ -424,19 +424,19 @@ public class DBHandler {
             db.insert(OwnedCards, null, oc1);
 
             ContentValues oc2 = new ContentValues();
-            oc2.put(KEY_NAME, "Charge");
-            oc2.put(KEY_IMAGE, "card_charge");
+            oc2.put(KEY_NAME, "Mimic");
+            oc2.put(KEY_IMAGE, "card_mimic");
             oc2.put(KEY_TYPE, 3);
-            oc2.put(KEY_COST, 1);
-            oc2.put(KEY_DESC, "Gain 5 points after 2 turns.");
+            oc2.put(KEY_COST, 2);
+            oc2.put(KEY_DESC, "Copies the effect of the opponents last played card.");
             db.insert(OwnedCards, null, oc2);
 
             ContentValues oc3 = new ContentValues();
-            oc3.put(KEY_NAME, "Concentrate");
-            oc3.put(KEY_IMAGE, "card_concentrate");
-            oc3.put(KEY_TYPE, 3);
-            oc3.put(KEY_COST, 1);
-            oc3.put(KEY_DESC, "Doubles all points gained next turn.");
+            oc3.put(KEY_NAME, "Demonic Prayer");
+            oc3.put(KEY_IMAGE, "card_demonic_prayer");
+            oc3.put(KEY_TYPE, 2);
+            oc3.put(KEY_COST, 0);
+            oc3.put(KEY_DESC, "10% chance to reset opponent's score. Ignores Protect & Mimic.");
             db.insert(OwnedCards, null, oc3);
 
             /* INITIAL PLAYER VALUES */
