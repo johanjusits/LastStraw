@@ -18,6 +18,7 @@ public class EnemyCards {
     static String Reinforce1ImgPath = "card_obj_plus_1";
     static String Reinforce2ImgPath = "card_obj_plus_2";
     static String Reinforce3ImgPath = "card_obj_plus_3";
+    static String Reinforce5ImgPath = "card_obj_plus_5";
     static String SpeedUpImgPath = "card_speed_up";
     static String SlowDownImgPath = "card_slowdown";
     static String Steal1ImgPath = "card_steal_3";
@@ -30,10 +31,12 @@ public class EnemyCards {
     static String CureImgPath = "card_cure";
     static String InfestImgPath = "card_infest";
     static String ProtectImgPath = "card_protect";
+    static String SalvageImgPath = "card_salvage";
 
     static String Reinforce1CardName = "Reinforce";
     static String Reinforce2CardName = "Reinforce II";
     static String Reinforce3CardName = "Reinforce III";
+    static String Reinforce5CardName = "Reinforce V";
     static String SpeedUpCardName = "Speed Up";
     static String SlowDownCardName = "Slow Down";
     static String Steal1CardName = "Steal";
@@ -46,6 +49,7 @@ public class EnemyCards {
     static String CureCardName = "Cure";
     static String InfestCardName = "Infest";
     static String ProtectCardName = "Protect";
+    static String SalvageCardName = "Salvage";
 
     public static int getEnemyTotalCards(int levelId){
         switch (levelId){
@@ -2166,6 +2170,23 @@ public class EnemyCards {
                     case 5:
                         return SpeedUpCardName;
                 }
+            // WORLD 4 LEVEL 1
+            case 25:
+                switch (cardNr){
+                    case 0:
+                        return MimicCardName;
+                    case 1:
+                        return MimicCardName;
+                    case 2:
+                        return ProtectCardName;
+                    case 3:
+                        return CureCardName;
+                    case 4:
+                        return ConcentrateCardName;
+                    case 5:
+                        return SpeedUpCardName;
+                }
+
         }
         return "";
     }

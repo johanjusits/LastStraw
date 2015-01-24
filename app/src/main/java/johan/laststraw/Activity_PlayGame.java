@@ -64,6 +64,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String ailmentFailed = "Protect wards off ailment.";
     String enemySlowed = "Enemy suffers Slow";
     String enemyHaste = "Enemy gains Haste";
+    String enemySalvage = "Enemy gains Salvage";
     String enemyHoard = "Enemy gains Hoard";
     String enemyConcentrate = "Enemy gains Concentrate";
     String enemyCorrupted = "Enemy suffers Corruption";
@@ -78,6 +79,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String enemyHoarded = "Enemy keeps played card!";
     String enemyDispelled = "Enemy suffers Dispel";
     String playerHaste = "";
+    String playerSalvage = "";
     String playerHoard = "";
     String playerSlowed = "";
     String playerConcentrate = "";
@@ -179,8 +181,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     int enemyClearAward = 2;
     int playerCorruptedPenalty = 0;
     int enemyCorruptedPenalty = 0;
+    int playerSalvageCountdown = -1;
     int playerCurseCountdown = -1;
     int enemyCurseCountdown = -1;
+    int enemySalvageCountdown = -1;
     int playerAgonyCountdown = -1;
     int enemyAgonyCountdown = -1;
     int playerMaledictionCountdown = -1;
@@ -195,6 +199,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     int aiPattern = 0;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
+    boolean playerHasSalvage = false;
+    boolean enemyHasSalvage = false;
     boolean enemyHit = false;
     boolean playerHit = false;
     boolean enemyIsSlowed = false;
@@ -384,6 +390,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         setEnemyCardsIcons();
 
         playerHaste = playerName + " gains Haste";
+        playerSalvage = playerName + " gains Salvage";
         playerConcentrate = playerName + " gains Concentrate";
         playerSlowed = playerName + " suffers Slow";
         playerCorrupted = playerName + " suffers Corruption";
@@ -1887,6 +1894,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyHasProtect && enemyProtectCountdown == 0){
             enemyProtectEnd();
         } else {
+            checkIfEnemySalvageEnds();
+        }
+    }
+
+    private void checkIfEnemySalvageEnds(){
+        if (enemyHasSalvage && enemySalvageCountdown == 0){
+            enemySalvageEnd();
+        } else {
             enemyTurn();
         }
     }
@@ -2245,6 +2260,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyHasProtect && enemyProtectCountdown != -1){
             enemyProtectCountdown--;
         }
+        if (enemyHasSalvage && enemySalvageCountdown == -1){
+            enemySalvageCountdown = 3;
+        }
+        if (enemyHasSalvage && enemySalvageCountdown != -1){
+            enemySalvageCountdown--;
+        }
         enemyHasHaste = false;
         enemyHasHaste2 = false;
         enemyIsCorrupted = false;
@@ -2371,6 +2392,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (playerHasProtect && playerProtectCountdown == 0){
             playerProtectEnd();
         } else {
+            checkIfPlayerSalvageEnds();
+        }
+    }
+
+    private void checkIfPlayerSalvageEnds(){
+        if (playerHasSalvage && playerSalvageCountdown == 0){
+            playerSalvageEnd();
+        } else {
             playerTurn();
         }
     }
@@ -2448,6 +2477,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (playerHasProtect && playerProtectCountdown != -1){
             playerProtectCountdown--;
+        }
+        if (playerHasSalvage && playerSalvageCountdown == -1){
+            playerSalvageCountdown = 3;
+        }
+        if (playerHasSalvage && playerSalvageCountdown != -1){
+            playerSalvageCountdown--;
         }
         playerIsSlowed = false;
         playerIsCorrupted = false;
@@ -4333,6 +4368,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (playedCard.equals("Reinforce III")) {
             cardReinforce3();
         }
+        if (playedCard.equals("Reinforce V")) {
+            cardReinforce5();
+        }
         if (playedCard.equals("Slow Down")) {
             cardSlowDown();
         }
@@ -4408,6 +4446,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if(playedCard.equals("Dispel")){
             cardDispel();
         }
+        if(playedCard.equals("Salvage")){
+            cardSalvage();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -4464,6 +4505,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (cardName.equals("Reinforce III")){
             cardReinforce3();
+        }
+        if (cardName.equals("Reinforce V")){
+            cardReinforce5();
         }
         if (cardName.equals("Slow Down")){
             cardSlowDown();
@@ -4539,6 +4583,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (cardName.equals("Dispel")){
             cardDispel();
+        }
+        if (cardName.equals("Salvage")){
+            cardSalvage();
         }
     }
 
@@ -5072,6 +5119,254 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* REINFORCE 5 CARD EFFECT METHOD */
+    private void cardReinforce5() {
+        if (objectsRemaining == 16) {
+            tvCenterMessage.setText(boardIsFullError);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 1000);
+        }
+        if (objectsRemaining == 15) {
+            if (nextObjIsInfested){
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
+            } else {
+                obj001.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 14) {
+            if (nextObjIsInfested){
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
+            } else {
+                obj001.setImageResource(objectImg);
+                obj002.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 13) {
+            if (nextObjIsInfested){
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+            } else {
+                obj001.setImageResource(objectImg);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 3;
+        }
+        if (objectsRemaining == 12) {
+            if (nextObjIsInfested){
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+            } else {
+                obj001.setImageResource(objectImg);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 4;
+        }
+        if (objectsRemaining == 11) {
+            if (nextObjIsInfested){
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+            } else {
+                obj001.setImageResource(objectImg);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 5;
+        }
+        if (objectsRemaining == 10) {
+            if (nextObjIsInfested){
+                obj002.setImageResource(objectWebbedImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+            } else {
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 5;
+        }
+        if (objectsRemaining == 9) {
+            if (nextObjIsInfested){
+                obj003.setImageResource(objectWebbedImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+            } else {
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 5;
+        }
+        if (objectsRemaining == 8) {
+            if (nextObjIsInfested){
+                obj004.setImageResource(objectWebbedImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+            } else {
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 5;
+        }
+        if (objectsRemaining == 7) {
+            if (nextObjIsInfested){
+                obj005.setImageResource(objectWebbedImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+            } else {
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 5;
+        }
+        if (objectsRemaining == 6) {
+            if (nextObjIsInfested){
+                obj006.setImageResource(objectWebbedImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+            } else {
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 5;
+        }
+        if (objectsRemaining == 5) {
+            if (nextObjIsInfested){
+                obj007.setImageResource(objectWebbedImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+            } else {
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 5;
+        }
+        if (objectsRemaining == 4) {
+            if (nextObjIsInfested){
+                obj008.setImageResource(objectWebbedImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+            } else {
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 5;
+        }
+        if (objectsRemaining == 3) {
+            if (nextObjIsInfested){
+                obj009.setImageResource(objectWebbedImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
+            } else {
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 5;
+        }
+        if (objectsRemaining == 2) {
+            if (nextObjIsInfested){
+                obj010.setImageResource(objectWebbedImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
+            } else {
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 5;
+        }
+        if (objectsRemaining == 1) {
+            if (nextObjIsInfested){
+                obj011.setImageResource(objectWebbedImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
+                obj016.setImageResource(objectImg);
+            } else {
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 5;
+        }
+    }
+
     /* SLOW DOWN CARD EFFECT METHOD */
     private void cardSlowDown() {
         if (playerTurn) {
@@ -5171,6 +5466,59 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1500);
                 }
             }
+        }
+    }
+
+    /* SPEED UP CARD EFFECT METHOD */
+    private void cardSalvage() {
+        if (playerTurn) {
+            if (!Arrays.asList(playerStatuses).contains("Salvage")){
+                tvCenterMessage.setText(playerSalvage);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Salvage")){
+                        playerHasSalvage = true;
+                        addPlayerSalvage();
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(enemyStatuses).contains("Salvage")){
+                tvCenterMessage.setText(enemySalvage);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Salvage")){
+                        enemyHasSalvage = true;
+                        addEnemySalvage();
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
         }
     }
 
@@ -5990,6 +6338,30 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             cardDispel();
+                        }
+                    }, 2000);
+                }
+                if (lastEnemyPlayedCard.equals("Salvage")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSalvage();
+                        }
+                    }, 2000);
+                }
+                if (lastEnemyPlayedCard.equals("Reinforce V")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardReinforce5();
                         }
                     }, 2000);
                 }
@@ -7243,6 +7615,43 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     * ADD STATUS METHODS
     *  -----------------------------------------*/
 
+    /* ADD PLAYER SALVAGE */
+    private void addPlayerSalvage(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                playerStatuses[0] = "Salvage";
+                playerStatusIcon1.setImageResource(R.drawable.buff_salvage);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                playerStatuses[1] = "Salvage";
+                playerStatusIcon2.setImageResource(R.drawable.buff_salvage);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                playerStatuses[2] = "Salvage";
+                playerStatusIcon3.setImageResource(R.drawable.buff_salvage);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                playerStatuses[3] = "Salvage";
+                playerStatusIcon4.setImageResource(R.drawable.buff_salvage);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                playerStatuses[4] = "Salvage";
+                playerStatusIcon5.setImageResource(R.drawable.buff_salvage);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD PLAYER SPEED UP */
     private void addPlayerSpeedUp(){
         int freeSpot = getFreePlayerStatusSpot();
@@ -7717,6 +8126,43 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 enemyStatuses[4] = "Slow Down";
                 enemyStatusIcon5.setImageResource(R.drawable.debuff_slow);
                 enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /* ADD ENEMY SALVAGE */
+    private void addEnemySalvage(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot){
+            case 0:
+                enemyStatuses[0] = "Salvage";
+                enemyStatusIcon1.setImageResource(R.drawable.buff_salvage);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                enemyStatuses[1] = "Salvage";
+                enemyStatusIcon2.setImageResource(R.drawable.buff_salvage);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                enemyStatuses[2] = "Salvage";
+                enemyStatusIcon3.setImageResource(R.drawable.buff_salvage);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                enemyStatuses[3] = "Salvage";
+                enemyStatusIcon4.setImageResource(R.drawable.buff_salvage);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                enemyStatuses[4] = "Salvage";
+                enemyStatusIcon5.setImageResource(R.drawable.buff_salvage);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
                 enemyStatusIcon5.setVisibility(View.VISIBLE);
                 break;
         }
@@ -8326,9 +8772,40 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 2000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                playerTurn();
+                checkIfPlayerSalvageEnds();
             }
         }, 3000);
+    }
+
+    private void playerSalvageEnd(){
+        playerHasSalvage = false;
+        playerSalvageCountdown = -1;
+        ivCenterCardFrame.startAnimation(ani_zoomIn);
+        ivCenterCardFrame.setImageResource(R.drawable.card_salvage);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                ivCenterCardFrame.clearAnimation();
+                ivCenterCardFrame.setVisibility(View.INVISIBLE);
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText(playerName + " restores 5 objects");
+            }
+        }, 3000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                cardReinforce5();
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearPlayerStatus("Salvage");
+            }
+        }, 4000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                playerTurn();
+            }
+        }, 6000);
     }
 
 
@@ -8505,9 +8982,40 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 2000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                enemyTurn();
+                checkIfEnemySalvageEnds();
             }
         }, 3000);
+    }
+
+    private void enemySalvageEnd(){
+        enemyHasSalvage = false;
+        enemySalvageCountdown = -1;
+        ivCenterCardFrame.startAnimation(ani_zoomIn);
+        ivCenterCardFrame.setImageResource(R.drawable.card_salvage);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                ivCenterCardFrame.clearAnimation();
+                ivCenterCardFrame.setVisibility(View.INVISIBLE);
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText("Enemy restores 5 objects");
+            }
+        }, 3000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                cardReinforce5();
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearEnemyStatus("Salvage");
+            }
+        }, 4000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                enemyTurn();
+            }
+        }, 6000);
     }
 
 
@@ -8836,6 +9344,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             playerHasConcentrate = false;
             clearPlayerStatus("Concentrate");
         }
+        check = findPlayerBuff("Salvage");
+        if (check != -1){
+            playerHasSalvage = false;
+            clearPlayerStatus("Salvage");
+        }
     }
 
     /* FIND ENEMY BUFFS */
@@ -8891,6 +9404,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (check != -1){
             enemyHasConcentrate = false;
             clearEnemyStatus("Concentrate");
+        }
+        check = findEnemyBuff("Salvage");
+        if (check != -1){
+            enemyHasSalvage = false;
+            clearEnemyStatus("Salvage");
         }
     }
 
