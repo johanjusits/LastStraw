@@ -478,7 +478,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         SoundEffects.setupSounds(this);
         clearSoundId = GameInfo.getClearSound(worldId);
 
-        //coinFlipStart();
+        coinFlipStart();
     }
 
     /* This Method contains a switch handling player clicks on object */
@@ -2027,12 +2027,20 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 6500);
 
-                    //CHANGE WAIT VALUE DEPENDING ON WHICH CARD THE AI IS ASSIGNED (8000 default, 18000 for Demonic Prayer)
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            checkEnemyMoves();
-                        }
-                    }, 8000);
+                    //IF ENEMY USES DEMONIC PRAYER CARD IT NEEDS LONGER WAIT TIMER THAN NORMAL (8000)
+                    if (enemyCard1Name.equals("Demonic Prayer")){
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                checkEnemyMoves();
+                            }
+                        }, 10500);
+                    } else {
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                checkEnemyMoves();
+                            }
+                        }, 8000);
+                    }
                 } else if (enemyPickedCard == 0 && enemyMoves < enemyCard1Cost + enemyCorruptedPenalty) {
                     aiClearObject();
                     myHandler.postDelayed(new Runnable() {
@@ -2066,12 +2074,20 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 6500);
 
-                    //CHANGE WAIT VALUE DEPENDING ON WHICH CARD THE AI IS ASSIGNED (8000 default, 18000 for Demonic Prayer)
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            checkEnemyMoves();
-                        }
-                    }, 8000);
+                    //IF ENEMY USES DEMONIC PRAYER CARD IT NEEDS LONGER WAIT TIMER THAN NORMAL (8000)
+                    if (enemyCard2Name.equals("Demonic Prayer")){
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                checkEnemyMoves();
+                            }
+                        }, 10500);
+                    } else {
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                checkEnemyMoves();
+                            }
+                        }, 8000);
+                    }
                 } else if (enemyPickedCard == 1 && enemyMoves < enemyCard2Cost + enemyCorruptedPenalty) {
                     aiClearObject();
                     myHandler.postDelayed(new Runnable() {
@@ -2105,12 +2121,20 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 6500);
 
-                    //CHANGE WAIT VALUE DEPENDING ON WHICH CARD THE AI IS ASSIGNED (8000 default, 18000 for Demonic Prayer)
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            checkEnemyMoves();
-                        }
-                    }, 8000);
+                    //IF ENEMY USES DEMONIC PRAYER CARD IT NEEDS LONGER WAIT TIMER THAN NORMAL (8000)
+                    if (enemyCard3Name.equals("Demonic Prayer")){
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                checkEnemyMoves();
+                            }
+                        }, 10500);
+                    } else {
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                checkEnemyMoves();
+                            }
+                        }, 8000);
+                    }
                 } else if (enemyPickedCard == 2 && enemyMoves < enemyCard3Cost + enemyCorruptedPenalty) {
                     aiClearObject();
                     myHandler.postDelayed(new Runnable() {
@@ -2144,12 +2168,20 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 6500);
 
-                    //CHANGE WAIT VALUE DEPENDING ON WHICH CARD THE AI IS ASSIGNED (8000 default, 18000 for Demonic Prayer)
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            checkEnemyMoves();
-                        }
-                    }, 8000);
+                    //IF ENEMY USES DEMONIC PRAYER CARD IT NEEDS LONGER WAIT TIMER THAN NORMAL (8000)
+                    if (enemyCard4Name.equals("Demonic Prayer")){
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                checkEnemyMoves();
+                            }
+                        }, 10500);
+                    } else {
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                checkEnemyMoves();
+                            }
+                        }, 8000);
+                    }
                 } else if (enemyPickedCard == 3 && enemyMoves < enemyCard4Cost + enemyCorruptedPenalty) {
                     aiClearObject();
                     myHandler.postDelayed(new Runnable() {
@@ -2183,13 +2215,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 6500);
 
-                    //IF ENEMY USES MIMIC CARD IT NEEDS LONGER WAIT (18000) TIMER THAN NORMAL (8000)
-                    if (lastPlayerPlayedCard.equals("Demonic Prayer")){
+                    //IF ENEMY USES DEMONIC PRAYER CARD IT NEEDS LONGER WAIT TIMER THAN NORMAL (8000)
+                    if (enemyCard5Name.equals("Demonic Prayer")){
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 checkEnemyMoves();
                             }
-                        }, 18000);
+                        }, 10500);
                     } else {
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -2231,13 +2263,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 6500);
 
-                    //IF ENEMY USES MIMIC CARD IT NEEDS LONGER WAIT (18000) TIMER THAN NORMAL (8000)
-                    if (lastPlayerPlayedCard.equals("Demonic Prayer")){
+                    //IF ENEMY USES DEMONIC PRAYER CARD IT NEEDS LONGER WAIT  TIMER THAN NORMAL (8000)
+                    if (enemyCard6Name.equals("Demonic Prayer")){
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 checkEnemyMoves();
                             }
-                        }, 18000);
+                        }, 10500);
                     } else {
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -2282,7 +2314,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     private void updateEnemyStatuses(){
         if (enemyHasConcentrate){
             enemyClearAward = 4;
-            enemyHasConcentrate = false;
+            if (!enemyHasCharge){
+                enemyHasConcentrate = false;
+            }
         }
         if (enemyIsCorrupted){
             enemyCorruptedPenalty = 1;
@@ -4569,28 +4603,21 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }, 2500);
         } else {
-            if (playedCard.equals("Mimic") && lastEnemyPlayedCard.equals("Demonic Prayer")){
+             if (playedCard.equals("Mimic")){
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         enable(layout_objectRow);
                         enablePlayerCards();
                         btnEndTurn.setClickable(true);
                     }
-                }, 15000);
-            } else if (playedCard.equals("Mimic")){
-                myHandler.postDelayed(new Runnable() {
-                    public void run() {
-                        enable(layout_objectRow);
-                        enablePlayerCards();
-                        btnEndTurn.setClickable(true);
-                    }
-                }, 3000);
+                }, 3500);
             } else {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         enable(layout_objectRow);
                         enablePlayerCards();
                         btnEndTurn.setClickable(true);
+                        System.out.println("Här");
                     }
                 }, 2000);
             }
@@ -6274,8 +6301,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (playerTurn){
             if (!lastEnemyPlayedCard.equals("")){
                 tvCenterMessage.startAnimation(ani_fadeIn);
-                if (lastEnemyPlayedCard.equals("Mimic")){
+                if (lastEnemyPlayedCard.equals("Mimic") || lastEnemyPlayedCard.equals("Demonic Prayer")){
                     tvCenterMessage.setText("Mimic failed");
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
                 } else {
                     tvCenterMessage.setText("Mimic copies " + lastEnemyPlayedCard);
                 }
@@ -6471,18 +6503,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Demonic Prayer")){
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
-                        }
-                    }, 1000);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            cardDemonicPrayer();
-                        }
-                    }, 2000);
-                }
                 if (lastEnemyPlayedCard.equals("Death Sentence")){
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -6603,15 +6623,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Mimic")){
-                    tvCenterMessage.startAnimation(ani_fadeIn);
-                    tvCenterMessage.setText("Mimic failed");
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
-                        }
-                    }, 1000);
-                }
             } else {
                 tvCenterMessage.startAnimation(ani_fadeIn);
                 tvCenterMessage.setText("Mimic failed");
@@ -6624,8 +6635,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         } else {
             if (!lastPlayerPlayedCard.equals("")){
                 tvCenterMessage.startAnimation(ani_fadeIn);
-                if (lastPlayerPlayedCard.equals("Mimic")){
+                if (lastPlayerPlayedCard.equals("Mimic") || lastPlayerPlayedCard.equals("Demonic Prayer")){
                     tvCenterMessage.setText("Mimic failed");
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
                 } else {
                     tvCenterMessage.setText("Mimic copies " + lastPlayerPlayedCard);
                 }
@@ -6821,18 +6837,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Demonic Prayer")){
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
-                        }
-                    }, 1000);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            cardDemonicPrayer();
-                        }
-                    }, 2000);
-                }
                 if (lastPlayerPlayedCard.equals("Death Sentence")){
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -6952,15 +6956,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                             cardCharge();
                         }
                     }, 2000);
-                }
-                if (lastPlayerPlayedCard.equals("Mimic")){
-                    tvCenterMessage.startAnimation(ani_fadeIn);
-                    tvCenterMessage.setText("Mimic failed");
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvCenterMessage.startAnimation(ani_fadeOut);
-                        }
-                    }, 1000);
                 }
             } else {
                 tvCenterMessage.setText("Mimic failed");
@@ -7497,20 +7492,37 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
     /* DEMONIC PRAYER CARD EFFECT METHOD */
     private void cardDemonicPrayer(){
+        tvCenterMessage.setVisibility(View.INVISIBLE);
+        tvCenterMessage.clearAnimation();
         final int resetChance = genRand(100);
         ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect);
+        ivCenterImage.setVisibility(View.VISIBLE);
         ivCenterImage.startAnimation(ani_fadeIn);
-        if (resetChance >= 10){
+        if (resetChance >= 90){
             ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_green);
             resetWorked = false;
         } else {
             ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_red);
             resetWorked = true;
             }
+
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 ivCenterImage.startAnimation(ani_fadeOut);
+            }
+        }, 1500);
+
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                ivCenterImage.clearAnimation();
+                ivCenterImage.setVisibility(View.INVISIBLE);
+            }
+        }, 2000);
+
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
                 if (resetWorked){
+                    tvCenterMessage.setVisibility(View.VISIBLE);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     tvCenterMessage.setText("Demonic Prayer worked!");
                     if (playerTurn){
@@ -7529,15 +7541,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     tvCenterMessage.setText("Demonic Prayer failed!");
                 }
             }
-        }, 1500);
+        }, 2500);
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 tvCenterMessage.startAnimation(ani_fadeOut);
-                ivCenterImage.clearAnimation();
-                ivCenterImage.setVisibility(View.INVISIBLE);
             }
-        }, 3000);
+        }, 4000);
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
@@ -7553,7 +7563,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     tvEnemyScore.clearAnimation();
                 }
             }
-        }, 4000);
+        }, 5000);
     }
 
     /* DEATH SENTENCE CARD EFFECT METHOD */
@@ -9522,6 +9532,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         } else {
             chargeBonus = 5;
         }
+        enemyHasConcentrate = false;
         ivCenterCardFrame.startAnimation(ani_zoomIn);
         ivCenterCardFrame.setImageResource(R.drawable.card_charge);
         myHandler.postDelayed(new Runnable() {
