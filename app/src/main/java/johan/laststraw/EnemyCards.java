@@ -32,6 +32,7 @@ public class EnemyCards {
     static String InfestImgPath = "card_infest";
     static String ProtectImgPath = "card_protect";
     static String SalvageImgPath = "card_salvage";
+    static String SilenceImgPath = "card_silence";
 
     static String Reinforce1CardName = "Reinforce";
     static String Reinforce2CardName = "Reinforce II";
@@ -50,6 +51,7 @@ public class EnemyCards {
     static String InfestCardName = "Infest";
     static String ProtectCardName = "Protect";
     static String SalvageCardName = "Salvage";
+    static String SilenceCardName = "Silence";
 
     public static int getEnemyTotalCards(int levelId){
         switch (levelId){
@@ -114,7 +116,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return cardIconField;
+                        return cardIconAilment;
                 }
             // WORLD 1 LEVEL 2
             case 2:
@@ -415,7 +417,7 @@ public class EnemyCards {
                         if (screenSize.equals("xlarge")){
                             return cardTypeFieldTablet;
                         } else {
-                            return cardTypeField;
+                            return cardTypeAilment;
                         }
                 }
             // WORLD 1 LEVEL 2
@@ -1492,7 +1494,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return Reinforce1ImgPath;
+                        return SilenceImgPath;
                 }
             // WORLD 1 LEVEL 2
             case 2:
@@ -1790,7 +1792,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return Reinforce1CardName;
+                        return SilenceCardName;
                     case 1:
                         return "";
                     case 2:
@@ -2197,7 +2199,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return 0;
+                        return 1;
                     case 1:
                         return 0;
                     case 2:
