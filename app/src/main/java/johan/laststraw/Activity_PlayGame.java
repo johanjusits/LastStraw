@@ -65,6 +65,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String enemySlowed = "Enemy suffers Slow";
     String enemyHaste = "Enemy gains Haste";
     String enemySalvage = "Enemy gains Salvage";
+    String enemyCharge = "Enemy gains Charge";
     String enemyHoard = "Enemy gains Hoard";
     String enemyConcentrate = "Enemy gains Concentrate";
     String enemyCorrupted = "Enemy suffers Corruption";
@@ -81,6 +82,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String enemyDispelled = "Enemy suffers Dispel";
     String playerHaste = "";
     String playerSalvage = "";
+    String playerCharge = "";
     String playerHoard = "";
     String playerSlowed = "";
     String playerConcentrate = "";
@@ -184,11 +186,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     int playerCorruptedPenalty = 0;
     int enemyCorruptedPenalty = 0;
     int playerSalvageCountdown = -1;
-    int playerSilenceCountdown = -1;
+    int playerChargeCountdown = -1;
     int playerCurseCountdown = -1;
     int enemyCurseCountdown = -1;
     int enemySalvageCountdown = -1;
-    int enemySilenceCountdown = -1;
+    int enemyChargeCountdown = -1;
     int playerAgonyCountdown = -1;
     int enemyAgonyCountdown = -1;
     int playerMaledictionCountdown = -1;
@@ -204,7 +206,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
     boolean playerHasSalvage = false;
+    boolean playerHasCharge = false;
     boolean enemyHasSalvage = false;
+    boolean enemyHasCharge = false;
     boolean enemyHit = false;
     boolean playerHit = false;
     boolean enemyIsSlowed = false;
@@ -397,6 +401,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
         playerHaste = playerName + " gains Haste";
         playerSalvage = playerName + " gains Salvage";
+        playerCharge = playerName + " gains Charge";
         playerConcentrate = playerName + " gains Concentrate";
         playerSlowed = playerName + " suffers Slow";
         playerCorrupted = playerName + " suffers Corruption";
@@ -1970,6 +1975,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyHasSalvage && enemySalvageCountdown == 0){
             enemySalvageEnd();
         } else {
+            checkIfEnemyChargeEnds();
+        }
+    }
+
+    private void checkIfEnemyChargeEnds(){
+        if (enemyHasCharge && enemyChargeCountdown == 0){
+            enemyChargeEnd();
+        } else {
             enemyTurn();
         }
     }
@@ -2334,10 +2347,15 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyHasSalvage && enemySalvageCountdown != -1){
             enemySalvageCountdown--;
         }
+        if (enemyHasCharge && enemyChargeCountdown == -1){
+            enemyChargeCountdown = 3;
+        }
+        if (enemyHasCharge && enemyChargeCountdown != -1){
+            enemyChargeCountdown--;
+        }
         enemyIsSlowed = false;
         enemyHasHaste = false;
         enemyHasHaste2 = false;
-        enemyIsCorrupted = false;
         enemyIsCorrupted = false;
     }
 
@@ -2470,6 +2488,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (playerHasSalvage && playerSalvageCountdown == 0){
             playerSalvageEnd();
         } else {
+            checkIfPlayerChargeEnds();
+        }
+    }
+
+    private void checkIfPlayerChargeEnds(){
+        if (playerHasCharge && playerChargeCountdown == 0){
+            playerChargeEnd();
+        } else {
             playerTurn();
         }
     }
@@ -2489,7 +2515,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     private void updatePlayerStatuses(){
         if (playerHasConcentrate){
             playerClearAward = 4;
-            playerHasConcentrate = false;
+            if (!playerHasCharge){
+                playerHasConcentrate = false;
+            }
         }
         if (playerIsCorrupted){
             playerCorruptedPenalty = 1;
@@ -2553,6 +2581,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (playerHasSalvage && playerSalvageCountdown != -1){
             playerSalvageCountdown--;
+        }
+        if (playerHasCharge && playerChargeCountdown == -1){
+            playerChargeCountdown = 3;
+        }
+        if (playerHasCharge && playerChargeCountdown != -1){
+            playerChargeCountdown--;
         }
         playerIsSlowed = false;
         playerIsCorrupted = false;
@@ -4522,6 +4556,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if(playedCard.equals("Silence")){
             cardSilence();
         }
+        if(playedCard.equals("Charge")){
+            cardCharge();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -4654,6 +4691,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (cardName.equals("Silence")){
             cardSilence();
+        }
+        if (cardName.equals("Charge")){
+            cardCharge();
         }
     }
 
@@ -5590,6 +5630,59 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* CHARGE CARD EFFECT METHOD */
+    private void cardCharge() {
+        if (playerTurn) {
+            if (!Arrays.asList(playerStatuses).contains("Charge")){
+                tvCenterMessage.setText(playerCharge);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Charge")){
+                        playerHasCharge = true;
+                        addPlayerCharge();
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(enemyStatuses).contains("Charge")){
+                tvCenterMessage.setText(enemyCharge);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Charge")){
+                        enemyHasCharge = true;
+                        addEnemyCharge();
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        }
+    }
+
     /* SALVAGE CARD EFFECT METHOD */
     private void cardSalvage() {
         if (playerTurn) {
@@ -6498,6 +6591,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
+                if (lastEnemyPlayedCard.equals("Charge")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardCharge();
+                        }
+                    }, 2000);
+                }
                 if (lastEnemyPlayedCard.equals("Mimic")){
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     tvCenterMessage.setText("Mimic failed");
@@ -6513,7 +6618,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         tvCenterMessage.startAnimation(ani_fadeOut);
-                        return;
                     }
                 }, 1000);
             }
@@ -6834,6 +6938,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             cardSilence();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Charge")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardCharge();
                         }
                     }, 2000);
                 }
@@ -8174,6 +8290,43 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* ADD PLAYER CHARGE */
+    private void addPlayerCharge(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                playerStatuses[0] = "Charge";
+                playerStatusIcon1.setImageResource(R.drawable.buff_charge);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                playerStatuses[1] = "Charge";
+                playerStatusIcon2.setImageResource(R.drawable.buff_charge);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                playerStatuses[2] = "Charge";
+                playerStatusIcon3.setImageResource(R.drawable.buff_charge);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                playerStatuses[3] = "Charge";
+                playerStatusIcon4.setImageResource(R.drawable.buff_charge);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                playerStatuses[4] = "Charge";
+                playerStatusIcon5.setImageResource(R.drawable.buff_charge);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD PLAYER AGONY */
     private void addPlayerAgony(){
         int freeSpot = getFreePlayerStatusSpot();
@@ -8373,6 +8526,43 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             case 4:
                 enemyStatuses[4] = "Salvage";
                 enemyStatusIcon5.setImageResource(R.drawable.buff_salvage);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /* ADD ENEMY CHARGE */
+    private void addEnemyCharge(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot){
+            case 0:
+                enemyStatuses[0] = "Charge";
+                enemyStatusIcon1.setImageResource(R.drawable.buff_charge);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                enemyStatuses[1] = "Charge";
+                enemyStatusIcon2.setImageResource(R.drawable.buff_charge);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                enemyStatuses[2] = "Charge";
+                enemyStatusIcon3.setImageResource(R.drawable.buff_charge);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                enemyStatuses[3] = "Charge";
+                enemyStatusIcon4.setImageResource(R.drawable.buff_charge);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                enemyStatuses[4] = "Charge";
+                enemyStatusIcon5.setImageResource(R.drawable.buff_charge);
                 enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
                 enemyStatusIcon5.setVisibility(View.VISIBLE);
                 break;
@@ -9062,9 +9252,55 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 4000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                playerTurn();
+                checkIfPlayerChargeEnds();
             }
         }, 6000);
+    }
+
+    private void playerChargeEnd(){
+        playerHasCharge = false;
+        playerChargeCountdown = -1;
+        final int chargeBonus;
+        if (playerHasConcentrate){
+            chargeBonus = 10;
+        } else {
+            chargeBonus = 5;
+        }
+        playerHasConcentrate = false;
+        ivCenterCardFrame.startAnimation(ani_zoomIn);
+        ivCenterCardFrame.setImageResource(R.drawable.card_charge);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                ivCenterCardFrame.clearAnimation();
+                ivCenterCardFrame.setVisibility(View.INVISIBLE);
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvPlayerScore.startAnimation(ani_shake);
+                tvPlayerScore.setText("+" + String.valueOf(chargeBonus));
+                tvPlayerScore.setTextColor(getResources().getColor(R.color.supergreen));
+            }
+        }, 3000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                playerScore = playerScore + chargeBonus;
+                tvPlayerScore.setText(String.valueOf(playerScore));
+                tvPlayerScore.setTextColor(getResources().getColor(textColor));
+                tvPlayerScore.startAnimation(ani_resetscore);
+                tvEnemyScore.clearAnimation();
+            }
+        }, 4000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                clearPlayerStatus("Charge");
+            }
+        }, 6000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                playerTurn();
+            }
+        }, 7000);
     }
 
 
@@ -9272,9 +9508,54 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 4000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                enemyTurn();
+                checkIfEnemyChargeEnds();
             }
         }, 6000);
+    }
+
+    private void enemyChargeEnd(){
+        enemyHasCharge = false;
+        enemyChargeCountdown = -1;
+        final int chargeBonus;
+        if (enemyHasConcentrate){
+            chargeBonus = 10;
+        } else {
+            chargeBonus = 5;
+        }
+        ivCenterCardFrame.startAnimation(ani_zoomIn);
+        ivCenterCardFrame.setImageResource(R.drawable.card_charge);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                ivCenterCardFrame.clearAnimation();
+                ivCenterCardFrame.setVisibility(View.INVISIBLE);
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvEnemyScore.startAnimation(ani_shake);
+                tvEnemyScore.setText("+" + String.valueOf(chargeBonus));
+                tvEnemyScore.setTextColor(getResources().getColor(R.color.supergreen));
+            }
+        }, 3000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                enemyScore = enemyScore + chargeBonus;
+                tvEnemyScore.setText(String.valueOf(enemyScore));
+                tvEnemyScore.setTextColor(getResources().getColor(textColor));
+                tvEnemyScore.startAnimation(ani_resetscore);
+                tvEnemyScore.clearAnimation();
+            }
+        }, 4000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                clearEnemyStatus("Charge");
+            }
+        }, 6000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                enemyTurn();
+            }
+        }, 7000);
     }
 
 
@@ -9475,6 +9756,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             playerSentenceCountdown = -1;
             clearPlayerStatus("Death Sentence");
         }
+        check = findPlayerAilment("Silence");
+        if (check != -1){
+            activePlayerDebuffs--;
+            playerIsSilenced = false;
+            clearPlayerStatus("Silence");
+        }
     }
 
     /* FIND ENEMY AILMENTS */
@@ -9545,6 +9832,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             enemySentenceCountdown = -1;
             clearEnemyStatus("Death Sentence");
         }
+        check = findEnemyAilments("Silence");
+        if (check != -1){
+            activeEnemyDebuffs--;
+            enemyIsSilenced = false;
+            clearEnemyStatus("Silence");
+        }
     }
 
     /* ----------------------------------------- */
@@ -9608,6 +9901,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             playerHasSalvage = false;
             clearPlayerStatus("Salvage");
         }
+        check = findPlayerBuff("Charge");
+        if (check != -1){
+            playerHasCharge = false;
+            playerChargeCountdown = -1;
+            clearPlayerStatus("Charge");
+        }
     }
 
     /* FIND ENEMY BUFFS */
@@ -9668,6 +9967,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (check != -1){
             enemyHasSalvage = false;
             clearEnemyStatus("Salvage");
+        }
+        check = findEnemyBuff("Charge");
+        if (check != -1){
+            enemyHasCharge = false;
+            enemyChargeCountdown = -1;
+            clearEnemyStatus("Charge");
         }
     }
 

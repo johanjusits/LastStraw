@@ -33,6 +33,7 @@ public class EnemyCards {
     static String ProtectImgPath = "card_protect";
     static String SalvageImgPath = "card_salvage";
     static String SilenceImgPath = "card_silence";
+    static String ChargeImgPath = "card_charge";
 
     static String Reinforce1CardName = "Reinforce";
     static String Reinforce2CardName = "Reinforce II";
@@ -52,6 +53,7 @@ public class EnemyCards {
     static String ProtectCardName = "Protect";
     static String SalvageCardName = "Salvage";
     static String SilenceCardName = "Silence";
+    static String ChargeCardName = "Charge";
 
     public static int getEnemyTotalCards(int levelId){
         switch (levelId){
@@ -116,7 +118,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return cardIconAilment;
+                        return cardIconBoosting;
                 }
             // WORLD 1 LEVEL 2
             case 2:
@@ -417,7 +419,7 @@ public class EnemyCards {
                         if (screenSize.equals("xlarge")){
                             return cardTypeFieldTablet;
                         } else {
-                            return cardTypeAilment;
+                            return cardTypeBoosting;
                         }
                 }
             // WORLD 1 LEVEL 2
@@ -1494,7 +1496,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return SilenceImgPath;
+                        return ChargeImgPath;
                 }
             // WORLD 1 LEVEL 2
             case 2:
@@ -1792,7 +1794,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return SilenceCardName;
+                        return ChargeCardName;
                     case 1:
                         return "";
                     case 2:

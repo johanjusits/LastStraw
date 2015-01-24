@@ -424,12 +424,20 @@ public class DBHandler {
             db.insert(OwnedCards, null, oc1);
 
             ContentValues oc2 = new ContentValues();
-            oc2.put(KEY_NAME, "Silence");
-            oc2.put(KEY_IMAGE, "card_silence");
-            oc2.put(KEY_TYPE, 2);
+            oc2.put(KEY_NAME, "Charge");
+            oc2.put(KEY_IMAGE, "card_charge");
+            oc2.put(KEY_TYPE, 3);
             oc2.put(KEY_COST, 1);
-            oc2.put(KEY_DESC, "Disables enemy's ability to play cards on next turn.");
+            oc2.put(KEY_DESC, "Gain 5 points after 2 turns.");
             db.insert(OwnedCards, null, oc2);
+
+            ContentValues oc3 = new ContentValues();
+            oc3.put(KEY_NAME, "Concentrate");
+            oc3.put(KEY_IMAGE, "card_concentrate");
+            oc3.put(KEY_TYPE, 3);
+            oc3.put(KEY_COST, 1);
+            oc3.put(KEY_DESC, "Doubles all points gained next turn.");
+            db.insert(OwnedCards, null, oc3);
 
             /* INITIAL PLAYER VALUES */
             ContentValues playerInfo = new ContentValues();
@@ -438,7 +446,7 @@ public class DBHandler {
             playerInfo.put(KEY_LEVEL, 1);
             playerInfo.put(KEY_LVLSBEATEN, 0);
             playerInfo.put(KEY_EXP, 0);
-            playerInfo.put(KEY_UNLOCKEDSLOTS, 1);
+            playerInfo.put(KEY_UNLOCKEDSLOTS, 2);
             db.insert(PlayerInfo, null, playerInfo);
 
             /* WORLD 1 LEVEL INFO */
