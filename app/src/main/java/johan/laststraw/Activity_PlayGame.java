@@ -72,6 +72,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String enemyCursed = "Enemy suffers Curse";
     String enemyAgonized = "Enemy suffers Agony";
     String enemySentenced = "Enemy suffers Death Sentence";
+    String enemySilenced = "Enemy suffers Silence";
     String enemyCured = "Enemy cures all ailments";
     String enemyAlteredTime = "Enemy gains Rewind";
     String enemyGainAnother = "Enemy gains another turn!";
@@ -94,6 +95,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String playerProtected = "";
     String playerHoarded = "";
     String playerDispelled = "";
+    String playerSilenced = "";
     String buffAlreadyActiveError = "Buff already active. No effect.";
     String debuffAlreadyActiveError = "Debuff already active. No effect.";
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
@@ -182,9 +184,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     int playerCorruptedPenalty = 0;
     int enemyCorruptedPenalty = 0;
     int playerSalvageCountdown = -1;
+    int playerSilenceCountdown = -1;
     int playerCurseCountdown = -1;
     int enemyCurseCountdown = -1;
     int enemySalvageCountdown = -1;
+    int enemySilenceCountdown = -1;
     int playerAgonyCountdown = -1;
     int enemyAgonyCountdown = -1;
     int playerMaledictionCountdown = -1;
@@ -226,7 +230,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     boolean playerIsSentenced = false;
     boolean enemyIsSentenced = false;
     boolean playerIsHoarding = false;
+    boolean playerIsSilenced = false;
     boolean enemyIsHoarding = false;
+    boolean enemyIsSilenced = false;
     boolean playerTurn = true;
     boolean playerCard1Used = false, playerCard2Used = false, playerCard3Used = false, playerCard4Used = false,
             playerCard5Used = false, playerCard6Used = false;
@@ -405,6 +411,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         playerHoarded = playerName + " keeps played card!";
         playerHoard = playerName + " gains Hoard";
         playerDispelled = playerName + " suffers Dispel";
+        playerSilenced = playerName + " suffers Silence";
 
         infestMsg = GameInfo.getInfestMsg(worldId);
         infestError = GameInfo.getInfestErrorMsg(worldId);
@@ -475,6 +482,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         switch (v.getId()) {
             case R.id.ibPlayerCard1:
                 selectedCard = 1;
+                if (playerIsSilenced){
+                    tvCenterMessage.setText("You are silenced.");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
+                    break;
+                }
                 if (playerCard1Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
                     playCardConfirm(message, context);
@@ -482,6 +499,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 break;
             case R.id.ibPlayerCard2:
                 selectedCard = 2;
+                if (playerIsSilenced){
+                    tvCenterMessage.setText("You are silenced.");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
+                    break;
+                }
                 if (playerCard2Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
                     playCardConfirm(message, context);
@@ -489,6 +516,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 break;
             case R.id.ibPlayerCard3:
                 selectedCard = 3;
+                if (playerIsSilenced){
+                    tvCenterMessage.setText("You are silenced.");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
+                    break;
+                }
                 if (playerCard3Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
                     playCardConfirm(message, context);
@@ -496,6 +533,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 break;
             case R.id.ibPlayerCard4:
                 selectedCard = 4;
+                if (playerIsSilenced){
+                    tvCenterMessage.setText("You are silenced.");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
+                    break;
+                }
                 if (playerCard4Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
                     playCardConfirm(message, context);
@@ -503,6 +550,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 break;
             case R.id.ibPlayerCard5:
                 selectedCard = 5;
+                if (playerIsSilenced){
+                    tvCenterMessage.setText("You are silenced.");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
+                    break;
+                }
                 if (playerCard5Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
                     playCardConfirm(message, context);
@@ -510,6 +567,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 break;
             case R.id.ibPlayerCard6:
                 selectedCard = 6;
+                if (playerIsSilenced){
+                    tvCenterMessage.setText("You are silenced.");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 500);
+                    break;
+                }
                 if (playerCard6Type != 0 && playerMoves >= getCardCost() + playerCorruptedPenalty && objectsRemaining != 0) {
                     String message = "Play this card?";
                     playCardConfirm(message, context);
@@ -523,7 +590,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     disablePlayerCards();
                     enemyTurnStart();
                 } else {
-                    tvCenterMessage.setText("You can't pass now");
+                    tvCenterMessage.setText("You can't pass now.");
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -1833,6 +1900,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             playerTurn = false;
             updateEnemyStatuses();
         /* Calls the method to check if player buffs have run out their duration */
+            playerIsSilenced = false;
             checkPlayerStatues();
             disablePlayerCards();
             tvCenterMessage.setText("ENEMY TURN");
@@ -1912,7 +1980,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     private void enemyTurn(){
         enemyMoveCounter++;
         /* Checks if enemy has any cards left and decides move pattern accordingly */
-        if (enemyCardsRemaining > 0){
+        if (enemyCardsRemaining > 0 && !enemyIsSilenced){
             int cardOrClear = AiPatterns.initAiPatternCardOrNot(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than 80 the AI will play a card */
@@ -2266,8 +2334,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyHasSalvage && enemySalvageCountdown != -1){
             enemySalvageCountdown--;
         }
+        enemyIsSlowed = false;
         enemyHasHaste = false;
         enemyHasHaste2 = false;
+        enemyIsCorrupted = false;
         enemyIsCorrupted = false;
     }
 
@@ -2331,7 +2401,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     playerMoves = 3;
                     updatePlayerStatuses();
                     tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
-                    enemyIsSlowed = false;
+                    enemyIsSilenced = false;
                 /* Calls the method to check if enemy buffs have run out their duration */
                     checkEnemyStatuses();
                     tvCenterMessage.setText("YOUR TURN");
@@ -4449,6 +4519,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if(playedCard.equals("Salvage")){
             cardSalvage();
         }
+        if(playedCard.equals("Silence")){
+            cardSilence();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -4475,14 +4548,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         btnEndTurn.setClickable(true);
                     }
                 }, 3000);
-            } else if (playedCard.equals("Demonic Prayer"))  {
-                myHandler.postDelayed(new Runnable() {
-                    public void run() {
-                        enable(layout_objectRow);
-                        enablePlayerCards();
-                        btnEndTurn.setClickable(true);
-                    }
-                }, 12000);
             } else {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
@@ -4586,6 +4651,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (cardName.equals("Salvage")){
             cardSalvage();
+        }
+        if (cardName.equals("Silence")){
+            cardSilence();
         }
     }
 
@@ -5469,7 +5537,60 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
-    /* SPEED UP CARD EFFECT METHOD */
+    /* SILENCE CARD EFFECT METHOD */
+    private void cardSilence() {
+        if (playerTurn) {
+            if (!Arrays.asList(enemyStatuses).contains("Silence")){
+                tvCenterMessage.setText(enemySilenced);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Silence")){
+                        enemyIsSilenced = true;
+                        addEnemySilence();
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(playerStatuses).contains("Silence")){
+                tvCenterMessage.setText(playerSilenced);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Silence")){
+                        playerIsSilenced = true;
+                        addPlayerSilence();
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        }
+    }
+
+    /* SALVAGE CARD EFFECT METHOD */
     private void cardSalvage() {
         if (playerTurn) {
             if (!Arrays.asList(playerStatuses).contains("Salvage")){
@@ -6365,6 +6486,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
+                if (lastEnemyPlayedCard.equals("Silence")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSilence();
+                        }
+                    }, 2000);
+                }
                 if (lastEnemyPlayedCard.equals("Mimic")){
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     tvCenterMessage.setText("Mimic failed");
@@ -6665,6 +6798,42 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             cardDispel();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Salvage")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSalvage();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Reinforce V")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardReinforce5();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Silence")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardSilence();
                         }
                     }, 2000);
                 }
@@ -7879,6 +8048,48 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* ADD PLAYER SILENCE */
+    private void addPlayerSilence(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                activePlayerDebuffs++;
+                playerStatuses[0] = "Silence";
+                playerStatusIcon1.setImageResource(R.drawable.debuff_silence);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                activePlayerDebuffs++;
+                playerStatuses[1] = "Silence";
+                playerStatusIcon2.setImageResource(R.drawable.debuff_silence);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                activePlayerDebuffs++;
+                playerStatuses[2] = "Silence";
+                playerStatusIcon3.setImageResource(R.drawable.debuff_silence);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                activePlayerDebuffs++;
+                playerStatuses[3] = "Silence";
+                playerStatusIcon4.setImageResource(R.drawable.debuff_silence);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                activePlayerDebuffs++;
+                playerStatuses[4] = "Silence";
+                playerStatusIcon5.setImageResource(R.drawable.debuff_silence);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD PLAYER CORRUPTION */
     private void addPlayerCorruption(){
         int freeSpot = getFreePlayerStatusSpot();
@@ -8437,6 +8648,48 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* ADD ENEMY SILENCE */
+    private void addEnemySilence(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot) {
+            case 0:
+                activeEnemyDebuffs++;
+                enemyStatuses[0] = "Silence";
+                enemyStatusIcon1.setImageResource(R.drawable.debuff_silence);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                activeEnemyDebuffs++;
+                enemyStatuses[1] = "Silence";
+                enemyStatusIcon2.setImageResource(R.drawable.debuff_silence);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                activeEnemyDebuffs++;
+                enemyStatuses[2] = "Silence";
+                enemyStatusIcon3.setImageResource(R.drawable.debuff_silence);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                activeEnemyDebuffs++;
+                enemyStatuses[3] = "Silence";
+                enemyStatusIcon4.setImageResource(R.drawable.debuff_silence);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                activeEnemyDebuffs++;
+                enemyStatuses[4] = "Silence";
+                enemyStatusIcon5.setImageResource(R.drawable.debuff_silence);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD ENEMY AGONY */
     private void addEnemyAgony(){
         int freeSpot = getFreeEnemyStatusSpot();
@@ -8581,6 +8834,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (!enemyIsCorrupted){
             clearEnemyStatus("Corruption");
         }
+        if (!enemyIsSilenced){
+            clearEnemyStatus("Silence");
+        }
     }
 
     /* CHECK PLAYER STATUSES */
@@ -8596,6 +8852,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (!playerIsCorrupted){
             clearPlayerStatus("Corruption");
+        }
+        if (!playerIsSilenced){
+            clearPlayerStatus("Silence");
         }
     }
 

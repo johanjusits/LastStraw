@@ -391,14 +391,14 @@ public class DBHandler {
             ac028.put(KEY_DESC, "Brings back five objects after 2 turns.");
             ac028.put(KEY_COST, 1);
             ac028.put(KEY_REQUIRESLVL, 0);
-            ac028.put(KEY_ISUNLOCKED, 1);
+            ac028.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac028);
 
             ContentValues ac029 = new ContentValues();
             ac029.put(KEY_NAME, "Silence");
             ac029.put(KEY_IMAGE, "card_silence");
             ac029.put(KEY_TYPE, 2);
-            ac029.put(KEY_DESC, "Disables enemy's ability to play cards. Lasts 2 turns.");
+            ac029.put(KEY_DESC, "Disables enemy's ability to play cards on next turn.");
             ac029.put(KEY_COST, 1);
             ac029.put(KEY_REQUIRESLVL, 0);
             ac029.put(KEY_ISUNLOCKED, 0);
@@ -423,13 +423,12 @@ public class DBHandler {
             oc1.put(KEY_DESC, "Brings back one object.");
             db.insert(OwnedCards, null, oc1);
 
-            /* ADDS CARDS TO OWNED CARDS */
             ContentValues oc2 = new ContentValues();
-            oc2.put(KEY_NAME, "Salvage");
-            oc2.put(KEY_IMAGE, "card_salvage");
-            oc2.put(KEY_TYPE, 1);
+            oc2.put(KEY_NAME, "Silence");
+            oc2.put(KEY_IMAGE, "card_silence");
+            oc2.put(KEY_TYPE, 2);
             oc2.put(KEY_COST, 1);
-            oc2.put(KEY_DESC, "Brings back five objects after 2 turns.");
+            oc2.put(KEY_DESC, "Disables enemy's ability to play cards on next turn.");
             db.insert(OwnedCards, null, oc2);
 
             /* INITIAL PLAYER VALUES */
