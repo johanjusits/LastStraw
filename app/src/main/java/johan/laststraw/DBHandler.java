@@ -354,6 +354,66 @@ public class DBHandler {
             ac024.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac024);
 
+            ContentValues ac025 = new ContentValues();
+            ac025.put(KEY_NAME, "Reinforce V");
+            ac025.put(KEY_IMAGE, "card_obj_plus_5");
+            ac025.put(KEY_TYPE, 1);
+            ac025.put(KEY_DESC, "Brings back five objects.");
+            ac025.put(KEY_COST, 1);
+            ac025.put(KEY_REQUIRESLVL, 0);
+            ac025.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac025);
+
+            ContentValues ac026 = new ContentValues();
+            ac026.put(KEY_NAME, "Blind");
+            ac026.put(KEY_IMAGE, "card_blind");
+            ac026.put(KEY_TYPE, 2);
+            ac026.put(KEY_DESC, "Makes enemy more prone to miss. Lasts 2 turns.");
+            ac026.put(KEY_COST, 1);
+            ac026.put(KEY_REQUIRESLVL, 0);
+            ac026.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac026);
+
+            ContentValues ac027 = new ContentValues();
+            ac027.put(KEY_NAME, "Charge");
+            ac027.put(KEY_IMAGE, "card_charge");
+            ac027.put(KEY_TYPE, 3);
+            ac027.put(KEY_DESC, "Gain 5 points after 2 turns.");
+            ac027.put(KEY_COST, 1);
+            ac027.put(KEY_REQUIRESLVL, 0);
+            ac027.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac027);
+
+            ContentValues ac028 = new ContentValues();
+            ac028.put(KEY_NAME, "Salvage");
+            ac028.put(KEY_IMAGE, "card_salvage");
+            ac028.put(KEY_TYPE, 1);
+            ac028.put(KEY_DESC, "Brings back five objects after 2 turns.");
+            ac028.put(KEY_COST, 1);
+            ac028.put(KEY_REQUIRESLVL, 0);
+            ac028.put(KEY_ISUNLOCKED, 1);
+            db.insert(AllCards, null, ac028);
+
+            ContentValues ac029 = new ContentValues();
+            ac029.put(KEY_NAME, "Silence");
+            ac029.put(KEY_IMAGE, "card_silence");
+            ac029.put(KEY_TYPE, 2);
+            ac029.put(KEY_DESC, "Disables enemy's ability to play cards. Lasts 2 turns.");
+            ac029.put(KEY_COST, 1);
+            ac029.put(KEY_REQUIRESLVL, 0);
+            ac029.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac029);
+
+            ContentValues ac030 = new ContentValues();
+            ac030.put(KEY_NAME, "Take Aim");
+            ac030.put(KEY_IMAGE, "card_take_aim");
+            ac030.put(KEY_TYPE, 3);
+            ac030.put(KEY_DESC, "Gain 100% hit chance. Lasts 2 turns.");
+            ac030.put(KEY_COST, 1);
+            ac030.put(KEY_REQUIRESLVL, 0);
+            ac030.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac030);
+
             /* ADDS CARDS TO OWNED CARDS */
             ContentValues oc1 = new ContentValues();
             oc1.put(KEY_NAME, "Reinforce");
@@ -362,6 +422,15 @@ public class DBHandler {
             oc1.put(KEY_COST, 0);
             oc1.put(KEY_DESC, "Brings back one object.");
             db.insert(OwnedCards, null, oc1);
+
+            /* ADDS CARDS TO OWNED CARDS */
+            ContentValues oc2 = new ContentValues();
+            oc2.put(KEY_NAME, "Salvage");
+            oc2.put(KEY_IMAGE, "card_salvage");
+            oc2.put(KEY_TYPE, 1);
+            oc2.put(KEY_COST, 1);
+            oc2.put(KEY_DESC, "Brings back five objects after 2 turns.");
+            db.insert(OwnedCards, null, oc2);
 
             /* INITIAL PLAYER VALUES */
             ContentValues playerInfo = new ContentValues();

@@ -105,6 +105,24 @@ public class CustomCursorAdapter extends CursorAdapter {
         if (imagePath.equals("card_dispel")){
             Picasso.with(context).load(R.drawable.card_dispel).placeholder(R.drawable.card_placeholder).into(viewHolder.imageHolder);
         }
+        if (imagePath.equals("card_obj_plus_5")){
+            Picasso.with(context).load(R.drawable.card_obj_plus_5).placeholder(R.drawable.card_placeholder).into(viewHolder.imageHolder);
+        }
+        if (imagePath.equals("card_blind")){
+            Picasso.with(context).load(R.drawable.card_blind).placeholder(R.drawable.card_placeholder).into(viewHolder.imageHolder);
+        }
+        if (imagePath.equals("card_charge")){
+            Picasso.with(context).load(R.drawable.card_charge).placeholder(R.drawable.card_placeholder).into(viewHolder.imageHolder);
+        }
+        if (imagePath.equals("card_salvage")){
+            Picasso.with(context).load(R.drawable.card_salvage).placeholder(R.drawable.card_placeholder).into(viewHolder.imageHolder);
+        }
+        if (imagePath.equals("card_silence")){
+            Picasso.with(context).load(R.drawable.card_silence).placeholder(R.drawable.card_placeholder).into(viewHolder.imageHolder);
+        }
+        if (imagePath.equals("card_take_aim")){
+            Picasso.with(context).load(R.drawable.card_take_aim).placeholder(R.drawable.card_placeholder).into(viewHolder.imageHolder);
+        }
     }
 
     @Override
