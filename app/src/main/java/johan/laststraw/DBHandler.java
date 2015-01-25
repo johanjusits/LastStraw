@@ -432,11 +432,11 @@ public class DBHandler {
             db.insert(OwnedCards, null, oc2);
 
             ContentValues oc3 = new ContentValues();
-            oc3.put(KEY_NAME, "Demonic Prayer");
-            oc3.put(KEY_IMAGE, "card_demonic_prayer");
+            oc3.put(KEY_NAME, "Blind");
+            oc3.put(KEY_IMAGE, "card_blind");
             oc3.put(KEY_TYPE, 2);
-            oc3.put(KEY_COST, 0);
-            oc3.put(KEY_DESC, "10% chance to reset opponent's score. Ignores Protect & Mimic.");
+            oc3.put(KEY_COST, 1);
+            oc3.put(KEY_DESC, "Makes enemy more prone to miss. Lasts 2 turns.");
             db.insert(OwnedCards, null, oc3);
 
             /* INITIAL PLAYER VALUES */
