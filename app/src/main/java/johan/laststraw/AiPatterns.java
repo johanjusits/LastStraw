@@ -101,6 +101,11 @@ public class AiPatterns {
                     return 5;
                 case 24:
                     return 4;
+                //WORLD 4
+                case 25:
+                    return 4;
+                case 26:
+                    return 5;
             }
         return 1;
     }
@@ -158,6 +163,11 @@ public class AiPatterns {
                 return w003_l007_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
             case 24:
                 return w003_l008_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
+            //WORLD 4
+            case 25:
+                return w004_l001_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
+            case 26:
+                return w004_l002_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
         }
         return 0;
     }
@@ -199,6 +209,11 @@ public class AiPatterns {
                 return w003_l007_AI_PickCard(aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
             case 24:
                 return w003_l008_AI_PickCard(aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
+            //WORLD 4
+            case 25:
+                return w004_l001_AI_PickCard(aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
+            case 26:
+                return w004_l002_AI_PickCard(aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
         }
         return 0;
     }
@@ -1679,7 +1694,7 @@ public class AiPatterns {
                 return randomizeEnemyCardSelect(enemyStartingCards, pool);
             }
         }
-        // Concentrate 1st & Protect on 2nd, Mimic on 2nd, then random
+        // Concentrate & Protect on 1st, Mimic on 2nd, then random
         if (aiPattern == 2){
             if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
                 return 4;
@@ -1706,6 +1721,262 @@ public class AiPatterns {
                 return 4;
             }
             if (enemyTurnCounter > 2 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
+            }
+        }
+        return 0;
+    }
+
+    //WORLD 4 LEVEL 1
+    public static int w004_l001_AI_CardOrNot(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int objectsRemaining){
+        //Go nuts with random
+        if (aiPattern == 0){
+            return genRand(100);
+        }
+        if (aiPattern == 1){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1 || enemyTurnCounter == 1 && enemyMoveCounter == 2){
+                return 99;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 2){
+                return genRand(100);
+            }
+        }
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1 || enemyTurnCounter == 1 && enemyMoveCounter == 2){
+                return 99;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 2){
+                return genRand(100);
+            }
+        }
+        if (aiPattern == 3){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1 || enemyTurnCounter == 1 && enemyMoveCounter == 2){
+                return 99;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 3 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 3){
+                return genRand(100);
+            }
+        }
+        return 0;
+    }
+
+    public static int w004_l001_AI_PickCard(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int enemyStartingCards, ArrayList<Integer> pool, int objectsRemaining){
+        // Speed Up + Slow in turn 1, Charge in turn 2, then random
+        if (aiPattern == 1){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 5;
+            }
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 2){
+                return 0;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 2;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
+            }
+        }
+        // Charge 1st & Slow in 1st, Reinforce V on 2nd, then random
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 2;
+            }
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 2){
+                return 1;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 3;
+            }
+            if (enemyTurnCounter > 2 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
+            }
+        }
+        // Speed 1st & Charge 1st, Slow 2nd, Reinforce V 3rd, then random
+        if (aiPattern == 3){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 2;
+            }
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 2){
+                return 5;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 0;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 4;
+            }
+            if (enemyTurnCounter > 3 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
+            }
+        }
+        return 0;
+    }
+
+    //WORLD 4 LEVEL 2
+    public static int w004_l002_AI_CardOrNot(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int objectsRemaining){
+        //Go nuts with random
+        if (aiPattern == 0){
+            return genRand(100);
+        }
+        if (aiPattern == 1){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter == 4 && enemyMoveCounter == 3){
+                return 99;
+            }
+            if (enemyTurnCounter > 4 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 4){
+                return genRand(100);
+            }
+        }
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 3){
+                return 99;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 3 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 3){
+                return genRand(100);
+            }
+        }
+        if (aiPattern == 3){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1 || enemyTurnCounter == 1 && enemyMoveCounter == 2){
+                return 99;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter == 4 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 4 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 4){
+                return genRand(100);
+            }
+        }
+        if (aiPattern == 4){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 3 && objectsRemaining == 1){
+                return 99;
+            }
+            if (enemyTurnCounter > 3){
+                return genRand(100);
+            }
+        }
+        return 0;
+    }
+
+    public static int w004_l002_AI_PickCard(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int enemyStartingCards, ArrayList<Integer> pool, int objectsRemaining){
+        // Protect on 1st, Blind on 2nd, Reinforce V on 3rd, Infest on 4th then random
+        if (aiPattern == 1){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 2;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 4;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 0;
+            }
+            if (enemyTurnCounter == 4 && enemyMoveCounter == 3){
+                return 5;
+            }
+            if (enemyTurnCounter > 4 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
+            }
+        }
+        // Infest on 1st, Concentrate on 2nd, Steal on 3rd, then random
+        if (aiPattern == 2){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 3){
+                return 5;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 1;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 3;
+            }
+            if (enemyTurnCounter > 3 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
+            }
+        }
+        // Blind 1st & Concentrate on 1st, Reinforce V on 3rd, Steal on 4th then random
+        if (aiPattern == 3){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 4;
+            }
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 2){
+                return 1;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 5;
+            }
+            if (enemyTurnCounter == 4 && enemyMoveCounter == 1){
+                return 3;
+            }
+            if (enemyTurnCounter > 4 && objectsRemaining >= 1){
+                return randomizeEnemyCardSelect(enemyStartingCards, pool);
+            }
+        }
+        // Protect 1st, Concentrate on 2nd, Blind on 3rd, then random
+        if (aiPattern == 4){
+            if (enemyTurnCounter == 1 && enemyMoveCounter == 1){
+                return 2;
+            }
+            if (enemyTurnCounter == 2 && enemyMoveCounter == 1){
+                return 1;
+            }
+            if (enemyTurnCounter == 3 && enemyMoveCounter == 1){
+                return 4;
+            }
+            if (enemyTurnCounter > 3 && objectsRemaining >= 1){
                 return randomizeEnemyCardSelect(enemyStartingCards, pool);
             }
         }
