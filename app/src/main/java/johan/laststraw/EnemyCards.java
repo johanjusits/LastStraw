@@ -35,6 +35,8 @@ public class EnemyCards {
     static String SilenceImgPath = "card_silence";
     static String ChargeImgPath = "card_charge";
     static String DemonicPrayerImgPath = "card_demonic_prayer";
+    static String TakeAimImgPath = "card_take_aim";
+    static String BlindImgPath = "card_blind";
 
     static String Reinforce1CardName = "Reinforce";
     static String Reinforce2CardName = "Reinforce II";
@@ -56,6 +58,8 @@ public class EnemyCards {
     static String SilenceCardName = "Silence";
     static String ChargeCardName = "Charge";
     static String DemonicPrayerCardName = "Demonic Prayer";
+    static String TakeAimCardName = "Take Aim";
+    static String BlindCardName = "Blind";
 
     public static int getEnemyTotalCards(int levelId){
         switch (levelId){
@@ -1498,7 +1502,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return DemonicPrayerImgPath;
+                        return BlindImgPath;
                 }
             // WORLD 1 LEVEL 2
             case 2:
@@ -1796,7 +1800,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return DemonicPrayerCardName;
+                        return BlindCardName;
                     case 1:
                         return "";
                     case 2:
@@ -2203,7 +2207,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return 0;
+                        return 1;
                     case 1:
                         return 0;
                     case 2:

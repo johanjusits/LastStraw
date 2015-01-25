@@ -26,9 +26,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -66,12 +63,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String enemyHaste = "Enemy gains Haste";
     String enemySalvage = "Enemy gains Salvage";
     String enemyCharge = "Enemy gains Charge";
+    String enemyTakeAim = "Enemy gains Accuracy";
     String enemyHoard = "Enemy gains Hoard";
     String enemyConcentrate = "Enemy gains Concentrate";
     String enemyCorrupted = "Enemy suffers Corruption";
     String enemyMaledicted = "Enemy suffers Malediction";
     String enemyCursed = "Enemy suffers Curse";
     String enemyAgonized = "Enemy suffers Agony";
+    String enemyBlinded = "Enemy suffers Blind";
     String enemySentenced = "Enemy suffers Death Sentence";
     String enemySilenced = "Enemy suffers Silence";
     String enemyCured = "Enemy cures all ailments";
@@ -83,6 +82,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String playerHaste = "";
     String playerSalvage = "";
     String playerCharge = "";
+    String playerTakeAim = "";
     String playerHoard = "";
     String playerSlowed = "";
     String playerConcentrate = "";
@@ -90,6 +90,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String playerCursed = "";
     String playerMaledicted = "";
     String playerAgonized = "";
+    String playerBlinded = "";
     String playerSentenced = "";
     String playerCured = "";
     String playerAlteredTime = "";
@@ -186,13 +187,17 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     int playerCorruptedPenalty = 0;
     int enemyCorruptedPenalty = 0;
     int playerSalvageCountdown = -1;
+    int playerAccuracyCountdown = -1;
     int playerChargeCountdown = -1;
     int playerCurseCountdown = -1;
     int enemyCurseCountdown = -1;
     int enemySalvageCountdown = -1;
+    int enemyAccuracyCountdown = -1;
     int enemyChargeCountdown = -1;
     int playerAgonyCountdown = -1;
+    int playerBlindCountdown = -1;
     int enemyAgonyCountdown = -1;
+    int enemyBlindCountdown = -1;
     int playerMaledictionCountdown = -1;
     int enemyMaledictionCountdown = -1;
     int playerSentenceCountdown = -1;
@@ -207,8 +212,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* BOOLEANS */
     boolean playerHasSalvage = false;
     boolean playerHasCharge = false;
+    boolean playerHasAccuracy = false;
     boolean enemyHasSalvage = false;
     boolean enemyHasCharge = false;
+    boolean enemyHasAccuracy = false;
     boolean enemyHit = false;
     boolean playerHit = false;
     boolean enemyIsSlowed = false;
@@ -228,7 +235,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     boolean playerIsCursed = false;
     boolean enemyIsCursed = false;
     boolean playerIsAgonized = false;
+    boolean playerIsBlind = false;
     boolean enemyIsAgonized = false;
+    boolean enemyIsBlind = false;
     boolean playerIsMaledicted = false;
     boolean enemyIsMaledicted = false;
     boolean playerIsSentenced = false;
@@ -402,6 +411,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         playerHaste = playerName + " gains Haste";
         playerSalvage = playerName + " gains Salvage";
         playerCharge = playerName + " gains Charge";
+        playerTakeAim = playerName + " gains Accuracy";
         playerConcentrate = playerName + " gains Concentrate";
         playerSlowed = playerName + " suffers Slow";
         playerCorrupted = playerName + " suffers Corruption";
@@ -417,6 +427,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         playerHoard = playerName + " gains Hoard";
         playerDispelled = playerName + " suffers Dispel";
         playerSilenced = playerName + " suffers Silence";
+        playerBlinded = playerName + " suffers Blind";
 
         infestMsg = GameInfo.getInfestMsg(worldId);
         infestError = GameInfo.getInfestErrorMsg(worldId);
@@ -1983,6 +1994,22 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyHasCharge && enemyChargeCountdown == 0){
             enemyChargeEnd();
         } else {
+            checkIfEnemyAccuracyEnds();
+        }
+    }
+
+    private void checkIfEnemyAccuracyEnds(){
+        if (enemyHasAccuracy && enemyAccuracyCountdown == 0){
+            enemyAccuracyEnd();
+        } else {
+            checkIfEnemyBlindEnds();
+        }
+    }
+
+    private void checkIfEnemyBlindEnds(){
+        if (enemyIsBlind && enemyBlindCountdown == 0){
+            enemyBlindEnd();
+        } else {
             enemyTurn();
         }
     }
@@ -2387,6 +2414,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyHasCharge && enemyChargeCountdown != -1){
             enemyChargeCountdown--;
         }
+        if (enemyHasAccuracy && enemyAccuracyCountdown == -1){
+            enemyAccuracyCountdown = 3;
+        }
+        if (enemyHasAccuracy && enemyAccuracyCountdown != -1){
+            enemyAccuracyCountdown--;
+        }
+        if (enemyIsBlind && enemyBlindCountdown == -1){
+            enemyBlindCountdown = 3;
+        }
+        if (enemyIsBlind && enemyBlindCountdown != -1){
+            enemyBlindCountdown--;
+        }
         enemyIsSlowed = false;
         enemyHasHaste = false;
         enemyHasHaste2 = false;
@@ -2530,6 +2569,22 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (playerHasCharge && playerChargeCountdown == 0){
             playerChargeEnd();
         } else {
+            checkIfPlayerAccuracyEnds();
+        }
+    }
+
+    private void checkIfPlayerAccuracyEnds(){
+        if (playerHasAccuracy && playerAccuracyCountdown == 0){
+            playerAccuracyEnd();
+        } else {
+            checkIfPlayerBlindEnds();
+        }
+    }
+
+    private void checkIfPlayerBlindEnds(){
+        if (playerIsBlind && playerBlindCountdown == 0){
+            playerBlindEnd();
+        } else {
             playerTurn();
         }
     }
@@ -2621,6 +2676,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (playerHasCharge && playerChargeCountdown != -1){
             playerChargeCountdown--;
+        }
+        if (playerHasAccuracy && playerAccuracyCountdown == -1){
+            playerAccuracyCountdown = 3;
+        }
+        if (playerHasAccuracy && playerAccuracyCountdown != -1){
+            playerAccuracyCountdown--;
+        }
+        if (playerIsBlind && playerBlindCountdown == -1){
+            playerBlindCountdown = 3;
+        }
+        if (playerIsBlind && playerBlindCountdown != -1){
+            playerBlindCountdown--;
         }
         playerIsSlowed = false;
         playerIsCorrupted = false;
@@ -4593,6 +4660,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if(playedCard.equals("Charge")){
             cardCharge();
         }
+        if(playedCard.equals("Take Aim")){
+            cardTakeAim();
+        }
+        if(playedCard.equals("Blind")){
+            cardBlind();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -4721,6 +4794,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (cardName.equals("Charge")){
             cardCharge();
+        }
+        if (cardName.equals("Take Aim")){
+            cardTakeAim();
+        }
+        if (cardName.equals("Blind")){
+            cardBlind();
         }
     }
 
@@ -5763,6 +5842,61 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* TAKE AIM CARD EFFECT METHOD */
+    private void cardTakeAim() {
+        if (playerTurn) {
+            if (!Arrays.asList(playerStatuses).contains("Accuracy")){
+                tvCenterMessage.setText(playerTakeAim);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Accuracy")){
+                        playerHasAccuracy = true;
+                        playerHitChancePercentage = 100;
+                        addPlayerAccuracy();
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(enemyStatuses).contains("Accuracy")){
+                tvCenterMessage.setText(enemyTakeAim);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Accuracy")){
+                        enemyHasAccuracy = true;
+                        enemyHitChancePercentage = 100;
+                        addEnemyAccuracy();
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        }
+    }
+
     /* SPEED UP CARD EFFECT METHOD */
     private void cardSpeedUp() {
         if (playerTurn) {
@@ -6226,6 +6360,109 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* BLIND CARD EFFECT METHOD */
+    private void cardBlind(){
+        if (playerTurn) {
+            if (enemyHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        errorMsg = true;
+                        tvCenterMessage.setText(ailmentFailed);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(enemyStatuses).contains("Blind")){
+                    tvCenterMessage.setText(enemyBlinded);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Blind")){
+                                enemyIsBlind = true;
+                                enemyHitChancePercentage = 25;
+                                addEnemyBlind();
+                                activeEnemyStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
+                }
+            }
+        } else {
+            if (playerHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        errorMsg = true;
+                        tvCenterMessage.setText(ailmentFailed);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(playerStatuses).contains("Blind")){
+                    tvCenterMessage.setText(playerBlinded);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Blind")){
+                                playerIsBlind = true;
+                                playerHitChancePercentage = 25;
+                                addPlayerBlind();
+                                activePlayerStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
+                }
+            }
+        }
+    }
+
     /* STEAL CARD EFFECT METHOD */
     private void cardSteal(int min, int max){
         int finalNumber;
@@ -6623,6 +6860,30 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
+                if (lastEnemyPlayedCard.equals("Take Aim")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardTakeAim();
+                        }
+                    }, 2000);
+                }
+                if (lastEnemyPlayedCard.equals("Blind")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardBlind();
+                        }
+                    }, 2000);
+                }
             } else {
                 tvCenterMessage.startAnimation(ani_fadeIn);
                 tvCenterMessage.setText("Mimic failed");
@@ -6954,6 +7215,30 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             cardCharge();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Take Aim")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardTakeAim();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Blind")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardBlind();
                         }
                     }, 2000);
                 }
@@ -7910,6 +8195,43 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     * ADD STATUS METHODS
     *  -----------------------------------------*/
 
+    /* ADD PLAYER ACCURACY */
+    private void addPlayerAccuracy(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                playerStatuses[0] = "Accuracy";
+                playerStatusIcon1.setImageResource(R.drawable.buff_takeaim);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                playerStatuses[1] = "Accuracy";
+                playerStatusIcon2.setImageResource(R.drawable.buff_takeaim);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                playerStatuses[2] = "Accuracy";
+                playerStatusIcon3.setImageResource(R.drawable.buff_takeaim);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                playerStatuses[3] = "Accuracy";
+                playerStatusIcon4.setImageResource(R.drawable.buff_takeaim);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                playerStatuses[4] = "Accuracy";
+                playerStatusIcon5.setImageResource(R.drawable.buff_takeaim);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD PLAYER SALVAGE */
     private void addPlayerSalvage(){
         int freeSpot = getFreePlayerStatusSpot();
@@ -8379,6 +8701,48 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* ADD PLAYER BLIND */
+    private void addPlayerBlind(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                activePlayerDebuffs++;
+                playerStatuses[0] = "Blind";
+                playerStatusIcon1.setImageResource(R.drawable.debuff_blind);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                activePlayerDebuffs++;
+                playerStatuses[1] = "Blind";
+                playerStatusIcon2.setImageResource(R.drawable.debuff_blind);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                activePlayerDebuffs++;
+                playerStatuses[2] = "Blind";
+                playerStatusIcon3.setImageResource(R.drawable.debuff_blind);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                activePlayerDebuffs++;
+                playerStatuses[3] = "Blind";
+                playerStatusIcon4.setImageResource(R.drawable.debuff_blind);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                activePlayerDebuffs++;
+                playerStatuses[4] = "Blind";
+                playerStatusIcon5.setImageResource(R.drawable.debuff_blind);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD PLAYER MALEDICTION */
     private void addPlayerMalediction(){
         int freeSpot = getFreePlayerStatusSpot();
@@ -8536,6 +8900,43 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             case 4:
                 enemyStatuses[4] = "Salvage";
                 enemyStatusIcon5.setImageResource(R.drawable.buff_salvage);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /* ADD ENEMY ACCURACY */
+    private void addEnemyAccuracy(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot){
+            case 0:
+                enemyStatuses[0] = "Accuracy";
+                enemyStatusIcon1.setImageResource(R.drawable.buff_takeaim);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                enemyStatuses[1] = "Accuracy";
+                enemyStatusIcon2.setImageResource(R.drawable.buff_takeaim);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                enemyStatuses[2] = "Accuracy";
+                enemyStatusIcon3.setImageResource(R.drawable.buff_takeaim);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                enemyStatuses[3] = "Accuracy";
+                enemyStatusIcon4.setImageResource(R.drawable.buff_takeaim);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                enemyStatuses[4] = "Accuracy";
+                enemyStatusIcon5.setImageResource(R.drawable.buff_takeaim);
                 enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
                 enemyStatusIcon5.setVisibility(View.VISIBLE);
                 break;
@@ -8932,6 +9333,48 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* ADD ENEMY BLIND */
+    private void addEnemyBlind(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot) {
+            case 0:
+                activeEnemyDebuffs++;
+                enemyStatuses[0] = "Blind";
+                enemyStatusIcon1.setImageResource(R.drawable.debuff_blind);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                activeEnemyDebuffs++;
+                enemyStatuses[1] = "Blind";
+                enemyStatusIcon2.setImageResource(R.drawable.debuff_blind);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                activeEnemyDebuffs++;
+                enemyStatuses[2] = "Blind";
+                enemyStatusIcon3.setImageResource(R.drawable.debuff_blind);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                activeEnemyDebuffs++;
+                enemyStatuses[3] = "Blind";
+                enemyStatusIcon4.setImageResource(R.drawable.debuff_blind);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                activeEnemyDebuffs++;
+                enemyStatuses[4] = "Blind";
+                enemyStatusIcon5.setImageResource(R.drawable.debuff_blind);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD ENEMY MALEDICTION */
     private void addEnemyMalediction(){
         int freeSpot = getFreeEnemyStatusSpot();
@@ -9308,9 +9751,53 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 6000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                playerTurn();
+                checkIfPlayerAccuracyEnds();
             }
         }, 7000);
+    }
+
+    private void playerAccuracyEnd(){
+        playerHasAccuracy = false;
+        playerAccuracyCountdown = -1;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText(playerName + " accuracy fades..");
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearPlayerStatus("Accuracy");
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                checkIfPlayerBlindEnds();
+            }
+        }, 3000);
+    }
+
+    private void playerBlindEnd(){
+        playerIsBlind = false;
+        playerBlindCountdown = -1;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText(playerName + " is no longer blind.");
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearPlayerStatus("Blind");
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                playerTurn();
+            }
+        }, 3000);
     }
 
 
@@ -9564,9 +10051,53 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 6000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                enemyTurn();
+                checkIfEnemyAccuracyEnds();
             }
         }, 7000);
+    }
+
+    private void enemyAccuracyEnd(){
+        enemyHasAccuracy = false;
+        enemyAccuracyCountdown = -1;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText("Enemy accuracy fades..");
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearEnemyStatus("Accuracy");
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                checkIfEnemyBlindEnds();
+            }
+        }, 3000);
+    }
+
+    private void enemyBlindEnd(){
+        enemyIsBlind = false;
+        enemyBlindCountdown = -1;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText("Enemy is no longer blind.");
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearEnemyStatus("Blind");
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                enemyTurn();
+            }
+        }, 3000);
     }
 
 
@@ -9606,6 +10137,20 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (debuffName.equals("Corruption")){
             enemyCorruptedPenalty = 0;
         }
+        if (debuffName.equals("Accuracy")){
+            if (!enemyIsBlind){
+                enemyHitChancePercentage = 85;
+            } else {
+                enemyHitChancePercentage = 25;
+            }
+        }
+        if (debuffName.equals("Blind")){
+            if (!enemyHasAccuracy){
+                enemyHitChancePercentage = 85;
+            } else {
+                enemyHitChancePercentage = 100;
+            }
+        }
     }
 
     private void clearPlayerStatus(String debuffName){
@@ -9639,6 +10184,20 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (debuffName.equals("Corruption")){
             playerCorruptedPenalty = 0;
+        }
+        if (debuffName.equals("Accuracy")){
+            if (!playerIsBlind){
+                playerHitChancePercentage = 85;
+            } else {
+                playerHitChancePercentage = 25;
+            }
+        }
+        if (debuffName.equals("Blind")){
+            if (!playerHasAccuracy){
+                playerHitChancePercentage = 85;
+            } else {
+                playerHitChancePercentage = 100;
+            }
         }
     }
 
@@ -9773,6 +10332,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             playerIsSilenced = false;
             clearPlayerStatus("Silence");
         }
+        check = findPlayerAilment("Blind");
+        if (check != -1){
+            activePlayerDebuffs--;
+            playerIsBlind = false;
+            clearPlayerStatus("Blind");
+        }
     }
 
     /* FIND ENEMY AILMENTS */
@@ -9849,6 +10414,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             enemyIsSilenced = false;
             clearEnemyStatus("Silence");
         }
+        check = findEnemyAilments("Blind");
+        if (check != -1){
+            activeEnemyDebuffs--;
+            enemyIsBlind = false;
+            clearEnemyStatus("Blind");
+        }
     }
 
     /* ----------------------------------------- */
@@ -9918,6 +10489,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             playerChargeCountdown = -1;
             clearPlayerStatus("Charge");
         }
+        check = findPlayerBuff("Accuracy");
+        if (check != -1){
+            playerHasAccuracy = false;
+            playerAccuracyCountdown = -1;
+            clearPlayerStatus("Accuracy");
+        }
     }
 
     /* FIND ENEMY BUFFS */
@@ -9984,6 +10561,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             enemyHasCharge = false;
             enemyChargeCountdown = -1;
             clearEnemyStatus("Charge");
+        }
+        check = findEnemyBuff("Accuracy");
+        if (check != -1){
+            enemyHasAccuracy = false;
+            enemyAccuracyCountdown = -1;
+            clearEnemyStatus("Accuracy");
         }
     }
 
