@@ -319,21 +319,37 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         obj015 = (ImageButton) findViewById(R.id.obj015);
         obj016 = (ImageButton) findViewById(R.id.obj016);
         obj001.setOnClickListener(this);
+        obj001.setClickable(false);
         obj002.setOnClickListener(this);
+        obj002.setClickable(false);
         obj003.setOnClickListener(this);
+        obj003.setClickable(false);
         obj004.setOnClickListener(this);
+        obj004.setClickable(false);
         obj005.setOnClickListener(this);
+        obj005.setClickable(false);
         obj006.setOnClickListener(this);
+        obj006.setClickable(false);
         obj007.setOnClickListener(this);
+        obj007.setClickable(false);
         obj008.setOnClickListener(this);
+        obj008.setClickable(false);
         obj009.setOnClickListener(this);
+        obj009.setClickable(false);
         obj010.setOnClickListener(this);
+        obj010.setClickable(false);
         obj011.setOnClickListener(this);
+        obj011.setClickable(false);
         obj012.setOnClickListener(this);
+        obj012.setClickable(false);
         obj013.setOnClickListener(this);
+        obj013.setClickable(false);
         obj014.setOnClickListener(this);
+        obj014.setClickable(false);
         obj015.setOnClickListener(this);
+        obj015.setClickable(false);
         obj016.setOnClickListener(this);
+        obj016.setClickable(false);
 
         /* SETS THE BUTTON */
         btnEndTurn = (Button) findViewById(R.id.bEndTurn);
@@ -636,8 +652,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -648,6 +663,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj001.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -656,9 +672,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -678,8 +692,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -698,8 +711,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -718,8 +730,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -729,6 +740,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj002.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -737,9 +749,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -758,8 +768,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -777,8 +786,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -797,8 +805,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -808,6 +815,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj003.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -816,9 +824,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -837,8 +843,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -856,8 +861,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -876,8 +880,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -887,6 +890,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj004.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -895,9 +899,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -916,8 +918,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -935,8 +936,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -955,8 +955,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -966,6 +965,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj005.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -974,9 +974,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -995,8 +993,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1014,8 +1011,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -1034,8 +1030,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1045,6 +1040,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj006.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1053,9 +1049,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -1074,8 +1068,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1093,8 +1086,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -1113,8 +1105,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1124,6 +1115,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj007.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1132,9 +1124,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -1153,8 +1143,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1172,8 +1161,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -1192,8 +1180,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1203,6 +1190,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj008.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1211,9 +1199,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -1232,8 +1218,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1251,8 +1236,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -1271,8 +1255,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1282,6 +1265,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj009.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1290,9 +1274,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -1311,8 +1293,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1330,8 +1311,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -1350,8 +1330,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1361,6 +1340,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj010.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1369,9 +1349,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -1390,8 +1368,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1409,8 +1386,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -1429,8 +1405,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1440,6 +1415,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj011.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1448,9 +1424,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -1469,8 +1443,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1488,8 +1461,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -1508,8 +1480,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1519,6 +1490,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj012.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1527,9 +1499,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -1548,8 +1518,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1567,8 +1536,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -1587,8 +1555,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1598,6 +1565,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj013.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1606,9 +1574,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -1627,8 +1593,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1646,8 +1611,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -1666,8 +1630,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1677,6 +1640,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj014.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1685,9 +1649,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -1706,8 +1668,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1725,8 +1686,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -1745,8 +1705,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1756,6 +1715,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj015.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1764,9 +1724,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -1785,8 +1743,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1804,8 +1761,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                 }
@@ -1824,8 +1780,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            enable(layout_objectRow);
-                            enablePlayerCards();
+                            enablePlayerActions();
                         }
                     }, 1050);
                     break;
@@ -1835,6 +1790,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        infestedObjRemainingHits--;
                         obj016.startAnimation(ani_infest_shake);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
@@ -1843,9 +1799,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
-                                enable(layout_objectRow);
-                                enablePlayerCards();
-                                infestedObjRemainingHits--;
+                                enablePlayerActions();
                             }
                         }, 1050);
                         break;
@@ -2023,7 +1977,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyCardsRemaining > 0 && !enemyIsSilenced){
             int cardOrClear = AiPatterns.initAiPatternCardOrNot(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
-            /* If number is higher than 80 the AI will play a card */
+            /* If number is higher than cardOrNotNumber the AI will play a card */
             if (cardOrClear >= cardOrNotNumber){
                 if (aiPattern == 0){
                     enemyPickedCard = randomizeEnemyCardSelect();
@@ -2315,8 +2269,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
 
             } else {
-               /* If number is less than 80, the AI will clear */
-                if (cardOrClear < 80) {
+               /* If number is less than cardOrNotNumber, the AI will clear */
+                if (cardOrClear < cardOrNotNumber) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             aiClearObject();
@@ -2598,6 +2552,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         enable(layout_objectRow);
         enablePlayerCards();
         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+        setClickableObjects(objectsRemaining);
     }
 
     /* UPDATE PLAYER STATUSES */
@@ -4669,8 +4624,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    enable(layout_objectRow);
-                    enablePlayerCards();
+                    enablePlayerActions();
                     btnEndTurn.setClickable(true);
                     errorMsg = false;
                 }
@@ -4679,18 +4633,15 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
              if (playedCard.equals("Mimic")){
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
-                        enable(layout_objectRow);
-                        enablePlayerCards();
+                        enablePlayerActions();
                         btnEndTurn.setClickable(true);
                     }
                 }, 3500);
             } else {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
-                        enable(layout_objectRow);
-                        enablePlayerCards();
+                        enablePlayerActions();
                         btnEndTurn.setClickable(true);
-                        System.out.println("Här");
                     }
                 }, 2000);
             }
@@ -8188,8 +8139,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
             worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
-        lvlId = 26;
-        worldId = 4;
         db.close();
     }
 
@@ -11635,13 +11584,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
     /* INITIATES STUFF WHEN PLAYER CLICKS AN OBJECT */
     private void initiateObjClick(){
+        //SETS PLAYER HIT CHANCE
         playerHitChance = genRand(100);
         playerHit = playerHitChance <= playerHitChancePercentage;
+        //SETS WHERE TO DISPLAY MSG
         setObjMsgLocation();
         tvObjMsg.setVisibility(View.INVISIBLE);
         disable(layout_objectRow);
         disablePlayerCards();
     }
+
 
     /* INITIATES STUFF WHEN ENEMY CLICKS AN OBJECT */
     private void initiateEnemyObjClick(){
@@ -11682,6 +11634,308 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         enemyScore = enemyScore + enemyClearAward;
         tvEnemyScore.setText(String.valueOf(enemyScore));
         tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
+    }
+
+    /* THIS METHOD KEEPS TRACK OF HOW MANY OBJECTS REMAINS SO THAT THE PLAYER ONLY CAN CLICK
+    ON THE NEXT ONE
+     */
+    private void setClickableObjects(int objectsRemaining){
+        switch (objectsRemaining){
+            case 16:
+                obj001.setClickable(true);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 15:
+                obj001.setClickable(false);
+                obj002.setClickable(true);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 14:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(true);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 13:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(true);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 12:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(true);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 11:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(true);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 10:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(true);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 9:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(true);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 8:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(true);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 7:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(true);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 6:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(true);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 5:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(true);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 4:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(true);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 3:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(true);
+                obj015.setClickable(false);
+                obj016.setClickable(false);
+                break;
+            case 2:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(true);
+                obj016.setClickable(false);
+                break;
+            case 1:
+                obj001.setClickable(false);
+                obj002.setClickable(false);
+                obj003.setClickable(false);
+                obj004.setClickable(false);
+                obj005.setClickable(false);
+                obj006.setClickable(false);
+                obj007.setClickable(false);
+                obj008.setClickable(false);
+                obj009.setClickable(false);
+                obj010.setClickable(false);
+                obj011.setClickable(false);
+                obj012.setClickable(false);
+                obj013.setClickable(false);
+                obj014.setClickable(false);
+                obj015.setClickable(false);
+                obj016.setClickable(true);
+                break;
+        }
+    }
+
+    private void enablePlayerActions(){
+        setClickableObjects(objectsRemaining);
+        enable(layout_objectRow);
+        enablePlayerCards();
     }
 
 }

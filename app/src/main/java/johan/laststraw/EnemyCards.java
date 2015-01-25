@@ -1663,7 +1663,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return Reinforce1ImgPath;
+                        return InfestImgPath;
                 }
             // WORLD 1 LEVEL 2
             case 2:
@@ -1993,7 +1993,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return Reinforce1CardName;
+                        return InfestCardName;
                     case 1:
                         return "";
                     case 2:
