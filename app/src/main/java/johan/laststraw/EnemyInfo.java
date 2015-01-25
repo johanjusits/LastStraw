@@ -134,21 +134,21 @@ public class EnemyInfo {
                 }
             case 4:
                 switch (levelId){
-                    case 17:
+                    case 25:
                         return "portrait_wreckage";
-                    case 18:
+                    case 26:
                         return "portrait_wreckage";
-                    case 19:
+                    case 27:
                         return "portrait_wreckage";
-                    case 20:
+                    case 28:
                         return "portrait_miniboss";
-                    case 21:
+                    case 29:
                         return "portrait_wreckage";
-                    case 22:
+                    case 30:
                         return "portrait_wreckage";
-                    case 23:
+                    case 31:
                         return "portrait_wreckage";
-                    case 24:
+                    case 32:
                         return "portrait_boss";
                 }
         }

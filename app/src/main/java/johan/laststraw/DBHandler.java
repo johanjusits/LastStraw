@@ -359,7 +359,7 @@ public class DBHandler {
             ac025.put(KEY_IMAGE, "card_obj_plus_5");
             ac025.put(KEY_TYPE, 1);
             ac025.put(KEY_DESC, "Brings back five objects.");
-            ac025.put(KEY_COST, 1);
+            ac025.put(KEY_COST, 2);
             ac025.put(KEY_REQUIRESLVL, 0);
             ac025.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac025);
