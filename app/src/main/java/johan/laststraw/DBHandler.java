@@ -423,22 +423,6 @@ public class DBHandler {
             oc1.put(KEY_DESC, "Brings back one object.");
             db.insert(OwnedCards, null, oc1);
 
-            ContentValues oc2 = new ContentValues();
-            oc2.put(KEY_NAME, "Infest");
-            oc2.put(KEY_IMAGE, "card_infest");
-            oc2.put(KEY_TYPE, 1);
-            oc2.put(KEY_COST, 1);
-            oc2.put(KEY_DESC, "Infests the next object with spiders, making it more difficult to clear.");
-            db.insert(OwnedCards, null, oc2);
-
-            ContentValues oc3 = new ContentValues();
-            oc3.put(KEY_NAME, "Rewind");
-            oc3.put(KEY_IMAGE, "card_rewind");
-            oc3.put(KEY_TYPE, 3);
-            oc3.put(KEY_COST, 0);
-            oc3.put(KEY_DESC, "25% chance to reset all objects at the end of your turn.");
-            db.insert(OwnedCards, null, oc3);
-
             /* INITIAL PLAYER VALUES */
             ContentValues playerInfo = new ContentValues();
             playerInfo.put(KEY_NAME, "New Player");
@@ -446,7 +430,7 @@ public class DBHandler {
             playerInfo.put(KEY_LEVEL, 1);
             playerInfo.put(KEY_LVLSBEATEN, 0);
             playerInfo.put(KEY_EXP, 0);
-            playerInfo.put(KEY_UNLOCKEDSLOTS, 6);
+            playerInfo.put(KEY_UNLOCKEDSLOTS, 1);
             db.insert(PlayerInfo, null, playerInfo);
 
             /* WORLD 1 LEVEL INFO */

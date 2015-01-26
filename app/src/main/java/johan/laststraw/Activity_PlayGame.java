@@ -11941,6 +11941,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* PRETTY MUCH SELF-EXPLANATORY.. */
     private void enablePlayerActions(){
         setClickableObjects(objectsRemaining);
         enable(layout_objectRow);
