@@ -13,11 +13,6 @@
         <screen android:screenSize="normal" android:screenDensity="mdpi" />
         <screen android:screenSize="normal" android:screenDensity="hdpi" />
         <screen android:screenSize="normal" android:screenDensity="xhdpi" />
-        <!-- all xlarge size screens -->
-        <screen android:screenSize="xlarge" android:screenDensity="ldpi" />
-        <screen android:screenSize="xlarge" android:screenDensity="mdpi" />
-        <screen android:screenSize="xlarge" android:screenDensity="hdpi" />
-        <screen android:screenSize="xlarge" android:screenDensity="xhdpi" />
     </compatible-screens>
 
     <application

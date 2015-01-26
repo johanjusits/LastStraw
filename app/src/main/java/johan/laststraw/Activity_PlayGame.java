@@ -3993,27 +3993,15 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (playerCard1Type == 1) {
             playerCard1.setBackgroundResource(R.drawable.card_icon_field);
-            if (!sizeName.equals("xlarge")){
-                playerCard1.setImageResource(R.drawable.card_type_field);
-            } else {
-                playerCard1.setImageResource(R.drawable.card_type_field_tablet);
-            }
+            playerCard1.setImageResource(R.drawable.card_type_field);
         }
         if (playerCard1Type == 2) {
             playerCard1.setBackgroundResource(R.drawable.card_icon_ailment);
-            if (!sizeName.equals("xlarge")){
-                playerCard1.setImageResource(R.drawable.card_type_ailment);
-            } else {
-                playerCard1.setImageResource(R.drawable.card_type_ailment_tablet);
-            }
+            playerCard1.setImageResource(R.drawable.card_type_ailment);
         }
         if (playerCard1Type == 3) {
             playerCard1.setBackgroundResource(R.drawable.card_icon_boosting);
-            if (!sizeName.equals("xlarge")){
-                playerCard1.setImageResource(R.drawable.card_type_boosting);
-            } else {
-                playerCard1.setImageResource(R.drawable.card_type_boosting_tablet);
-            }
+            playerCard1.setImageResource(R.drawable.card_type_boosting);
         }
         /* CARD 2 */
         if (playerCard2Type == 0) {
@@ -4021,27 +4009,15 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (playerCard2Type == 1) {
             playerCard2.setBackgroundResource(R.drawable.card_icon_field);
-            if (!sizeName.equals("xlarge")){
-                playerCard2.setImageResource(R.drawable.card_type_field);
-            } else {
-                playerCard2.setImageResource(R.drawable.card_type_field_tablet);
-            }
+            playerCard2.setImageResource(R.drawable.card_type_field);
         }
         if (playerCard2Type == 2) {
             playerCard2.setBackgroundResource(R.drawable.card_icon_ailment);
-            if (!sizeName.equals("xlarge")){
-                playerCard2.setImageResource(R.drawable.card_type_ailment);
-            } else {
-                playerCard2.setImageResource(R.drawable.card_type_ailment_tablet);
-            }
+            playerCard2.setImageResource(R.drawable.card_type_ailment);
         }
         if (playerCard2Type == 3) {
             playerCard2.setBackgroundResource(R.drawable.card_icon_boosting);
-            if (!sizeName.equals("xlarge")){
-                playerCard2.setImageResource(R.drawable.card_type_boosting);
-            } else {
-                playerCard2.setImageResource(R.drawable.card_type_boosting_tablet);
-            }
+            playerCard2.setImageResource(R.drawable.card_type_boosting);
         }
         /* CARD 3 */
         if (playerCard3Type == 0) {
@@ -4049,27 +4025,15 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (playerCard3Type == 1) {
             playerCard3.setBackgroundResource(R.drawable.card_icon_field);
-            if (!sizeName.equals("xlarge")){
-                playerCard3.setImageResource(R.drawable.card_type_field);
-            } else {
-                playerCard3.setImageResource(R.drawable.card_type_field_tablet);
-            }
+            playerCard3.setImageResource(R.drawable.card_type_field);
         }
         if (playerCard3Type == 2) {
             playerCard3.setBackgroundResource(R.drawable.card_icon_ailment);
-            if (!sizeName.equals("xlarge")){
-                playerCard3.setImageResource(R.drawable.card_type_ailment);
-            } else {
-                playerCard3.setImageResource(R.drawable.card_type_ailment_tablet);
-            }
+            playerCard3.setImageResource(R.drawable.card_type_ailment);
         }
         if (playerCard3Type == 3) {
             playerCard3.setBackgroundResource(R.drawable.card_icon_boosting);
-            if (!sizeName.equals("xlarge")){
-                playerCard3.setImageResource(R.drawable.card_type_boosting);
-            } else {
-                playerCard3.setImageResource(R.drawable.card_type_boosting_tablet);
-            }
+            playerCard3.setImageResource(R.drawable.card_type_boosting);
         }
         /* CARD 4 */
         if (playerCard4Type == 0) {
@@ -4077,27 +4041,15 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (playerCard4Type == 1) {
             playerCard4.setBackgroundResource(R.drawable.card_icon_field);
-            if (!sizeName.equals("xlarge")){
-                playerCard4.setImageResource(R.drawable.card_type_field);
-            } else {
-                playerCard4.setImageResource(R.drawable.card_type_field_tablet);
-            }
+            playerCard4.setImageResource(R.drawable.card_type_field);
         }
         if (playerCard4Type == 2) {
             playerCard4.setBackgroundResource(R.drawable.card_icon_ailment);
-            if (!sizeName.equals("xlarge")){
-                playerCard4.setImageResource(R.drawable.card_type_ailment);
-            } else {
-                playerCard4.setImageResource(R.drawable.card_type_ailment_tablet);
-            }
+            playerCard4.setImageResource(R.drawable.card_type_ailment);
         }
         if (playerCard4Type == 3) {
             playerCard4.setBackgroundResource(R.drawable.card_icon_boosting);
-            if (!sizeName.equals("xlarge")){
-                playerCard4.setImageResource(R.drawable.card_type_boosting);
-            } else {
-                playerCard4.setImageResource(R.drawable.card_type_boosting_tablet);
-            }
+            playerCard4.setImageResource(R.drawable.card_type_boosting);
         }
         /* CARD 5 */
         if (playerCard5Type == 0) {
@@ -4105,27 +4057,15 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (playerCard5Type == 1) {
             playerCard5.setBackgroundResource(R.drawable.card_icon_field);
-            if (!sizeName.equals("xlarge")){
-                playerCard5.setImageResource(R.drawable.card_type_field);
-            } else {
-                playerCard5.setImageResource(R.drawable.card_type_field_tablet);
-            }
+            playerCard5.setImageResource(R.drawable.card_type_field);
         }
         if (playerCard5Type == 2) {
             playerCard5.setBackgroundResource(R.drawable.card_icon_ailment);
-            if (!sizeName.equals("xlarge")){
-                playerCard5.setImageResource(R.drawable.card_type_ailment);
-            } else {
-                playerCard5.setImageResource(R.drawable.card_type_ailment_tablet);
-            }
+            playerCard5.setImageResource(R.drawable.card_type_ailment);
         }
         if (playerCard5Type == 3) {
             playerCard5.setBackgroundResource(R.drawable.card_icon_boosting);
-            if (!sizeName.equals("xlarge")){
-                playerCard5.setImageResource(R.drawable.card_type_boosting);
-            } else {
-                playerCard5.setImageResource(R.drawable.card_type_boosting_tablet);
-            }
+            playerCard5.setImageResource(R.drawable.card_type_boosting);
         }
         /* CARD 6 */
         if (playerCard6Type == 0) {
@@ -4133,27 +4073,15 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (playerCard6Type == 1) {
             playerCard6.setBackgroundResource(R.drawable.card_icon_field);
-            if (!sizeName.equals("xlarge")){
-                playerCard6.setImageResource(R.drawable.card_type_field);
-            } else {
-                playerCard6.setImageResource(R.drawable.card_type_field_tablet);
-            }
+            playerCard6.setImageResource(R.drawable.card_type_field);
         }
         if (playerCard6Type == 2) {
             playerCard6.setBackgroundResource(R.drawable.card_icon_ailment);
-            if (!sizeName.equals("xlarge")){
-                playerCard6.setImageResource(R.drawable.card_type_ailment);
-            } else {
-                playerCard6.setImageResource(R.drawable.card_type_ailment_tablet);
-            }
+            playerCard6.setImageResource(R.drawable.card_type_ailment);
         }
         if (playerCard6Type == 3) {
             playerCard6.setBackgroundResource(R.drawable.card_icon_boosting);
-            if (!sizeName.equals("xlarge")){
-                playerCard6.setImageResource(R.drawable.card_type_boosting);
-            } else {
-                playerCard6.setImageResource(R.drawable.card_type_boosting_tablet);
-            }
+            playerCard6.setImageResource(R.drawable.card_type_boosting);
         }
     }
 
@@ -4171,7 +4099,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
             enemyCard1.setBackgroundResource(iconBackground);
 
-            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 0, sizeName);
+            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 0);
             int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
             enemyCard1.setImageResource(typeBackground);
         }
@@ -4181,7 +4109,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
             enemyCard2.setBackgroundResource(iconBackground);
 
-            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 1, sizeName);
+            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 1);
             int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
             enemyCard2.setImageResource(typeBackground);
         }
@@ -4191,7 +4119,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
             enemyCard3.setBackgroundResource(iconBackground);
 
-            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 2, sizeName);
+            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 2);
             int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
             enemyCard3.setImageResource(typeBackground);
         }
@@ -4201,7 +4129,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
             enemyCard4.setBackgroundResource(iconBackground);
 
-            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 3, sizeName);
+            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 3);
             int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
             enemyCard4.setImageResource(typeBackground);
         }
@@ -4211,7 +4139,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
             enemyCard5.setBackgroundResource(iconBackground);
 
-            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 4, sizeName);
+            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 4);
             int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
             enemyCard5.setImageResource(typeBackground);
         }
@@ -4221,7 +4149,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
             enemyCard6.setBackgroundResource(iconBackground);
 
-            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 5, sizeName);
+            String typeBackgroundName = EnemyCards.getEnemyCardTypeName(lvlId, 5);
             int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
             enemyCard6.setImageResource(typeBackground);
         }
