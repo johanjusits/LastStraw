@@ -11,15 +11,13 @@ public class EnemyCards {
     static String cardTypeField = "card_type_field";
     static String cardTypeAilment = "card_type_ailment";
     static String cardTypeBoosting = "card_type_boosting";
-    static String cardTypeFieldTablet = "card_type_field_tablet";
-    static String cardTypeAilmentTablet = "card_type_ailment_tablet";
-    static String cardTypeBoostingTablet = "card_type_boosting_tablet";
 
     static String Reinforce1ImgPath = "card_obj_plus_1";
     static String Reinforce2ImgPath = "card_obj_plus_2";
     static String Reinforce3ImgPath = "card_obj_plus_3";
     static String Reinforce5ImgPath = "card_obj_plus_5";
     static String SpeedUpImgPath = "card_speed_up";
+    static String SpeedUp2ImgPath = "card_speed_up_2";
     static String SlowDownImgPath = "card_slowdown";
     static String Steal1ImgPath = "card_steal_3";
     static String ConcentrateImgPath = "card_concentrate";
@@ -43,12 +41,14 @@ public class EnemyCards {
     static String Steal3ImgPath = "card_steal_7";
     static String RewindImgPath = "card_rewind";
     static String HoardImgPath = "card_hoard";
+    static String RestoreImgPath = "card_restore";
 
     static String Reinforce1CardName = "Reinforce";
     static String Reinforce2CardName = "Reinforce II";
     static String Reinforce3CardName = "Reinforce III";
     static String Reinforce5CardName = "Reinforce V";
     static String SpeedUpCardName = "Speed Up";
+    static String SpeedUp2CardName = "Speed Up 2";
     static String SlowDownCardName = "Slow Down";
     static String Steal1CardName = "Steal";
     static String ConcentrateCardName = "Concentrate";
@@ -72,9 +72,10 @@ public class EnemyCards {
     static String Steal3CardName = "Steal III";
     static String RewindCardName = "Rewind";
     static String HoardCardName = "Hoard";
+    static String RestoreCardName = "Restore";
 
-    public static int getEnemyTotalCards(int levelId){
-        switch (levelId){
+    public static int getEnemyTotalCards(int levelId) {
+        switch (levelId) {
             //WORLD 001
             case 1:
                 return 1;
@@ -135,25 +136,25 @@ public class EnemyCards {
         return 0;
     }
 
-    public static String getEnemyCardIconName(int levelId, int cardNr){
-        switch (levelId){
+    public static String getEnemyCardIconName(int levelId, int cardNr) {
+        switch (levelId) {
             // WORLD 1 LEVEL 1
             case 1:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconField;
                 }
-            // WORLD 1 LEVEL 2
+                // WORLD 1 LEVEL 2
             case 2:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconField;
                     case 1:
                         return cardIconField;
                 }
-            // WORLD 1 LEVEL 3
+                // WORLD 1 LEVEL 3
             case 3:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconField;
                     case 1:
@@ -161,9 +162,9 @@ public class EnemyCards {
                     case 2:
                         return cardIconAilment;
                 }
-            // WORLD 1 LEVEL 4
+                // WORLD 1 LEVEL 4
             case 4:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconBoosting;
                     case 1:
@@ -171,9 +172,9 @@ public class EnemyCards {
                     case 2:
                         return cardIconAilment;
                 }
-            // WORLD 1 LEVEL 5
+                // WORLD 1 LEVEL 5
             case 5:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconField;
                     case 1:
@@ -181,9 +182,9 @@ public class EnemyCards {
                     case 2:
                         return cardIconAilment;
                 }
-            // WORLD 1 LEVEL 6
+                // WORLD 1 LEVEL 6
             case 6:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconBoosting;
                     case 1:
@@ -193,9 +194,9 @@ public class EnemyCards {
                     case 3:
                         return cardIconField;
                 }
-            // WORLD 1 LEVEL 7
+                // WORLD 1 LEVEL 7
             case 7:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconBoosting;
                     case 1:
@@ -207,9 +208,9 @@ public class EnemyCards {
                     case 4:
                         return cardIconField;
                 }
-            // WORLD 1 LEVEL 8
+                // WORLD 1 LEVEL 8
             case 8:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconBoosting;
                     case 1:
@@ -217,9 +218,9 @@ public class EnemyCards {
                     case 2:
                         return cardIconField;
                 }
-            // WORLD 2 LEVEL 1
+                // WORLD 2 LEVEL 1
             case 9:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconAilment;
                     case 1:
@@ -229,9 +230,9 @@ public class EnemyCards {
                     case 3:
                         return cardIconBoosting;
                 }
-            // WORLD 2 LEVEL 2
+                // WORLD 2 LEVEL 2
             case 10:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconAilment;
                     case 1:
@@ -239,9 +240,9 @@ public class EnemyCards {
                     case 2:
                         return cardIconField;
                 }
-            // WORLD 2 LEVEL 3
+                // WORLD 2 LEVEL 3
             case 11:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconField;
                     case 1:
@@ -255,9 +256,9 @@ public class EnemyCards {
                     case 5:
                         return cardIconAilment;
                 }
-            // WORLD 2 LEVEL 4
+                // WORLD 2 LEVEL 4
             case 12:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconAilment;
                     case 1:
@@ -267,9 +268,9 @@ public class EnemyCards {
                     case 3:
                         return cardIconAilment;
                 }
-            // WORLD 2 LEVEL 5
+                // WORLD 2 LEVEL 5
             case 13:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconAilment;
                     case 1:
@@ -279,9 +280,9 @@ public class EnemyCards {
                     case 3:
                         return cardIconField;
                 }
-            // WORLD 2 LEVEL 6
+                // WORLD 2 LEVEL 6
             case 14:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconBoosting;
                     case 1:
@@ -289,9 +290,9 @@ public class EnemyCards {
                     case 2:
                         return cardIconField;
                 }
-            // WORLD 2 LEVEL 7
+                // WORLD 2 LEVEL 7
             case 15:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconBoosting;
                     case 1:
@@ -301,9 +302,9 @@ public class EnemyCards {
                     case 3:
                         return cardIconBoosting;
                 }
-            // WORLD 2 LEVEL 8
+                // WORLD 2 LEVEL 8
             case 16:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconField;
                     case 1:
@@ -317,9 +318,9 @@ public class EnemyCards {
                     case 5:
                         return cardIconAilment;
                 }
-            // WORLD 3 LEVEL 1
+                // WORLD 3 LEVEL 1
             case 17:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconBoosting;
                     case 1:
@@ -329,9 +330,9 @@ public class EnemyCards {
                     case 3:
                         return cardIconField;
                 }
-            // WORLD 3 LEVEL 2
+                // WORLD 3 LEVEL 2
             case 18:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconBoosting;
                     case 1:
@@ -341,9 +342,9 @@ public class EnemyCards {
                     case 3:
                         return cardIconField;
                 }
-            // WORLD 3 LEVEL 3
+                // WORLD 3 LEVEL 3
             case 19:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconBoosting;
                     case 1:
@@ -357,9 +358,9 @@ public class EnemyCards {
                     case 5:
                         return cardIconBoosting;
                 }
-            // WORLD 3 LEVEL 4
+                // WORLD 3 LEVEL 4
             case 20:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconField;
                     case 1:
@@ -373,9 +374,9 @@ public class EnemyCards {
                     case 5:
                         return cardIconBoosting;
                 }
-            // WORLD 3 LEVEL 5
+                // WORLD 3 LEVEL 5
             case 21:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconBoosting;
                     case 1:
@@ -383,9 +384,9 @@ public class EnemyCards {
                     case 2:
                         return cardIconBoosting;
                 }
-            // WORLD 3 LEVEL 6
+                // WORLD 3 LEVEL 6
             case 22:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconBoosting;
                     case 1:
@@ -397,9 +398,9 @@ public class EnemyCards {
                     case 4:
                         return cardIconField;
                 }
-            // WORLD 3 LEVEL 7
+                // WORLD 3 LEVEL 7
             case 23:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconField;
                     case 1:
@@ -413,9 +414,9 @@ public class EnemyCards {
                     case 5:
                         return cardIconBoosting;
                 }
-            // WORLD 3 LEVEL 8
+                // WORLD 3 LEVEL 8
             case 24:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconBoosting;
                     case 1:
@@ -429,9 +430,9 @@ public class EnemyCards {
                     case 5:
                         return cardIconBoosting;
                 }
-            // WORLD 4 LEVEL 1
+                // WORLD 4 LEVEL 1
             case 25:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconAilment;
                     case 1:
@@ -445,9 +446,9 @@ public class EnemyCards {
                     case 5:
                         return cardIconBoosting;
                 }
-            // WORLD 4 LEVEL 2
+                // WORLD 4 LEVEL 2
             case 26:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return cardIconField;
                     case 1:
@@ -465,781 +466,341 @@ public class EnemyCards {
         return "";
     }
 
-    public static String getEnemyCardTypeName(int levelId, int cardNr, String screenSize){
-        switch (levelId){
+    public static String getEnemyCardTypeName(int levelId, int cardNr) {
+        switch (levelId) {
             // WORLD 1 LEVEL 1
             case 1:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                 }
-            // WORLD 1 LEVEL 2
+                // WORLD 1 LEVEL 2
             case 2:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                 }
-            // WORLD 1 LEVEL 3
+                // WORLD 1 LEVEL 3
             case 3:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                 }
-            // WORLD 1 LEVEL 4
+                // WORLD 1 LEVEL 4
             case 4:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                 }
-            // WORLD 1 LEVEL 5
+                // WORLD 1 LEVEL 5
             case 5:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                 }
-            // WORLD 1 LEVEL 6
+                // WORLD 1 LEVEL 6
             case 6:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                 }
-            // WORLD 1 LEVEL 7
+                // WORLD 1 LEVEL 7
             case 7:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 4:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                 }
-            // WORLD 1 LEVEL 8
+                // WORLD 1 LEVEL 8
             case 8:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                 }
-            // WORLD 2 LEVEL 1
+                // WORLD 2 LEVEL 1
             case 9:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                 }
-            // WORLD 2 LEVEL 2
+                // WORLD 2 LEVEL 2
             case 10:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                 }
-            // WORLD 2 LEVEL 3
+                // WORLD 2 LEVEL 3
             case 11:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 4:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 5:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                 }
-            // WORLD 2 LEVEL 4
+                // WORLD 2 LEVEL 4
             case 12:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                 }
-            // WORLD 2 LEVEL 5
+                // WORLD 2 LEVEL 5
             case 13:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                 }
-            // WORLD 2 LEVEL 6
+                // WORLD 2 LEVEL 6
             case 14:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                 }
-            // WORLD 2 LEVEL 7
+                // WORLD 2 LEVEL 7
             case 15:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                 }
-            // WORLD 2 LEVEL 8
+                // WORLD 2 LEVEL 8
             case 16:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 4:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 5:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                 }
-            // WORLD 3 LEVEL 1
+                // WORLD 3 LEVEL 1
             case 17:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                 }
-            // WORLD 3 LEVEL 2
+                // WORLD 3 LEVEL 2
             case 18:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                 }
-            // WORLD 3 LEVEL 3
+                // WORLD 3 LEVEL 3
             case 19:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 4:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 5:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                 }
-            // WORLD 3 LEVEL 4
+                // WORLD 3 LEVEL 4
             case 20:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 4:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 5:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                 }
-            // WORLD 3 LEVEL 5
+                // WORLD 3 LEVEL 5
             case 21:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                 }
-            // WORLD 3 LEVEL 6
+                // WORLD 3 LEVEL 6
             case 22:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 4:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                 }
-            // WORLD 3 LEVEL 7
+                // WORLD 3 LEVEL 7
             case 23:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 4:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 5:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                 }
-            // WORLD 3 LEVEL 8
+                // WORLD 3 LEVEL 8
             case 24:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 4:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 5:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                 }
-            // WORLD 4 LEVEL 1
+                // WORLD 4 LEVEL 1
             case 25:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 4:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 5:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                 }
-            // WORLD 4 LEVEL 2
+                // WORLD 4 LEVEL 2
             case 26:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 1:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 2:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeBoostingTablet;
-                        } else {
-                            return cardTypeBoosting;
-                        }
+                        return cardTypeBoosting;
                     case 3:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                     case 4:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeAilmentTablet;
-                        } else {
-                            return cardTypeAilment;
-                        }
+                        return cardTypeAilment;
                     case 5:
-                        if (screenSize.equals("xlarge")){
-                            return cardTypeFieldTablet;
-                        } else {
-                            return cardTypeField;
-                        }
+                        return cardTypeField;
                 }
         }
         return "";
     }
 
-    public static boolean getCardPresent(int levelId, int cardNr){
-        switch (levelId){
+    public static boolean getCardPresent(int levelId, int cardNr) {
+        switch (levelId) {
             // WORLD 1 LEVEL 1
             case 1:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1253,9 +814,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 1 LEVEL 2
+                // WORLD 1 LEVEL 2
             case 2:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1269,9 +830,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 1 LEVEL 3
+                // WORLD 1 LEVEL 3
             case 3:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1285,9 +846,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 1 LEVEL 4
+                // WORLD 1 LEVEL 4
             case 4:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1301,9 +862,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 1 LEVEL 5
+                // WORLD 1 LEVEL 5
             case 5:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1317,9 +878,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 1 LEVEL 6
+                // WORLD 1 LEVEL 6
             case 6:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1333,9 +894,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 1 LEVEL 7
+                // WORLD 1 LEVEL 7
             case 7:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1349,9 +910,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 1 LEVEL 8
+                // WORLD 1 LEVEL 8
             case 8:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1365,9 +926,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 2 LEVEL 1
+                // WORLD 2 LEVEL 1
             case 9:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1381,9 +942,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 2 LEVEL 2
+                // WORLD 2 LEVEL 2
             case 10:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1397,9 +958,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 2 LEVEL 3
+                // WORLD 2 LEVEL 3
             case 11:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1413,9 +974,9 @@ public class EnemyCards {
                     case 5:
                         return true;
                 }
-            // WORLD 2 LEVEL 4
+                // WORLD 2 LEVEL 4
             case 12:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1429,9 +990,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 2 LEVEL 5
+                // WORLD 2 LEVEL 5
             case 13:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1445,9 +1006,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 2 LEVEL 6
+                // WORLD 2 LEVEL 6
             case 14:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1461,9 +1022,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 2 LEVEL 7
+                // WORLD 2 LEVEL 7
             case 15:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1477,9 +1038,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 2 LEVEL 8
+                // WORLD 2 LEVEL 8
             case 16:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1493,9 +1054,9 @@ public class EnemyCards {
                     case 5:
                         return true;
                 }
-            // WORLD 3 LEVEL 1
+                // WORLD 3 LEVEL 1
             case 17:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1509,9 +1070,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 3 LEVEL 2
+                // WORLD 3 LEVEL 2
             case 18:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1525,9 +1086,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 3 LEVEL 3
+                // WORLD 3 LEVEL 3
             case 19:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1541,9 +1102,9 @@ public class EnemyCards {
                     case 5:
                         return true;
                 }
-            // WORLD 3 LEVEL 4
+                // WORLD 3 LEVEL 4
             case 20:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1557,9 +1118,9 @@ public class EnemyCards {
                     case 5:
                         return true;
                 }
-            // WORLD 3 LEVEL 5
+                // WORLD 3 LEVEL 5
             case 21:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1573,9 +1134,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 3 LEVEL 6
+                // WORLD 3 LEVEL 6
             case 22:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1589,9 +1150,9 @@ public class EnemyCards {
                     case 5:
                         return false;
                 }
-            // WORLD 3 LEVEL 7
+                // WORLD 3 LEVEL 7
             case 23:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1605,9 +1166,9 @@ public class EnemyCards {
                     case 5:
                         return true;
                 }
-            // WORLD 3 LEVEL 8
+                // WORLD 3 LEVEL 8
             case 24:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1621,9 +1182,9 @@ public class EnemyCards {
                     case 5:
                         return true;
                 }
-            // WORLD 4 LEVEL 1
+                // WORLD 4 LEVEL 1
             case 25:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1637,9 +1198,9 @@ public class EnemyCards {
                     case 5:
                         return true;
                 }
-            // WORLD 4 LEVEL 2
+                // WORLD 4 LEVEL 2
             case 26:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return true;
                     case 1:
@@ -1657,25 +1218,25 @@ public class EnemyCards {
         return false;
     }
 
-    public static String getEnemyCardImgName(int levelId, int cardNr){
-        switch (levelId){
+    public static String getEnemyCardImgName(int levelId, int cardNr) {
+        switch (levelId) {
             // WORLD 1 LEVEL 1
             case 1:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return RewindImgPath;
                 }
-            // WORLD 1 LEVEL 2
+                // WORLD 1 LEVEL 2
             case 2:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Reinforce1ImgPath;
                     case 1:
                         return Reinforce2ImgPath;
                 }
-            // WORLD 1 LEVEL 3
+                // WORLD 1 LEVEL 3
             case 3:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Reinforce1ImgPath;
                     case 1:
@@ -1683,9 +1244,9 @@ public class EnemyCards {
                     case 2:
                         return SlowDownImgPath;
                 }
-            // WORLD 1 LEVEL 4
+                // WORLD 1 LEVEL 4
             case 4:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SpeedUpImgPath;
                     case 1:
@@ -1693,9 +1254,9 @@ public class EnemyCards {
                     case 2:
                         return SlowDownImgPath;
                 }
-            // WORLD 1 LEVEL 5
+                // WORLD 1 LEVEL 5
             case 5:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Reinforce2ImgPath;
                     case 1:
@@ -1703,9 +1264,9 @@ public class EnemyCards {
                     case 2:
                         return SlowDownImgPath;
                 }
-            // WORLD 1 LEVEL 6
+                // WORLD 1 LEVEL 6
             case 6:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SpeedUpImgPath;
                     case 1:
@@ -1715,9 +1276,9 @@ public class EnemyCards {
                     case 3:
                         return Reinforce3ImgPath;
                 }
-            // WORLD 1 LEVEL 7
+                // WORLD 1 LEVEL 7
             case 7:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SpeedUpImgPath;
                     case 1:
@@ -1729,9 +1290,9 @@ public class EnemyCards {
                     case 4:
                         return Reinforce2ImgPath;
                 }
-            // WORLD 1 LEVEL 8
+                // WORLD 1 LEVEL 8
             case 8:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SpeedUpImgPath;
                     case 1:
@@ -1739,9 +1300,9 @@ public class EnemyCards {
                     case 2:
                         return Steal1ImgPath;
                 }
-            // WORLD 2 LEVEL 1
+                // WORLD 2 LEVEL 1
             case 9:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SlowDownImgPath;
                     case 1:
@@ -1751,9 +1312,9 @@ public class EnemyCards {
                     case 3:
                         return SpeedUpImgPath;
                 }
-            // WORLD 2 LEVEL 2
+                // WORLD 2 LEVEL 2
             case 10:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return CorruptionImgPath;
                     case 1:
@@ -1761,9 +1322,9 @@ public class EnemyCards {
                     case 2:
                         return Reinforce2ImgPath;
                 }
-            // WORLD 2 LEVEL 3
+                // WORLD 2 LEVEL 3
             case 11:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Steal1ImgPath;
                     case 1:
@@ -1777,9 +1338,9 @@ public class EnemyCards {
                     case 5:
                         return CorruptionImgPath;
                 }
-            // WORLD 2 LEVEL 4
+                // WORLD 2 LEVEL 4
             case 12:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return AgonyImgPath;
                     case 1:
@@ -1789,9 +1350,9 @@ public class EnemyCards {
                     case 3:
                         return SlowDownImgPath;
                 }
-            // WORLD 2 LEVEL 5
+                // WORLD 2 LEVEL 5
             case 13:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return CorruptionImgPath;
                     case 1:
@@ -1801,9 +1362,9 @@ public class EnemyCards {
                     case 3:
                         return Reinforce2ImgPath;
                 }
-            // WORLD 2 LEVEL 6
+                // WORLD 2 LEVEL 6
             case 14:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SpeedUpImgPath;
                     case 1:
@@ -1811,9 +1372,9 @@ public class EnemyCards {
                     case 2:
                         return Steal2ImgPath;
                 }
-            // WORLD 2 LEVEL 7
+                // WORLD 2 LEVEL 7
             case 15:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return ConcentrateImgPath;
                     case 1:
@@ -1823,9 +1384,9 @@ public class EnemyCards {
                     case 3:
                         return MimicImgPath;
                 }
-            // WORLD 2 LEVEL 8
+                // WORLD 2 LEVEL 8
             case 16:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Reinforce3ImgPath;
                     case 1:
@@ -1839,9 +1400,9 @@ public class EnemyCards {
                     case 5:
                         return CorruptionImgPath;
                 }
-            // WORLD 3 LEVEL 1
+                // WORLD 3 LEVEL 1
             case 17:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return ConcentrateImgPath;
                     case 1:
@@ -1851,9 +1412,9 @@ public class EnemyCards {
                     case 3:
                         return Steal2ImgPath;
                 }
-            // WORLD 3 LEVEL 2
+                // WORLD 3 LEVEL 2
             case 18:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return CureImgPath;
                     case 1:
@@ -1863,9 +1424,9 @@ public class EnemyCards {
                     case 3:
                         return InfestImgPath;
                 }
-            // WORLD 3 LEVEL 3
+                // WORLD 3 LEVEL 3
             case 19:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return CureImgPath;
                     case 1:
@@ -1879,9 +1440,9 @@ public class EnemyCards {
                     case 5:
                         return MimicImgPath;
                 }
-            // WORLD 3 LEVEL 4
+                // WORLD 3 LEVEL 4
             case 20:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Steal2ImgPath;
                     case 1:
@@ -1895,9 +1456,9 @@ public class EnemyCards {
                     case 5:
                         return SpeedUpImgPath;
                 }
-            // WORLD 3 LEVEL 5
+                // WORLD 3 LEVEL 5
             case 21:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return ProtectImgPath;
                     case 1:
@@ -1905,9 +1466,9 @@ public class EnemyCards {
                     case 2:
                         return MimicImgPath;
                 }
-            // WORLD 3 LEVEL 6
+                // WORLD 3 LEVEL 6
             case 22:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return ProtectImgPath;
                     case 1:
@@ -1919,9 +1480,9 @@ public class EnemyCards {
                     case 4:
                         return Reinforce3ImgPath;
                 }
-            // WORLD 3 LEVEL 7
+                // WORLD 3 LEVEL 7
             case 23:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return InfestImgPath;
                     case 1:
@@ -1935,9 +1496,9 @@ public class EnemyCards {
                     case 5:
                         return CureImgPath;
                 }
-            // WORLD 3 LEVEL 8
+                // WORLD 3 LEVEL 8
             case 24:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return MimicImgPath;
                     case 1:
@@ -1951,9 +1512,9 @@ public class EnemyCards {
                     case 5:
                         return SpeedUpImgPath;
                 }
-            // WORLD 4 LEVEL 1
+                // WORLD 4 LEVEL 1
             case 25:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SlowDownImgPath;
                     case 1:
@@ -1967,9 +1528,9 @@ public class EnemyCards {
                     case 5:
                         return SpeedUpImgPath;
                 }
-            // WORLD 4 LEVEL 2
+                // WORLD 4 LEVEL 2
             case 26:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Reinforce5ImgPath;
                     case 1:
@@ -1987,11 +1548,11 @@ public class EnemyCards {
         return "";
     }
 
-    public static String getEnemyCardName(int levelId, int cardNr){
-        switch (levelId){
+    public static String getEnemyCardName(int levelId, int cardNr) {
+        switch (levelId) {
             // WORLD 1 LEVEL 1
             case 1:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return RewindCardName;
                     case 1:
@@ -2005,9 +1566,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 1 LEVEL 2
+                // WORLD 1 LEVEL 2
             case 2:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Reinforce1CardName;
                     case 1:
@@ -2021,9 +1582,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 1 LEVEL 3
+                // WORLD 1 LEVEL 3
             case 3:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Reinforce1CardName;
                     case 1:
@@ -2037,9 +1598,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 1 LEVEL 4
+                // WORLD 1 LEVEL 4
             case 4:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SpeedUpCardName;
                     case 1:
@@ -2053,9 +1614,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 1 LEVEL 5
+                // WORLD 1 LEVEL 5
             case 5:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Reinforce2CardName;
                     case 1:
@@ -2069,9 +1630,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 1 LEVEL 6
+                // WORLD 1 LEVEL 6
             case 6:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SpeedUpCardName;
                     case 1:
@@ -2085,9 +1646,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 1 LEVEL 7
+                // WORLD 1 LEVEL 7
             case 7:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SpeedUpCardName;
                     case 1:
@@ -2101,9 +1662,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 1 LEVEL 8
+                // WORLD 1 LEVEL 8
             case 8:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SpeedUpCardName;
                     case 1:
@@ -2117,9 +1678,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 2 LEVEL 1
+                // WORLD 2 LEVEL 1
             case 9:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SlowDownCardName;
                     case 1:
@@ -2133,9 +1694,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 2 LEVEL 2
+                // WORLD 2 LEVEL 2
             case 10:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return CorruptionCardName;
                     case 1:
@@ -2149,9 +1710,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 2 LEVEL 3
+                // WORLD 2 LEVEL 3
             case 11:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Steal1CardName;
                     case 1:
@@ -2165,9 +1726,9 @@ public class EnemyCards {
                     case 5:
                         return CorruptionCardName;
                 }
-            // WORLD 2 LEVEL 4
+                // WORLD 2 LEVEL 4
             case 12:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return AgonyCardName;
                     case 1:
@@ -2181,9 +1742,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 2 LEVEL 5
+                // WORLD 2 LEVEL 5
             case 13:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return CorruptionCardName;
                     case 1:
@@ -2197,9 +1758,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 2 LEVEL 6
+                // WORLD 2 LEVEL 6
             case 14:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SpeedUpCardName;
                     case 1:
@@ -2213,9 +1774,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 2 LEVEL 7
+                // WORLD 2 LEVEL 7
             case 15:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return ConcentrateCardName;
                     case 1:
@@ -2229,9 +1790,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 2 LEVEL 8
+                // WORLD 2 LEVEL 8
             case 16:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Reinforce3CardName;
                     case 1:
@@ -2245,9 +1806,9 @@ public class EnemyCards {
                     case 5:
                         return CorruptionCardName;
                 }
-            // WORLD 3 LEVEL 1
+                // WORLD 3 LEVEL 1
             case 17:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return ConcentrateCardName;
                     case 1:
@@ -2261,9 +1822,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 3 LEVEL 2
+                // WORLD 3 LEVEL 2
             case 18:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return CureCardName;
                     case 1:
@@ -2277,9 +1838,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 3 LEVEL 3
+                // WORLD 3 LEVEL 3
             case 19:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return CureCardName;
                     case 1:
@@ -2293,9 +1854,9 @@ public class EnemyCards {
                     case 5:
                         return MimicCardName;
                 }
-            // WORLD 3 LEVEL 4
+                // WORLD 3 LEVEL 4
             case 20:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Steal2CardName;
                     case 1:
@@ -2309,9 +1870,9 @@ public class EnemyCards {
                     case 5:
                         return SpeedUpCardName;
                 }
-            // WORLD 3 LEVEL 5
+                // WORLD 3 LEVEL 5
             case 21:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return ProtectCardName;
                     case 1:
@@ -2325,9 +1886,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 3 LEVEL 6
+                // WORLD 3 LEVEL 6
             case 22:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return ProtectCardName;
                     case 1:
@@ -2341,9 +1902,9 @@ public class EnemyCards {
                     case 5:
                         return "";
                 }
-            // WORLD 3 LEVEL 7
+                // WORLD 3 LEVEL 7
             case 23:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return InfestCardName;
                     case 1:
@@ -2357,9 +1918,9 @@ public class EnemyCards {
                     case 5:
                         return CureCardName;
                 }
-            // WORLD 3 LEVEL 8
+                // WORLD 3 LEVEL 8
             case 24:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return MimicCardName;
                     case 1:
@@ -2373,9 +1934,9 @@ public class EnemyCards {
                     case 5:
                         return SpeedUpCardName;
                 }
-            // WORLD 4 LEVEL 1
+                // WORLD 4 LEVEL 1
             case 25:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return SlowDownCardName;
                     case 1:
@@ -2389,9 +1950,9 @@ public class EnemyCards {
                     case 5:
                         return SpeedUpCardName;
                 }
-            // WORLD 4 LEVEL 2
+                // WORLD 4 LEVEL 2
             case 26:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return Reinforce5CardName;
                     case 1:
@@ -2409,11 +1970,11 @@ public class EnemyCards {
         return "";
     }
 
-    public static int getEnemyCardCost(int levelId, int cardNr){
-        switch (levelId){
+    public static int getEnemyCardCost(int levelId, int cardNr) {
+        switch (levelId) {
             // WORLD 1 LEVEL 1
             case 1:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 0;
                     case 1:
@@ -2427,9 +1988,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 1 LEVEL 2
+                // WORLD 1 LEVEL 2
             case 2:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 0;
                     case 1:
@@ -2443,9 +2004,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 1 LEVEL 3
+                // WORLD 1 LEVEL 3
             case 3:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 0;
                     case 1:
@@ -2459,9 +2020,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 1 LEVEL 4
+                // WORLD 1 LEVEL 4
             case 4:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2475,9 +2036,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 1 LEVEL 5
+                // WORLD 1 LEVEL 5
             case 5:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 0;
                     case 1:
@@ -2491,9 +2052,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 1 LEVEL 6
+                // WORLD 1 LEVEL 6
             case 6:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2507,9 +2068,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 1 LEVEL 7
+                // WORLD 1 LEVEL 7
             case 7:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2523,9 +2084,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 1 LEVEL 8
+                // WORLD 1 LEVEL 8
             case 8:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2539,9 +2100,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 2 LEVEL 1
+                // WORLD 2 LEVEL 1
             case 9:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2555,9 +2116,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 2 LEVEL 2
+                // WORLD 2 LEVEL 2
             case 10:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2571,9 +2132,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 2 LEVEL 3
+                // WORLD 2 LEVEL 3
             case 11:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2587,9 +2148,9 @@ public class EnemyCards {
                     case 5:
                         return 1;
                 }
-            // WORLD 2 LEVEL 4
+                // WORLD 2 LEVEL 4
             case 12:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 2;
                     case 1:
@@ -2603,9 +2164,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 2 LEVEL 5
+                // WORLD 2 LEVEL 5
             case 13:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2619,9 +2180,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 2 LEVEL 6
+                // WORLD 2 LEVEL 6
             case 14:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2635,9 +2196,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 2 LEVEL 7
+                // WORLD 2 LEVEL 7
             case 15:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2651,9 +2212,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 2 LEVEL 8
+                // WORLD 2 LEVEL 8
             case 16:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2667,9 +2228,9 @@ public class EnemyCards {
                     case 5:
                         return 2;
                 }
-            // WORLD 3 LEVEL 1
+                // WORLD 3 LEVEL 1
             case 17:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2683,9 +2244,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 3 LEVEL 2
+                // WORLD 3 LEVEL 2
             case 18:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2699,9 +2260,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 3 LEVEL 3
+                // WORLD 3 LEVEL 3
             case 19:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2715,9 +2276,9 @@ public class EnemyCards {
                     case 5:
                         return 2;
                 }
-            // WORLD 3 LEVEL 4
+                // WORLD 3 LEVEL 4
             case 20:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 2;
                     case 1:
@@ -2731,9 +2292,9 @@ public class EnemyCards {
                     case 5:
                         return 1;
                 }
-            // WORLD 3 LEVEL 5
+                // WORLD 3 LEVEL 5
             case 21:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2747,9 +2308,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 3 LEVEL 6
+                // WORLD 3 LEVEL 6
             case 22:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2763,9 +2324,9 @@ public class EnemyCards {
                     case 5:
                         return 0;
                 }
-            // WORLD 3 LEVEL 7
+                // WORLD 3 LEVEL 7
             case 23:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2779,9 +2340,9 @@ public class EnemyCards {
                     case 5:
                         return 1;
                 }
-            // WORLD 3 LEVEL 8
+                // WORLD 3 LEVEL 8
             case 24:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 2;
                     case 1:
@@ -2795,9 +2356,9 @@ public class EnemyCards {
                     case 5:
                         return 1;
                 }
-            // WORLD 4 LEVEL 1
+                // WORLD 4 LEVEL 1
             case 25:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 1;
                     case 1:
@@ -2811,9 +2372,9 @@ public class EnemyCards {
                     case 5:
                         return 1;
                 }
-            // WORLD 4 LEVEL 2
+                // WORLD 4 LEVEL 2
             case 26:
-                switch (cardNr){
+                switch (cardNr) {
                     case 0:
                         return 2;
                     case 1:
