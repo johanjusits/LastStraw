@@ -75,7 +75,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String enemySilenced = "Enemy suffers Silence";
     String enemyCured = "Enemy cures all ailments";
     String enemyAlteredTime = "Enemy gains Rewind";
-    String enemyGainAnother = "Enemy gains another turn!";
+    String enemyReset;
+    String enemyResetFail;
     String enemyProtected = "Enemy gains Protect";
     String enemyHoarded = "Enemy keeps played card!";
     String enemyDispelled = "Enemy suffers Dispel";
@@ -94,7 +95,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String playerSentenced = "";
     String playerCured = "";
     String playerAlteredTime = "";
-    String playerGainAnother = "";
+    String playerReset = "";
+    String playerResetFail = "";
     String playerProtected = "";
     String playerHoarded = "";
     String playerDispelled = "";
@@ -127,6 +129,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String greenColorName = "supergreen";
     String whiteColorName = "textWhite";
     /* INTS */
+    int rewindResetChance;
     int neutralColor;
     int gainColor;
     int penaltyColor;
@@ -436,14 +439,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         playerMaledicted = playerName + " suffers Malediction";
         playerSentenced = playerName + " suffers Death Sentence";
         playerCured = playerName + " cures all ailments";
-        playerAlteredTime = playerName + " alters time";
-        playerGainAnother = playerName + " gains another turn!";
+        playerAlteredTime = playerName + " gains Rewind";
         playerProtected = playerName + " gains Protect";
         playerHoarded = playerName + " keeps played card!";
         playerHoard = playerName + " gains Hoard";
         playerDispelled = playerName + " suffers Dispel";
         playerSilenced = playerName + " suffers Silence";
         playerBlinded = playerName + " suffers Blind";
+
+        playerReset = playerName + " reset all " + GameInfo.getObjName(worldId);
+        playerResetFail = playerName + " Rewind failed.." ;
+        enemyReset = "Enemy reset all " + GameInfo.getObjName(worldId);
+        enemyResetFail = "Enemy Rewind failed..";
 
         infestMsg = GameInfo.getInfestMsg(worldId);
         infestError = GameInfo.getInfestErrorMsg(worldId);
@@ -1851,25 +1858,63 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         enemyTurnCounter++;
         enemyMoveCounter = 0;
         if (playerHasAlteredTime){
-            playerHasAlteredTime = false;
-            tvCenterMessage.setText(playerGainAnother);
-            tvCenterMessage.startAnimation(ani_fadeIn);
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    playerHasAlteredTime = false;
+                    rewindResetChance = genRand(100);
+                    if (rewindResetChance >= 75){
+                        tvCenterMessage.setText(playerReset);
+                    } else {
+                        tvCenterMessage.setText(playerResetFail);
+                    }
+                    tvCenterMessage.startAnimation(ani_fadeIn);
                 }
             }, 1000);
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    clearPlayerStatus("Rewind");
-                    playerTurnStart();
+                    tvCenterMessage.startAnimation(ani_fadeOut);
                 }
             }, 2000);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    clearPlayerStatus("Rewind");
+                    if (rewindResetChance >= 75){
+                        resetAllObjects();
+                    }
+                }
+            }, 3000);
+
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    enemyMoves = 3;
+                    playerTurn = false;
+                    updateEnemyStatuses();
+                    /* Calls the method to check if player buffs have run out their duration */
+                    playerIsSilenced = false;
+                    checkPlayerStatues();
+                    disablePlayerCards();
+                    tvCenterMessage.setText("ENEMY TURN");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
+                }
+            }, 4000);
+
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 5000);
+
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    checkIfEnemyCurseEnds();
+                }
+            }, 6000);
         } else {
             enemyMoves = 3;
             playerTurn = false;
             updateEnemyStatuses();
-        /* Calls the method to check if player buffs have run out their duration */
+            /* Calls the method to check if player buffs have run out their duration */
             playerIsSilenced = false;
             checkPlayerStatues();
             disablePlayerCards();
@@ -2424,20 +2469,55 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* RETURN TO PLAYER TURN METHOD */
     private void playerTurnStart() {
         if (enemyHasAlteredTime) {
-            enemyHasAlteredTime = false;
-            tvCenterMessage.setText(enemyGainAnother);
-            tvCenterMessage.startAnimation(ani_fadeIn);
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    enemyHasAlteredTime = false;
+                    rewindResetChance = genRand(100);
+                    if (rewindResetChance >= 75){
+                        tvCenterMessage.setText(enemyReset);
+                    } else {
+                        tvCenterMessage.setText(enemyResetFail);
+                    }
+                    tvCenterMessage.startAnimation(ani_fadeIn);
                 }
             }, 1000);
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    clearEnemyStatus("Rewind");
-                    enemyTurnStart();
+                    tvCenterMessage.startAnimation(ani_fadeOut);
                 }
             }, 2000);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    clearEnemyStatus("Rewind");
+                    if (rewindResetChance >= 75){
+                        resetAllObjects();
+                    }
+                }
+            }, 3000);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    playerTurn = true;
+                    enemyMoves = 0;
+                    playerMoves = 3;
+                    updatePlayerStatuses();
+                    tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
+                    enemyIsSilenced = false;
+                /* Calls the method to check if enemy buffs have run out their duration */
+                    checkEnemyStatuses();
+                    tvCenterMessage.setText("YOUR TURN");
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                }
+            }, 4000);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 5000);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    checkIfPlayerCurseEnds();
+                }
+            }, 6000);
         } else {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -11606,6 +11686,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* METHOD FOR ANIMATING MSG ABOVE OBJECT */
     private void playerHitObject(String msg, int value){
         tvObjMsg.setVisibility(View.VISIBLE);
+        tvObjMsg.bringToFront();
         if (value != 0){
             tvObjMsg.setText(msg + String.valueOf(value));
             if (objectsRemaining == 1){
@@ -11936,6 +12017,31 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         setClickableObjects(objectsRemaining);
         enable(layout_objectRow);
         enablePlayerCards();
+    }
+
+    /* FOR REWIND CARD */
+    private void resetAllObjects(){
+        objectsRemaining = 16;
+        if (nextObjIsInfested){
+            obj001.setImageResource(objectWebbedImg);
+        } else {
+            obj001.setImageResource(objectImg);
+        }
+        obj002.setImageResource(objectImg);
+        obj003.setImageResource(objectImg);
+        obj004.setImageResource(objectImg);
+        obj005.setImageResource(objectImg);
+        obj006.setImageResource(objectImg);
+        obj007.setImageResource(objectImg);
+        obj008.setImageResource(objectImg);
+        obj009.setImageResource(objectImg);
+        obj010.setImageResource(objectImg);
+        obj011.setImageResource(objectImg);
+        obj012.setImageResource(objectImg);
+        obj013.setImageResource(objectImg);
+        obj014.setImageResource(objectImg);
+        obj015.setImageResource(objectImg);
+        obj016.setImageResource(objectImg);
     }
 
 }

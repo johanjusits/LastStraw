@@ -523,10 +523,10 @@
         android:visibility="visible" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/objectRow"
-        android:layout_centerHorizontal="true">
+        android:gravity="center_horizontal">
 
         <TextView
             android:layout_width="wrap_content"
