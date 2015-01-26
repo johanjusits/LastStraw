@@ -7,6 +7,21 @@ import java.util.Random;
  */
 public class GameInfo {
 
+    //For Rewind card
+    public static String getObjName(int worldId){
+        switch (worldId){
+            case 1:
+                return "wheat";
+            case 2:
+                return "skeletons";
+            case 3:
+                return "snowmen";
+            case 4:
+                return "chests";
+        }
+        return "";
+    }
+
     public static int genRand(int max, int min) {
         return new Random().nextInt((max - min) + 1) + min;
     }

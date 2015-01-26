@@ -40,7 +40,7 @@ public class EnemyCards {
     static String DispelImgPath = "card_dispel";
     static String DeathSentenceImgPath = "card_death_sentence";
     static String MaledictionImgPath = "card_malediction";
-    static String Steal3ImgPath = "card_steal_10";
+    static String Steal3ImgPath = "card_steal_7";
     static String RewindImgPath = "card_rewind";
     static String HoardImgPath = "card_hoard";
 
@@ -1663,7 +1663,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return InfestImgPath;
+                        return RewindImgPath;
                 }
             // WORLD 1 LEVEL 2
             case 2:
@@ -1993,7 +1993,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr){
                     case 0:
-                        return InfestCardName;
+                        return RewindCardName;
                     case 1:
                         return "";
                     case 2:

@@ -318,7 +318,7 @@ public class DBHandler {
             ac021.put(KEY_NAME, "Rewind");
             ac021.put(KEY_IMAGE, "card_rewind");
             ac021.put(KEY_TYPE, 3);
-            ac021.put(KEY_DESC, "Gain another turn at the end of current turn.");
+            ac021.put(KEY_DESC, "25% chance to reset all objects at the end of your turn.");
             ac021.put(KEY_COST, 0);
             ac021.put(KEY_REQUIRESLVL, 19);
             ac021.put(KEY_ISUNLOCKED, 0);
@@ -432,11 +432,11 @@ public class DBHandler {
             db.insert(OwnedCards, null, oc2);
 
             ContentValues oc3 = new ContentValues();
-            oc3.put(KEY_NAME, "Reinforce V");
-            oc3.put(KEY_IMAGE, "card_obj_plus_5");
-            oc3.put(KEY_TYPE, 1);
-            oc3.put(KEY_COST, 2);
-            oc3.put(KEY_DESC, "Brings back five objects.");
+            oc3.put(KEY_NAME, "Rewind");
+            oc3.put(KEY_IMAGE, "card_rewind");
+            oc3.put(KEY_TYPE, 3);
+            oc3.put(KEY_COST, 0);
+            oc3.put(KEY_DESC, "25% chance to reset all objects at the end of your turn.");
             db.insert(OwnedCards, null, oc3);
 
             /* INITIAL PLAYER VALUES */
