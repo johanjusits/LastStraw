@@ -48,7 +48,7 @@ public class EnemyCards {
     static String Reinforce3CardName = "Reinforce III";
     static String Reinforce5CardName = "Reinforce V";
     static String SpeedUpCardName = "Speed Up";
-    static String SpeedUp2CardName = "Speed Up 2";
+    static String SpeedUp2CardName = "Speed Up II";
     static String SlowDownCardName = "Slow Down";
     static String Steal1CardName = "Steal";
     static String ConcentrateCardName = "Concentrate";
@@ -133,6 +133,8 @@ public class EnemyCards {
             case 26:
                 return 6;
             case 27:
+                return 6;
+            case 28:
                 return 6;
         }
         return 0;
@@ -480,6 +482,22 @@ public class EnemyCards {
                     case 5:
                         return cardIconField;
                 }
+                // WORLD 4 LEVEL 4
+            case 28:
+                switch (cardNr) {
+                    case 0:
+                        return cardIconAilment;
+                    case 1:
+                        return cardIconAilment;
+                    case 2:
+                        return cardIconBoosting;
+                    case 3:
+                        return cardIconField;
+                    case 4:
+                        return cardIconBoosting;
+                    case 5:
+                        return cardIconAilment;
+                }
         }
         return "";
     }
@@ -825,6 +843,22 @@ public class EnemyCards {
                         return cardTypeAilment;
                     case 5:
                         return cardTypeField;
+                }
+                // WORLD 4 LEVEL 4
+            case 28:
+                switch (cardNr) {
+                    case 0:
+                        return cardTypeAilment;
+                    case 1:
+                        return cardTypeAilment;
+                    case 2:
+                        return cardTypeBoosting;
+                    case 3:
+                        return cardTypeField;
+                    case 4:
+                        return cardTypeBoosting;
+                    case 5:
+                        return cardTypeAilment;
                 }
         }
         return "";
@@ -1264,6 +1298,22 @@ public class EnemyCards {
                     case 5:
                         return true;
                 }
+                // WORLD 4 LEVEL 4
+            case 28:
+                switch (cardNr) {
+                    case 0:
+                        return true;
+                    case 1:
+                        return true;
+                    case 2:
+                        return true;
+                    case 3:
+                        return true;
+                    case 4:
+                        return true;
+                    case 5:
+                        return true;
+                }
         }
         return false;
     }
@@ -1609,6 +1659,22 @@ public class EnemyCards {
                         return BlindImgPath;
                     case 5:
                         return Reinforce5ImgPath;
+                }
+                // WORLD 4 LEVEL 4
+            case 28:
+                switch (cardNr) {
+                    case 0:
+                        return CurseImgPath;
+                    case 1:
+                        return SilenceImgPath;
+                    case 2:
+                        return ChargeImgPath;
+                    case 3:
+                        return SalvageImgPath;
+                    case 4:
+                        return SpeedUp2ImgPath;
+                    case 5:
+                        return DispelImgPath;
                 }
         }
         return "";
@@ -2048,6 +2114,22 @@ public class EnemyCards {
                     case 5:
                         return Reinforce5CardName;
                 }
+                // WORLD 4 LEVEL 4
+            case 28:
+                switch (cardNr) {
+                    case 0:
+                        return CurseCardName;
+                    case 1:
+                        return SilenceCardName;
+                    case 2:
+                        return ChargeCardName;
+                    case 3:
+                        return SalvageCardName;
+                    case 4:
+                        return SpeedUp2CardName;
+                    case 5:
+                        return DispelCardName;
+                }
         }
         return "";
     }
@@ -2485,6 +2567,22 @@ public class EnemyCards {
                         return 1;
                     case 5:
                         return 2;
+                }
+                // WORLD 4 LEVEL 4
+            case 28:
+                switch (cardNr) {
+                    case 0:
+                        return 2;
+                    case 1:
+                        return 1;
+                    case 2:
+                        return 1;
+                    case 3:
+                        return 1;
+                    case 4:
+                        return 2;
+                    case 5:
+                        return 1;
                 }
         }
         return 0;

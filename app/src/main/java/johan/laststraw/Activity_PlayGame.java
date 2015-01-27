@@ -2402,7 +2402,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             enemyProtectCountdown--;
         }
         if (enemyHasSalvage && enemySalvageCountdown == -1){
-            enemySalvageCountdown = 3;
+            enemySalvageCountdown = 2;
         }
         if (enemyHasSalvage && enemySalvageCountdown != -1){
             enemySalvageCountdown--;
@@ -8147,6 +8147,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
             worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
+        //lvlId = 28;
+        //worldId = 4;
         db.close();
     }
 

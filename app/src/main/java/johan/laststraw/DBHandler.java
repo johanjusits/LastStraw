@@ -388,7 +388,7 @@ public class DBHandler {
             ac028.put(KEY_NAME, "Salvage");
             ac028.put(KEY_IMAGE, "card_salvage");
             ac028.put(KEY_TYPE, 1);
-            ac028.put(KEY_DESC, "Brings back five objects after 2 turns.");
+            ac028.put(KEY_DESC, "Brings back five objects after 1 turn.");
             ac028.put(KEY_COST, 1);
             ac028.put(KEY_REQUIRESLVL, 0);
             ac028.put(KEY_ISUNLOCKED, 0);
