@@ -114,25 +114,6 @@ public class DBHandler {
             );
 
             /* ADDS CARDS TO ALL CARDS */
-            ContentValues ac1 = new ContentValues();
-            ac1.put(KEY_NAME, "Reinforce");
-            ac1.put(KEY_IMAGE, "card_obj_plus_1");
-            ac1.put(KEY_TYPE, 1);
-            ac1.put(KEY_DESC, "Brings back one object.");
-            ac1.put(KEY_REQUIRESLVL, 1);
-            ac1.put(KEY_COST, 0);
-            ac1.put(KEY_ISUNLOCKED, 1);
-            db.insert(AllCards, null, ac1);
-
-            ContentValues ac2 = new ContentValues();
-            ac2.put(KEY_NAME, "Reinforce II");
-            ac2.put(KEY_IMAGE, "card_obj_plus_2");
-            ac2.put(KEY_TYPE, 1);
-            ac2.put(KEY_DESC, "Brings back two objects.");
-            ac2.put(KEY_REQUIRESLVL, 2);
-            ac2.put(KEY_COST, 0);
-            ac2.put(KEY_ISUNLOCKED, 0);
-            db.insert(AllCards, null, ac2);
 
             ContentValues ac3 = new ContentValues();
             ac3.put(KEY_NAME, "Reinforce III");
@@ -158,8 +139,8 @@ public class DBHandler {
             ac5.put(KEY_NAME, "Speed Up");
             ac5.put(KEY_IMAGE, "card_speed_up");
             ac5.put(KEY_TYPE, 3);
-            ac5.put(KEY_DESC, "You gain 1 more move on next turn.");
-            ac5.put(KEY_COST, 1);
+            ac5.put(KEY_DESC, "Gain 1 additional moves on next turn.");
+            ac5.put(KEY_COST, 0);
             ac5.put(KEY_REQUIRESLVL, 4);
             ac5.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac5);
@@ -219,7 +200,7 @@ public class DBHandler {
             ac011.put(KEY_IMAGE, "card_speed_up_2");
             ac011.put(KEY_TYPE, 3);
             ac011.put(KEY_DESC, "Gain 2 additional moves on next turn.");
-            ac011.put(KEY_COST, 2);
+            ac011.put(KEY_COST, 1);
             ac011.put(KEY_REQUIRESLVL, 12);
             ac011.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac011);
@@ -229,7 +210,7 @@ public class DBHandler {
             ac012.put(KEY_IMAGE, "card_corruption");
             ac012.put(KEY_TYPE, 2);
             ac012.put(KEY_DESC, "All moves cost one more next turn.");
-            ac012.put(KEY_COST, 2);
+            ac012.put(KEY_COST, 1);
             ac012.put(KEY_REQUIRESLVL, 7);
             ac012.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac012);
@@ -239,7 +220,7 @@ public class DBHandler {
             ac013.put(KEY_IMAGE, "card_mimic");
             ac013.put(KEY_TYPE, 3);
             ac013.put(KEY_DESC, "Copies the effect of the opponents last played card.");
-            ac013.put(KEY_COST, 2);
+            ac013.put(KEY_COST, 1);
             ac013.put(KEY_REQUIRESLVL, 16);
             ac013.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac013);
@@ -249,7 +230,7 @@ public class DBHandler {
             ac014.put(KEY_IMAGE, "card_restore");
             ac014.put(KEY_TYPE, 1);
             ac014.put(KEY_DESC, "Brings back half of the cleared objects.");
-            ac014.put(KEY_COST, 2);
+            ac014.put(KEY_COST, 1);
             ac014.put(KEY_REQUIRESLVL, 17);
             ac014.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac014);
@@ -329,7 +310,7 @@ public class DBHandler {
             ac022.put(KEY_IMAGE, "card_protect");
             ac022.put(KEY_TYPE, 3);
             ac022.put(KEY_DESC, "Gain a temporary shield that protects against ailments. Lasts 2 turns.");
-            ac022.put(KEY_COST, 1);
+            ac022.put(KEY_COST, 0);
             ac022.put(KEY_REQUIRESLVL, 11);
             ac022.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac022);
@@ -409,19 +390,19 @@ public class DBHandler {
             ac030.put(KEY_IMAGE, "card_take_aim");
             ac030.put(KEY_TYPE, 3);
             ac030.put(KEY_DESC, "Gain 100% hit chance. Lasts 2 turns.");
-            ac030.put(KEY_COST, 1);
+            ac030.put(KEY_COST, 0);
             ac030.put(KEY_REQUIRESLVL, 0);
             ac030.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac030);
 
             /* ADDS CARDS TO OWNED CARDS */
-            ContentValues oc1 = new ContentValues();
+            /*ContentValues oc1 = new ContentValues();
             oc1.put(KEY_NAME, "Reinforce");
             oc1.put(KEY_IMAGE, "card_obj_plus_1");
             oc1.put(KEY_TYPE, 1);
             oc1.put(KEY_COST, 0);
             oc1.put(KEY_DESC, "Brings back one object.");
-            db.insert(OwnedCards, null, oc1);
+            db.insert(OwnedCards, null, oc1);*/
 
             /* INITIAL PLAYER VALUES */
             ContentValues playerInfo = new ContentValues();

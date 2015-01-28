@@ -52,12 +52,6 @@ public class AllCardsAdapter extends CursorAdapter {
 
             String imagePath = cursor.getString(cursor.getColumnIndex("image"));
 
-            if (imagePath.equals("card_obj_plus_1")){
-                Picasso.with(context).load(R.drawable.card_obj_plus_1).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
-            }
-            if (imagePath.equals("card_obj_plus_2")){
-                Picasso.with(context).load(R.drawable.card_obj_plus_2).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
-            }
             if (imagePath.equals("card_obj_plus_3")){
                 Picasso.with(context).load(R.drawable.card_obj_plus_3).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
             }
@@ -149,12 +143,6 @@ public class AllCardsAdapter extends CursorAdapter {
 
             String imagePath = cursor.getString(cursor.getColumnIndex("image"));
 
-            if (imagePath.equals("card_obj_plus_1")){
-                Picasso.with(context).load(R.drawable.card_obj_plus_1).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
-            }
-            if (imagePath.equals("card_obj_plus_2")){
-                Picasso.with(context).load(R.drawable.card_obj_plus_2).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
-            }
             if (imagePath.equals("card_obj_plus_3")){
                 Picasso.with(context).load(R.drawable.card_obj_plus_3).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
             }

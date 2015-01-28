@@ -2511,7 +2511,7 @@ public class AiPatterns {
         return 0;
     }
 
-    //WORLD 4 LEVEL 5
+    //WORLD 4 LEVEL 6
     public static int w004_l006_AI_CardOrNot(int aiPattern, int enemyTurnCounter, int enemyMoveCounter, int objectsRemaining){
         //Go nuts with random
         if (aiPattern == 0){
