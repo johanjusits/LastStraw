@@ -138,6 +138,8 @@ public class EnemyCards {
                 return 6;
             case 29:
                 return 6;
+            case 30:
+                return 6;
         }
         return 0;
     }
@@ -516,6 +518,22 @@ public class EnemyCards {
                     case 5:
                         return cardIconBoosting;
                 }
+                // WORLD 4 LEVEL 6
+            case 30:
+                switch (cardNr) {
+                    case 0:
+                        return cardIconAilment;
+                    case 1:
+                        return cardIconField;
+                    case 2:
+                        return cardIconAilment;
+                    case 3:
+                        return cardIconBoosting;
+                    case 4:
+                        return cardIconField;
+                    case 5:
+                        return cardIconBoosting;
+                }
         }
         return "";
     }
@@ -887,6 +905,22 @@ public class EnemyCards {
                         return cardTypeField;
                     case 2:
                         return cardTypeBoosting;
+                    case 3:
+                        return cardTypeBoosting;
+                    case 4:
+                        return cardTypeField;
+                    case 5:
+                        return cardTypeBoosting;
+                }
+                // WORLD 4 LEVEL 6
+            case 30:
+                switch (cardNr) {
+                    case 0:
+                        return cardTypeAilment;
+                    case 1:
+                        return cardTypeField;
+                    case 2:
+                        return cardTypeAilment;
                     case 3:
                         return cardTypeBoosting;
                     case 4:
@@ -1364,6 +1398,22 @@ public class EnemyCards {
                     case 5:
                         return true;
                 }
+                // WORLD 4 LEVEL 6
+            case 30:
+                switch (cardNr) {
+                    case 0:
+                        return true;
+                    case 1:
+                        return true;
+                    case 2:
+                        return true;
+                    case 3:
+                        return true;
+                    case 4:
+                        return true;
+                    case 5:
+                        return true;
+                }
         }
         return false;
     }
@@ -1741,6 +1791,22 @@ public class EnemyCards {
                         return Steal2ImgPath;
                     case 5:
                         return SpeedUp2ImgPath;
+                }
+                // WORLD 4 LEVEL 6
+            case 30:
+                switch (cardNr) {
+                    case 0:
+                        return BlindImgPath;
+                    case 1:
+                        return InfestImgPath;
+                    case 2:
+                        return CurseImgPath;
+                    case 3:
+                        return MimicImgPath;
+                    case 4:
+                        return Reinforce5ImgPath;
+                    case 5:
+                        return CureImgPath;
                 }
         }
         return "";
@@ -2212,6 +2278,22 @@ public class EnemyCards {
                     case 5:
                         return SpeedUp2CardName;
                 }
+                // WORLD 4 LEVEL 6
+            case 30:
+                switch (cardNr) {
+                    case 0:
+                        return BlindCardName;
+                    case 1:
+                        return InfestCardName;
+                    case 2:
+                        return CurseCardName;
+                    case 3:
+                        return MimicCardName;
+                    case 4:
+                        return Reinforce5CardName;
+                    case 5:
+                        return CureCardName;
+                }
         }
         return "";
     }
@@ -2681,6 +2763,22 @@ public class EnemyCards {
                         return 2;
                     case 5:
                         return 2;
+                }
+                // WORLD 4 LEVEL 6
+            case 30:
+                switch (cardNr) {
+                    case 0:
+                        return 1;
+                    case 1:
+                        return 1;
+                    case 2:
+                        return 2;
+                    case 3:
+                        return 2;
+                    case 4:
+                        return 2;
+                    case 5:
+                        return 1;
                 }
         }
         return 0;

@@ -8147,8 +8147,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
             worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
-        lvlId = 29;
-        worldId = 4;
+        //lvlId = 30;
+        //worldId = 4;
         db.close();
     }
 
