@@ -122,115 +122,109 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
     private void awardNewCard() {
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 2 && sharedPrefLvl == 1){
-                addCard("Reinforce II", "card_obj_plus_2", 1, 0, "Brings back two objects.", 2);
-                confirmSuccess("You have unlocked the Reinforce II card!", Activity_StartScreen.this);
-            }
-        }
-        if (dbLvl > sharedPrefLvl){
-            if (dbLvl == 3 && sharedPrefLvl == 2){
-                addCard("Reinforce III", "card_obj_plus_3", 1, 1, "Brings back three objects.", 3);
+                addCard("Reinforce III", "card_obj_plus_3", 1, 0, "Brings back three objects.", 1);
                 confirmSuccess("You have unlocked the Reinforce III card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 4 && sharedPrefLvl == 3){
-                addCard("Speed Up", "card_speed_up", 3, 1, "You gain 1 more move on next turn.", 5);
+                addCard("Speed Up", "card_speed_up", 3, 0, "Gain 1 additional moves on next turn.", 3);
                 confirmSuccess("You have unlocked the Speed Up card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 5 && sharedPrefLvl == 4){
-                addCard("Slow Down", "card_slowdown", 2, 1, "Reduces opponent's moves by 1 next turn.", 4);
+                addCard("Slow Down", "card_slowdown", 2, 1, "Reduces opponent's moves by 1 next turn.", 2);
                 confirmSuccess("You have unlocked the Slow Down card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 6 && sharedPrefLvl == 5){
-                addCard("Concentrate", "card_concentrate", 3, 1, "Doubles all points gained next turn.", 7);
+                addCard("Concentrate", "card_concentrate", 3, 1, "Doubles all points gained next turn.", 5);
                 confirmSuccess("You have unlocked the Concentrate card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 7 && sharedPrefLvl == 6){
-                addCard("Corruption", "card_corruption", 2, 2, "All moves cost one more next turn.", 12);
+                addCard("Corruption", "card_corruption", 2, 2, "All moves cost one more next turn.", 10);
                 confirmSuccess("You have unlocked the Corruption card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 8 && sharedPrefLvl == 7){
-                addCard("Agony", "card_agony", 2, 2, "Reduces score by 3 at the start of the turn. Lasts three turns.", 16);
+                addCard("Agony", "card_agony", 2, 2, "Reduces score by 3 at the start of the turn. Lasts three turns.", 14);
                 confirmSuccess("You have unlocked the Agony card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 9 && sharedPrefLvl == 8){
-                addCard("Steal II", "card_steal_5", 1, 2, "Steals 3-5 points from the opponent.", 8);
+                addCard("Steal II", "card_steal_5", 1, 2, "Steals 3-5 points from the opponent.", 6);
                 confirmSuccess("You have unlocked the Steal II card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 10 && sharedPrefLvl == 9){
-                addCard("Infest", "card_infest", 1, 2, "Infests the next object with spiders, making it more difficult to clear.", 10);
+                addCard("Infest", "card_infest", 1, 2, "Infests the next object with spiders, making it more difficult to clear.", 8);
                 confirmSuccess("You have unlocked the Infest card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 11 && sharedPrefLvl == 10){
-                addCard("Protect", "card_protect", 3, 1, "Gain a temporary shield that protects against ailments. Lasts 2 turns.", 22);
+                addCard("Protect", "card_protect", 3, 1, "Gain a temporary shield that protects against ailments. Lasts 2 turns.", 20);
                 confirmSuccess("You have unlocked the Protect card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 12 && sharedPrefLvl == 11){
-                addCard("Speed Up II", "card_speed_up_2", 3, 2, "Gain 2 additional moves on next turn.", 11);
+                addCard("Speed Up II", "card_speed_up_2", 3, 2, "Gain 2 additional moves on next turn.", 9);
                 confirmSuccess("You have unlocked the Speed Up II card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 13 && sharedPrefLvl == 12){
-                addCard("Steal III", "card_steal_7", 1, 3, "Steals 5-7 points from the opponent.", 9);
+                addCard("Steal III", "card_steal_7", 1, 3, "Steals 5-7 points from the opponent.", 7);
                 confirmSuccess("You have unlocked the Steal III card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 14 && sharedPrefLvl == 13){
-                addCard("Death Sentence", "card_death_sentence", 2, 2, "50% chance to reset opponent's score after 3 turns.", 19);
+                addCard("Death Sentence", "card_death_sentence", 2, 2, "50% chance to reset opponent's score after 3 turns.", 17);
                 confirmSuccess("You have unlocked the Death Sentence card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 15 && sharedPrefLvl == 14){
-                addCard("Dispel", "card_dispel", 2, 1, "Removes all positive buffs from the opponent.", 24);
+                addCard("Dispel", "card_dispel", 2, 1, "Removes all positive buffs from the opponent.", 22);
                 confirmSuccess("You have unlocked the Dispel card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 16 && sharedPrefLvl == 15){
-                addCard("Mimic", "card_mimic", 3, 2, "Copies the effect of the opponents last played card.", 13);
+                addCard("Mimic", "card_mimic", 3, 2, "Copies the effect of the opponents last played card.", 11);
                 confirmSuccess("You have unlocked the Mimic card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 17 && sharedPrefLvl == 16){
-                addCard("Restore", "card_restore", 1, 2, "Brings back half of the cleared objects.", 14);
+                addCard("Restore", "card_restore", 1, 2, "Brings back half of the cleared objects.", 12);
                 confirmSuccess("You have unlocked the Restore card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 18 && sharedPrefLvl == 17){
-                addCard("Malediction", "card_malediction", 2, 3, "Reduces score by 3/4 after four turns.", 17);
+                addCard("Malediction", "card_malediction", 2, 3, "Reduces score by 3/4 after four turns.", 15);
                 confirmSuccess("You have unlocked the Malediction card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 19 && sharedPrefLvl == 18){
-                addCard("Rewind", "card_rewind", 3, 0, "Gain another turn at the end of current turn.", 21);
+                addCard("Rewind", "card_rewind", 3, 0, "Gain another turn at the end of current turn.", 19);
                 confirmSuccess("You have unlocked the Rewind card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 20 && sharedPrefLvl == 19){
-                addCard("Hoard", "card_hoard", 3, 1, "Keep the next card you play. Lasts until a card is played.", 23);
+                addCard("Hoard", "card_hoard", 3, 1, "Keep the next card you play. Lasts until a card is played.", 21);
                 confirmSuccess("You have unlocked the Hoard card!", Activity_StartScreen.this);
             }
         }
