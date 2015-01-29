@@ -50,7 +50,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     TextView tvObjMsg;
     ImageView ivPlayerPortrait, ivEnemyPortrait, ivCenterCardFrame;
     ViewGroup layout_objectRow;
-    Animation ani_fadeIn, ani_fadeOut, ani_zoomIn, ani_shake, ani_scoregain, ani_resetscore, ani_infest_shake, ani_bounce;
+    Animation ani_fadeIn, ani_fadeOut, ani_zoomIn, ani_shake, ani_scoregain, ani_resetscore, ani_infest_shake, ani_bounce, ani_bounce_crit;
     /* STRINGS */
     String playerGender = "";
     String playerName = "";
@@ -129,15 +129,20 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String greenColorName = "supergreen";
     String whiteColorName = "textWhite";
     /* INTS */
+    int objectValue;
     int rewindResetChance;
     int neutralColor;
     int gainColor;
     int penaltyColor;
     int lastPickPenaltyNr = 5;
     int enemyHitChance;
+    int enemyCritChance;
     int enemyHitChancePercentage = 85;
+    int enemyCritChancePercentage = 5;
     int playerHitChancePercentage = 85;
+    int playerCritChancePercentage = 5;
     int playerHitChance;
+    int playerCritChance;
     int cardOrNotNumber;
     int activePlayerDebuffs;
     int activeEnemyDebuffs;
@@ -219,8 +224,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     boolean enemyHasSalvage = false;
     boolean enemyHasCharge = false;
     boolean enemyHasAccuracy = false;
+    boolean enemyCrit = false;
     boolean enemyHit = false;
     boolean playerHit = false;
+    boolean playerCrit = false;
     boolean enemyIsSlowed = false;
     boolean playerIsSlowed = false;
     boolean enemyHasHaste = false;
@@ -303,6 +310,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         ani_scoregain = AnimationUtils.loadAnimation(this, R.anim.ani_scoregain);
         ani_resetscore = AnimationUtils.loadAnimation(this, R.anim.ani_resetscore);
         ani_bounce = AnimationUtils.loadAnimation(this, R.anim.ani_bounce);
+        ani_bounce_crit = AnimationUtils.loadAnimation(this, R.anim.ani_bounce_crit);
 
         /* SETS OBJECTS IN OBJECT ROW */
         obj001 = (ImageButton) findViewById(R.id.obj001);
@@ -2638,7 +2646,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* UPDATE PLAYER STATUSES */
     private void updatePlayerStatuses(){
         if (playerHasConcentrate){
-            playerClearAward = 4;
+            playerClearAward = playerClearAward * 2;
             if (!playerHasCharge){
                 playerHasConcentrate = false;
             }
@@ -11597,6 +11605,30 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         //SETS PLAYER HIT CHANCE
         playerHitChance = genRand(100);
         playerHit = playerHitChance <= playerHitChancePercentage;
+        if (playerHit){
+            playerCritChance = genRand(100);
+            playerCrit = playerCritChance <= playerCritChancePercentage;
+            objectValue = genRand(100);
+            if (objectValue <= 19){
+                if (playerCrit){
+                    playerClearAward = 2;
+                } else {
+                    playerClearAward = 1;
+                }
+            } else if (objectValue >= 20 && objectValue <= 40){
+                if (playerCrit){
+                    playerClearAward = 6;
+                } else {
+                    playerClearAward = 3;
+                }
+            } else if (objectValue >= 40){
+                if (playerCrit){
+                    playerClearAward = 4;
+                } else {
+                    playerClearAward = 2;
+                }
+            }
+        }
         //SETS WHERE TO DISPLAY MSG
         setObjMsgLocation();
         tvObjMsg.setVisibility(View.INVISIBLE);
@@ -11609,6 +11641,30 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     private void initiateEnemyObjClick(){
         enemyHitChance = genRand(100);
         enemyHit = enemyHitChance <= enemyHitChancePercentage;
+        if (enemyHit){
+            enemyCritChance = genRand(100);
+            enemyCrit = enemyCritChance <= enemyCritChancePercentage;
+            objectValue = genRand(100);
+            if (objectValue <= 19){
+                if (enemyCrit){
+                    enemyClearAward = 2;
+                } else {
+                    enemyClearAward = 1;
+                }
+            } else if (objectValue >= 20 && objectValue <= 40){
+                if (playerCrit){
+                    enemyClearAward = 6;
+                } else {
+                    enemyClearAward = 3;
+                }
+            } else if (objectValue >= 40){
+                if (playerCrit){
+                    enemyClearAward = 4;
+                } else {
+                    enemyClearAward = 2;
+                }
+            }
+        }
         setObjMsgLocation();
         tvObjMsg.setVisibility(View.INVISIBLE);
     }
@@ -11628,7 +11684,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             tvObjMsg.setTextColor(getResources().getColor(neutralColor));
             tvObjMsg.setText(msg);
         }
-        tvObjMsg.startAnimation(ani_bounce);
+        if (playerCrit || enemyCrit){
+            tvObjMsg.startAnimation(ani_bounce_crit);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvObjMsg.startAnimation(ani_resetscore);
+                }
+            }, 500);
+            playerCrit = false;
+            enemyCrit = false;
+        } else {
+            tvObjMsg.startAnimation(ani_bounce);
+        }
     }
 
     /* METHOD FOR UPDATING PLAYER SCORE & MOVES WHEN CLEARING AN OBJECT */
