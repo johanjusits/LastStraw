@@ -396,13 +396,13 @@ public class DBHandler {
             db.insert(AllCards, null, ac030);
 
             /* ADDS CARDS TO OWNED CARDS */
-            /*ContentValues oc1 = new ContentValues();
-            oc1.put(KEY_NAME, "Reinforce");
-            oc1.put(KEY_IMAGE, "card_obj_plus_1");
-            oc1.put(KEY_TYPE, 1);
-            oc1.put(KEY_COST, 0);
-            oc1.put(KEY_DESC, "Brings back one object.");
-            db.insert(OwnedCards, null, oc1);*/
+            ContentValues oc1 = new ContentValues();
+            oc1.put(KEY_NAME, "Concentrate");
+            oc1.put(KEY_IMAGE, "card_concentrate");
+            oc1.put(KEY_TYPE, 3);
+            oc1.put(KEY_COST, 1);
+            oc1.put(KEY_DESC, "Doubles points gained next turn.");
+            db.insert(OwnedCards, null, oc1);
 
             /* INITIAL PLAYER VALUES */
             ContentValues playerInfo = new ContentValues();
