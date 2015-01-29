@@ -218,6 +218,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     int aiPattern = 0;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
+    boolean enemyConcentrateRound = false;
+    boolean playerConcentrateRound = false;
     boolean playerHasSalvage = false;
     boolean playerHasCharge = false;
     boolean playerHasAccuracy = false;
@@ -2347,10 +2349,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* UPDATE ENEMY STATUSES */
     private void updateEnemyStatuses(){
         if (enemyHasConcentrate){
-            enemyClearAward = 4;
-            if (!enemyHasCharge){
-                enemyHasConcentrate = false;
-            }
+            enemyConcentrateRound = true;
         }
         if (enemyIsCorrupted){
             enemyCorruptedPenalty = 1;
@@ -2646,10 +2645,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* UPDATE PLAYER STATUSES */
     private void updatePlayerStatuses(){
         if (playerHasConcentrate){
-            playerClearAward = playerClearAward * 2;
-            if (!playerHasCharge){
-                playerHasConcentrate = false;
-            }
+            playerConcentrateRound = true;
         }
         if (playerIsCorrupted){
             playerCorruptedPenalty = 1;
@@ -8155,7 +8151,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
             worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
-        //lvlId = 30;
+        //lvlId = 31;
         //worldId = 4;
         db.close();
     }
@@ -9440,7 +9436,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (!enemyHasHaste && !enemyHasHaste2){
             clearEnemyStatus("Speed Up");
         }
-        if (!enemyHasConcentrate){
+        if (enemyConcentrateRound){
             clearEnemyStatus("Concentrate");
         }
         if (!enemyIsCorrupted){
@@ -9459,7 +9455,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (!playerIsSlowed){
             clearPlayerStatus("Slow Down");
         }
-        if (!playerHasConcentrate){
+        if (playerConcentrateRound){
             clearPlayerStatus("Concentrate");
         }
         if (!playerIsCorrupted){
@@ -10102,6 +10098,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (debuffName.equals("Concentrate")){
             enemyClearAward = 2;
+            enemyHasConcentrate = false;
+            enemyConcentrateRound = false;
         }
         if (debuffName.equals("Corruption")){
             enemyCorruptedPenalty = 0;
@@ -10150,6 +10148,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (debuffName.equals("Concentrate")){
             playerClearAward = 2;
+            playerHasConcentrate = false;
+            playerConcentrateRound = false;
         }
         if (debuffName.equals("Corruption")){
             playerCorruptedPenalty = 0;
@@ -11628,6 +11628,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     playerClearAward = 2;
                 }
             }
+            if (playerConcentrateRound){
+                playerClearAward = playerClearAward * 2;
+            }
         }
         //SETS WHERE TO DISPLAY MSG
         setObjMsgLocation();
@@ -11663,6 +11666,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 } else {
                     enemyClearAward = 2;
                 }
+            }
+            if (enemyHasConcentrate){
+                enemyClearAward = enemyClearAward * 2;
             }
         }
         setObjMsgLocation();
