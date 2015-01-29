@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/bg_world001"
     android:id="@+id/rootLayout">
@@ -531,13 +531,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MSG"
             android:id="@+id/tvObjMsg"
             android:textColor="@color/textWhite"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_alignLeft="@+id/obj001"
-            android:layout_above="@+id/obj001" />
+            android:layout_above="@+id/obj001"
+            android:text="MSG"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignLeft="@+id/obj001" />
 
         <ImageButton
             android:contentDescription="@null"

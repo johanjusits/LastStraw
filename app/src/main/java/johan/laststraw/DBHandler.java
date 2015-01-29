@@ -395,13 +395,23 @@ public class DBHandler {
             ac030.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac030);
 
+            ContentValues ac031 = new ContentValues();
+            ac031.put(KEY_NAME, "Confuse");
+            ac031.put(KEY_IMAGE, "card_confuse");
+            ac031.put(KEY_TYPE, 2);
+            ac031.put(KEY_DESC, "Causes enemy to sometimes get addition and subtraction mixed up.");
+            ac031.put(KEY_COST, 2);
+            ac031.put(KEY_REQUIRESLVL, 0);
+            ac031.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac031);
+
             /* ADDS CARDS TO OWNED CARDS */
             ContentValues oc1 = new ContentValues();
-            oc1.put(KEY_NAME, "Concentrate");
-            oc1.put(KEY_IMAGE, "card_concentrate");
-            oc1.put(KEY_TYPE, 3);
-            oc1.put(KEY_COST, 1);
-            oc1.put(KEY_DESC, "Doubles points gained next turn.");
+            oc1.put(KEY_NAME, "Confuse");
+            oc1.put(KEY_IMAGE, "card_confuse");
+            oc1.put(KEY_TYPE, 2);
+            oc1.put(KEY_COST, 2);
+            oc1.put(KEY_DESC, "Causes enemy to sometimes get addition and subtraction mixed up.");
             db.insert(OwnedCards, null, oc1);
 
             /* INITIAL PLAYER VALUES */
