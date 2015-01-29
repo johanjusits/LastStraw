@@ -136,6 +136,9 @@ public class AllCardsAdapter extends CursorAdapter {
             if (imagePath.equals("card_take_aim")){
                 Picasso.with(context).load(R.drawable.card_take_aim).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
             }
+            if (imagePath.equals("card_confuse")){
+                Picasso.with(context).load(R.drawable.card_confuse).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            }
 
         } else {
             viewUnlocked = (UnlockedHolder) view.getTag();
@@ -226,6 +229,9 @@ public class AllCardsAdapter extends CursorAdapter {
             }
             if (imagePath.equals("card_take_aim")){
                 Picasso.with(context).load(R.drawable.card_take_aim).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            }
+            if (imagePath.equals("card_confuse")){
+                Picasso.with(context).load(R.drawable.card_confuse).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
             }
         }
 

@@ -42,6 +42,7 @@ public class EnemyCards {
     static String RewindImgPath = "card_rewind";
     static String HoardImgPath = "card_hoard";
     static String RestoreImgPath = "card_restore";
+    static String ConfuseImgPath = "card_confuse";
 
     // CARD NAMES
     static String Reinforce3CardName = "Reinforce III";
@@ -72,6 +73,7 @@ public class EnemyCards {
     static String RewindCardName = "Rewind";
     static String HoardCardName = "Hoard";
     static String RestoreCardName = "Restore";
+    static String ConfuseCardName = "Confuse";
 
     // CARD COSTS
     static int Reinforce3CardCost = 0;
@@ -95,6 +97,10 @@ public class EnemyCards {
     static int TakeAimCardCost = 0;
     static int BlindCardCost = 1;
     static int DispelCardCost = 1;
+    static int RestoreCardCost = 1;
+    static int DeathSentenceCardCost = 2;
+    static int HoardCardCost = 0;
+    static int ConfuseCardCost = 2;
 
     public static int getEnemyTotalCards(int levelId) {
         switch (levelId) {
@@ -163,6 +169,8 @@ public class EnemyCards {
             case 30:
                 return 6;
             case 31:
+                return 6;
+            case 32:
                 return 6;
         }
         return 0;
@@ -572,6 +580,22 @@ public class EnemyCards {
                     case 5:
                         return cardIconField;
                 }
+                // WORLD 4 LEVEL 8
+            case 32:
+                switch (cardNr) {
+                    case 0:
+                        return cardIconBoosting;
+                    case 1:
+                        return cardIconBoosting;
+                    case 2:
+                        return cardIconAilment;
+                    case 3:
+                        return cardIconField;
+                    case 4:
+                        return cardIconField;
+                    case 5:
+                        return cardIconField;
+                }
         }
         return "";
     }
@@ -977,6 +1001,22 @@ public class EnemyCards {
                         return cardTypeBoosting;
                     case 4:
                         return cardTypeBoosting;
+                    case 5:
+                        return cardTypeField;
+                }
+                // WORLD 4 LEVEL 8
+            case 32:
+                switch (cardNr) {
+                    case 0:
+                        return cardTypeBoosting;
+                    case 1:
+                        return cardTypeBoosting;
+                    case 2:
+                        return cardTypeAilment;
+                    case 3:
+                        return cardTypeField;
+                    case 4:
+                        return cardTypeField;
                     case 5:
                         return cardTypeField;
                 }
@@ -1482,6 +1522,22 @@ public class EnemyCards {
                     case 5:
                         return true;
                 }
+                // WORLD 4 LEVEL 8
+            case 32:
+                switch (cardNr) {
+                    case 0:
+                        return true;
+                    case 1:
+                        return true;
+                    case 2:
+                        return true;
+                    case 3:
+                        return true;
+                    case 4:
+                        return true;
+                    case 5:
+                        return true;
+                }
         }
         return false;
     }
@@ -1492,7 +1548,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr) {
                     case 0:
-                        return Reinforce3ImgPath;
+                        return ConfuseImgPath;
                 }
                 // WORLD 1 LEVEL 2
             case 2:
@@ -1889,6 +1945,22 @@ public class EnemyCards {
                         return ChargeImgPath;
                     case 5:
                         return InfestImgPath;
+                }
+                // WORLD 4 LEVEL 8
+            case 32:
+                switch (cardNr) {
+                    case 0:
+                        return ProtectImgPath;
+                    case 1:
+                        return HoardImgPath;
+                    case 2:
+                        return DeathSentenceImgPath;
+                    case 3:
+                        return Reinforce5ImgPath;
+                    case 4:
+                        return Steal2ImgPath;
+                    case 5:
+                        return Steal2ImgPath;
                 }
         }
         return "";
@@ -1900,7 +1972,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr) {
                     case 0:
-                        return Reinforce3CardName;
+                        return ConfuseCardName;
                     case 1:
                         return "";
                     case 2:
@@ -2391,6 +2463,22 @@ public class EnemyCards {
                         return ChargeCardName;
                     case 5:
                         return InfestCardName;
+                }
+                // WORLD 4 LEVEL 8
+            case 32:
+                switch (cardNr) {
+                    case 0:
+                        return ProtectCardName;
+                    case 1:
+                        return HoardCardName;
+                    case 2:
+                        return DeathSentenceCardName;
+                    case 3:
+                        return Reinforce5CardName;
+                    case 4:
+                        return Steal2CardName;
+                    case 5:
+                        return Steal2CardName;
                 }
         }
         return "";
@@ -2893,6 +2981,22 @@ public class EnemyCards {
                         return ChargeCardCost;
                     case 5:
                         return InfestCardCost;
+                }
+                // WORLD 4 LEVEL 8
+            case 32:
+                switch (cardNr) {
+                    case 0:
+                        return ProtectCardCost;
+                    case 1:
+                        return HoardCardCost;
+                    case 2:
+                        return DeathSentenceCardCost;
+                    case 3:
+                        return Reinforce5CardCost;
+                    case 4:
+                        return Steal2CardCost;
+                    case 5:
+                        return Steal2CardCost;
                 }
         }
         return 0;

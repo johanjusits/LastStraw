@@ -52,6 +52,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     ViewGroup layout_objectRow;
     Animation ani_fadeIn, ani_fadeOut, ani_zoomIn, ani_shake, ani_scoregain, ani_resetscore, ani_infest_shake, ani_bounce, ani_bounce_crit;
     /* STRINGS */
+    String objMsgSymbol = "+";
     String playerGender = "";
     String playerName = "";
     String enemyName;
@@ -73,6 +74,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String enemyBlinded = "Enemy suffers Blind";
     String enemySentenced = "Enemy suffers Death Sentence";
     String enemySilenced = "Enemy suffers Silence";
+    String enemyConfused = "Enemy suffers Confusion";
     String enemyCured = "Enemy cures all ailments";
     String enemyAlteredTime = "Enemy gains Rewind";
     String enemyReset;
@@ -101,6 +103,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String playerHoarded = "";
     String playerDispelled = "";
     String playerSilenced = "";
+    String playerConfused = "";
     String buffAlreadyActiveError = "Buff already active. No effect.";
     String debuffAlreadyActiveError = "Debuff already active. No effect.";
     String playerCard1Name = "", playerCard2Name = "", playerCard3Name = "", playerCard4Name = "",
@@ -129,6 +132,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String greenColorName = "supergreen";
     String whiteColorName = "textWhite";
     /* INTS */
+    int confuseMixUpChance;
     int objectValue;
     int rewindResetChance;
     int neutralColor;
@@ -198,7 +202,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     int playerAccuracyCountdown = -1;
     int playerChargeCountdown = -1;
     int playerCurseCountdown = -1;
+    int playerConfuseCountdown = -1;
     int enemyCurseCountdown = -1;
+    int enemyConfuseCountdown = -1;
     int enemySalvageCountdown = -1;
     int enemyAccuracyCountdown = -1;
     int enemyChargeCountdown = -1;
@@ -218,6 +224,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     int aiPattern = 0;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
+    boolean mixedUp = false;
+    boolean playerIsConfused = false;
+    boolean enemyIsConfused = false;
     boolean enemyConcentrateRound = false;
     boolean playerConcentrateRound = false;
     boolean playerHasSalvage = false;
@@ -456,6 +465,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         playerDispelled = playerName + " suffers Dispel";
         playerSilenced = playerName + " suffers Silence";
         playerBlinded = playerName + " suffers Blind";
+        playerConfused = playerName + " suffers Confusion";
 
         playerReset = playerName + " reset all " + GameInfo.getObjName(worldId);
         playerResetFail = playerName + " Rewind failed.." ;
@@ -696,7 +706,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 // IF PLAYER HIT AN INFESTED TARGET WITH NO HITS REMAINING
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj001.setImageResource(objectBrokenImg);
@@ -716,7 +726,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
                 // IF PLAYER HITS A NORMAL TARGET
                 if (objectsRemaining == 16 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj001.setImageResource(objectBrokenImg);
@@ -772,7 +782,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj002.setImageResource(objectBrokenImg);
@@ -791,7 +801,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 15 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj002.setImageResource(objectBrokenImg);
@@ -847,7 +857,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj003.setImageResource(objectBrokenImg);
@@ -866,7 +876,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 14 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj003.setImageResource(objectBrokenImg);
@@ -922,7 +932,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj004.setImageResource(objectBrokenImg);
@@ -941,7 +951,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 13 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj004.setImageResource(objectBrokenImg);
@@ -997,7 +1007,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj005.setImageResource(objectBrokenImg);
@@ -1016,7 +1026,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 12 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj005.setImageResource(objectBrokenImg);
@@ -1072,7 +1082,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj006.setImageResource(objectBrokenImg);
@@ -1091,7 +1101,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 11 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj006.setImageResource(objectBrokenImg);
@@ -1147,7 +1157,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj007.setImageResource(objectBrokenImg);
@@ -1166,7 +1176,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 10 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj007.setImageResource(objectBrokenImg);
@@ -1222,7 +1232,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj008.setImageResource(objectBrokenImg);
@@ -1241,7 +1251,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 9 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj008.setImageResource(objectBrokenImg);
@@ -1297,7 +1307,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj009.setImageResource(objectBrokenImg);
@@ -1316,7 +1326,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 8 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj009.setImageResource(objectBrokenImg);
@@ -1372,7 +1382,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj010.setImageResource(objectBrokenImg);
@@ -1391,7 +1401,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 7 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj010.setImageResource(objectBrokenImg);
@@ -1447,7 +1457,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj011.setImageResource(objectBrokenImg);
@@ -1466,7 +1476,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 6 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj011.setImageResource(objectBrokenImg);
@@ -1522,7 +1532,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj012.setImageResource(objectBrokenImg);
@@ -1541,7 +1551,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 5 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj012.setImageResource(objectBrokenImg);
@@ -1597,7 +1607,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj013.setImageResource(objectBrokenImg);
@@ -1616,7 +1626,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 4 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj013.setImageResource(objectBrokenImg);
@@ -1672,7 +1682,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj014.setImageResource(objectBrokenImg);
@@ -1691,7 +1701,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 3 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj014.setImageResource(objectBrokenImg);
@@ -1747,7 +1757,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         break;
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj015.setImageResource(objectBrokenImg);
@@ -1766,7 +1776,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 if (objectsRemaining == 2 && playerMoves >= 1 + playerCorruptedPenalty) {
-                    playerHitObject("+", playerClearAward);
+                    playerHitObject(objMsgSymbol, playerClearAward);
                     SoundEffects.playSound(clearSoundId);
                     updatePlayerStatsOnObjClear();
                     obj015.setImageResource(objectBrokenImg);
@@ -2018,6 +2028,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     private void checkIfEnemyBlindEnds(){
         if (enemyIsBlind && enemyBlindCountdown == 0){
             enemyBlindEnd();
+        } else {
+            checkIfEnemyConfuseEnds();
+        }
+    }
+
+    private void checkIfEnemyConfuseEnds(){
+        if (enemyIsConfused && enemyConfuseCountdown == 0){
+            enemyConfuseEnd();
         } else {
             enemyTurn();
         }
@@ -2432,6 +2450,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyIsBlind && enemyBlindCountdown != -1){
             enemyBlindCountdown--;
         }
+        if (enemyIsConfused && enemyConfuseCountdown == -1){
+            enemyConfuseCountdown = 3;
+        }
+        if (enemyIsConfused && enemyConfuseCountdown != -1){
+            enemyConfuseCountdown--;
+        }
         enemyIsSlowed = false;
         enemyHasHaste = false;
         enemyHasHaste2 = false;
@@ -2626,6 +2650,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (playerIsBlind && playerBlindCountdown == 0){
             playerBlindEnd();
         } else {
+            checkIfPlayerConfuseEnds();
+        }
+    }
+
+    private void checkIfPlayerConfuseEnds(){
+        if (playerIsConfused && playerConfuseCountdown == 0){
+            playerConfuseEnd();
+        } else {
             playerTurn();
         }
     }
@@ -2728,6 +2760,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (playerIsBlind && playerBlindCountdown != -1){
             playerBlindCountdown--;
         }
+        if (playerIsConfused && playerConfuseCountdown == -1){
+            playerConfuseCountdown = 3;
+        }
+        if (playerIsConfused && playerConfuseCountdown != -1){
+            playerConfuseCountdown--;
+        }
         playerIsSlowed = false;
         playerIsCorrupted = false;
         playerHasHaste = false;
@@ -2808,7 +2846,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj001.setImageResource(objectBrokenImg);
@@ -2823,7 +2861,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj001.setImageResource(objectBrokenImg);
@@ -2852,7 +2890,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj002.setImageResource(objectBrokenImg);
@@ -2867,7 +2905,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj002.setImageResource(objectBrokenImg);
@@ -2896,7 +2934,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj003.setImageResource(objectBrokenImg);
@@ -2911,7 +2949,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj003.setImageResource(objectBrokenImg);
@@ -2940,7 +2978,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj004.setImageResource(objectBrokenImg);
@@ -2955,7 +2993,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj004.setImageResource(objectBrokenImg);
@@ -2984,7 +3022,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj005.setImageResource(objectBrokenImg);
@@ -2999,7 +3037,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj005.setImageResource(objectBrokenImg);
@@ -3028,7 +3066,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj006.setImageResource(objectBrokenImg);
@@ -3043,7 +3081,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj006.setImageResource(objectBrokenImg);
@@ -3072,7 +3110,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj007.setImageResource(objectBrokenImg);
@@ -3087,7 +3125,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj007.setImageResource(objectBrokenImg);
@@ -3116,7 +3154,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj008.setImageResource(objectBrokenImg);
@@ -3131,7 +3169,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj008.setImageResource(objectBrokenImg);
@@ -3160,7 +3198,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj009.setImageResource(objectBrokenImg);
@@ -3175,7 +3213,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj009.setImageResource(objectBrokenImg);
@@ -3204,7 +3242,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj010.setImageResource(objectBrokenImg);
@@ -3219,7 +3257,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj010.setImageResource(objectBrokenImg);
@@ -3248,7 +3286,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj011.setImageResource(objectBrokenImg);
@@ -3263,7 +3301,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj011.setImageResource(objectBrokenImg);
@@ -3292,7 +3330,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj012.setImageResource(objectBrokenImg);
@@ -3307,7 +3345,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj012.setImageResource(objectBrokenImg);
@@ -3336,7 +3374,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj013.setImageResource(objectBrokenImg);
@@ -3351,7 +3389,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj013.setImageResource(objectBrokenImg);
@@ -3380,7 +3418,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj014.setImageResource(objectBrokenImg);
@@ -3395,7 +3433,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj014.setImageResource(objectBrokenImg);
@@ -3424,7 +3462,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HIT AN INFESTED TARGET WITH NO HITS REMAINING
             if (nextObjIsInfested && infestedObjRemainingHits == 0) {
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj015.setImageResource(objectBrokenImg);
@@ -3439,7 +3477,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
             // IF ENEMY HITS A NORMAL TARGET
             if (!nextObjIsInfested){
-                playerHitObject("+", enemyClearAward);
+                playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
                 obj015.setImageResource(objectBrokenImg);
@@ -4633,6 +4671,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if(playedCard.equals("Blind")){
             cardBlind();
         }
+        if(playedCard.equals("Confuse")){
+            cardConfuse();
+        }
         if (errorMsg){
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -4763,6 +4804,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (cardName.equals("Blind")){
             cardBlind();
+        }
+        if (cardName.equals("Confuse")){
+            cardConfuse();
         }
     }
 
@@ -6222,6 +6266,107 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* JINX CARD EFFECT METHOD */
+    private void cardConfuse() {
+        if (playerTurn) {
+            if (enemyHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        errorMsg = true;
+                        tvCenterMessage.setText(ailmentFailed);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(enemyStatuses).contains("Confuse")){
+                    tvCenterMessage.setText(enemyConfused);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Confuse")){
+                                enemyIsConfused = true;
+                                addEnemyConfuse();
+                                activeEnemyStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
+                }
+            }
+        } else {
+            if (playerHasProtect){
+                myHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        errorMsg = true;
+                        tvCenterMessage.setText(ailmentFailed);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }, 1000);
+            } else {
+                if (!Arrays.asList(playerStatuses).contains("Confuse")){
+                    tvCenterMessage.setText(playerConfused);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Confuse")){
+                                playerIsConfused = true;
+                                addPlayerConfuse();
+                                activePlayerStatuses++;
+                            } else {
+                                errorMsg = true;
+                                tvCenterMessage.setText(debuffAlreadyActiveError);
+                                tvCenterMessage.startAnimation(ani_fadeIn);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        tvCenterMessage.startAnimation(ani_fadeOut);
+                                    }
+                                }, 1500);
+                            }
+                        }
+                    }, 1000);
+                } else {
+                    errorMsg = true;
+                    tvCenterMessage.setText(buffAlreadyActiveError);
+                    tvCenterMessage.startAnimation(ani_fadeIn);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1500);
+                }
+            }
+        }
+    }
+
     /* AGONY CARD EFFECT METHOD */
     private void cardAgony(){
         if (playerTurn) {
@@ -6847,6 +6992,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
+                if (lastEnemyPlayedCard.equals("Confuse")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardConfuse();
+                        }
+                    }, 2000);
+                }
             } else {
                 tvCenterMessage.startAnimation(ani_fadeIn);
                 tvCenterMessage.setText("Mimic failed");
@@ -7202,6 +7359,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             cardBlind();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Confuse")){
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardConfuse();
                         }
                     }, 2000);
                 }
@@ -8151,7 +8320,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
             worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
-        //lvlId = 31;
+        //lvlId = 32;
         //worldId = 4;
         db.close();
     }
@@ -8581,6 +8750,48 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 activePlayerDebuffs++;
                 playerStatuses[4] = "Curse";
                 playerStatusIcon5.setImageResource(R.drawable.debuff_curse);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /* ADD PLAYER CONFUSION */
+    private void addPlayerConfuse(){
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot){
+            case 0:
+                activePlayerDebuffs++;
+                playerStatuses[0] = "Confuse";
+                playerStatusIcon1.setImageResource(R.drawable.debuff_confusion);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                activePlayerDebuffs++;
+                playerStatuses[1] = "Confuse";
+                playerStatusIcon2.setImageResource(R.drawable.debuff_confusion);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                activePlayerDebuffs++;
+                playerStatuses[2] = "Confuse";
+                playerStatusIcon3.setImageResource(R.drawable.debuff_confusion);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                activePlayerDebuffs++;
+                playerStatuses[3] = "Confuse";
+                playerStatusIcon4.setImageResource(R.drawable.debuff_confusion);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                activePlayerDebuffs++;
+                playerStatuses[4] = "Confuse";
+                playerStatusIcon5.setImageResource(R.drawable.debuff_confusion);
                 playerStatusIcon5.setBackgroundResource(R.drawable.frame_white);
                 playerStatusIcon5.setVisibility(View.VISIBLE);
                 break;
@@ -9214,6 +9425,48 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* ADD ENEMY CONFUSION */
+    private void addEnemyConfuse(){
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot) {
+            case 0:
+                activeEnemyDebuffs++;
+                enemyStatuses[0] = "Confuse";
+                enemyStatusIcon1.setImageResource(R.drawable.debuff_confusion);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                activeEnemyDebuffs++;
+                enemyStatuses[1] = "Confuse";
+                enemyStatusIcon2.setImageResource(R.drawable.debuff_confusion);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                activeEnemyDebuffs++;
+                enemyStatuses[2] = "Confuse";
+                enemyStatusIcon3.setImageResource(R.drawable.debuff_confusion);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                activeEnemyDebuffs++;
+                enemyStatuses[3] = "Confuse";
+                enemyStatusIcon4.setImageResource(R.drawable.debuff_confusion);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                activeEnemyDebuffs++;
+                enemyStatuses[4] = "Confuse";
+                enemyStatusIcon5.setImageResource(R.drawable.debuff_confusion);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_white);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD ENEMY SILENCE */
     private void addEnemySilence(){
         int freeSpot = getFreeEnemyStatusSpot();
@@ -9760,6 +10013,28 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 2000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
+                checkIfPlayerConfuseEnds();
+            }
+        }, 3000);
+    }
+
+    private void playerConfuseEnd(){
+        playerIsConfused = false;
+        playerConfuseCountdown = -1;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText(playerName + " is no longer confused.");
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearPlayerStatus("Confuse");
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
                 playerTurn();
             }
         }, 3000);
@@ -10060,6 +10335,28 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 2000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
+                checkIfEnemyConfuseEnds();
+            }
+        }, 3000);
+    }
+
+    private void enemyConfuseEnd(){
+        enemyIsConfused = false;
+        enemyConfuseCountdown = -1;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText("Enemy is no longer confused.");
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearEnemyStatus("Confuse");
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
                 enemyTurn();
             }
         }, 3000);
@@ -10307,6 +10604,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             playerIsBlind = false;
             clearPlayerStatus("Blind");
         }
+        check = findPlayerAilment("Confuse");
+        if (check != -1){
+            activePlayerDebuffs--;
+            playerIsConfused = false;
+            clearPlayerStatus("Confuse");
+        }
     }
 
     /* FIND ENEMY AILMENTS */
@@ -10388,6 +10691,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             activeEnemyDebuffs--;
             enemyIsBlind = false;
             clearEnemyStatus("Blind");
+        }
+        check = findEnemyAilments("Confuse");
+        if (check != -1){
+            activeEnemyDebuffs--;
+            enemyIsConfused = false;
+            clearEnemyStatus("Confuse");
         }
     }
 
@@ -11557,7 +11866,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     private void setObjMsgLocation(){
         RelativeLayout.LayoutParams objMsgSettings = (RelativeLayout.LayoutParams)tvObjMsg.getLayoutParams();
         objMsgSettings.addRule(RelativeLayout.ABOVE, getCurrentObject(objectsRemaining));
-        objMsgSettings.addRule(RelativeLayout.ALIGN_LEFT, getCurrentObject(objectsRemaining));
+        if (objectsRemaining == 1 && !playerHit || objectsRemaining == 1 && nextObjIsInfested ){
+            objMsgSettings.addRule(RelativeLayout.ALIGN_RIGHT, getCurrentObject(objectsRemaining));
+            objMsgSettings.addRule(RelativeLayout.ALIGN_LEFT, 0);
+        } else {
+            objMsgSettings.addRule(RelativeLayout.ALIGN_LEFT, getCurrentObject(objectsRemaining));
+            objMsgSettings.addRule(RelativeLayout.ALIGN_RIGHT, 0);
+        }
         tvObjMsg.setLayoutParams(objMsgSettings);
     }
 
@@ -11632,6 +11947,15 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 playerClearAward = playerClearAward * 2;
             }
         }
+        if (playerIsConfused && objectsRemaining != 1){
+            confuseMixUpChance = genRand(100);
+            if (confuseMixUpChance <= 50){
+                objMsgSymbol = "-";
+                mixedUp = true;
+            } else {
+                objMsgSymbol = "+";
+            }
+        }
         //SETS WHERE TO DISPLAY MSG
         setObjMsgLocation();
         tvObjMsg.setVisibility(View.INVISIBLE);
@@ -11667,8 +11991,17 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     enemyClearAward = 2;
                 }
             }
-            if (enemyHasConcentrate){
+            if (enemyHasConcentrate) {
                 enemyClearAward = enemyClearAward * 2;
+            }
+        }
+        if (enemyIsConfused && objectsRemaining != 1){
+            confuseMixUpChance = genRand(100);
+            if (confuseMixUpChance <= 50){
+                objMsgSymbol = "-";
+                mixedUp = true;
+            } else {
+                objMsgSymbol = "+";
             }
         }
         setObjMsgLocation();
@@ -11681,7 +12014,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         tvObjMsg.bringToFront();
         if (value != 0){
             tvObjMsg.setText(msg + String.valueOf(value));
-            if (objectsRemaining == 1){
+            if (objectsRemaining == 1 || mixedUp){
                 tvObjMsg.setTextColor(getResources().getColor(penaltyColor));
             } else {
                 tvObjMsg.setTextColor(getResources().getColor(gainColor));
@@ -11707,7 +12040,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* METHOD FOR UPDATING PLAYER SCORE & MOVES WHEN CLEARING AN OBJECT */
     private void updatePlayerStatsOnObjClear(){
         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-        playerScore = playerScore + playerClearAward;
+        if (mixedUp){
+            playerScore = playerScore - playerClearAward;
+            mixedUp = false;
+            objMsgSymbol = "+";
+        } else {
+            playerScore = playerScore + playerClearAward;
+        }
+        if (playerScore < 0){
+            playerScore = 0;
+        }
         tvPlayerScore.setText(String.valueOf(playerScore));
         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
     }
@@ -11715,7 +12057,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* METHOD FOR UPDATING ENEMY SCORE & MOVES WHEN CLEARING AN OBJECT */
     private void updateEnemyStatsOnObjClear(){
         enemyMoves = enemyMoves - 1 - enemyCorruptedPenalty;
-        enemyScore = enemyScore + enemyClearAward;
+        if (mixedUp){
+            enemyScore = enemyScore - enemyClearAward;
+            mixedUp = false;
+            objMsgSymbol = "+";
+        } else {
+            enemyScore = enemyScore + enemyClearAward;
+        }
+        if (enemyScore < 0){
+            enemyScore = 0;
+        }
         tvEnemyScore.setText(String.valueOf(enemyScore));
         tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
     }
