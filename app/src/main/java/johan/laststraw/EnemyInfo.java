@@ -73,6 +73,7 @@ public class EnemyInfo {
         }
         return 0;
     }
+
     public static String getPortraitImgName(int worldId, int levelId){
         switch (worldId){
             case 1:
@@ -149,6 +150,25 @@ public class EnemyInfo {
                     case 31:
                         return "portrait_wreckage";
                     case 32:
+                        return "portrait_boss";
+                }
+            case 5:
+                switch (levelId){
+                    case 33:
+                        return "portrait_woods";
+                    case 34:
+                        return "portrait_woods";
+                    case 35:
+                        return "portrait_woods";
+                    case 36:
+                        return "portrait_miniboss";
+                    case 37:
+                        return "portrait_woods";
+                    case 38:
+                        return "portrait_woods";
+                    case 39:
+                        return "portrait_woods";
+                    case 40:
                         return "portrait_boss";
                 }
         }
@@ -232,6 +252,25 @@ public class EnemyInfo {
                         return "Captain Riker";
                     case 32:
                         return "Admiral Crone ";
+                }
+            case 5:
+                switch (levelId){
+                    case 33:
+                        return "Lepricon";
+                    case 34:
+                        return "Elf";
+                    case 35:
+                        return "Owlman";
+                    case 36:
+                        return "Satyr";
+                    case 37:
+                        return "Green Man";
+                    case 38:
+                        return "Dryad";
+                    case 39:
+                        return "Unicorn";
+                    case 40:
+                        return "Leshy";
                 }
         }
         return null;
