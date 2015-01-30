@@ -468,7 +468,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         playerConfused = playerName + " suffers Confusion";
 
         playerReset = playerName + " reset all " + GameInfo.getObjName(worldId);
-        playerResetFail = playerName + " Rewind failed.." ;
+        playerResetFail = playerName + " Rewind failed..";
         enemyReset = "Enemy reset all " + GameInfo.getObjName(worldId);
         enemyResetFail = "Enemy Rewind failed..";
 
@@ -541,7 +541,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         switch (v.getId()) {
             case R.id.ibPlayerCard1:
                 selectedCard = 1;
-                if (playerIsSilenced){
+                if (playerIsSilenced) {
                     tvCenterMessage.setText("You are silenced.");
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
@@ -558,7 +558,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 break;
             case R.id.ibPlayerCard2:
                 selectedCard = 2;
-                if (playerIsSilenced){
+                if (playerIsSilenced) {
                     tvCenterMessage.setText("You are silenced.");
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
@@ -575,7 +575,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 break;
             case R.id.ibPlayerCard3:
                 selectedCard = 3;
-                if (playerIsSilenced){
+                if (playerIsSilenced) {
                     tvCenterMessage.setText("You are silenced.");
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
@@ -592,7 +592,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 break;
             case R.id.ibPlayerCard4:
                 selectedCard = 4;
-                if (playerIsSilenced){
+                if (playerIsSilenced) {
                     tvCenterMessage.setText("You are silenced.");
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
@@ -609,7 +609,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 break;
             case R.id.ibPlayerCard5:
                 selectedCard = 5;
-                if (playerIsSilenced){
+                if (playerIsSilenced) {
                     tvCenterMessage.setText("You are silenced.");
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
@@ -626,7 +626,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 break;
             case R.id.ibPlayerCard6:
                 selectedCard = 6;
-                if (playerIsSilenced){
+                if (playerIsSilenced) {
                     tvCenterMessage.setText("You are silenced.");
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
@@ -668,7 +668,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             case R.id.obj001:
                 initiateObjClick();
                 // IF PLAYER MISSED
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -685,8 +685,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     break;
                 }
                 // IF PLAYER HIT AN INFESTED TARGET WITH HITS REMAINING
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 16 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 16 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -704,25 +704,27 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                // IF PLAYER HIT AN INFESTED TARGET WITH NO HITS REMAINING
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj001.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                    // IF PLAYER HIT AN INFESTED TARGET WITH NO HITS REMAINING
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 16 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj001.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 // IF PLAYER HITS A NORMAL TARGET
                 if (objectsRemaining == 16 && playerMoves >= 1 + playerCorruptedPenalty) {
@@ -746,7 +748,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 2 */
             case R.id.obj002:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -762,8 +764,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 15 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 15 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -781,24 +783,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj002.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 15 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj002.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 15 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -821,7 +825,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 3 */
             case R.id.obj003:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -837,8 +841,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 14 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 14 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -856,24 +860,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj003.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 14 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj003.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 14 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -896,7 +902,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 4 */
             case R.id.obj004:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -912,8 +918,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 13 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 13 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -931,24 +937,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj004.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 13 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj004.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 13 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -971,7 +979,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 5 */
             case R.id.obj005:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -987,8 +995,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 12 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 12 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1006,24 +1014,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj005.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 12 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj005.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 12 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -1046,7 +1056,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 6 */
             case R.id.obj006:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1062,8 +1072,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 11 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 11 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1081,24 +1091,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj006.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 11 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj006.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 11 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -1121,7 +1133,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 7 */
             case R.id.obj007:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1137,8 +1149,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 10 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 10 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1156,24 +1168,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj007.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 10 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj007.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 10 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -1196,7 +1210,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 8 */
             case R.id.obj008:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1212,8 +1226,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 9 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 9 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1231,24 +1245,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj008.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 9 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj008.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 9 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -1271,7 +1287,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 9 */
             case R.id.obj009:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1287,8 +1303,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 8 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 8 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1306,24 +1322,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj009.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 8 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj009.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 8 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -1346,7 +1364,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 10 */
             case R.id.obj010:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1362,8 +1380,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 7 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 7 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1381,24 +1399,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj010.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 7 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj010.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 7 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -1421,7 +1441,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 11 */
             case R.id.obj011:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1437,8 +1457,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 6 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 6 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1456,24 +1476,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj011.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 6 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj011.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 6 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -1496,7 +1518,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 12 */
             case R.id.obj012:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1512,8 +1534,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 5 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 5 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1531,24 +1553,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj012.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 5 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj012.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 5 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -1571,7 +1595,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 13 */
             case R.id.obj013:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1587,8 +1611,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 4 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 4 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1606,24 +1630,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj013.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 4 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj013.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 4 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -1646,7 +1672,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 14 */
             case R.id.obj014:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1662,8 +1688,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 3 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 3 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1681,24 +1707,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj014.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 3 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj014.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 3 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -1721,7 +1749,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 15 */
             case R.id.obj015:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1737,8 +1765,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 2 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 2 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1756,24 +1784,26 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject(objMsgSymbol, playerClearAward);
-                    SoundEffects.playSound(clearSoundId);
-                    updatePlayerStatsOnObjClear();
-                    obj015.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            enablePlayerActions();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 2 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject(objMsgSymbol, playerClearAward);
+                        SoundEffects.playSound(clearSoundId);
+                        updatePlayerStatsOnObjClear();
+                        obj015.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                enablePlayerActions();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 2 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject(objMsgSymbol, playerClearAward);
@@ -1796,7 +1826,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             /* OBJECT 16 */
             case R.id.obj016:
                 initiateObjClick();
-                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty){
+                if (!playerHit && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("Miss!", 0);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                     tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1812,8 +1842,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1050);
                     break;
                 }
-                if (nextObjIsInfested && infestedObjRemainingHits >= 1){
-                    if (objectsRemaining == 1 && playerMoves >= 1 + playerCorruptedPenalty){
+                if (nextObjIsInfested && infestedObjRemainingHits >= 1) {
+                    if (objectsRemaining == 1 && playerMoves >= 1 + playerCorruptedPenalty) {
                         playerHitObject("No effect..", 0);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
                         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -1831,25 +1861,27 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }, 1050);
                         break;
                     }
-                } else if (nextObjIsInfested && infestedObjRemainingHits == 0){
-                    playerHitObject("-", lastPickPenaltyNr);
-                    SoundEffects.playSound(clearSoundId);
-                    playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-                    tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
-                    obj016.setImageResource(objectBrokenImg);
-                    objectsRemaining--;
-                    nextObjIsInfested = false;
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            tvObjMsg.startAnimation(ani_fadeOut);
-                        }
-                    }, 500);
-                    myHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            checkIfNoObjRemains();
-                        }
-                    }, 1050);
-                    break;
+                } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
+                    if (objectsRemaining == 1 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        playerHitObject("-", lastPickPenaltyNr);
+                        SoundEffects.playSound(clearSoundId);
+                        playerMoves = playerMoves - 1 - playerCorruptedPenalty;
+                        tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
+                        obj016.setImageResource(objectBrokenImg);
+                        objectsRemaining--;
+                        nextObjIsInfested = false;
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvObjMsg.startAnimation(ani_fadeOut);
+                            }
+                        }, 500);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                checkIfNoObjRemains();
+                            }
+                        }, 1050);
+                        break;
+                    }
                 }
                 if (objectsRemaining == 1 && playerMoves >= 1 + playerCorruptedPenalty) {
                     playerHitObject("-", lastPickPenaltyNr);
@@ -1877,12 +1909,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     private void enemyTurnStart() {
         enemyTurnCounter++;
         enemyMoveCounter = 0;
-        if (playerHasAlteredTime){
+        if (playerHasAlteredTime) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     playerHasAlteredTime = false;
                     rewindResetChance = genRand(100);
-                    if (rewindResetChance >= 75){
+                    if (rewindResetChance >= 75) {
                         tvCenterMessage.setText(playerReset);
                     } else {
                         tvCenterMessage.setText(playerResetFail);
@@ -1898,7 +1930,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     clearPlayerStatus("Rewind");
-                    if (rewindResetChance >= 75){
+                    if (rewindResetChance >= 75) {
                         resetAllObjects();
                     }
                 }
@@ -1961,80 +1993,80 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     ON, AT THE END OF THE CHAIN, IT STARTS ENEMY TURN.
      */
 
-    private void checkIfEnemyCurseEnds(){
-        if (enemyIsCursed && enemyCurseCountdown == 0){
+    private void checkIfEnemyCurseEnds() {
+        if (enemyIsCursed && enemyCurseCountdown == 0) {
             enemyCursedEffect();
         } else {
             checkIfEnemyAgonyEnds();
         }
     }
 
-    private void checkIfEnemyAgonyEnds(){
-        if (enemyIsAgonized && enemyAgonyCountdown == 0){
+    private void checkIfEnemyAgonyEnds() {
+        if (enemyIsAgonized && enemyAgonyCountdown == 0) {
             enemyAgonizedEnd();
         } else {
             checkIfEnemyMaledictionEnds();
         }
     }
 
-    private void checkIfEnemyMaledictionEnds(){
-        if (enemyIsMaledicted && enemyMaledictionCountdown == 0){
+    private void checkIfEnemyMaledictionEnds() {
+        if (enemyIsMaledicted && enemyMaledictionCountdown == 0) {
             enemyMaledictedEffect();
         } else {
             checkIfEnemySentenceEnds();
         }
     }
 
-    private void checkIfEnemySentenceEnds(){
-        if (enemyIsSentenced && enemySentenceCountdown == 0){
+    private void checkIfEnemySentenceEnds() {
+        if (enemyIsSentenced && enemySentenceCountdown == 0) {
             enemySentencedEffect();
         } else {
             checkIfEnemyProtectEnds();
         }
     }
 
-    private void checkIfEnemyProtectEnds(){
-        if (enemyHasProtect && enemyProtectCountdown == 0){
+    private void checkIfEnemyProtectEnds() {
+        if (enemyHasProtect && enemyProtectCountdown == 0) {
             enemyProtectEnd();
         } else {
             checkIfEnemySalvageEnds();
         }
     }
 
-    private void checkIfEnemySalvageEnds(){
-        if (enemyHasSalvage && enemySalvageCountdown == 0){
+    private void checkIfEnemySalvageEnds() {
+        if (enemyHasSalvage && enemySalvageCountdown == 0) {
             enemySalvageEnd();
         } else {
             checkIfEnemyChargeEnds();
         }
     }
 
-    private void checkIfEnemyChargeEnds(){
-        if (enemyHasCharge && enemyChargeCountdown == 0){
+    private void checkIfEnemyChargeEnds() {
+        if (enemyHasCharge && enemyChargeCountdown == 0) {
             enemyChargeEnd();
         } else {
             checkIfEnemyAccuracyEnds();
         }
     }
 
-    private void checkIfEnemyAccuracyEnds(){
-        if (enemyHasAccuracy && enemyAccuracyCountdown == 0){
+    private void checkIfEnemyAccuracyEnds() {
+        if (enemyHasAccuracy && enemyAccuracyCountdown == 0) {
             enemyAccuracyEnd();
         } else {
             checkIfEnemyBlindEnds();
         }
     }
 
-    private void checkIfEnemyBlindEnds(){
-        if (enemyIsBlind && enemyBlindCountdown == 0){
+    private void checkIfEnemyBlindEnds() {
+        if (enemyIsBlind && enemyBlindCountdown == 0) {
             enemyBlindEnd();
         } else {
             checkIfEnemyConfuseEnds();
         }
     }
 
-    private void checkIfEnemyConfuseEnds(){
-        if (enemyIsConfused && enemyConfuseCountdown == 0){
+    private void checkIfEnemyConfuseEnds() {
+        if (enemyIsConfused && enemyConfuseCountdown == 0) {
             enemyConfuseEnd();
         } else {
             enemyTurn();
@@ -2044,20 +2076,20 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /*---------------------------------*/
 
     /* ENEMY TURN MOVES */
-    private void enemyTurn(){
+    private void enemyTurn() {
         enemyMoveCounter++;
         /* Checks if enemy has any cards left and decides move pattern accordingly */
-        if (enemyCardsRemaining > 0 && !enemyIsSilenced){
+        if (enemyCardsRemaining > 0 && !enemyIsSilenced) {
             int cardOrClear = AiPatterns.initAiPatternCardOrNot(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
             System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than cardOrNotNumber the AI will play a card */
-            if (cardOrClear >= cardOrNotNumber){
-                if (aiPattern == 0){
+            if (cardOrClear >= cardOrNotNumber) {
+                if (aiPattern == 0) {
                     enemyPickedCard = randomizeEnemyCardSelect();
                 } else {
                     enemyPickedCard = AiPatterns.initAiPatternPickCard(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
                 }
-                if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost + enemyCorruptedPenalty){
+                if (enemyPickedCard == 0 && enemyMoves >= enemyCard1Cost + enemyCorruptedPenalty) {
                     lastEnemyPlayedCard = enemyCard1Name;
                     enemyCard1.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
@@ -2067,7 +2099,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                             animateEnemyCard();
                         }
                     }, 2000);
-                    if (!enemyIsHoarding){
+                    if (!enemyIsHoarding) {
                         enemyCard1Used = true;
                         enemyCardsRemaining--;
                         pool.add(0);
@@ -2082,7 +2114,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 6500);
 
                     //IF ENEMY USES DEMONIC PRAYER CARD IT NEEDS LONGER WAIT TIMER THAN NORMAL (8000)
-                    if (enemyCard1Name.equals("Demonic Prayer")){
+                    if (enemyCard1Name.equals("Demonic Prayer")) {
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 checkEnemyMoves();
@@ -2104,7 +2136,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                 }
 
-                if (enemyPickedCard == 1 && enemyMoves >= enemyCard2Cost + enemyCorruptedPenalty){
+                if (enemyPickedCard == 1 && enemyMoves >= enemyCard2Cost + enemyCorruptedPenalty) {
                     lastEnemyPlayedCard = enemyCard2Name;
                     enemyCard2.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
@@ -2114,7 +2146,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                             animateEnemyCard();
                         }
                     }, 2000);
-                    if (!enemyIsHoarding){
+                    if (!enemyIsHoarding) {
                         enemyCard2Used = true;
                         enemyCardsRemaining--;
                         pool.add(1);
@@ -2129,7 +2161,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 6500);
 
                     //IF ENEMY USES DEMONIC PRAYER CARD IT NEEDS LONGER WAIT TIMER THAN NORMAL (8000)
-                    if (enemyCard2Name.equals("Demonic Prayer")){
+                    if (enemyCard2Name.equals("Demonic Prayer")) {
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 checkEnemyMoves();
@@ -2151,7 +2183,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                 }
 
-                if (enemyPickedCard == 2 && enemyMoves >= enemyCard3Cost + enemyCorruptedPenalty){
+                if (enemyPickedCard == 2 && enemyMoves >= enemyCard3Cost + enemyCorruptedPenalty) {
                     lastEnemyPlayedCard = enemyCard3Name;
                     enemyCard3.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
@@ -2161,7 +2193,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                             animateEnemyCard();
                         }
                     }, 2000);
-                    if (!enemyIsHoarding){
+                    if (!enemyIsHoarding) {
                         enemyCard3Used = true;
                         enemyCardsRemaining--;
                         pool.add(2);
@@ -2176,7 +2208,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 6500);
 
                     //IF ENEMY USES DEMONIC PRAYER CARD IT NEEDS LONGER WAIT TIMER THAN NORMAL (8000)
-                    if (enemyCard3Name.equals("Demonic Prayer")){
+                    if (enemyCard3Name.equals("Demonic Prayer")) {
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 checkEnemyMoves();
@@ -2198,7 +2230,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                 }
 
-                if (enemyPickedCard == 3 && enemyMoves >= enemyCard4Cost + enemyCorruptedPenalty){
+                if (enemyPickedCard == 3 && enemyMoves >= enemyCard4Cost + enemyCorruptedPenalty) {
                     lastEnemyPlayedCard = enemyCard4Name;
                     enemyCard4.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
@@ -2208,7 +2240,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                             animateEnemyCard();
                         }
                     }, 2000);
-                    if (!enemyIsHoarding){
+                    if (!enemyIsHoarding) {
                         enemyCard4Used = true;
                         enemyCardsRemaining--;
                         pool.add(3);
@@ -2223,7 +2255,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 6500);
 
                     //IF ENEMY USES DEMONIC PRAYER CARD IT NEEDS LONGER WAIT TIMER THAN NORMAL (8000)
-                    if (enemyCard4Name.equals("Demonic Prayer")){
+                    if (enemyCard4Name.equals("Demonic Prayer")) {
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 checkEnemyMoves();
@@ -2245,7 +2277,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                 }
 
-                if (enemyPickedCard == 4 && enemyMoves >= enemyCard5Cost + enemyCorruptedPenalty){
+                if (enemyPickedCard == 4 && enemyMoves >= enemyCard5Cost + enemyCorruptedPenalty) {
                     lastEnemyPlayedCard = enemyCard5Name;
                     enemyCard5.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
@@ -2255,7 +2287,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                             animateEnemyCard();
                         }
                     }, 2000);
-                    if (!enemyIsHoarding){
+                    if (!enemyIsHoarding) {
                         enemyCard5Used = true;
                         enemyCardsRemaining--;
                         pool.add(4);
@@ -2270,7 +2302,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 6500);
 
                     //IF ENEMY USES DEMONIC PRAYER CARD IT NEEDS LONGER WAIT TIMER THAN NORMAL (8000)
-                    if (enemyCard5Name.equals("Demonic Prayer")){
+                    if (enemyCard5Name.equals("Demonic Prayer")) {
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 checkEnemyMoves();
@@ -2293,7 +2325,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                 }
 
-                if (enemyPickedCard == 5 && enemyMoves >= enemyCard6Cost + enemyCorruptedPenalty){
+                if (enemyPickedCard == 5 && enemyMoves >= enemyCard6Cost + enemyCorruptedPenalty) {
                     lastEnemyPlayedCard = enemyCard6Name;
                     enemyCard6.setColorFilter(Color.argb(255, 255, 255, 255));
                     myHandler.postDelayed(new Runnable() {
@@ -2303,7 +2335,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                             animateEnemyCard();
                         }
                     }, 2000);
-                    if (!enemyIsHoarding){
+                    if (!enemyIsHoarding) {
                         enemyCard6Used = true;
                         enemyCardsRemaining--;
                         pool.add(5);
@@ -2318,7 +2350,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 6500);
 
                     //IF ENEMY USES DEMONIC PRAYER CARD IT NEEDS LONGER WAIT  TIMER THAN NORMAL (8000)
-                    if (enemyCard6Name.equals("Demonic Prayer")){
+                    if (enemyCard6Name.equals("Demonic Prayer")) {
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 checkEnemyMoves();
@@ -2365,37 +2397,37 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* UPDATE ENEMY STATUSES */
-    private void updateEnemyStatuses(){
-        if (enemyHasConcentrate){
+    private void updateEnemyStatuses() {
+        if (enemyHasConcentrate) {
             enemyConcentrateRound = true;
         }
-        if (enemyIsCorrupted){
+        if (enemyIsCorrupted) {
             enemyCorruptedPenalty = 1;
         }
-        if (enemyHasHaste){
+        if (enemyHasHaste) {
             enemyMoves = enemyMoves + 1;
         }
-        if (enemyHasHaste2){
+        if (enemyHasHaste2) {
             enemyMoves = enemyMoves + 2;
         }
-        if (enemyIsSlowed){
+        if (enemyIsSlowed) {
             enemyMoves = enemyMoves - 1;
         }
-        if (enemyIsCursed && enemyCurseCountdown == -1){
+        if (enemyIsCursed && enemyCurseCountdown == -1) {
             enemyCurseCountdown = 3;
         }
-        if (enemyIsCursed && enemyCurseCountdown != -1){
+        if (enemyIsCursed && enemyCurseCountdown != -1) {
             enemyCurseCountdown--;
         }
-        if (enemyIsAgonized && enemyAgonyCountdown == -1){
+        if (enemyIsAgonized && enemyAgonyCountdown == -1) {
             enemyAgonyCountdown = 3;
         }
-        if (enemyIsAgonized && enemyAgonyCountdown >= 1){
+        if (enemyIsAgonized && enemyAgonyCountdown >= 1) {
             enemyScore = enemyScore - 3;
             tvEnemyScore.startAnimation(ani_shake);
             tvEnemyScore.setTextColor(getResources().getColor(R.color.textBrightRed));
             tvEnemyScore.setText("-3");
-            if (enemyScore < 0){
+            if (enemyScore < 0) {
                 enemyScore = 0;
             }
             myHandler.postDelayed(new Runnable() {
@@ -2408,52 +2440,52 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }, 1000);
             enemyAgonyCountdown--;
         }
-        if (enemyIsMaledicted && enemyMaledictionCountdown == -1){
+        if (enemyIsMaledicted && enemyMaledictionCountdown == -1) {
             enemyMaledictionCountdown = 4;
         }
-        if (enemyIsMaledicted && enemyMaledictionCountdown != -1){
+        if (enemyIsMaledicted && enemyMaledictionCountdown != -1) {
             enemyMaledictionCountdown--;
         }
-        if (enemyIsSentenced && enemySentenceCountdown == -1){
+        if (enemyIsSentenced && enemySentenceCountdown == -1) {
             enemySentenceCountdown = 3;
         }
-        if (enemyIsSentenced && enemySentenceCountdown != -1){
+        if (enemyIsSentenced && enemySentenceCountdown != -1) {
             enemySentenceCountdown--;
         }
-        if (enemyHasProtect && enemyProtectCountdown == -1){
+        if (enemyHasProtect && enemyProtectCountdown == -1) {
             enemyProtectCountdown = 3;
         }
-        if (enemyHasProtect && enemyProtectCountdown != -1){
+        if (enemyHasProtect && enemyProtectCountdown != -1) {
             enemyProtectCountdown--;
         }
-        if (enemyHasSalvage && enemySalvageCountdown == -1){
+        if (enemyHasSalvage && enemySalvageCountdown == -1) {
             enemySalvageCountdown = 2;
         }
-        if (enemyHasSalvage && enemySalvageCountdown != -1){
+        if (enemyHasSalvage && enemySalvageCountdown != -1) {
             enemySalvageCountdown--;
         }
-        if (enemyHasCharge && enemyChargeCountdown == -1){
+        if (enemyHasCharge && enemyChargeCountdown == -1) {
             enemyChargeCountdown = 3;
         }
-        if (enemyHasCharge && enemyChargeCountdown != -1){
+        if (enemyHasCharge && enemyChargeCountdown != -1) {
             enemyChargeCountdown--;
         }
-        if (enemyHasAccuracy && enemyAccuracyCountdown == -1){
+        if (enemyHasAccuracy && enemyAccuracyCountdown == -1) {
             enemyAccuracyCountdown = 3;
         }
-        if (enemyHasAccuracy && enemyAccuracyCountdown != -1){
+        if (enemyHasAccuracy && enemyAccuracyCountdown != -1) {
             enemyAccuracyCountdown--;
         }
-        if (enemyIsBlind && enemyBlindCountdown == -1){
+        if (enemyIsBlind && enemyBlindCountdown == -1) {
             enemyBlindCountdown = 3;
         }
-        if (enemyIsBlind && enemyBlindCountdown != -1){
+        if (enemyIsBlind && enemyBlindCountdown != -1) {
             enemyBlindCountdown--;
         }
-        if (enemyIsConfused && enemyConfuseCountdown == -1){
+        if (enemyIsConfused && enemyConfuseCountdown == -1) {
             enemyConfuseCountdown = 3;
         }
-        if (enemyIsConfused && enemyConfuseCountdown != -1){
+        if (enemyIsConfused && enemyConfuseCountdown != -1) {
             enemyConfuseCountdown--;
         }
         enemyIsSlowed = false;
@@ -2463,14 +2495,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* CHECK ENEMY REMAINING MOVES */
-    private void checkEnemyMoves(){
+    private void checkEnemyMoves() {
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                if (enemyMoves <= 0 || enemyCorruptedPenalty != 0 || objectsRemaining == 1){
+                if (enemyMoves <= 0 || enemyCorruptedPenalty != 0 || objectsRemaining == 1) {
                     enemyTurnEnd();
                 } else {
-                    if (objectsRemaining == 0){
+                    if (objectsRemaining == 0) {
                         checkIfNoObjRemains();
                     } else {
                         enemyTurn();
@@ -2504,7 +2536,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 public void run() {
                     enemyHasAlteredTime = false;
                     rewindResetChance = genRand(100);
-                    if (rewindResetChance >= 75){
+                    if (rewindResetChance >= 75) {
                         tvCenterMessage.setText(enemyReset);
                     } else {
                         tvCenterMessage.setText(enemyResetFail);
@@ -2520,7 +2552,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     clearEnemyStatus("Rewind");
-                    if (rewindResetChance >= 75){
+                    if (rewindResetChance >= 75) {
                         resetAllObjects();
                     }
                 }
@@ -2582,80 +2614,80 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     ON, AT THE END OF THE CHAIN, IT STARTS PLAYER TURN.
      */
 
-    private void checkIfPlayerCurseEnds(){
-        if (playerIsCursed && playerCurseCountdown == 0){
+    private void checkIfPlayerCurseEnds() {
+        if (playerIsCursed && playerCurseCountdown == 0) {
             playerCursedEffect();
         } else {
             checkIfPlayerAgonyEnds();
         }
     }
 
-    private void checkIfPlayerAgonyEnds(){
-        if (playerIsAgonized && playerAgonyCountdown == 0){
+    private void checkIfPlayerAgonyEnds() {
+        if (playerIsAgonized && playerAgonyCountdown == 0) {
             playerAgonizedEnd();
         } else {
             checkIfPlayerMaledictionEnds();
         }
     }
 
-    private void checkIfPlayerMaledictionEnds(){
-        if (playerIsMaledicted && playerMaledictionCountdown == 0){
+    private void checkIfPlayerMaledictionEnds() {
+        if (playerIsMaledicted && playerMaledictionCountdown == 0) {
             playerMaledictedEffect();
         } else {
             checkIfPlayerSentenceEnds();
         }
     }
 
-    private void checkIfPlayerSentenceEnds(){
-        if (playerIsSentenced && playerSentenceCountdown == 0){
+    private void checkIfPlayerSentenceEnds() {
+        if (playerIsSentenced && playerSentenceCountdown == 0) {
             playerSentencedEffect();
         } else {
             checkIfPlayerProtectEnds();
         }
     }
 
-    private void checkIfPlayerProtectEnds(){
-        if (playerHasProtect && playerProtectCountdown == 0){
+    private void checkIfPlayerProtectEnds() {
+        if (playerHasProtect && playerProtectCountdown == 0) {
             playerProtectEnd();
         } else {
             checkIfPlayerSalvageEnds();
         }
     }
 
-    private void checkIfPlayerSalvageEnds(){
-        if (playerHasSalvage && playerSalvageCountdown == 0){
+    private void checkIfPlayerSalvageEnds() {
+        if (playerHasSalvage && playerSalvageCountdown == 0) {
             playerSalvageEnd();
         } else {
             checkIfPlayerChargeEnds();
         }
     }
 
-    private void checkIfPlayerChargeEnds(){
-        if (playerHasCharge && playerChargeCountdown == 0){
+    private void checkIfPlayerChargeEnds() {
+        if (playerHasCharge && playerChargeCountdown == 0) {
             playerChargeEnd();
         } else {
             checkIfPlayerAccuracyEnds();
         }
     }
 
-    private void checkIfPlayerAccuracyEnds(){
-        if (playerHasAccuracy && playerAccuracyCountdown == 0){
+    private void checkIfPlayerAccuracyEnds() {
+        if (playerHasAccuracy && playerAccuracyCountdown == 0) {
             playerAccuracyEnd();
         } else {
             checkIfPlayerBlindEnds();
         }
     }
 
-    private void checkIfPlayerBlindEnds(){
-        if (playerIsBlind && playerBlindCountdown == 0){
+    private void checkIfPlayerBlindEnds() {
+        if (playerIsBlind && playerBlindCountdown == 0) {
             playerBlindEnd();
         } else {
             checkIfPlayerConfuseEnds();
         }
     }
 
-    private void checkIfPlayerConfuseEnds(){
-        if (playerIsConfused && playerConfuseCountdown == 0){
+    private void checkIfPlayerConfuseEnds() {
+        if (playerIsConfused && playerConfuseCountdown == 0) {
             playerConfuseEnd();
         } else {
             playerTurn();
@@ -2665,7 +2697,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /*---------------------------------*/
 
     /* PLAYER TURN START */
-    private void playerTurn(){
+    private void playerTurn() {
         btnEndTurn.setEnabled(true);
         btnEndTurn.setText("End Turn");
         enable(layout_objectRow);
@@ -2675,37 +2707,37 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* UPDATE PLAYER STATUSES */
-    private void updatePlayerStatuses(){
-        if (playerHasConcentrate){
+    private void updatePlayerStatuses() {
+        if (playerHasConcentrate) {
             playerConcentrateRound = true;
         }
-        if (playerIsCorrupted){
+        if (playerIsCorrupted) {
             playerCorruptedPenalty = 1;
         }
-        if (playerHasHaste){
+        if (playerHasHaste) {
             playerMoves = playerMoves + 1;
         }
-        if (playerHasHaste2){
+        if (playerHasHaste2) {
             playerMoves = playerMoves + 2;
         }
-        if (playerIsSlowed){
+        if (playerIsSlowed) {
             playerMoves = playerMoves - 1;
         }
-        if (playerIsCursed && playerCurseCountdown == -1){
+        if (playerIsCursed && playerCurseCountdown == -1) {
             playerCurseCountdown = 3;
         }
-        if (playerIsCursed && playerCurseCountdown != -1){
+        if (playerIsCursed && playerCurseCountdown != -1) {
             playerCurseCountdown--;
         }
-        if (playerIsAgonized && playerAgonyCountdown == -1){
+        if (playerIsAgonized && playerAgonyCountdown == -1) {
             playerAgonyCountdown = 3;
         }
-        if (playerIsAgonized && playerAgonyCountdown >= 1){
+        if (playerIsAgonized && playerAgonyCountdown >= 1) {
             playerScore = playerScore - 3;
             tvPlayerScore.startAnimation(ani_shake);
             tvPlayerScore.setTextColor(getResources().getColor(R.color.textBrightRed));
             tvPlayerScore.setText("-3");
-            if (playerScore < 0){
+            if (playerScore < 0) {
                 playerScore = 0;
             }
             myHandler.postDelayed(new Runnable() {
@@ -2718,52 +2750,52 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }, 1000);
             playerAgonyCountdown--;
         }
-        if (playerIsMaledicted && playerMaledictionCountdown == -1){
+        if (playerIsMaledicted && playerMaledictionCountdown == -1) {
             playerMaledictionCountdown = 3;
         }
-        if (playerIsMaledicted && playerMaledictionCountdown != -1){
+        if (playerIsMaledicted && playerMaledictionCountdown != -1) {
             playerMaledictionCountdown--;
         }
-        if (playerIsSentenced && playerSentenceCountdown == -1){
+        if (playerIsSentenced && playerSentenceCountdown == -1) {
             playerSentenceCountdown = 3;
         }
-        if (playerIsSentenced && playerSentenceCountdown != -1){
+        if (playerIsSentenced && playerSentenceCountdown != -1) {
             playerSentenceCountdown--;
         }
-        if (playerHasProtect && playerProtectCountdown == -1){
+        if (playerHasProtect && playerProtectCountdown == -1) {
             playerProtectCountdown = 3;
         }
-        if (playerHasProtect && playerProtectCountdown != -1){
+        if (playerHasProtect && playerProtectCountdown != -1) {
             playerProtectCountdown--;
         }
-        if (playerHasSalvage && playerSalvageCountdown == -1){
+        if (playerHasSalvage && playerSalvageCountdown == -1) {
             playerSalvageCountdown = 3;
         }
-        if (playerHasSalvage && playerSalvageCountdown != -1){
+        if (playerHasSalvage && playerSalvageCountdown != -1) {
             playerSalvageCountdown--;
         }
-        if (playerHasCharge && playerChargeCountdown == -1){
+        if (playerHasCharge && playerChargeCountdown == -1) {
             playerChargeCountdown = 3;
         }
-        if (playerHasCharge && playerChargeCountdown != -1){
+        if (playerHasCharge && playerChargeCountdown != -1) {
             playerChargeCountdown--;
         }
-        if (playerHasAccuracy && playerAccuracyCountdown == -1){
+        if (playerHasAccuracy && playerAccuracyCountdown == -1) {
             playerAccuracyCountdown = 3;
         }
-        if (playerHasAccuracy && playerAccuracyCountdown != -1){
+        if (playerHasAccuracy && playerAccuracyCountdown != -1) {
             playerAccuracyCountdown--;
         }
-        if (playerIsBlind && playerBlindCountdown == -1){
+        if (playerIsBlind && playerBlindCountdown == -1) {
             playerBlindCountdown = 3;
         }
-        if (playerIsBlind && playerBlindCountdown != -1){
+        if (playerIsBlind && playerBlindCountdown != -1) {
             playerBlindCountdown--;
         }
-        if (playerIsConfused && playerConfuseCountdown == -1){
+        if (playerIsConfused && playerConfuseCountdown == -1) {
             playerConfuseCountdown = 3;
         }
-        if (playerIsConfused && playerConfuseCountdown != -1){
+        if (playerIsConfused && playerConfuseCountdown != -1) {
             playerConfuseCountdown--;
         }
         playerIsSlowed = false;
@@ -2818,7 +2850,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     private void aiClearObject() {
         initiateEnemyObjClick();
         // IF ENEMY MISSED
-        if (!enemyHit && enemyMoves >= 1 + enemyCorruptedPenalty){
+        if (!enemyHit && enemyMoves >= 1 + enemyCorruptedPenalty) {
             playerHitObject("Miss!", 0);
             enemyMoves = enemyMoves - 1 - enemyCorruptedPenalty;
             tvEnemyMovesNumber.setText(String.valueOf(enemyMoves));
@@ -2860,7 +2892,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -2904,7 +2936,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -2948,7 +2980,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -2992,7 +3024,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -3036,7 +3068,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -3080,7 +3112,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -3124,7 +3156,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -3168,7 +3200,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -3212,7 +3244,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -3256,7 +3288,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -3300,7 +3332,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -3344,7 +3376,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -3388,7 +3420,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -3432,7 +3464,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -3476,7 +3508,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject(objMsgSymbol, enemyClearAward);
                 SoundEffects.playSound(clearSoundId);
                 updateEnemyStatsOnObjClear();
@@ -3521,7 +3553,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 return;
             }
             // IF ENEMY HITS A NORMAL TARGET
-            if (!nextObjIsInfested){
+            if (!nextObjIsInfested) {
                 playerHitObject("-", lastPickPenaltyNr);
                 SoundEffects.playSound(clearSoundId);
                 enemyMoves = enemyMoves - 1 - enemyCorruptedPenalty;
@@ -3539,50 +3571,50 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
     /* Selects random card among the ones the enemy has left. This method will have to
     be modified depending on how many cards the enemy has. */
-    public int randomizeEnemyCardSelect(){
+    public int randomizeEnemyCardSelect() {
         int randomizedCard;
 
-        if (enemyStartingCards == 1){
+        if (enemyStartingCards == 1) {
             return 0;
         }
 
         //IF ENEMY STARTS WITH TWO CARDS
-        if (enemyStartingCards == 2){
-            do{
+        if (enemyStartingCards == 2) {
+            do {
                 randomizedCard = genRand(2);
-            }while( pool.contains(randomizedCard) );
+            } while (pool.contains(randomizedCard));
             return randomizedCard;
         }
 
         //IF ENEMY STARTS WITH THREE CARDS
-        if (enemyStartingCards == 3){
-            do{
+        if (enemyStartingCards == 3) {
+            do {
                 randomizedCard = genRand(3);
-            }while( pool.contains(randomizedCard) );
+            } while (pool.contains(randomizedCard));
             return randomizedCard;
         }
 
         //IF ENEMY STARTS WITH FOUR CARDS
-        if (enemyStartingCards == 4){
-            do{
+        if (enemyStartingCards == 4) {
+            do {
                 randomizedCard = genRand(4);
-            }while( pool.contains(randomizedCard) );
+            } while (pool.contains(randomizedCard));
             return randomizedCard;
         }
 
         //IF ENEMY STARTS WITH FIVE CARDS
-        if (enemyStartingCards == 5){
-            do{
+        if (enemyStartingCards == 5) {
+            do {
                 randomizedCard = genRand(5);
-            }while( pool.contains(randomizedCard) );
+            } while (pool.contains(randomizedCard));
             return randomizedCard;
         }
 
         //IF ENEMY STARTS WITH SIX CARDS
-        if (enemyStartingCards == 6){
-            do{
+        if (enemyStartingCards == 6) {
+            do {
                 randomizedCard = genRand(6);
-            }while( pool.contains(randomizedCard) );
+            } while (pool.contains(randomizedCard));
             return randomizedCard;
         }
 
@@ -3593,7 +3625,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         return new Random().nextInt(number);
     }
 
-    public int genRandRange(int min, int max){
+    public int genRandRange(int min, int max) {
         return new Random().nextInt((max - min) + 1) + min;
     }
 
@@ -3625,8 +3657,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.confirmdialog_finalscore);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
-                if (density.equals("xxhdpi")){
-                    dialog.getWindow().setLayout(1000,600);
+                if (density.equals("xxhdpi")) {
+                    dialog.getWindow().setLayout(1000, 600);
                 } else if (density.equals("hdpi")) {
                     dialog.getWindow().setLayout(500, 300);
                 } else if (density.equals("mdpi")) {
@@ -3659,7 +3691,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 buttonDialogYes.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         dialog.dismiss();
-                        if (finalPlayerScore > lvlhighscore){
+                        if (finalPlayerScore > lvlhighscore) {
                             myHandler.postDelayed(new Runnable() {
                                 public void run() {
                                     tvCenterMessage.setText("NEW HIGH SCORE!");
@@ -3687,17 +3719,17 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* CHECKS LEVEL INFO FOR UPDATE */
-    private void checkLevelInfo(){
-        if (lvlcleared == 0){
+    private void checkLevelInfo() {
+        if (lvlcleared == 0) {
             try {
                 db.open();
             } catch (java.sql.SQLException e) {
                 e.printStackTrace();
             }
-            if (finalPlayerScore > lvlhighscore){
+            if (finalPlayerScore > lvlhighscore) {
                 cursor = db.getLvlInfo(lvlId);
                 if (cursor != null && cursor.moveToFirst()) {
-                    if (playerWon){
+                    if (playerWon) {
                         db.updateLvlInfo(lvlId, 1, finalPlayerScore);
                     } else {
                         db.updateLvlInfo(lvlId, lvlcleared, finalPlayerScore);
@@ -3706,7 +3738,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             } else {
                 cursor = db.getLvlInfo(17);
                 if (cursor != null && cursor.moveToFirst()) {
-                    if (playerWon){
+                    if (playerWon) {
                         db.updateLvlInfo(lvlId, 1, lvlhighscore);
                     } else {
                         db.updateLvlInfo(lvlId, lvlcleared, lvlhighscore);
@@ -3720,7 +3752,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             } catch (java.sql.SQLException e) {
                 e.printStackTrace();
             }
-            if (finalPlayerScore > lvlhighscore){
+            if (finalPlayerScore > lvlhighscore) {
                 cursor = db.getLvlInfo(lvlId);
                 if (cursor != null && cursor.moveToFirst()) {
                     db.updateLvlInfo(lvlId, lvlcleared, finalPlayerScore);
@@ -3740,14 +3772,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         final String density = DeviceDensity.getDensityName(this);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                if (playerLevel == 20){
+                if (playerLevel == 20) {
                     finish();
                     overridePendingTransition(0, 0);
                 }
                 int xpPenalty;
                 final int gainedXp;
                 boolean penaltyOrNot = UpdateExp.getXpReward(worldId, playerLevel);
-                if (penaltyOrNot){
+                if (penaltyOrNot) {
                     xpPenalty = UpdateExp.getExpPenalty(worldId, playerLevel);
                     gainedXp = UpdateExp.getGainedXp(finalPlayerScore, xpPenalty);
                 } else {
@@ -3757,8 +3789,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.confirmdialog_exp_gain);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
-                if (density.equals("xxhdpi")){
-                    dialog.getWindow().setLayout(1000,600);
+                if (density.equals("xxhdpi")) {
+                    dialog.getWindow().setLayout(1000, 600);
                 } else if (density.equals("hdpi")) {
                     dialog.getWindow().setLayout(500, 300);
                 } else if (density.equals("mdpi")) {
@@ -4128,14 +4160,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* THIS METHOD SETS ENEMY CARDS */
-    private void setEnemyCardsIcons(){
+    private void setEnemyCardsIcons() {
         boolean enemyCard1Present = EnemyCards.getCardPresent(lvlId, 0);
         boolean enemyCard2Present = EnemyCards.getCardPresent(lvlId, 1);
         boolean enemyCard3Present = EnemyCards.getCardPresent(lvlId, 2);
         boolean enemyCard4Present = EnemyCards.getCardPresent(lvlId, 3);
         boolean enemyCard5Present = EnemyCards.getCardPresent(lvlId, 4);
         boolean enemyCard6Present = EnemyCards.getCardPresent(lvlId, 5);
-        if (enemyCard1Present){
+        if (enemyCard1Present) {
             enemyCard1.setVisibility(View.VISIBLE);
             String iconBackgroundName = EnemyCards.getEnemyCardIconName(lvlId, 0);
             int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
@@ -4145,7 +4177,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
             enemyCard1.setImageResource(typeBackground);
         }
-        if (enemyCard2Present){
+        if (enemyCard2Present) {
             enemyCard2.setVisibility(View.VISIBLE);
             String iconBackgroundName = EnemyCards.getEnemyCardIconName(lvlId, 1);
             int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
@@ -4155,7 +4187,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
             enemyCard2.setImageResource(typeBackground);
         }
-        if (enemyCard3Present){
+        if (enemyCard3Present) {
             enemyCard3.setVisibility(View.VISIBLE);
             String iconBackgroundName = EnemyCards.getEnemyCardIconName(lvlId, 2);
             int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
@@ -4165,7 +4197,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
             enemyCard3.setImageResource(typeBackground);
         }
-        if (enemyCard4Present){
+        if (enemyCard4Present) {
             enemyCard4.setVisibility(View.VISIBLE);
             String iconBackgroundName = EnemyCards.getEnemyCardIconName(lvlId, 3);
             int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
@@ -4175,7 +4207,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
             enemyCard4.setImageResource(typeBackground);
         }
-        if (enemyCard5Present){
+        if (enemyCard5Present) {
             enemyCard5.setVisibility(View.VISIBLE);
             String iconBackgroundName = EnemyCards.getEnemyCardIconName(lvlId, 4);
             int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
@@ -4185,7 +4217,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             int typeBackground = getResources().getIdentifier(typeBackgroundName, "drawable", getPackageName());
             enemyCard5.setImageResource(typeBackground);
         }
-        if (enemyCard6Present){
+        if (enemyCard6Present) {
             enemyCard6.setVisibility(View.VISIBLE);
             String iconBackgroundName = EnemyCards.getEnemyCardIconName(lvlId, 5);
             int iconBackground = getResources().getIdentifier(iconBackgroundName, "drawable", getPackageName());
@@ -4267,7 +4299,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* FETCHES PLAYER CARD COST */
-    private int getCardCost(){
+    private int getCardCost() {
         int cardCost;
         if (selectedCard == 1) {
             cardCost = playerCard1Cost;
@@ -4292,18 +4324,17 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (selectedCard == 6) {
             cardCost = playerCard6Cost;
             return cardCost;
-        }
-        else {
+        } else {
             return 0;
         }
     }
 
     /* THIS METHOD ANIMATES THE RIGHT ENEMY CARD AND DISPLAYS IT IN THE CENTER */
-    private void animateEnemyCard(){
+    private void animateEnemyCard() {
         if (enemyPickedCard == 0) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    if (!enemyIsHoarding){
+                    if (!enemyIsHoarding) {
                         enemyCard1.setVisibility(View.INVISIBLE);
                     } else {
                         tvCenterMessage.startAnimation(ani_fadeOut);
@@ -4322,7 +4353,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyPickedCard == 1) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    if (!enemyIsHoarding){
+                    if (!enemyIsHoarding) {
                         enemyCard2.setVisibility(View.INVISIBLE);
                     } else {
                         tvCenterMessage.startAnimation(ani_fadeOut);
@@ -4341,7 +4372,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyPickedCard == 2) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    if (!enemyIsHoarding){
+                    if (!enemyIsHoarding) {
                         enemyCard3.setVisibility(View.INVISIBLE);
                     } else {
                         tvCenterMessage.startAnimation(ani_fadeOut);
@@ -4360,7 +4391,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyPickedCard == 3) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    if (!enemyIsHoarding){
+                    if (!enemyIsHoarding) {
                         enemyCard4.setVisibility(View.INVISIBLE);
                     } else {
                         tvCenterMessage.startAnimation(ani_fadeOut);
@@ -4379,7 +4410,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyPickedCard == 4) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    if (!enemyIsHoarding){
+                    if (!enemyIsHoarding) {
                         enemyCard5.setVisibility(View.INVISIBLE);
                     } else {
                         tvCenterMessage.startAnimation(ani_fadeOut);
@@ -4398,7 +4429,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyPickedCard == 5) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    if (!enemyIsHoarding){
+                    if (!enemyIsHoarding) {
                         enemyCard6.setVisibility(View.INVISIBLE);
                     } else {
                         tvCenterMessage.startAnimation(ani_fadeOut);
@@ -4429,7 +4460,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (selectedCard == 1) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    if (!playerIsHoarding){
+                    if (!playerIsHoarding) {
                         playerCard1.setVisibility(View.INVISIBLE);
                         playerCard1.setClickable(false);
                         playerCard1Used = true;
@@ -4450,7 +4481,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (selectedCard == 2) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    if (!playerIsHoarding){
+                    if (!playerIsHoarding) {
                         playerCard2.setVisibility(View.INVISIBLE);
                         playerCard2.setClickable(false);
                         playerCard2Used = true;
@@ -4471,7 +4502,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (selectedCard == 3) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    if (!playerIsHoarding){
+                    if (!playerIsHoarding) {
                         playerCard3.setVisibility(View.INVISIBLE);
                         playerCard3.setClickable(false);
                         playerCard3Used = true;
@@ -4492,7 +4523,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (selectedCard == 4) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    if (!playerIsHoarding){
+                    if (!playerIsHoarding) {
                         playerCard4.setVisibility(View.INVISIBLE);
                         playerCard4.setClickable(false);
                         playerCard4Used = true;
@@ -4513,7 +4544,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (selectedCard == 5) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    if (!playerIsHoarding){
+                    if (!playerIsHoarding) {
                         playerCard5.setVisibility(View.INVISIBLE);
                         playerCard5.setClickable(false);
                         playerCard5Used = true;
@@ -4534,7 +4565,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (selectedCard == 6) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
-                    if (!playerIsHoarding){
+                    if (!playerIsHoarding) {
                         playerCard6.setVisibility(View.INVISIBLE);
                         playerCard6.setClickable(false);
                         playerCard6Used = true;
@@ -4556,7 +4587,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             public void run() {
                 ivCenterCardFrame.clearAnimation();
                 ivCenterCardFrame.setVisibility(View.INVISIBLE);
-                if (playerIsHoarding){
+                if (playerIsHoarding) {
                     tvCenterMessage.startAnimation(ani_fadeOut);
                     playerIsHoarding = false;
                     clearPlayerStatus("Hoard");
@@ -4588,93 +4619,93 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             cardSpeedUp();
         }
         if (playedCard.equals("Steal")) {
-            if (playerClearAward == 4){
-                cardSteal(2,6);
+            if (playerClearAward == 4) {
+                cardSteal(2, 6);
             } else {
-                cardSteal(1,3);
+                cardSteal(1, 3);
             }
         }
         if (playedCard.equals("Steal II")) {
-            if (playerClearAward == 4){
-                cardSteal(6,10);
+            if (playerClearAward == 4) {
+                cardSteal(6, 10);
             } else {
-                cardSteal(3,5);
+                cardSteal(3, 5);
             }
         }
         if (playedCard.equals("Steal III")) {
-            if (playerClearAward == 4){
-                cardSteal(10,14);
+            if (playerClearAward == 4) {
+                cardSteal(10, 14);
             } else {
-                cardSteal(5,7);
+                cardSteal(5, 7);
             }
         }
-        if (playedCard.equals("Concentrate")){
+        if (playedCard.equals("Concentrate")) {
             cardConcentrate();
         }
-        if (playedCard.equals("Corruption")){
+        if (playedCard.equals("Corruption")) {
             cardCorruption();
         }
-        if (playedCard.equals("Curse")){
+        if (playedCard.equals("Curse")) {
             cardCurse();
         }
-        if(playedCard.equals("Mimic")){
+        if (playedCard.equals("Mimic")) {
             cardMimic();
         }
-        if(playedCard.equals("Speed Up II")){
+        if (playedCard.equals("Speed Up II")) {
             cardSpeedUp2();
         }
-        if(playedCard.equals("Infest")){
+        if (playedCard.equals("Infest")) {
             cardInfest();
         }
-        if(playedCard.equals("Restore")){
+        if (playedCard.equals("Restore")) {
             cardRestore();
         }
-        if(playedCard.equals("Agony")){
+        if (playedCard.equals("Agony")) {
             cardAgony();
         }
-        if(playedCard.equals("Malediction")){
+        if (playedCard.equals("Malediction")) {
             cardMalediction();
         }
-        if(playedCard.equals("Demonic Prayer")){
+        if (playedCard.equals("Demonic Prayer")) {
             cardDemonicPrayer();
         }
-        if(playedCard.equals("Death Sentence")){
+        if (playedCard.equals("Death Sentence")) {
             cardDeathSentence();
         }
-        if(playedCard.equals("Cure")){
+        if (playedCard.equals("Cure")) {
             cardCure();
         }
-        if(playedCard.equals("Rewind")){
+        if (playedCard.equals("Rewind")) {
             cardRewind();
         }
-        if(playedCard.equals("Protect")){
+        if (playedCard.equals("Protect")) {
             cardProtect();
         }
-        if(playedCard.equals("Hoard")){
+        if (playedCard.equals("Hoard")) {
             cardHoard();
         }
-        if(playedCard.equals("Dispel")){
+        if (playedCard.equals("Dispel")) {
             cardDispel();
         }
-        if(playedCard.equals("Salvage")){
+        if (playedCard.equals("Salvage")) {
             cardSalvage();
         }
-        if(playedCard.equals("Silence")){
+        if (playedCard.equals("Silence")) {
             cardSilence();
         }
-        if(playedCard.equals("Charge")){
+        if (playedCard.equals("Charge")) {
             cardCharge();
         }
-        if(playedCard.equals("Take Aim")){
+        if (playedCard.equals("Take Aim")) {
             cardTakeAim();
         }
-        if(playedCard.equals("Blind")){
+        if (playedCard.equals("Blind")) {
             cardBlind();
         }
-        if(playedCard.equals("Confuse")){
+        if (playedCard.equals("Confuse")) {
             cardConfuse();
         }
-        if (errorMsg){
+        if (errorMsg) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     enablePlayerActions();
@@ -4683,7 +4714,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }, 2500);
         } else {
-             if (playedCard.equals("Mimic")){
+            if (playedCard.equals("Mimic")) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         enablePlayerActions();
@@ -4702,110 +4733,110 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* THIS METHOD FINDS WHICH ENEMY CARD IS PLAYED TO DETERMINE EFFECT */
-    private void executeEnemyCardEffect(String cardName){
-        if (cardName.equals("Reinforce")){
+    private void executeEnemyCardEffect(String cardName) {
+        if (cardName.equals("Reinforce")) {
             cardReinforce1();
         }
-        if (cardName.equals("Reinforce II")){
+        if (cardName.equals("Reinforce II")) {
             cardReinforce2();
         }
-        if (cardName.equals("Reinforce III")){
+        if (cardName.equals("Reinforce III")) {
             cardReinforce3();
         }
-        if (cardName.equals("Reinforce V")){
+        if (cardName.equals("Reinforce V")) {
             cardReinforce5();
         }
-        if (cardName.equals("Slow Down")){
+        if (cardName.equals("Slow Down")) {
             cardSlowDown();
         }
-        if (cardName.equals("Speed Up")){
+        if (cardName.equals("Speed Up")) {
             cardSpeedUp();
         }
-        if (cardName.equals("Speed Up II")){
+        if (cardName.equals("Speed Up II")) {
             cardSpeedUp2();
         }
-        if (cardName.equals("Concentrate")){
+        if (cardName.equals("Concentrate")) {
             cardConcentrate();
         }
-        if (cardName.equals("Corruption")){
+        if (cardName.equals("Corruption")) {
             cardCorruption();
         }
-        if (cardName.equals("Curse")){
+        if (cardName.equals("Curse")) {
             cardCurse();
         }
-        if (cardName.equals("Steal")){
-            if (enemyHasConcentrate){
-                cardSteal(2,6);
+        if (cardName.equals("Steal")) {
+            if (enemyHasConcentrate) {
+                cardSteal(2, 6);
             } else {
-                cardSteal(1,3);
+                cardSteal(1, 3);
             }
         }
-        if (cardName.equals("Steal II")){
-            if (enemyHasConcentrate){
-                cardSteal(6,10);
+        if (cardName.equals("Steal II")) {
+            if (enemyHasConcentrate) {
+                cardSteal(6, 10);
             } else {
-                cardSteal(3,5);
+                cardSteal(3, 5);
             }
         }
-        if (cardName.equals("Steal III")){
-            if (enemyHasConcentrate){
-                cardSteal(10,14);
+        if (cardName.equals("Steal III")) {
+            if (enemyHasConcentrate) {
+                cardSteal(10, 14);
             } else {
-                cardSteal(5,7);
+                cardSteal(5, 7);
             }
         }
-        if (cardName.equals("Agony")){
+        if (cardName.equals("Agony")) {
             cardAgony();
         }
-        if (cardName.equals("Mimic")){
+        if (cardName.equals("Mimic")) {
             cardMimic();
         }
-        if (cardName.equals("Infest")){
+        if (cardName.equals("Infest")) {
             cardInfest();
         }
-        if (cardName.equals("Restore")){
+        if (cardName.equals("Restore")) {
             cardRestore();
         }
-        if (cardName.equals("Malediction")){
+        if (cardName.equals("Malediction")) {
             cardMalediction();
         }
-        if (cardName.equals("Demonic Prayer")){
+        if (cardName.equals("Demonic Prayer")) {
             cardDemonicPrayer();
         }
-        if (cardName.equals("Death Sentence")){
+        if (cardName.equals("Death Sentence")) {
             cardDeathSentence();
         }
-        if (cardName.equals("Cure")){
+        if (cardName.equals("Cure")) {
             cardCure();
         }
-        if (cardName.equals("Rewind")){
+        if (cardName.equals("Rewind")) {
             cardRewind();
         }
-        if (cardName.equals("Protect")){
+        if (cardName.equals("Protect")) {
             cardProtect();
         }
-        if (cardName.equals("Hoard")){
+        if (cardName.equals("Hoard")) {
             cardHoard();
         }
-        if (cardName.equals("Dispel")){
+        if (cardName.equals("Dispel")) {
             cardDispel();
         }
-        if (cardName.equals("Salvage")){
+        if (cardName.equals("Salvage")) {
             cardSalvage();
         }
-        if (cardName.equals("Silence")){
+        if (cardName.equals("Silence")) {
             cardSilence();
         }
-        if (cardName.equals("Charge")){
+        if (cardName.equals("Charge")) {
             cardCharge();
         }
-        if (cardName.equals("Take Aim")){
+        if (cardName.equals("Take Aim")) {
             cardTakeAim();
         }
-        if (cardName.equals("Blind")){
+        if (cardName.equals("Blind")) {
             cardBlind();
         }
-        if (cardName.equals("Confuse")){
+        if (cardName.equals("Confuse")) {
             cardConfuse();
         }
     }
@@ -4826,7 +4857,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }, 1000);
         }
         if (objectsRemaining == 15) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj001.setImageResource(objectWebbedImg);
                 obj002.setImageResource(objectImg);
             } else {
@@ -4835,7 +4866,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj002.setImageResource(objectWebbedImg);
                 obj003.setImageResource(objectImg);
             } else {
@@ -4844,7 +4875,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 13) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj003.setImageResource(objectWebbedImg);
                 obj004.setImageResource(objectImg);
             } else {
@@ -4853,7 +4884,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 12) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj004.setImageResource(objectWebbedImg);
                 obj005.setImageResource(objectImg);
             } else {
@@ -4862,7 +4893,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 11) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj005.setImageResource(objectWebbedImg);
                 obj006.setImageResource(objectImg);
             } else {
@@ -4871,7 +4902,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 10) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj006.setImageResource(objectWebbedImg);
                 obj007.setImageResource(objectImg);
             } else {
@@ -4880,7 +4911,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 9) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj007.setImageResource(objectWebbedImg);
                 obj008.setImageResource(objectImg);
             } else {
@@ -4889,7 +4920,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 8) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj008.setImageResource(objectWebbedImg);
                 obj009.setImageResource(objectImg);
             } else {
@@ -4898,7 +4929,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 7) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj009.setImageResource(objectWebbedImg);
                 obj010.setImageResource(objectImg);
             } else {
@@ -4907,7 +4938,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 6) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj010.setImageResource(objectWebbedImg);
                 obj011.setImageResource(objectImg);
             } else {
@@ -4916,7 +4947,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 5) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj011.setImageResource(objectWebbedImg);
                 obj012.setImageResource(objectImg);
             } else {
@@ -4925,7 +4956,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 4) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj012.setImageResource(objectWebbedImg);
                 obj013.setImageResource(objectImg);
             } else {
@@ -4934,7 +4965,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 3) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj013.setImageResource(objectWebbedImg);
                 obj014.setImageResource(objectImg);
             } else {
@@ -4943,7 +4974,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 2) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj014.setImageResource(objectWebbedImg);
                 obj015.setImageResource(objectImg);
             } else {
@@ -4952,7 +4983,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 1) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj015.setImageResource(objectWebbedImg);
                 obj016.setImageResource(objectImg);
             } else {
@@ -4974,7 +5005,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }, 1000);
         }
         if (objectsRemaining == 15) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj001.setImageResource(objectWebbedImg);
                 obj002.setImageResource(objectImg);
             } else {
@@ -4983,7 +5014,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj001.setImageResource(objectWebbedImg);
                 obj002.setImageResource(objectImg);
                 obj003.setImageResource(objectImg);
@@ -4994,7 +5025,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 13) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj002.setImageResource(objectWebbedImg);
                 obj003.setImageResource(objectImg);
                 obj004.setImageResource(objectImg);
@@ -5005,7 +5036,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 12) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj003.setImageResource(objectWebbedImg);
                 obj004.setImageResource(objectImg);
                 obj005.setImageResource(objectImg);
@@ -5016,7 +5047,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 11) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj004.setImageResource(objectWebbedImg);
                 obj005.setImageResource(objectImg);
                 obj006.setImageResource(objectImg);
@@ -5027,7 +5058,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 10) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj005.setImageResource(objectWebbedImg);
                 obj006.setImageResource(objectImg);
                 obj007.setImageResource(objectImg);
@@ -5038,7 +5069,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 9) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj006.setImageResource(objectWebbedImg);
                 obj007.setImageResource(objectImg);
                 obj008.setImageResource(objectImg);
@@ -5049,7 +5080,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 8) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj007.setImageResource(objectWebbedImg);
                 obj008.setImageResource(objectImg);
                 obj009.setImageResource(objectImg);
@@ -5060,7 +5091,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 7) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj008.setImageResource(objectWebbedImg);
                 obj009.setImageResource(objectImg);
                 obj010.setImageResource(objectImg);
@@ -5071,7 +5102,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 6) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj009.setImageResource(objectWebbedImg);
                 obj010.setImageResource(objectImg);
                 obj011.setImageResource(objectImg);
@@ -5082,7 +5113,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 5) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj010.setImageResource(objectWebbedImg);
                 obj011.setImageResource(objectImg);
                 obj012.setImageResource(objectImg);
@@ -5093,7 +5124,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 4) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj011.setImageResource(objectWebbedImg);
                 obj012.setImageResource(objectImg);
                 obj013.setImageResource(objectImg);
@@ -5104,7 +5135,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 3) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj012.setImageResource(objectWebbedImg);
                 obj013.setImageResource(objectImg);
                 obj014.setImageResource(objectImg);
@@ -5115,7 +5146,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 2) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj013.setImageResource(objectWebbedImg);
                 obj014.setImageResource(objectImg);
                 obj015.setImageResource(objectImg);
@@ -5126,7 +5157,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 1) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj014.setImageResource(objectWebbedImg);
                 obj015.setImageResource(objectImg);
                 obj016.setImageResource(objectImg);
@@ -5150,7 +5181,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }, 1000);
         }
         if (objectsRemaining == 15) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj001.setImageResource(objectWebbedImg);
                 obj002.setImageResource(objectImg);
             } else {
@@ -5159,7 +5190,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj001.setImageResource(objectWebbedImg);
                 obj002.setImageResource(objectImg);
                 obj003.setImageResource(objectImg);
@@ -5170,7 +5201,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 13) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj001.setImageResource(objectWebbedImg);
                 obj002.setImageResource(objectImg);
                 obj003.setImageResource(objectImg);
@@ -5183,7 +5214,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 12) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj002.setImageResource(objectWebbedImg);
                 obj003.setImageResource(objectImg);
                 obj004.setImageResource(objectImg);
@@ -5196,7 +5227,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 11) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj003.setImageResource(objectWebbedImg);
                 obj004.setImageResource(objectImg);
                 obj005.setImageResource(objectImg);
@@ -5209,7 +5240,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 10) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj004.setImageResource(objectWebbedImg);
                 obj005.setImageResource(objectImg);
                 obj006.setImageResource(objectImg);
@@ -5222,7 +5253,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 9) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj005.setImageResource(objectWebbedImg);
                 obj006.setImageResource(objectImg);
                 obj007.setImageResource(objectImg);
@@ -5235,7 +5266,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 8) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj006.setImageResource(objectWebbedImg);
                 obj007.setImageResource(objectImg);
                 obj008.setImageResource(objectImg);
@@ -5248,7 +5279,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 7) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj007.setImageResource(objectWebbedImg);
                 obj008.setImageResource(objectImg);
                 obj009.setImageResource(objectImg);
@@ -5261,7 +5292,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 6) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj008.setImageResource(objectWebbedImg);
                 obj009.setImageResource(objectImg);
                 obj010.setImageResource(objectImg);
@@ -5274,7 +5305,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 5) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj009.setImageResource(objectWebbedImg);
                 obj010.setImageResource(objectImg);
                 obj011.setImageResource(objectImg);
@@ -5287,7 +5318,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 4) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj010.setImageResource(objectWebbedImg);
                 obj011.setImageResource(objectImg);
                 obj012.setImageResource(objectImg);
@@ -5300,7 +5331,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 3) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj011.setImageResource(objectWebbedImg);
                 obj012.setImageResource(objectImg);
                 obj013.setImageResource(objectImg);
@@ -5313,7 +5344,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 2) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj012.setImageResource(objectWebbedImg);
                 obj013.setImageResource(objectImg);
                 obj014.setImageResource(objectImg);
@@ -5326,7 +5357,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 1) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj013.setImageResource(objectWebbedImg);
                 obj014.setImageResource(objectImg);
                 obj015.setImageResource(objectImg);
@@ -5352,7 +5383,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }, 1000);
         }
         if (objectsRemaining == 15) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj001.setImageResource(objectWebbedImg);
                 obj002.setImageResource(objectImg);
             } else {
@@ -5361,7 +5392,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj001.setImageResource(objectWebbedImg);
                 obj002.setImageResource(objectImg);
                 obj003.setImageResource(objectImg);
@@ -5372,7 +5403,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 13) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj001.setImageResource(objectWebbedImg);
                 obj002.setImageResource(objectImg);
                 obj003.setImageResource(objectImg);
@@ -5385,7 +5416,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 12) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj001.setImageResource(objectWebbedImg);
                 obj002.setImageResource(objectImg);
                 obj003.setImageResource(objectImg);
@@ -5400,7 +5431,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 4;
         }
         if (objectsRemaining == 11) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj001.setImageResource(objectWebbedImg);
                 obj002.setImageResource(objectImg);
                 obj003.setImageResource(objectImg);
@@ -5417,7 +5448,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 10) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj002.setImageResource(objectWebbedImg);
                 obj003.setImageResource(objectImg);
                 obj004.setImageResource(objectImg);
@@ -5434,7 +5465,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 9) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj003.setImageResource(objectWebbedImg);
                 obj004.setImageResource(objectImg);
                 obj005.setImageResource(objectImg);
@@ -5451,7 +5482,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 8) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj004.setImageResource(objectWebbedImg);
                 obj005.setImageResource(objectImg);
                 obj006.setImageResource(objectImg);
@@ -5468,7 +5499,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 7) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj005.setImageResource(objectWebbedImg);
                 obj006.setImageResource(objectImg);
                 obj007.setImageResource(objectImg);
@@ -5485,7 +5516,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 6) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj006.setImageResource(objectWebbedImg);
                 obj007.setImageResource(objectImg);
                 obj008.setImageResource(objectImg);
@@ -5502,7 +5533,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 5) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj007.setImageResource(objectWebbedImg);
                 obj008.setImageResource(objectImg);
                 obj009.setImageResource(objectImg);
@@ -5519,7 +5550,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 4) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj008.setImageResource(objectWebbedImg);
                 obj009.setImageResource(objectImg);
                 obj010.setImageResource(objectImg);
@@ -5536,7 +5567,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 3) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj009.setImageResource(objectWebbedImg);
                 obj010.setImageResource(objectImg);
                 obj011.setImageResource(objectImg);
@@ -5553,7 +5584,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 2) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj010.setImageResource(objectWebbedImg);
                 obj011.setImageResource(objectImg);
                 obj012.setImageResource(objectImg);
@@ -5570,7 +5601,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 1) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj011.setImageResource(objectWebbedImg);
                 obj012.setImageResource(objectImg);
                 obj013.setImageResource(objectImg);
@@ -5591,7 +5622,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* SLOW DOWN CARD EFFECT METHOD */
     private void cardSlowDown() {
         if (playerTurn) {
-            if (enemyHasProtect){
+            if (enemyHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -5605,13 +5636,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(enemyStatuses).contains("Slow Down")){
+                if (!Arrays.asList(enemyStatuses).contains("Slow Down")) {
                     tvCenterMessage.setText(enemySlowed);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Slow Down")){
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Slow Down")) {
                                 enemyIsSlowed = true;
                                 addEnemySlow();
                                 activeEnemyStatuses++;
@@ -5640,7 +5671,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
 
         } else {
-            if (playerHasProtect){
+            if (playerHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -5654,13 +5685,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(playerStatuses).contains("Slow Down")){
+                if (!Arrays.asList(playerStatuses).contains("Slow Down")) {
                     tvCenterMessage.setText(playerSlowed);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Slow Down")){
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Slow Down")) {
                                 playerIsSlowed = true;
                                 addPlayerSlow();
                                 activePlayerStatuses++;
@@ -5693,14 +5724,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* SILENCE CARD EFFECT METHOD */
     private void cardSilence() {
         if (playerTurn) {
-            if (!Arrays.asList(enemyStatuses).contains("Silence")){
+            if (!Arrays.asList(enemyStatuses).contains("Silence")) {
                 tvCenterMessage.setText(enemySilenced);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Silence")){
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Silence")) {
                         enemyIsSilenced = true;
                         addEnemySilence();
                         activeEnemyStatuses++;
@@ -5717,14 +5748,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }, 1000);
         } else {
-            if (!Arrays.asList(playerStatuses).contains("Silence")){
+            if (!Arrays.asList(playerStatuses).contains("Silence")) {
                 tvCenterMessage.setText(playerSilenced);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Silence")){
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Silence")) {
                         playerIsSilenced = true;
                         addPlayerSilence();
                         activePlayerStatuses++;
@@ -5746,14 +5777,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* CHARGE CARD EFFECT METHOD */
     private void cardCharge() {
         if (playerTurn) {
-            if (!Arrays.asList(playerStatuses).contains("Charge")){
+            if (!Arrays.asList(playerStatuses).contains("Charge")) {
                 tvCenterMessage.setText(playerCharge);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Charge")){
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Charge")) {
                         playerHasCharge = true;
                         addPlayerCharge();
                         activePlayerStatuses++;
@@ -5770,14 +5801,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }, 1000);
         } else {
-            if (!Arrays.asList(enemyStatuses).contains("Charge")){
+            if (!Arrays.asList(enemyStatuses).contains("Charge")) {
                 tvCenterMessage.setText(enemyCharge);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Charge")){
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Charge")) {
                         enemyHasCharge = true;
                         addEnemyCharge();
                         activeEnemyStatuses++;
@@ -5799,14 +5830,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* SALVAGE CARD EFFECT METHOD */
     private void cardSalvage() {
         if (playerTurn) {
-            if (!Arrays.asList(playerStatuses).contains("Salvage")){
+            if (!Arrays.asList(playerStatuses).contains("Salvage")) {
                 tvCenterMessage.setText(playerSalvage);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Salvage")){
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Salvage")) {
                         playerHasSalvage = true;
                         addPlayerSalvage();
                         activePlayerStatuses++;
@@ -5823,14 +5854,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }, 1000);
         } else {
-            if (!Arrays.asList(enemyStatuses).contains("Salvage")){
+            if (!Arrays.asList(enemyStatuses).contains("Salvage")) {
                 tvCenterMessage.setText(enemySalvage);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Salvage")){
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Salvage")) {
                         enemyHasSalvage = true;
                         addEnemySalvage();
                         activeEnemyStatuses++;
@@ -5852,14 +5883,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* TAKE AIM CARD EFFECT METHOD */
     private void cardTakeAim() {
         if (playerTurn) {
-            if (!Arrays.asList(playerStatuses).contains("Accuracy")){
+            if (!Arrays.asList(playerStatuses).contains("Accuracy")) {
                 tvCenterMessage.setText(playerTakeAim);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Accuracy")){
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Accuracy")) {
                         playerHasAccuracy = true;
                         playerHitChancePercentage = 100;
                         addPlayerAccuracy();
@@ -5877,14 +5908,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }, 1000);
         } else {
-            if (!Arrays.asList(enemyStatuses).contains("Accuracy")){
+            if (!Arrays.asList(enemyStatuses).contains("Accuracy")) {
                 tvCenterMessage.setText(enemyTakeAim);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Accuracy")){
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Accuracy")) {
                         enemyHasAccuracy = true;
                         enemyHitChancePercentage = 100;
                         addEnemyAccuracy();
@@ -5907,14 +5938,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* SPEED UP CARD EFFECT METHOD */
     private void cardSpeedUp() {
         if (playerTurn) {
-            if (!Arrays.asList(playerStatuses).contains("Speed Up")){
+            if (!Arrays.asList(playerStatuses).contains("Speed Up")) {
                 tvCenterMessage.setText(playerHaste);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Speed Up")){
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Speed Up")) {
                         playerHasHaste = true;
                         addPlayerSpeedUp();
                         activePlayerStatuses++;
@@ -5931,14 +5962,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }, 1000);
         } else {
-            if (!Arrays.asList(enemyStatuses).contains("Speed Up")){
+            if (!Arrays.asList(enemyStatuses).contains("Speed Up")) {
                 tvCenterMessage.setText(enemyHaste);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Speed Up")){
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Speed Up")) {
                         enemyHasHaste = true;
                         addEnemySpeedUp();
                         activeEnemyStatuses++;
@@ -5960,14 +5991,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* SPEED UP 2 CARD EFFECT METHOD */
     private void cardSpeedUp2() {
         if (playerTurn) {
-            if (!Arrays.asList(playerStatuses).contains("Speed Up")){
+            if (!Arrays.asList(playerStatuses).contains("Speed Up")) {
                 tvCenterMessage.setText(playerHaste);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Speed Up")){
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Speed Up")) {
                         playerHasHaste2 = true;
                         addPlayerSpeedUp();
                         activePlayerStatuses++;
@@ -5984,14 +6015,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }, 1000);
         } else {
-            if (!Arrays.asList(enemyStatuses).contains("Speed Up")){
+            if (!Arrays.asList(enemyStatuses).contains("Speed Up")) {
                 tvCenterMessage.setText(enemyHaste);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Speed Up")){
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Speed Up")) {
                         enemyHasHaste2 = true;
                         addEnemySpeedUp();
                         activeEnemyStatuses++;
@@ -6011,16 +6042,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* CONCENTRATE CARD EFFECT METHOD */
-    private void cardConcentrate(){
+    private void cardConcentrate() {
         if (playerTurn) {
-            if (!Arrays.asList(playerStatuses).contains("Concentrate")){
+            if (!Arrays.asList(playerStatuses).contains("Concentrate")) {
                 tvCenterMessage.setText(playerConcentrate);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Concentrate")){
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Concentrate")) {
                         playerHasConcentrate = true;
                         addPlayerConcentrate();
                         activePlayerStatuses++;
@@ -6037,14 +6068,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }, 1000);
         } else {
-            if (!Arrays.asList(enemyStatuses).contains("Concentrate")){
+            if (!Arrays.asList(enemyStatuses).contains("Concentrate")) {
                 tvCenterMessage.setText(enemyConcentrate);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Concentrate")){
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Concentrate")) {
                         enemyHasConcentrate = true;
                         addEnemyConcentrate();
                         activeEnemyStatuses++;
@@ -6064,9 +6095,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* CORRUPTION CARD EFFECT METHOD */
-    private void cardCorruption(){
+    private void cardCorruption() {
         if (!playerTurn) {
-            if (playerHasProtect){
+            if (playerHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -6080,13 +6111,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(playerStatuses).contains("Corruption")){
+                if (!Arrays.asList(playerStatuses).contains("Corruption")) {
                     tvCenterMessage.setText(playerCorrupted);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Corruption")){
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Corruption")) {
                                 addPlayerCorruption();
                                 playerIsCorrupted = true;
                                 activePlayerStatuses++;
@@ -6115,7 +6146,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }
 
         } else {
-            if (enemyHasProtect){
+            if (enemyHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -6129,13 +6160,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(enemyStatuses).contains("Corruption")){
+                if (!Arrays.asList(enemyStatuses).contains("Corruption")) {
                     tvCenterMessage.setText(enemyCorrupted);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Corruption")){
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Corruption")) {
                                 addEnemyCorruption();
                                 enemyIsCorrupted = true;
                                 activeEnemyStatuses++;
@@ -6168,7 +6199,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* CURSE CARD EFFECT METHOD */
     private void cardCurse() {
         if (playerTurn) {
-            if (enemyHasProtect){
+            if (enemyHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -6182,13 +6213,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(enemyStatuses).contains("Curse")){
+                if (!Arrays.asList(enemyStatuses).contains("Curse")) {
                     tvCenterMessage.setText(enemyCursed);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Curse")){
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Curse")) {
                                 enemyIsCursed = true;
                                 addEnemyCurse();
                                 activeEnemyStatuses++;
@@ -6216,7 +6247,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }
         } else {
-            if (playerHasProtect){
+            if (playerHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -6230,13 +6261,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(playerStatuses).contains("Curse")){
+                if (!Arrays.asList(playerStatuses).contains("Curse")) {
                     tvCenterMessage.setText(playerCursed);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Curse")){
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Curse")) {
                                 playerIsCursed = true;
                                 addPlayerCurse();
                                 activePlayerStatuses++;
@@ -6269,7 +6300,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* JINX CARD EFFECT METHOD */
     private void cardConfuse() {
         if (playerTurn) {
-            if (enemyHasProtect){
+            if (enemyHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -6283,13 +6314,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(enemyStatuses).contains("Confuse")){
+                if (!Arrays.asList(enemyStatuses).contains("Confuse")) {
                     tvCenterMessage.setText(enemyConfused);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Confuse")){
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Confuse")) {
                                 enemyIsConfused = true;
                                 addEnemyConfuse();
                                 activeEnemyStatuses++;
@@ -6317,7 +6348,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }
         } else {
-            if (playerHasProtect){
+            if (playerHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -6331,13 +6362,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(playerStatuses).contains("Confuse")){
+                if (!Arrays.asList(playerStatuses).contains("Confuse")) {
                     tvCenterMessage.setText(playerConfused);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Confuse")){
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Confuse")) {
                                 playerIsConfused = true;
                                 addPlayerConfuse();
                                 activePlayerStatuses++;
@@ -6368,9 +6399,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* AGONY CARD EFFECT METHOD */
-    private void cardAgony(){
+    private void cardAgony() {
         if (playerTurn) {
-            if (enemyHasProtect){
+            if (enemyHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -6384,13 +6415,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(enemyStatuses).contains("Agony")){
+                if (!Arrays.asList(enemyStatuses).contains("Agony")) {
                     tvCenterMessage.setText(enemyAgonized);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Agony")){
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Agony")) {
                                 enemyIsAgonized = true;
                                 addEnemyAgony();
                                 activeEnemyStatuses++;
@@ -6418,7 +6449,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }
         } else {
-            if (playerHasProtect){
+            if (playerHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -6432,13 +6463,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(playerStatuses).contains("Agony")){
+                if (!Arrays.asList(playerStatuses).contains("Agony")) {
                     tvCenterMessage.setText(playerAgonized);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Agony")){
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Agony")) {
                                 playerIsAgonized = true;
                                 addPlayerAgony();
                                 activePlayerStatuses++;
@@ -6469,9 +6500,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* BLIND CARD EFFECT METHOD */
-    private void cardBlind(){
+    private void cardBlind() {
         if (playerTurn) {
-            if (enemyHasProtect){
+            if (enemyHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -6485,13 +6516,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(enemyStatuses).contains("Blind")){
+                if (!Arrays.asList(enemyStatuses).contains("Blind")) {
                     tvCenterMessage.setText(enemyBlinded);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Blind")){
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Blind")) {
                                 enemyIsBlind = true;
                                 enemyHitChancePercentage = 25;
                                 addEnemyBlind();
@@ -6520,7 +6551,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }
         } else {
-            if (playerHasProtect){
+            if (playerHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -6534,13 +6565,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(playerStatuses).contains("Blind")){
+                if (!Arrays.asList(playerStatuses).contains("Blind")) {
                     tvCenterMessage.setText(playerBlinded);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Blind")){
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Blind")) {
                                 playerIsBlind = true;
                                 playerHitChancePercentage = 25;
                                 addPlayerBlind();
@@ -6572,14 +6603,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* STEAL CARD EFFECT METHOD */
-    private void cardSteal(int min, int max){
+    private void cardSteal(int min, int max) {
         int finalNumber;
-        if (playerTurn){
+        if (playerTurn) {
             tvEnemyScore.startAnimation(ani_shake);
-            if (max > enemyScore){
+            if (max > enemyScore) {
                 max = enemyScore;
             }
-            if (min > enemyScore){
+            if (min > enemyScore) {
                 min = enemyScore;
             }
 
@@ -6591,7 +6622,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
             enemyScore = enemyScore - finalNumber;
             playerScore = playerScore + finalNumber;
-            if (enemyScore < 0){
+            if (enemyScore < 0) {
                 enemyScore = 0;
             }
             tvPlayerScore.setTextColor(getResources().getColor(R.color.supergreen));
@@ -6608,10 +6639,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }, 1000);
         } else {
             tvPlayerScore.startAnimation(ani_shake);
-            if (max > playerScore){
+            if (max > playerScore) {
                 max = playerScore;
             }
-            if (min > playerScore){
+            if (min > playerScore) {
                 min = playerScore;
             }
 
@@ -6623,7 +6654,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
             enemyScore = enemyScore + finalNumber;
             playerScore = playerScore - finalNumber;
-            if (playerScore < 0){
+            if (playerScore < 0) {
                 playerScore = 0;
             }
             tvEnemyScore.setTextColor(getResources().getColor(R.color.supergreen));
@@ -6642,11 +6673,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* MIMIC CARD EFFECT METHOD */
-    private void cardMimic(){
-        if (playerTurn){
-            if (!lastEnemyPlayedCard.equals("")){
+    private void cardMimic() {
+        if (playerTurn) {
+            if (!lastEnemyPlayedCard.equals("")) {
                 tvCenterMessage.startAnimation(ani_fadeIn);
-                if (lastEnemyPlayedCard.equals("Mimic") || lastEnemyPlayedCard.equals("Demonic Prayer")){
+                if (lastEnemyPlayedCard.equals("Mimic") || lastEnemyPlayedCard.equals("Demonic Prayer")) {
                     tvCenterMessage.setText("Mimic failed");
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -6656,7 +6687,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 } else {
                     tvCenterMessage.setText("Mimic copies " + lastEnemyPlayedCard);
                 }
-                if (lastEnemyPlayedCard.equals("Reinforce")){
+                if (lastEnemyPlayedCard.equals("Reinforce")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6668,7 +6699,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Reinforce II")){
+                if (lastEnemyPlayedCard.equals("Reinforce II")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6680,7 +6711,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Reinforce III")){
+                if (lastEnemyPlayedCard.equals("Reinforce III")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6692,7 +6723,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Slow Down")){
+                if (lastEnemyPlayedCard.equals("Slow Down")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6704,7 +6735,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Speed Up")){
+                if (lastEnemyPlayedCard.equals("Speed Up")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6716,7 +6747,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Speed Up II")){
+                if (lastEnemyPlayedCard.equals("Speed Up II")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6728,7 +6759,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Steal")){
+                if (lastEnemyPlayedCard.equals("Steal")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6736,11 +6767,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            cardSteal(1,3);
+                            cardSteal(1, 3);
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Concentrate")){
+                if (lastEnemyPlayedCard.equals("Concentrate")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6752,7 +6783,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Steal II")){
+                if (lastEnemyPlayedCard.equals("Steal II")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6760,11 +6791,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            cardSteal(3,5);
+                            cardSteal(3, 5);
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Steal III")){
+                if (lastEnemyPlayedCard.equals("Steal III")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6772,11 +6803,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            cardSteal(5,7);
+                            cardSteal(5, 7);
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Corruption")){
+                if (lastEnemyPlayedCard.equals("Corruption")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6788,7 +6819,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Curse")){
+                if (lastEnemyPlayedCard.equals("Curse")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6800,7 +6831,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Infest")){
+                if (lastEnemyPlayedCard.equals("Infest")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6812,7 +6843,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Restore")){
+                if (lastEnemyPlayedCard.equals("Restore")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6824,7 +6855,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Agony")){
+                if (lastEnemyPlayedCard.equals("Agony")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6836,7 +6867,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Malediction")){
+                if (lastEnemyPlayedCard.equals("Malediction")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6848,7 +6879,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Death Sentence")){
+                if (lastEnemyPlayedCard.equals("Death Sentence")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6860,7 +6891,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Cure")){
+                if (lastEnemyPlayedCard.equals("Cure")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6872,7 +6903,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Rewind")){
+                if (lastEnemyPlayedCard.equals("Rewind")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6884,7 +6915,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Hoard")){
+                if (lastEnemyPlayedCard.equals("Hoard")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6896,7 +6927,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Protect")){
+                if (lastEnemyPlayedCard.equals("Protect")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6908,7 +6939,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Dispel")){
+                if (lastEnemyPlayedCard.equals("Dispel")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6920,7 +6951,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Salvage")){
+                if (lastEnemyPlayedCard.equals("Salvage")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6932,7 +6963,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Reinforce V")){
+                if (lastEnemyPlayedCard.equals("Reinforce V")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6944,7 +6975,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Silence")){
+                if (lastEnemyPlayedCard.equals("Silence")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6956,7 +6987,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Charge")){
+                if (lastEnemyPlayedCard.equals("Charge")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6968,7 +6999,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Take Aim")){
+                if (lastEnemyPlayedCard.equals("Take Aim")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6980,7 +7011,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Blind")){
+                if (lastEnemyPlayedCard.equals("Blind")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6992,7 +7023,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Confuse")){
+                if (lastEnemyPlayedCard.equals("Confuse")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7014,9 +7045,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }, 1000);
             }
         } else {
-            if (!lastPlayerPlayedCard.equals("")){
+            if (!lastPlayerPlayedCard.equals("")) {
                 tvCenterMessage.startAnimation(ani_fadeIn);
-                if (lastPlayerPlayedCard.equals("Mimic") || lastPlayerPlayedCard.equals("Demonic Prayer")){
+                if (lastPlayerPlayedCard.equals("Mimic") || lastPlayerPlayedCard.equals("Demonic Prayer")) {
                     tvCenterMessage.setText("Mimic failed");
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -7026,7 +7057,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 } else {
                     tvCenterMessage.setText("Mimic copies " + lastPlayerPlayedCard);
                 }
-                if (lastPlayerPlayedCard.equals("Reinforce")){
+                if (lastPlayerPlayedCard.equals("Reinforce")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7038,7 +7069,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Reinforce II")){
+                if (lastPlayerPlayedCard.equals("Reinforce II")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7050,7 +7081,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Reinforce III")){
+                if (lastPlayerPlayedCard.equals("Reinforce III")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7062,7 +7093,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Slow Down")){
+                if (lastPlayerPlayedCard.equals("Slow Down")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7074,7 +7105,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Speed Up")){
+                if (lastPlayerPlayedCard.equals("Speed Up")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7086,7 +7117,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Speed Up II")){
+                if (lastPlayerPlayedCard.equals("Speed Up II")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7098,7 +7129,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Steal")){
+                if (lastPlayerPlayedCard.equals("Steal")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7106,11 +7137,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            cardSteal(1,3);
+                            cardSteal(1, 3);
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Concentrate")){
+                if (lastPlayerPlayedCard.equals("Concentrate")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7122,7 +7153,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Steal II")){
+                if (lastPlayerPlayedCard.equals("Steal II")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7130,11 +7161,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            cardSteal(3,5);
+                            cardSteal(3, 5);
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Steal III")){
+                if (lastPlayerPlayedCard.equals("Steal III")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7142,11 +7173,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            cardSteal(5,7);
+                            cardSteal(5, 7);
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Corruption")){
+                if (lastPlayerPlayedCard.equals("Corruption")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7158,7 +7189,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Curse")){
+                if (lastPlayerPlayedCard.equals("Curse")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7170,7 +7201,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Infest")){
+                if (lastPlayerPlayedCard.equals("Infest")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7182,7 +7213,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Restore")){
+                if (lastPlayerPlayedCard.equals("Restore")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7194,7 +7225,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Agony")){
+                if (lastPlayerPlayedCard.equals("Agony")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7206,7 +7237,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Malediction")){
+                if (lastPlayerPlayedCard.equals("Malediction")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7218,7 +7249,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Death Sentence")){
+                if (lastPlayerPlayedCard.equals("Death Sentence")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7230,7 +7261,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Cure")){
+                if (lastPlayerPlayedCard.equals("Cure")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7242,7 +7273,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Protect")){
+                if (lastPlayerPlayedCard.equals("Protect")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7254,7 +7285,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Rewind")){
+                if (lastPlayerPlayedCard.equals("Rewind")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7266,7 +7297,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Hoard")){
+                if (lastPlayerPlayedCard.equals("Hoard")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7278,7 +7309,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Dispel")){
+                if (lastPlayerPlayedCard.equals("Dispel")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7290,7 +7321,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Salvage")){
+                if (lastPlayerPlayedCard.equals("Salvage")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7302,7 +7333,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Reinforce V")){
+                if (lastPlayerPlayedCard.equals("Reinforce V")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7314,7 +7345,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Silence")){
+                if (lastPlayerPlayedCard.equals("Silence")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7326,7 +7357,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Charge")){
+                if (lastPlayerPlayedCard.equals("Charge")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7338,7 +7369,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Take Aim")){
+                if (lastPlayerPlayedCard.equals("Take Aim")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7350,7 +7381,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Blind")){
+                if (lastPlayerPlayedCard.equals("Blind")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7362,7 +7393,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Confuse")){
+                if (lastPlayerPlayedCard.equals("Confuse")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -7387,8 +7418,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* INFEST CARD EFFECT METHOD */
-    private void cardInfest(){
-        if (!nextObjIsInfested){
+    private void cardInfest() {
+        if (!nextObjIsInfested) {
             nextObjIsInfested = true;
             infestedObjRemainingHits = 3;
             if (objectsRemaining == 16) {
@@ -7565,7 +7596,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* RESTORE CARD EFFECT METHOD */
-    private void cardRestore(){
+    private void cardRestore() {
         if (objectsRemaining == 16) {
             tvCenterMessage.setText(boardIsFullError);
             tvCenterMessage.startAnimation(ani_fadeIn);
@@ -7576,7 +7607,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             }, 1000);
         }
         if (objectsRemaining == 15) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj001.setImageResource(objectWebbedImg);
                 obj002.setImageResource(objectImg);
             } else {
@@ -7585,7 +7616,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 14) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj002.setImageResource(objectWebbedImg);
                 obj003.setImageResource(objectImg);
             } else {
@@ -7594,7 +7625,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 1;
         }
         if (objectsRemaining == 13) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj002.setImageResource(objectWebbedImg);
                 obj003.setImageResource(objectImg);
                 obj004.setImageResource(objectImg);
@@ -7605,7 +7636,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 12) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj003.setImageResource(objectWebbedImg);
                 obj004.setImageResource(objectImg);
                 obj005.setImageResource(objectImg);
@@ -7616,7 +7647,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 2;
         }
         if (objectsRemaining == 11) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj003.setImageResource(objectWebbedImg);
                 obj004.setImageResource(objectImg);
                 obj005.setImageResource(objectImg);
@@ -7629,7 +7660,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 10) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj004.setImageResource(objectWebbedImg);
                 obj005.setImageResource(objectImg);
                 obj006.setImageResource(objectImg);
@@ -7642,7 +7673,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 3;
         }
         if (objectsRemaining == 9) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj004.setImageResource(objectWebbedImg);
                 obj005.setImageResource(objectImg);
                 obj006.setImageResource(objectImg);
@@ -7657,7 +7688,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 4;
         }
         if (objectsRemaining == 8) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj005.setImageResource(objectWebbedImg);
                 obj006.setImageResource(objectImg);
                 obj007.setImageResource(objectImg);
@@ -7672,7 +7703,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 4;
         }
         if (objectsRemaining == 7) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj005.setImageResource(objectWebbedImg);
                 obj006.setImageResource(objectImg);
                 obj007.setImageResource(objectImg);
@@ -7689,7 +7720,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 6) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj006.setImageResource(objectWebbedImg);
                 obj007.setImageResource(objectImg);
                 obj008.setImageResource(objectImg);
@@ -7706,7 +7737,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 5;
         }
         if (objectsRemaining == 5) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj006.setImageResource(objectWebbedImg);
                 obj007.setImageResource(objectImg);
                 obj008.setImageResource(objectImg);
@@ -7725,7 +7756,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 6;
         }
         if (objectsRemaining == 4) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj007.setImageResource(objectWebbedImg);
                 obj008.setImageResource(objectImg);
                 obj009.setImageResource(objectImg);
@@ -7744,7 +7775,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 6;
         }
         if (objectsRemaining == 3) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj008.setImageResource(objectWebbedImg);
                 obj009.setImageResource(objectImg);
                 obj010.setImageResource(objectImg);
@@ -7763,7 +7794,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 6;
         }
         if (objectsRemaining == 2) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj008.setImageResource(objectWebbedImg);
                 obj009.setImageResource(objectImg);
                 obj010.setImageResource(objectImg);
@@ -7784,7 +7815,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             objectsRemaining = objectsRemaining + 7;
         }
         if (objectsRemaining == 1) {
-            if (nextObjIsInfested){
+            if (nextObjIsInfested) {
                 obj009.setImageResource(objectWebbedImg);
                 obj010.setImageResource(objectImg);
                 obj011.setImageResource(objectImg);
@@ -7807,9 +7838,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* MALEDICTION CARD EFFECT METHOD */
-    private void cardMalediction(){
+    private void cardMalediction() {
         if (playerTurn) {
-            if (enemyHasProtect){
+            if (enemyHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -7823,13 +7854,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(enemyStatuses).contains("Malediction")){
+                if (!Arrays.asList(enemyStatuses).contains("Malediction")) {
                     tvCenterMessage.setText(enemyMaledicted);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Malediction")){
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Malediction")) {
                                 enemyIsMaledicted = true;
                                 addEnemyMalediction();
                                 activeEnemyStatuses++;
@@ -7857,7 +7888,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }
         } else {
-            if (playerHasProtect){
+            if (playerHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -7871,13 +7902,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(playerStatuses).contains("Malediction")){
+                if (!Arrays.asList(playerStatuses).contains("Malediction")) {
                     tvCenterMessage.setText(playerMaledicted);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Malediction")){
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Malediction")) {
                                 playerIsMaledicted = true;
                                 addPlayerMalediction();
                                 activePlayerStatuses++;
@@ -7908,20 +7939,20 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* DEMONIC PRAYER CARD EFFECT METHOD */
-    private void cardDemonicPrayer(){
+    private void cardDemonicPrayer() {
         tvCenterMessage.setVisibility(View.INVISIBLE);
         tvCenterMessage.clearAnimation();
         final int resetChance = genRand(100);
         ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect);
         ivCenterImage.setVisibility(View.VISIBLE);
         ivCenterImage.startAnimation(ani_fadeIn);
-        if (resetChance >= 90){
+        if (resetChance >= 90) {
             ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_green);
             resetWorked = false;
         } else {
             ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_red);
             resetWorked = true;
-            }
+        }
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
@@ -7938,11 +7969,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                if (resetWorked){
+                if (resetWorked) {
                     tvCenterMessage.setVisibility(View.VISIBLE);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     tvCenterMessage.setText("Demonic Prayer worked!");
-                    if (playerTurn){
+                    if (playerTurn) {
                         tvEnemyScore.startAnimation(ani_shake);
                         tvEnemyScore.setTextColor(getResources().getColor(R.color.textBrightRed));
                         tvEnemyScore.setText("0");
@@ -7984,9 +8015,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* DEATH SENTENCE CARD EFFECT METHOD */
-    private void cardDeathSentence(){
-        if (playerTurn){
-            if (enemyHasProtect){
+    private void cardDeathSentence() {
+        if (playerTurn) {
+            if (enemyHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -8000,13 +8031,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(enemyStatuses).contains("Death Sentence")){
+                if (!Arrays.asList(enemyStatuses).contains("Death Sentence")) {
                     tvCenterMessage.setText(enemySentenced);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Death Sentence")){
+                            if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Death Sentence")) {
                                 enemyIsSentenced = true;
                                 addEnemyDeathSentence();
                                 activeEnemyStatuses++;
@@ -8034,7 +8065,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }
         } else {
-            if (playerHasProtect){
+            if (playerHasProtect) {
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
                         errorMsg = true;
@@ -8048,13 +8079,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }, 1000);
             } else {
-                if (!Arrays.asList(playerStatuses).contains("Death Sentence")){
+                if (!Arrays.asList(playerStatuses).contains("Death Sentence")) {
                     tvCenterMessage.setText(playerSentenced);
                     tvCenterMessage.startAnimation(ani_fadeIn);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
-                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Death Sentence")){
+                            if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Death Sentence")) {
                                 playerIsSentenced = true;
                                 addPlayerDeathSentence();
                                 activePlayerStatuses++;
@@ -8085,8 +8116,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* CURE CARD EFFECT METHOD */
-    private void cardCure(){
-        if (playerTurn){
+    private void cardCure() {
+        if (playerTurn) {
             tvCenterMessage.setText(playerCured);
             tvCenterMessage.startAnimation(ani_fadeIn);
             myHandler.postDelayed(new Runnable() {
@@ -8108,16 +8139,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* REWIND CARD EFFECT METHOD */
-    private void cardRewind(){
+    private void cardRewind() {
         if (playerTurn) {
-            if (!Arrays.asList(playerStatuses).contains("Rewind")){
+            if (!Arrays.asList(playerStatuses).contains("Rewind")) {
                 tvCenterMessage.setText(playerAlteredTime);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Rewind")){
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Rewind")) {
                         playerHasAlteredTime = true;
                         addPlayerRewind();
                         activePlayerStatuses++;
@@ -8134,14 +8165,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }, 1000);
         } else {
-            if (!Arrays.asList(enemyStatuses).contains("Rewind")){
+            if (!Arrays.asList(enemyStatuses).contains("Rewind")) {
                 tvCenterMessage.setText(enemyAlteredTime);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Rewind")){
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Rewind")) {
                         enemyHasAlteredTime = true;
                         addEnemyRewind();
                         activeEnemyStatuses++;
@@ -8161,16 +8192,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* PROTECT CARD EFFECT METHOD */
-    private void cardProtect(){
+    private void cardProtect() {
         if (playerTurn) {
-            if (!Arrays.asList(playerStatuses).contains("Protect")){
+            if (!Arrays.asList(playerStatuses).contains("Protect")) {
                 tvCenterMessage.setText(playerProtected);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Protect")){
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Protect")) {
                         playerHasProtect = true;
                         addPlayerProtect();
                         activePlayerStatuses++;
@@ -8187,14 +8218,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }, 1000);
         } else {
-            if (!Arrays.asList(enemyStatuses).contains("Protect")){
+            if (!Arrays.asList(enemyStatuses).contains("Protect")) {
                 tvCenterMessage.setText(enemyProtected);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Protect")){
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Protect")) {
                         enemyHasProtect = true;
                         addEnemyProtect();
                         activeEnemyStatuses++;
@@ -8214,16 +8245,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* HOARD CARD EFFECT METHOD */
-    private void cardHoard(){
+    private void cardHoard() {
         if (playerTurn) {
-            if (!Arrays.asList(playerStatuses).contains("Hoard")){
+            if (!Arrays.asList(playerStatuses).contains("Hoard")) {
                 tvCenterMessage.setText(playerHoard);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Hoard")){
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Hoard")) {
                         playerIsHoarding = true;
                         addPlayerHoard();
                         activePlayerStatuses++;
@@ -8240,14 +8271,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 }
             }, 1000);
         } else {
-            if (!Arrays.asList(enemyStatuses).contains("Hoard")){
+            if (!Arrays.asList(enemyStatuses).contains("Hoard")) {
                 tvCenterMessage.setText(enemyHoard);
                 tvCenterMessage.startAnimation(ani_fadeIn);
             }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvCenterMessage.startAnimation(ani_fadeOut);
-                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Hoard")){
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Hoard")) {
                         enemyIsHoarding = true;
                         addEnemyHoard();
                         activeEnemyStatuses++;
@@ -8267,8 +8298,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* DISPEL CARD EFFECT METHOD */
-    private void cardDispel(){
-        if (playerTurn){
+    private void cardDispel() {
+        if (playerTurn) {
             tvCenterMessage.setText(enemyDispelled);
             tvCenterMessage.startAnimation(ani_fadeIn);
             myHandler.postDelayed(new Runnable() {
@@ -8305,7 +8336,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* FETCHES LEVEL INFO - CHANGE THIS FOR EVERY ACTIVITY */
-    private void getLevelInfo(){
+    private void getLevelInfo() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         loadedLevelId = preferences.getInt("LoadedLevelId", 0);
         try {
@@ -8320,8 +8351,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
             worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
-        //lvlId = 32;
-        //worldId = 4;
+        lvlId = 33;
+        worldId = 5;
         db.close();
     }
 
@@ -8330,9 +8361,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     *  -----------------------------------------*/
 
     /* ADD PLAYER ACCURACY */
-    private void addPlayerAccuracy(){
+    private void addPlayerAccuracy() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 playerStatuses[0] = "Accuracy";
                 playerStatusIcon1.setImageResource(R.drawable.buff_takeaim);
@@ -8367,9 +8398,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER SALVAGE */
-    private void addPlayerSalvage(){
+    private void addPlayerSalvage() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 playerStatuses[0] = "Salvage";
                 playerStatusIcon1.setImageResource(R.drawable.buff_salvage);
@@ -8404,9 +8435,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER SPEED UP */
-    private void addPlayerSpeedUp(){
+    private void addPlayerSpeedUp() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 playerStatuses[0] = "Speed Up";
                 playerStatusIcon1.setImageResource(R.drawable.buff_speed_up);
@@ -8441,9 +8472,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER PROTECT */
-    private void addPlayerProtect(){
+    private void addPlayerProtect() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 playerStatuses[0] = "Protect";
                 playerStatusIcon1.setImageResource(R.drawable.buff_protect);
@@ -8478,9 +8509,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER REWIND */
-    private void addPlayerRewind(){
+    private void addPlayerRewind() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 playerStatuses[0] = "Rewind";
                 playerStatusIcon1.setImageResource(R.drawable.buff_rewind);
@@ -8515,9 +8546,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER HOARD */
-    private void addPlayerHoard(){
+    private void addPlayerHoard() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 playerStatuses[0] = "Hoard";
                 playerStatusIcon1.setImageResource(R.drawable.buff_hoard);
@@ -8552,9 +8583,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER CONCENTRATE */
-    private void addPlayerConcentrate(){
+    private void addPlayerConcentrate() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 playerStatuses[0] = "Concentrate";
                 playerStatusIcon1.setImageResource(R.drawable.buff_concentrate);
@@ -8589,9 +8620,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER SLOW */
-    private void addPlayerSlow(){
+    private void addPlayerSlow() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 activePlayerDebuffs++;
                 playerStatuses[0] = "Slow Down";
@@ -8631,9 +8662,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER SILENCE */
-    private void addPlayerSilence(){
+    private void addPlayerSilence() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 activePlayerDebuffs++;
                 playerStatuses[0] = "Silence";
@@ -8673,9 +8704,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER CORRUPTION */
-    private void addPlayerCorruption(){
+    private void addPlayerCorruption() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 activePlayerDebuffs++;
                 playerStatuses[0] = "Corruption";
@@ -8715,9 +8746,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER CURSE */
-    private void addPlayerCurse(){
+    private void addPlayerCurse() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 activePlayerDebuffs++;
                 playerStatuses[0] = "Curse";
@@ -8757,9 +8788,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER CONFUSION */
-    private void addPlayerConfuse(){
+    private void addPlayerConfuse() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 activePlayerDebuffs++;
                 playerStatuses[0] = "Confuse";
@@ -8799,9 +8830,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER CHARGE */
-    private void addPlayerCharge(){
+    private void addPlayerCharge() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 playerStatuses[0] = "Charge";
                 playerStatusIcon1.setImageResource(R.drawable.buff_charge);
@@ -8836,9 +8867,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER AGONY */
-    private void addPlayerAgony(){
+    private void addPlayerAgony() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 activePlayerDebuffs++;
                 playerStatuses[0] = "Agony";
@@ -8878,9 +8909,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER BLIND */
-    private void addPlayerBlind(){
+    private void addPlayerBlind() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 activePlayerDebuffs++;
                 playerStatuses[0] = "Blind";
@@ -8920,9 +8951,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER MALEDICTION */
-    private void addPlayerMalediction(){
+    private void addPlayerMalediction() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 activePlayerDebuffs++;
                 playerStatuses[0] = "Malediction";
@@ -8962,9 +8993,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD PLAYER DEATH SENTENCE */
-    private void addPlayerDeathSentence(){
+    private void addPlayerDeathSentence() {
         int freeSpot = getFreePlayerStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 activePlayerDebuffs++;
                 playerStatuses[0] = "Death Sentence";
@@ -9004,9 +9035,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY SLOW */
-    private void addEnemySlow(){
+    private void addEnemySlow() {
         int freeSpot = getFreeEnemyStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 activeEnemyDebuffs++;
                 enemyStatuses[0] = "Slow Down";
@@ -9046,9 +9077,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY SALVAGE */
-    private void addEnemySalvage(){
+    private void addEnemySalvage() {
         int freeSpot = getFreeEnemyStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 enemyStatuses[0] = "Salvage";
                 enemyStatusIcon1.setImageResource(R.drawable.buff_salvage);
@@ -9083,9 +9114,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY ACCURACY */
-    private void addEnemyAccuracy(){
+    private void addEnemyAccuracy() {
         int freeSpot = getFreeEnemyStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 enemyStatuses[0] = "Accuracy";
                 enemyStatusIcon1.setImageResource(R.drawable.buff_takeaim);
@@ -9120,9 +9151,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY CHARGE */
-    private void addEnemyCharge(){
+    private void addEnemyCharge() {
         int freeSpot = getFreeEnemyStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 enemyStatuses[0] = "Charge";
                 enemyStatusIcon1.setImageResource(R.drawable.buff_charge);
@@ -9157,9 +9188,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY SPEED UP */
-    private void addEnemySpeedUp(){
+    private void addEnemySpeedUp() {
         int freeSpot = getFreeEnemyStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 enemyStatuses[0] = "Speed Up";
                 enemyStatusIcon1.setImageResource(R.drawable.buff_speed_up);
@@ -9194,9 +9225,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY REWIND*/
-    private void addEnemyRewind(){
+    private void addEnemyRewind() {
         int freeSpot = getFreeEnemyStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 enemyStatuses[0] = "Rewind";
                 enemyStatusIcon1.setImageResource(R.drawable.buff_rewind);
@@ -9231,9 +9262,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY HOARD*/
-    private void addEnemyHoard(){
+    private void addEnemyHoard() {
         int freeSpot = getFreeEnemyStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 enemyStatuses[0] = "Hoard";
                 enemyStatusIcon1.setImageResource(R.drawable.buff_hoard);
@@ -9268,9 +9299,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY PROTECT */
-    private void addEnemyProtect(){
+    private void addEnemyProtect() {
         int freeSpot = getFreeEnemyStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 enemyStatuses[0] = "Protect";
                 enemyStatusIcon1.setImageResource(R.drawable.buff_protect);
@@ -9305,9 +9336,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY CONCENTRATE */
-    private void addEnemyConcentrate(){
+    private void addEnemyConcentrate() {
         int freeSpot = getFreeEnemyStatusSpot();
-        switch (freeSpot){
+        switch (freeSpot) {
             case 0:
                 enemyStatuses[0] = "Concentrate";
                 enemyStatusIcon1.setImageResource(R.drawable.buff_concentrate);
@@ -9342,7 +9373,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY CORRUPTION */
-    private void addEnemyCorruption(){
+    private void addEnemyCorruption() {
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
@@ -9384,7 +9415,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY CURSE */
-    private void addEnemyCurse(){
+    private void addEnemyCurse() {
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
@@ -9426,7 +9457,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY CONFUSION */
-    private void addEnemyConfuse(){
+    private void addEnemyConfuse() {
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
@@ -9468,7 +9499,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY SILENCE */
-    private void addEnemySilence(){
+    private void addEnemySilence() {
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
@@ -9510,7 +9541,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY AGONY */
-    private void addEnemyAgony(){
+    private void addEnemyAgony() {
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
@@ -9552,7 +9583,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY BLIND */
-    private void addEnemyBlind(){
+    private void addEnemyBlind() {
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
@@ -9594,7 +9625,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY MALEDICTION */
-    private void addEnemyMalediction(){
+    private void addEnemyMalediction() {
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
@@ -9636,7 +9667,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* ADD ENEMY DEATH SENTENCE */
-    private void addEnemyDeathSentence(){
+    private void addEnemyDeathSentence() {
         int freeSpot = getFreeEnemyStatusSpot();
         switch (freeSpot) {
             case 0:
@@ -9682,39 +9713,39 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     *  -----------------------------------------*/
 
     /* CHECK ENEMY STATUSES */
-    private void checkEnemyStatuses(){
-        if (!enemyIsSlowed){
+    private void checkEnemyStatuses() {
+        if (!enemyIsSlowed) {
             clearEnemyStatus("Slow Down");
         }
-        if (!enemyHasHaste && !enemyHasHaste2){
+        if (!enemyHasHaste && !enemyHasHaste2) {
             clearEnemyStatus("Speed Up");
         }
-        if (enemyConcentrateRound){
+        if (enemyConcentrateRound) {
             clearEnemyStatus("Concentrate");
         }
-        if (!enemyIsCorrupted){
+        if (!enemyIsCorrupted) {
             clearEnemyStatus("Corruption");
         }
-        if (!enemyIsSilenced){
+        if (!enemyIsSilenced) {
             clearEnemyStatus("Silence");
         }
     }
 
     /* CHECK PLAYER STATUSES */
-    private void checkPlayerStatues(){
-        if (!playerHasHaste && !playerHasHaste2){
+    private void checkPlayerStatues() {
+        if (!playerHasHaste && !playerHasHaste2) {
             clearPlayerStatus("Speed Up");
         }
-        if (!playerIsSlowed){
+        if (!playerIsSlowed) {
             clearPlayerStatus("Slow Down");
         }
-        if (playerConcentrateRound){
+        if (playerConcentrateRound) {
             clearPlayerStatus("Concentrate");
         }
-        if (!playerIsCorrupted){
+        if (!playerIsCorrupted) {
             clearPlayerStatus("Corruption");
         }
-        if (!playerIsSilenced){
+        if (!playerIsSilenced) {
             clearPlayerStatus("Silence");
         }
     }
@@ -9723,7 +9754,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     *  LONGER PLAYER STATUS EFFECTS
     *  -----------------------------------------*/
 
-    private void playerCursedEffect(){
+    private void playerCursedEffect() {
         playerIsCursed = false;
         playerCurseCountdown = -1;
         final int halfPlayerScore = playerScore / 2;
@@ -9763,7 +9794,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 7000);
     }
 
-    private void playerAgonizedEnd(){
+    private void playerAgonizedEnd() {
         playerIsAgonized = false;
         playerAgonyCountdown = -1;
         myHandler.postDelayed(new Runnable() {
@@ -9785,7 +9816,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 3000);
     }
 
-    private void playerMaledictedEffect(){
+    private void playerMaledictedEffect() {
         playerIsMaledicted = false;
         playerMaledictionCountdown = -1;
         int halfPlayerScore = playerScore / 2;
@@ -9827,12 +9858,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 7000);
     }
 
-    private void playerSentencedEffect(){
+    private void playerSentencedEffect() {
         int withdraw;
         playerIsSentenced = false;
         playerSentenceCountdown = -1;
         int resetOrNot = genRand(100);
-        if (resetOrNot >= 50){
+        if (resetOrNot >= 50) {
             withdraw = playerScore;
             playerScore = 0;
         } else {
@@ -9875,7 +9906,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 7000);
     }
 
-    private void playerProtectEnd(){
+    private void playerProtectEnd() {
         playerHasProtect = false;
         playerProtectCountdown = -1;
         myHandler.postDelayed(new Runnable() {
@@ -9897,7 +9928,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 3000);
     }
 
-    private void playerSalvageEnd(){
+    private void playerSalvageEnd() {
         playerHasSalvage = false;
         playerSalvageCountdown = -1;
         ivCenterCardFrame.startAnimation(ani_zoomIn);
@@ -9928,11 +9959,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 6000);
     }
 
-    private void playerChargeEnd(){
+    private void playerChargeEnd() {
         playerHasCharge = false;
         playerChargeCountdown = -1;
         final int chargeBonus;
-        if (playerHasConcentrate){
+        if (playerHasConcentrate) {
             chargeBonus = 10;
         } else {
             chargeBonus = 5;
@@ -9974,7 +10005,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 7000);
     }
 
-    private void playerAccuracyEnd(){
+    private void playerAccuracyEnd() {
         playerHasAccuracy = false;
         playerAccuracyCountdown = -1;
         myHandler.postDelayed(new Runnable() {
@@ -9996,7 +10027,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 3000);
     }
 
-    private void playerBlindEnd(){
+    private void playerBlindEnd() {
         playerIsBlind = false;
         playerBlindCountdown = -1;
         myHandler.postDelayed(new Runnable() {
@@ -10018,7 +10049,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 3000);
     }
 
-    private void playerConfuseEnd(){
+    private void playerConfuseEnd() {
         playerIsConfused = false;
         playerConfuseCountdown = -1;
         myHandler.postDelayed(new Runnable() {
@@ -10045,7 +10076,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     *  LONGER ENEMY STATUS EFFECTS
     *  -----------------------------------------*/
 
-    private void enemyCursedEffect(){
+    private void enemyCursedEffect() {
         enemyIsCursed = false;
         enemyCurseCountdown = -1;
         final int halfEnemyScore = enemyScore / 2;
@@ -10085,7 +10116,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 7000);
     }
 
-    private void enemyAgonizedEnd(){
+    private void enemyAgonizedEnd() {
         enemyIsAgonized = false;
         enemyAgonyCountdown = -1;
         myHandler.postDelayed(new Runnable() {
@@ -10107,7 +10138,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 3000);
     }
 
-    private void enemyMaledictedEffect(){
+    private void enemyMaledictedEffect() {
         enemyIsMaledicted = false;
         enemyMaledictionCountdown = -1;
         int halfEnemyScore = enemyScore / 2;
@@ -10149,12 +10180,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 7000);
     }
 
-    private void enemySentencedEffect(){
+    private void enemySentencedEffect() {
         int withdraw;
         enemyIsSentenced = false;
         enemySentenceCountdown = -1;
         int resetOrNot = genRand(100);
-        if (resetOrNot >= 50){
+        if (resetOrNot >= 50) {
             withdraw = enemyScore;
             enemyScore = 0;
         } else {
@@ -10197,7 +10228,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 7000);
     }
 
-    private void enemyProtectEnd(){
+    private void enemyProtectEnd() {
         enemyHasProtect = false;
         enemyProtectCountdown = -1;
         myHandler.postDelayed(new Runnable() {
@@ -10219,7 +10250,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 3000);
     }
 
-    private void enemySalvageEnd(){
+    private void enemySalvageEnd() {
         enemyHasSalvage = false;
         enemySalvageCountdown = -1;
         ivCenterCardFrame.startAnimation(ani_zoomIn);
@@ -10250,11 +10281,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 6000);
     }
 
-    private void enemyChargeEnd(){
+    private void enemyChargeEnd() {
         enemyHasCharge = false;
         enemyChargeCountdown = -1;
         final int chargeBonus;
-        if (enemyHasConcentrate){
+        if (enemyHasConcentrate) {
             chargeBonus = 10;
         } else {
             chargeBonus = 5;
@@ -10296,7 +10327,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 7000);
     }
 
-    private void enemyAccuracyEnd(){
+    private void enemyAccuracyEnd() {
         enemyHasAccuracy = false;
         enemyAccuracyCountdown = -1;
         myHandler.postDelayed(new Runnable() {
@@ -10318,7 +10349,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 3000);
     }
 
-    private void enemyBlindEnd(){
+    private void enemyBlindEnd() {
         enemyIsBlind = false;
         enemyBlindCountdown = -1;
         myHandler.postDelayed(new Runnable() {
@@ -10340,7 +10371,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 3000);
     }
 
-    private void enemyConfuseEnd(){
+    private void enemyConfuseEnd() {
         enemyIsConfused = false;
         enemyConfuseCountdown = -1;
         myHandler.postDelayed(new Runnable() {
@@ -10367,49 +10398,49 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     * CLEAR STATUS METHODS
     *  -----------------------------------------*/
 
-    private void clearEnemyStatus(String debuffName){
-        if (enemyStatuses[0].equals(debuffName)){
+    private void clearEnemyStatus(String debuffName) {
+        if (enemyStatuses[0].equals(debuffName)) {
             enemyStatuses[0] = "";
             enemyStatusIcon1.setVisibility(View.INVISIBLE);
             activeEnemyStatuses--;
         }
-        if (enemyStatuses[1].equals(debuffName)){
+        if (enemyStatuses[1].equals(debuffName)) {
             enemyStatuses[1] = "";
             enemyStatusIcon2.setVisibility(View.INVISIBLE);
             activeEnemyStatuses--;
         }
-        if (enemyStatuses[2].equals(debuffName)){
+        if (enemyStatuses[2].equals(debuffName)) {
             enemyStatuses[2] = "";
             enemyStatusIcon3.setVisibility(View.INVISIBLE);
             activeEnemyStatuses--;
         }
-        if (enemyStatuses[3].equals(debuffName)){
+        if (enemyStatuses[3].equals(debuffName)) {
             enemyStatuses[3] = "";
             enemyStatusIcon4.setVisibility(View.INVISIBLE);
             activeEnemyStatuses--;
         }
-        if (enemyStatuses[4].equals(debuffName)){
+        if (enemyStatuses[4].equals(debuffName)) {
             enemyStatuses[4] = "";
             enemyStatusIcon5.setVisibility(View.INVISIBLE);
             activeEnemyStatuses--;
         }
-        if (debuffName.equals("Concentrate")){
+        if (debuffName.equals("Concentrate")) {
             enemyClearAward = 2;
             enemyHasConcentrate = false;
             enemyConcentrateRound = false;
         }
-        if (debuffName.equals("Corruption")){
+        if (debuffName.equals("Corruption")) {
             enemyCorruptedPenalty = 0;
         }
-        if (debuffName.equals("Accuracy")){
-            if (!enemyIsBlind){
+        if (debuffName.equals("Accuracy")) {
+            if (!enemyIsBlind) {
                 enemyHitChancePercentage = 85;
             } else {
                 enemyHitChancePercentage = 25;
             }
         }
-        if (debuffName.equals("Blind")){
-            if (!enemyHasAccuracy){
+        if (debuffName.equals("Blind")) {
+            if (!enemyHasAccuracy) {
                 enemyHitChancePercentage = 85;
             } else {
                 enemyHitChancePercentage = 100;
@@ -10417,49 +10448,49 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
-    private void clearPlayerStatus(String debuffName){
-        if (playerStatuses[0].equals(debuffName)){
+    private void clearPlayerStatus(String debuffName) {
+        if (playerStatuses[0].equals(debuffName)) {
             playerStatuses[0] = "";
             playerStatusIcon1.setVisibility(View.INVISIBLE);
             activePlayerStatuses--;
         }
-        if (playerStatuses[1].equals(debuffName)){
+        if (playerStatuses[1].equals(debuffName)) {
             playerStatuses[1] = "";
             playerStatusIcon2.setVisibility(View.INVISIBLE);
             activePlayerStatuses--;
         }
-        if (playerStatuses[2].equals(debuffName)){
+        if (playerStatuses[2].equals(debuffName)) {
             playerStatuses[2] = "";
             playerStatusIcon3.setVisibility(View.INVISIBLE);
             activePlayerStatuses--;
         }
-        if (playerStatuses[3].equals(debuffName)){
+        if (playerStatuses[3].equals(debuffName)) {
             playerStatuses[3] = "";
             playerStatusIcon4.setVisibility(View.INVISIBLE);
             activePlayerStatuses--;
         }
-        if (playerStatuses[4].equals(debuffName)){
+        if (playerStatuses[4].equals(debuffName)) {
             playerStatuses[4] = "";
             playerStatusIcon5.setVisibility(View.INVISIBLE);
             activePlayerStatuses--;
         }
-        if (debuffName.equals("Concentrate")){
+        if (debuffName.equals("Concentrate")) {
             playerClearAward = 2;
             playerHasConcentrate = false;
             playerConcentrateRound = false;
         }
-        if (debuffName.equals("Corruption")){
+        if (debuffName.equals("Corruption")) {
             playerCorruptedPenalty = 0;
         }
-        if (debuffName.equals("Accuracy")){
-            if (!playerIsBlind){
+        if (debuffName.equals("Accuracy")) {
+            if (!playerIsBlind) {
                 playerHitChancePercentage = 85;
             } else {
                 playerHitChancePercentage = 25;
             }
         }
-        if (debuffName.equals("Blind")){
-            if (!playerHasAccuracy){
+        if (debuffName.equals("Blind")) {
+            if (!playerHasAccuracy) {
                 playerHitChancePercentage = 85;
             } else {
                 playerHitChancePercentage = 100;
@@ -10470,25 +10501,25 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* ----------------------------------------- */
 
     /* CHECK FOR EMPTY PLAYER STATUS SPOT */
-    private int getFreePlayerStatusSpot(){
+    private int getFreePlayerStatusSpot() {
         int number;
-        if (playerStatuses[0].equals("")){
+        if (playerStatuses[0].equals("")) {
             number = 0;
             return number;
         }
-        if (playerStatuses[1].equals("")){
+        if (playerStatuses[1].equals("")) {
             number = 1;
             return number;
         }
-        if (playerStatuses[2].equals("")){
+        if (playerStatuses[2].equals("")) {
             number = 2;
             return number;
         }
-        if (playerStatuses[3].equals("")){
+        if (playerStatuses[3].equals("")) {
             number = 3;
             return number;
         }
-        if (playerStatuses[4].equals("")){
+        if (playerStatuses[4].equals("")) {
             number = 4;
             return number;
         }
@@ -10497,25 +10528,25 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* CHECK FOR EMPTY ENEMY STATUS */
-    private int getFreeEnemyStatusSpot(){
+    private int getFreeEnemyStatusSpot() {
         int number;
-        if (enemyStatuses[0].equals("")){
+        if (enemyStatuses[0].equals("")) {
             number = 0;
             return number;
         }
-        if (enemyStatuses[1].equals("")){
+        if (enemyStatuses[1].equals("")) {
             number = 1;
             return number;
         }
-        if (enemyStatuses[2].equals("")){
+        if (enemyStatuses[2].equals("")) {
             number = 2;
             return number;
         }
-        if (enemyStatuses[3].equals("")){
+        if (enemyStatuses[3].equals("")) {
             number = 3;
             return number;
         }
-        if (enemyStatuses[4].equals("")){
+        if (enemyStatuses[4].equals("")) {
             number = 4;
             return number;
         }
@@ -10525,25 +10556,25 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* ----------------------------------------- */
 
     /* FIND PLAYER AILMENTS */
-    private int findPlayerAilment(String debuffName){
+    private int findPlayerAilment(String debuffName) {
         int number;
-        if (playerStatuses[0].equals(debuffName)){
+        if (playerStatuses[0].equals(debuffName)) {
             number = 0;
             return number;
         }
-        if (playerStatuses[1].equals(debuffName)){
+        if (playerStatuses[1].equals(debuffName)) {
             number = 1;
             return number;
         }
-        if (playerStatuses[2].equals(debuffName)){
+        if (playerStatuses[2].equals(debuffName)) {
             number = 2;
             return number;
         }
-        if (playerStatuses[3].equals(debuffName)){
+        if (playerStatuses[3].equals(debuffName)) {
             number = 3;
             return number;
         }
-        if (playerStatuses[4].equals(debuffName)){
+        if (playerStatuses[4].equals(debuffName)) {
             number = 4;
             return number;
         }
@@ -10551,87 +10582,89 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* CHECK PLAYER FOR AILMENTS */
-    private void checkPlayerAilments(){
+    private void checkPlayerAilments() {
         int check = findPlayerAilment("Slow Down");
-        if (check != -1){
+        if (check != -1) {
             activePlayerDebuffs--;
             playerIsSlowed = false;
             clearPlayerStatus("Slow Down");
         }
         check = findPlayerAilment("Corruption");
-        if (check != -1){
+        if (check != -1) {
             activePlayerDebuffs--;
             playerIsCorrupted = false;
             clearPlayerStatus("Corruption");
         }
         check = findPlayerAilment("Curse");
-        if (check != -1){
+        if (check != -1) {
             activePlayerDebuffs--;
             playerIsCursed = false;
             playerCurseCountdown = -1;
             clearPlayerStatus("Curse");
         }
         check = findPlayerAilment("Agony");
-        if (check != -1){
+        if (check != -1) {
             activePlayerDebuffs--;
             playerIsAgonized = false;
             playerAgonyCountdown = -1;
             clearPlayerStatus("Agony");
         }
         check = findPlayerAilment("Malediction");
-        if (check != -1){
+        if (check != -1) {
             activePlayerDebuffs--;
             playerIsMaledicted = false;
             playerMaledictionCountdown = -1;
             clearPlayerStatus("Malediction");
         }
         check = findPlayerAilment("Death Sentence");
-        if (check != -1){
+        if (check != -1) {
             activePlayerDebuffs--;
             playerIsSentenced = false;
             playerSentenceCountdown = -1;
             clearPlayerStatus("Death Sentence");
         }
         check = findPlayerAilment("Silence");
-        if (check != -1){
+        if (check != -1) {
             activePlayerDebuffs--;
             playerIsSilenced = false;
             clearPlayerStatus("Silence");
         }
         check = findPlayerAilment("Blind");
-        if (check != -1){
+        if (check != -1) {
             activePlayerDebuffs--;
             playerIsBlind = false;
             clearPlayerStatus("Blind");
         }
         check = findPlayerAilment("Confuse");
-        if (check != -1){
+        if (check != -1) {
             activePlayerDebuffs--;
             playerIsConfused = false;
+            playerConfuseCountdown = -1;
+            mixedUp = false;
             clearPlayerStatus("Confuse");
         }
     }
 
     /* FIND ENEMY AILMENTS */
-    private int findEnemyAilments(String debuffName){
+    private int findEnemyAilments(String debuffName) {
         int number;
-        if (enemyStatuses[0].equals(debuffName)){
+        if (enemyStatuses[0].equals(debuffName)) {
             number = 0;
             return number;
         }
-        if (enemyStatuses[1].equals(debuffName)){
+        if (enemyStatuses[1].equals(debuffName)) {
             number = 1;
             return number;
         }
-        if (enemyStatuses[2].equals(debuffName)){
+        if (enemyStatuses[2].equals(debuffName)) {
             number = 2;
             return number;
         }
-        if (enemyStatuses[3].equals(debuffName)){
+        if (enemyStatuses[3].equals(debuffName)) {
             number = 3;
             return number;
         }
-        if (enemyStatuses[4].equals(debuffName)){
+        if (enemyStatuses[4].equals(debuffName)) {
             number = 4;
             return number;
         }
@@ -10639,63 +10672,65 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* CHECK ENEMY FOR AILMENTS */
-    private void checkEnemyAilments(){
+    private void checkEnemyAilments() {
         int check = findEnemyAilments("Slow Down");
-        if (check != -1){
+        if (check != -1) {
             activeEnemyDebuffs--;
             enemyIsSlowed = false;
             clearEnemyStatus("Slow Down");
         }
         check = findEnemyAilments("Corruption");
-        if (check != -1){
+        if (check != -1) {
             activeEnemyDebuffs--;
             enemyIsCorrupted = false;
             clearEnemyStatus("Corruption");
         }
         check = findEnemyAilments("Curse");
-        if (check != -1){
+        if (check != -1) {
             activeEnemyDebuffs--;
             enemyIsCursed = false;
             enemyCurseCountdown = -1;
             clearEnemyStatus("Curse");
         }
         check = findEnemyAilments("Agony");
-        if (check != -1){
+        if (check != -1) {
             activeEnemyDebuffs--;
             enemyIsAgonized = false;
             enemyAgonyCountdown = -1;
             clearEnemyStatus("Agony");
         }
         check = findEnemyAilments("Malediction");
-        if (check != -1){
+        if (check != -1) {
             activeEnemyDebuffs--;
             enemyIsMaledicted = false;
             enemyMaledictionCountdown = -1;
             clearEnemyStatus("Malediction");
         }
         check = findEnemyAilments("Death Sentence");
-        if (check != -1){
+        if (check != -1) {
             activeEnemyDebuffs--;
             enemyIsSentenced = false;
             enemySentenceCountdown = -1;
             clearEnemyStatus("Death Sentence");
         }
         check = findEnemyAilments("Silence");
-        if (check != -1){
+        if (check != -1) {
             activeEnemyDebuffs--;
             enemyIsSilenced = false;
             clearEnemyStatus("Silence");
         }
         check = findEnemyAilments("Blind");
-        if (check != -1){
+        if (check != -1) {
             activeEnemyDebuffs--;
             enemyIsBlind = false;
             clearEnemyStatus("Blind");
         }
         check = findEnemyAilments("Confuse");
-        if (check != -1){
+        if (check != -1) {
             activeEnemyDebuffs--;
             enemyIsConfused = false;
+            enemyConfuseCountdown = -1;
+            mixedUp = false;
             clearEnemyStatus("Confuse");
         }
     }
@@ -10703,25 +10738,25 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* ----------------------------------------- */
 
     /* FIND PLAYER BUFFS */
-    private int findPlayerBuff(String buffName){
+    private int findPlayerBuff(String buffName) {
         int number;
-        if (playerStatuses[0].equals(buffName)){
+        if (playerStatuses[0].equals(buffName)) {
             number = 0;
             return number;
         }
-        if (playerStatuses[1].equals(buffName)){
+        if (playerStatuses[1].equals(buffName)) {
             number = 1;
             return number;
         }
-        if (playerStatuses[2].equals(buffName)){
+        if (playerStatuses[2].equals(buffName)) {
             number = 2;
             return number;
         }
-        if (playerStatuses[3].equals(buffName)){
+        if (playerStatuses[3].equals(buffName)) {
             number = 3;
             return number;
         }
-        if (playerStatuses[4].equals(buffName)){
+        if (playerStatuses[4].equals(buffName)) {
             number = 4;
             return number;
         }
@@ -10729,46 +10764,46 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* CHECK PLAYER FOR BUFFS */
-    private void checkPlayerBuffs(){
+    private void checkPlayerBuffs() {
         int check = findPlayerBuff("Speed Up");
-        if (check != -1){
+        if (check != -1) {
             playerHasHaste = false;
             playerHasHaste2 = false;
             clearPlayerStatus("Speed Up");
         }
         check = findPlayerBuff("Protect");
-        if (check != -1){
+        if (check != -1) {
             playerHasProtect = false;
             clearPlayerStatus("Protect");
         }
         check = findPlayerBuff("Rewind");
-        if (check != -1){
+        if (check != -1) {
             playerHasAlteredTime = false;
             clearPlayerStatus("Rewind");
         }
         check = findPlayerBuff("Hoard");
-        if (check != -1){
+        if (check != -1) {
             playerIsHoarding = false;
             clearPlayerStatus("Hoard");
         }
         check = findPlayerBuff("Concentrate");
-        if (check != -1){
+        if (check != -1) {
             playerHasConcentrate = false;
             clearPlayerStatus("Concentrate");
         }
         check = findPlayerBuff("Salvage");
-        if (check != -1){
+        if (check != -1) {
             playerHasSalvage = false;
             clearPlayerStatus("Salvage");
         }
         check = findPlayerBuff("Charge");
-        if (check != -1){
+        if (check != -1) {
             playerHasCharge = false;
             playerChargeCountdown = -1;
             clearPlayerStatus("Charge");
         }
         check = findPlayerBuff("Accuracy");
-        if (check != -1){
+        if (check != -1) {
             playerHasAccuracy = false;
             playerAccuracyCountdown = -1;
             clearPlayerStatus("Accuracy");
@@ -10776,25 +10811,25 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* FIND ENEMY BUFFS */
-    private int findEnemyBuff(String buffName){
+    private int findEnemyBuff(String buffName) {
         int number;
-        if (enemyStatuses[0].equals(buffName)){
+        if (enemyStatuses[0].equals(buffName)) {
             number = 0;
             return number;
         }
-        if (enemyStatuses[1].equals(buffName)){
+        if (enemyStatuses[1].equals(buffName)) {
             number = 1;
             return number;
         }
-        if (enemyStatuses[2].equals(buffName)){
+        if (enemyStatuses[2].equals(buffName)) {
             number = 2;
             return number;
         }
-        if (enemyStatuses[3].equals(buffName)){
+        if (enemyStatuses[3].equals(buffName)) {
             number = 3;
             return number;
         }
-        if (enemyStatuses[4].equals(buffName)){
+        if (enemyStatuses[4].equals(buffName)) {
             number = 4;
             return number;
         }
@@ -10802,46 +10837,46 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* CHECK ENEMY FOR BUFFS */
-    private void checkEnemyBuffs(){
+    private void checkEnemyBuffs() {
         int check = findEnemyBuff("Speed Up");
-        if (check != -1){
+        if (check != -1) {
             enemyHasHaste = false;
             enemyHasHaste2 = false;
             clearEnemyStatus("Speed Up");
         }
         check = findEnemyBuff("Protect");
-        if (check != -1){
+        if (check != -1) {
             enemyHasProtect = false;
             clearEnemyStatus("Protect");
         }
         check = findEnemyBuff("Rewind");
-        if (check != -1){
+        if (check != -1) {
             enemyHasAlteredTime = false;
             clearEnemyStatus("Rewind");
         }
         check = findEnemyBuff("Hoard");
-        if (check != -1){
+        if (check != -1) {
             enemyIsHoarding = false;
             clearEnemyStatus("Hoard");
         }
         check = findEnemyBuff("Concentrate");
-        if (check != -1){
+        if (check != -1) {
             enemyHasConcentrate = false;
             clearEnemyStatus("Concentrate");
         }
         check = findEnemyBuff("Salvage");
-        if (check != -1){
+        if (check != -1) {
             enemyHasSalvage = false;
             clearEnemyStatus("Salvage");
         }
         check = findEnemyBuff("Charge");
-        if (check != -1){
+        if (check != -1) {
             enemyHasCharge = false;
             enemyChargeCountdown = -1;
             clearEnemyStatus("Charge");
         }
         check = findEnemyBuff("Accuracy");
-        if (check != -1){
+        if (check != -1) {
             enemyHasAccuracy = false;
             enemyAccuracyCountdown = -1;
             clearEnemyStatus("Accuracy");
@@ -10849,7 +10884,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* COIN FLIP START */
-    private void coinFlipStart(){
+    private void coinFlipStart() {
         btnEndTurn.setEnabled(false);
         btnEndTurn.setText("");
         disable(layout_objectRow);
@@ -10863,7 +10898,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* CHOOSE COIN SIDE WINDOW */
-    private void chooseCoinSide(Context context){
+    private void chooseCoinSide(Context context) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmdialog_coinflip);
@@ -10902,8 +10937,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* COIN SPIN */
-    private void spinCoin(){
-        switch (coinCycle){
+    private void spinCoin() {
+        switch (coinCycle) {
             case 0:
                 myHandler.postDelayed(new Runnable() {
                     public void run() {
@@ -11839,10 +11874,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             public void run() {
                 ivCenterImage.clearAnimation();
                 ivCenterImage.setVisibility(View.GONE);
-                if (playerStrawSelected && strawWon){
+                if (playerStrawSelected && strawWon) {
                     playerTurnStart();
-                }
-                else if (!playerStrawSelected && !strawWon){
+                } else if (!playerStrawSelected && !strawWon) {
                     playerTurnStart();
                 } else {
                     btnEndTurn.setText("Enemy Turn");
@@ -11853,9 +11887,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* SET CENTER TEXT SIZE */
-    private void setCenterTextSize(){
+    private void setCenterTextSize() {
         String density = DeviceDensity.getDensityName(this);
-        if (density.equals("xxhdpi")){
+        if (density.equals("xxhdpi")) {
             tvCenterMessage.setTextSize(22);
         } else if (density.equals("hdpi")) {
             tvCenterMessage.setTextSize(20);
@@ -11863,10 +11897,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* SET OBJ TO ALIGN MSG TEXT TO */
-    private void setObjMsgLocation(){
-        RelativeLayout.LayoutParams objMsgSettings = (RelativeLayout.LayoutParams)tvObjMsg.getLayoutParams();
+    private void setObjMsgLocation() {
+        RelativeLayout.LayoutParams objMsgSettings = (RelativeLayout.LayoutParams) tvObjMsg.getLayoutParams();
         objMsgSettings.addRule(RelativeLayout.ABOVE, getCurrentObject(objectsRemaining));
-        if (objectsRemaining == 1 && !playerHit || objectsRemaining == 1 && nextObjIsInfested ){
+        if (objectsRemaining == 1 && !playerHit || objectsRemaining == 1 && nextObjIsInfested) {
             objMsgSettings.addRule(RelativeLayout.ALIGN_RIGHT, getCurrentObject(objectsRemaining));
             objMsgSettings.addRule(RelativeLayout.ALIGN_LEFT, 0);
         } else {
@@ -11877,8 +11911,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* GET OBJ TO ALIGN MSG TEXT TO */
-    private int getCurrentObject(int objectsRemaining){
-        switch (objectsRemaining){
+    private int getCurrentObject(int objectsRemaining) {
+        switch (objectsRemaining) {
             case 16:
                 return obj001.getId();
             case 15:
@@ -11916,45 +11950,49 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* INITIATES STUFF WHEN PLAYER CLICKS AN OBJECT */
-    private void initiateObjClick(){
+    private void initiateObjClick() {
         //SETS PLAYER HIT CHANCE
         playerHitChance = genRand(100);
         playerHit = playerHitChance <= playerHitChancePercentage;
-        if (playerHit){
+        if (playerHit) {
             playerCritChance = genRand(100);
             playerCrit = playerCritChance <= playerCritChancePercentage;
             objectValue = genRand(100);
-            if (objectValue <= 19){
-                if (playerCrit){
+            if (objectValue <= 19) {
+                if (playerCrit) {
                     playerClearAward = 2;
                 } else {
                     playerClearAward = 1;
                 }
-            } else if (objectValue >= 20 && objectValue <= 40){
-                if (playerCrit){
+            } else if (objectValue >= 20 && objectValue <= 40) {
+                if (playerCrit) {
                     playerClearAward = 6;
                 } else {
                     playerClearAward = 3;
                 }
-            } else if (objectValue >= 40){
-                if (playerCrit){
+            } else if (objectValue >= 40) {
+                if (playerCrit) {
                     playerClearAward = 4;
                 } else {
                     playerClearAward = 2;
                 }
             }
-            if (playerConcentrateRound){
+            if (playerConcentrateRound) {
                 playerClearAward = playerClearAward * 2;
             }
         }
-        if (playerIsConfused && objectsRemaining != 1){
+        if (playerIsConfused && objectsRemaining != 1) {
             confuseMixUpChance = genRand(100);
-            if (confuseMixUpChance <= 50){
+            if (confuseMixUpChance <= 50) {
                 objMsgSymbol = "-";
                 mixedUp = true;
             } else {
                 objMsgSymbol = "+";
+                mixedUp = false;
             }
+        } else {
+            objMsgSymbol = "+";
+            mixedUp = false;
         }
         //SETS WHERE TO DISPLAY MSG
         setObjMsgLocation();
@@ -11965,27 +12003,27 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
 
     /* INITIATES STUFF WHEN ENEMY CLICKS AN OBJECT */
-    private void initiateEnemyObjClick(){
+    private void initiateEnemyObjClick() {
         enemyHitChance = genRand(100);
         enemyHit = enemyHitChance <= enemyHitChancePercentage;
-        if (enemyHit){
+        if (enemyHit) {
             enemyCritChance = genRand(100);
             enemyCrit = enemyCritChance <= enemyCritChancePercentage;
             objectValue = genRand(100);
-            if (objectValue <= 19){
-                if (enemyCrit){
+            if (objectValue <= 19) {
+                if (enemyCrit) {
                     enemyClearAward = 2;
                 } else {
                     enemyClearAward = 1;
                 }
-            } else if (objectValue >= 20 && objectValue <= 40){
-                if (playerCrit){
+            } else if (objectValue >= 20 && objectValue <= 40) {
+                if (playerCrit) {
                     enemyClearAward = 6;
                 } else {
                     enemyClearAward = 3;
                 }
-            } else if (objectValue >= 40){
-                if (playerCrit){
+            } else if (objectValue >= 40) {
+                if (playerCrit) {
                     enemyClearAward = 4;
                 } else {
                     enemyClearAward = 2;
@@ -11995,26 +12033,30 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 enemyClearAward = enemyClearAward * 2;
             }
         }
-        if (enemyIsConfused && objectsRemaining != 1){
+        if (enemyIsConfused && objectsRemaining != 1) {
             confuseMixUpChance = genRand(100);
-            if (confuseMixUpChance <= 50){
+            if (confuseMixUpChance <= 50) {
                 objMsgSymbol = "-";
                 mixedUp = true;
             } else {
                 objMsgSymbol = "+";
+                mixedUp = false;
             }
+        } else {
+            objMsgSymbol = "+";
+            mixedUp = false;
         }
         setObjMsgLocation();
         tvObjMsg.setVisibility(View.INVISIBLE);
     }
 
     /* METHOD FOR ANIMATING MSG ABOVE OBJECT */
-    private void playerHitObject(String msg, int value){
+    private void playerHitObject(String msg, int value) {
         tvObjMsg.setVisibility(View.VISIBLE);
         tvObjMsg.bringToFront();
-        if (value != 0){
+        if (value != 0) {
             tvObjMsg.setText(msg + String.valueOf(value));
-            if (objectsRemaining == 1 || mixedUp){
+            if (objectsRemaining == 1 || mixedUp) {
                 tvObjMsg.setTextColor(getResources().getColor(penaltyColor));
             } else {
                 tvObjMsg.setTextColor(getResources().getColor(gainColor));
@@ -12023,7 +12065,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             tvObjMsg.setTextColor(getResources().getColor(neutralColor));
             tvObjMsg.setText(msg);
         }
-        if (playerCrit || enemyCrit){
+        if (playerCrit || enemyCrit) {
             tvObjMsg.startAnimation(ani_bounce_crit);
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -12038,16 +12080,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* METHOD FOR UPDATING PLAYER SCORE & MOVES WHEN CLEARING AN OBJECT */
-    private void updatePlayerStatsOnObjClear(){
+    private void updatePlayerStatsOnObjClear() {
         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
-        if (mixedUp){
+        if (mixedUp) {
             playerScore = playerScore - playerClearAward;
             mixedUp = false;
             objMsgSymbol = "+";
         } else {
             playerScore = playerScore + playerClearAward;
         }
-        if (playerScore < 0){
+        if (playerScore < 0) {
             playerScore = 0;
         }
         tvPlayerScore.setText(String.valueOf(playerScore));
@@ -12055,16 +12097,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* METHOD FOR UPDATING ENEMY SCORE & MOVES WHEN CLEARING AN OBJECT */
-    private void updateEnemyStatsOnObjClear(){
+    private void updateEnemyStatsOnObjClear() {
         enemyMoves = enemyMoves - 1 - enemyCorruptedPenalty;
-        if (mixedUp){
+        if (mixedUp) {
             enemyScore = enemyScore - enemyClearAward;
             mixedUp = false;
             objMsgSymbol = "+";
         } else {
             enemyScore = enemyScore + enemyClearAward;
         }
-        if (enemyScore < 0){
+        if (enemyScore < 0) {
             enemyScore = 0;
         }
         tvEnemyScore.setText(String.valueOf(enemyScore));
@@ -12074,8 +12116,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* THIS METHOD KEEPS TRACK OF HOW MANY OBJECTS REMAINS SO THAT THE PLAYER ONLY CAN CLICK
     ON THE NEXT ONE
      */
-    private void setClickableObjects(int objectsRemaining){
-        switch (objectsRemaining){
+    private void setClickableObjects(int objectsRemaining) {
+        switch (objectsRemaining) {
             case 16:
                 obj001.setClickable(true);
                 obj002.setClickable(false);
@@ -12368,16 +12410,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* PRETTY MUCH SELF-EXPLANATORY.. */
-    private void enablePlayerActions(){
+    private void enablePlayerActions() {
         setClickableObjects(objectsRemaining);
         enable(layout_objectRow);
         enablePlayerCards();
     }
 
     /* FOR REWIND CARD */
-    private void resetAllObjects(){
+    private void resetAllObjects() {
         objectsRemaining = 16;
-        if (nextObjIsInfested){
+        if (nextObjIsInfested) {
             obj001.setImageResource(objectWebbedImg);
         } else {
             obj001.setImageResource(objectImg);

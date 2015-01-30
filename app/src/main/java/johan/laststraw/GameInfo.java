@@ -18,6 +18,8 @@ public class GameInfo {
                 return "snowmen";
             case 4:
                 return "chests";
+            case 5:
+                return "fungi";
         }
         return "";
     }
@@ -40,6 +42,8 @@ public class GameInfo {
                 return "Spiders infests the snowman";
             case 4:
                 return "Spiders infests the chest";
+            case 5:
+                return "Spiders infests the fungus";
         }
         return "";
     }
@@ -54,6 +58,8 @@ public class GameInfo {
                 return "Snowman is already infested";
             case 4:
                 return "Chest is already infested";
+            case 5:
+                return "Fungus is already infested";
         }
         return "";
     }
@@ -67,6 +73,8 @@ public class GameInfo {
             case 3:
                 return "textBlack";
             case 4:
+                return "textWhite";
+            case 5:
                 return "textWhite";
         }
         return "";
@@ -82,6 +90,8 @@ public class GameInfo {
                 return 2;
             case 4:
                 return 3;
+            case 5:
+                return 4;
         }
         return 0;
     }
@@ -96,6 +106,8 @@ public class GameInfo {
                 return "activity_world003";
             case 4:
                 return "activity_world004";
+            case 5:
+                return "activity_world005";
         }
         return null;
     }
@@ -110,6 +122,8 @@ public class GameInfo {
                 return "object_snowman";
             case 4:
                 return "object_chest";
+            case 5:
+                return "object_fungus";
         }
         return null;
     }
@@ -124,6 +138,8 @@ public class GameInfo {
                 return "object_snowman_broken";
             case 4:
                 return "object_chest_opened";
+            case 5:
+                return "object_fungus_broken";
         }
         return null;
     }
@@ -138,6 +154,8 @@ public class GameInfo {
                 return "object_snowman_webbed";
             case 4:
                 return "object_chest_webbed";
+            case 5:
+                return "object_fungus_webbed";
         }
         return null;
     }

@@ -14,7 +14,7 @@ import android.widget.TextView;
  */
 public class Activity_WorldSelection extends Activity implements View.OnClickListener {
 
-    ImageButton bFields, bDungeon, bMountains, bWreckage;
+    ImageButton bFields, bDungeon, bMountains, bWreckage, bWoods;
     Intent worldSelected;
     DBHandler db;
     Cursor cursor;
@@ -33,14 +33,17 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         bDungeon = (ImageButton) findViewById(R.id.imgBtnWorld002);
         bMountains = (ImageButton) findViewById(R.id.imgBtnWorld003);
         bWreckage = (ImageButton) findViewById(R.id.imgBtnWorld004);
+        bWoods = (ImageButton) findViewById(R.id.imgBtnWorld005);
         bFields.setOnClickListener(this);
         bDungeon.setOnClickListener(this);
         bMountains.setOnClickListener(this);
         bWreckage.setOnClickListener(this);
+        bWoods.setOnClickListener(this);
 
         bDungeon.setClickable(false);
         bMountains.setClickable(false);
         bWreckage.setClickable(false);
+        bWoods.setClickable(false);
 
         w1star1 = (ImageView) findViewById(R.id.ivW1Star1);
         w1star2 = (ImageView) findViewById(R.id.ivW1Star2);
@@ -80,6 +83,8 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         getLevelInfo(16);
         //Check World 3 if is cleared
         getLevelInfo(24);
+        //Check World 4 if is cleared
+        getLevelInfo(32);
     }
 
     @Override
@@ -108,6 +113,13 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
                 break;
             case R.id.imgBtnWorld004:
                 worldSelected = new Intent(Activity_WorldSelection.this, Activity_Wreckage_LevelSelection.class);
+                worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(worldSelected);
+                finish();
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.imgBtnWorld005:
+                worldSelected = new Intent(Activity_WorldSelection.this, Activity_Woods_LevelSelection.class);
                 worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(worldSelected);
                 finish();
@@ -163,6 +175,10 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             world004High.setText(String.valueOf(totalScore));
             setW4Stars();
         }
+        if (worldId == 5){
+            world005High.setText(String.valueOf(totalScore));
+            setW5Stars();
+        }
     }
 
     @Override
@@ -203,6 +219,11 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             bWreckage.setImageResource(R.drawable.world_wreckage);
             bWreckage.setBackgroundResource(R.drawable.lvlselection_button);
             bWreckage.setClickable(true);
+        }
+        if (worldId == 4 && worldCleared == 1){
+            bWoods.setImageResource(R.drawable.world_woods);
+            bWoods.setBackgroundResource(R.drawable.lvlselection_button);
+            bWoods.setClickable(true);
         }
     }
 
@@ -250,6 +271,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             w3star3.setImageResource(R.drawable.star_full);
         }
     }
+
     private void setW4Stars(){
         if (totalScore >= 120 && totalScore < 160){
             w4star1.setImageResource(R.drawable.star_full);
@@ -262,6 +284,21 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             w4star1.setImageResource(R.drawable.star_full);
             w4star2.setImageResource(R.drawable.star_full);
             w4star3.setImageResource(R.drawable.star_full);
+        }
+    }
+
+    private void setW5Stars(){
+        if (totalScore >= 120 && totalScore < 160){
+            w5star1.setImageResource(R.drawable.star_full);
+        }
+        if (totalScore >= 160 && totalScore < 200){
+            w5star1.setImageResource(R.drawable.star_full);
+            w5star2.setImageResource(R.drawable.star_full);
+        }
+        if (totalScore >= 200){
+            w5star1.setImageResource(R.drawable.star_full);
+            w5star2.setImageResource(R.drawable.star_full);
+            w5star3.setImageResource(R.drawable.star_full);
         }
     }
 }
