@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -21,8 +22,8 @@ import static android.graphics.Color.TRANSPARENT;
 
 public class Activity_StartScreen extends Activity implements View.OnClickListener{
 
-    Button profileButton, playButton, cardStoreButton, rulesButton, newCardMsg;
-    ImageButton resetButton;
+    Button playButton, newCardMsg;
+    ImageButton resetButton, profileButton, rulesButton, cardStoreButton;
     Intent play, profile, cards, rules;
     DBHandler db;
     Cursor cursor;
@@ -36,10 +37,10 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startscreen);
 
-        profileButton = (Button) findViewById(R.id.Btn_Profile);
+        profileButton = (ImageButton) findViewById(R.id.Btn_Profile);
         playButton = (Button) findViewById(R.id.Btn_Play);
-        cardStoreButton = (Button) findViewById(R.id.Btn_Cards);
-        rulesButton = (Button) findViewById(R.id.Btn_Rules);
+        cardStoreButton = (ImageButton) findViewById(R.id.Btn_Cards);
+        rulesButton = (ImageButton) findViewById(R.id.Btn_Rules);
         newCardMsg = (Button) findViewById(R.id.newCardMsg);
         resetButton = (ImageButton) findViewById(R.id.Btn_Reset);
 
@@ -117,6 +118,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         checkMiniBoss3();
         //CHECKS IF BOSS 3 HAS BEEN BEATEN
         checkBoss3();
+        //CHECKS IF MINI BOSS 4 HAS BEEN BEATEN
+        checkMiniBoss4();
     }
 
     private void awardNewCard() {
@@ -376,6 +379,26 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             preferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("player4thSlotAwarded", true);
+            editor.apply();
+            confirmSuccess("You have unlocked a new card slot!", Activity_StartScreen.this);
+            db.close();
+        }
+    }
+
+    private void checkMiniBoss4(){
+        int checkMiniBoss1 = getLevelInfo(28);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean player5thSlotAwarded = preferences.getBoolean("player5thSlotAwarded", false);
+        if (checkMiniBoss1 == 1 && !player5thSlotAwarded){
+            try {
+                db.open();
+            } catch (java.sql.SQLException e) {
+                e.printStackTrace();
+            }
+            db.updatePlayerSlots(5);
+            preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("player5thSlotAwarded", true);
             editor.apply();
             confirmSuccess("You have unlocked a new card slot!", Activity_StartScreen.this);
             db.close();
