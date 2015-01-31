@@ -70,6 +70,31 @@ public class EnemyInfo {
                 return 16;
             case 32:
                 return 16;
+            case 33:
+                return 17;
+            case 34:
+                return 17;
+            case 35:
+                return 18;
+            case 36:
+                return 18;
+            case 37:
+                return 19;
+            case 38:
+                return 19;
+            case 39:
+                return 20;
+            case 40:
+                return 20;
+            case 41:
+            case 42:
+            case 43:
+            case 44:
+            case 45:
+            case 46:
+            case 47:
+            case 48:
+                return 25;
         }
         return 0;
     }

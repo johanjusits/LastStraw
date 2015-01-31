@@ -99,8 +99,12 @@ public class EnemyCards {
     static int DispelCardCost = 1;
     static int RestoreCardCost = 1;
     static int DeathSentenceCardCost = 2;
-    static int HoardCardCost = 0;
+    static int HoardCardCost = 1;
     static int ConfuseCardCost = 2;
+    static int Steal3CardCost = 3;
+    static int MaledictionCardCost = 3;
+    static int RewindCardCost = 0;
+    static int DemonicPrayerCardCost = 0;
 
     public static int getEnemyTotalCards(int levelId) {
         switch (levelId) {
@@ -174,6 +178,14 @@ public class EnemyCards {
                 return 6;
             //WORLD 005
             case 33:
+                return 6;
+            case 34:
+                return 6;
+            case 35:
+                return 6;
+            case 36:
+                return 6;
+            case 37:
                 return 6;
         }
         return 0;
@@ -615,6 +627,70 @@ public class EnemyCards {
                     case 5:
                         return cardIconAilment;
                 }
+                // WORLD 5 LEVEL 2
+            case 34:
+                switch (cardNr) {
+                    case 0:
+                        return cardIconBoosting;
+                    case 1:
+                        return cardIconField;
+                    case 2:
+                        return cardIconField;
+                    case 3:
+                        return cardIconBoosting;
+                    case 4:
+                        return cardIconField;
+                    case 5:
+                        return cardIconAilment;
+                }
+                // WORLD 5 LEVEL 3
+            case 35:
+                switch (cardNr) {
+                    case 0:
+                        return cardIconAilment;
+                    case 1:
+                        return cardIconBoosting;
+                    case 2:
+                        return cardIconField;
+                    case 3:
+                        return cardIconBoosting;
+                    case 4:
+                        return cardIconBoosting;
+                    case 5:
+                        return cardIconAilment;
+                }
+                // WORLD 5 LEVEL 4
+            case 36:
+                switch (cardNr) {
+                    case 0:
+                        return cardIconAilment;
+                    case 1:
+                        return cardIconAilment;
+                    case 2:
+                        return cardIconAilment;
+                    case 3:
+                        return cardIconAilment;
+                    case 4:
+                        return cardIconAilment;
+                    case 5:
+                        return cardIconAilment;
+                }
+                // WORLD 5 LEVEL 5
+            case 37:
+                switch (cardNr) {
+                    case 0:
+                        return cardIconBoosting;
+                    case 1:
+                        return cardIconAilment;
+                    case 2:
+                        return cardIconBoosting;
+                    case 3:
+                        return cardIconAilment;
+                    case 4:
+                        return cardIconBoosting;
+                    case 5:
+                        return cardIconAilment;
+                }
         }
         return "";
     }
@@ -1052,6 +1128,70 @@ public class EnemyCards {
                         return cardTypeBoosting;
                     case 4:
                         return cardTypeAilment;
+                    case 5:
+                        return cardTypeAilment;
+                }
+                // WORLD 5 LEVEL 2
+            case 34:
+                switch (cardNr) {
+                    case 0:
+                        return cardTypeBoosting;
+                    case 1:
+                        return cardTypeField;
+                    case 2:
+                        return cardTypeField;
+                    case 3:
+                        return cardTypeBoosting;
+                    case 4:
+                        return cardTypeField;
+                    case 5:
+                        return cardTypeAilment;
+                }
+                // WORLD 5 LEVEL 3
+            case 35:
+                switch (cardNr) {
+                    case 0:
+                        return cardTypeAilment;
+                    case 1:
+                        return cardTypeBoosting;
+                    case 2:
+                        return cardTypeField;
+                    case 3:
+                        return cardTypeBoosting;
+                    case 4:
+                        return cardTypeBoosting;
+                    case 5:
+                        return cardTypeAilment;
+                }
+                // WORLD 5 LEVEL 4
+            case 36:
+                switch (cardNr) {
+                    case 0:
+                        return cardTypeAilment;
+                    case 1:
+                        return cardTypeAilment;
+                    case 2:
+                        return cardTypeAilment;
+                    case 3:
+                        return cardTypeAilment;
+                    case 4:
+                        return cardTypeAilment;
+                    case 5:
+                        return cardTypeAilment;
+                }
+                // WORLD 5 LEVEL 5
+            case 37:
+                switch (cardNr) {
+                    case 0:
+                        return cardTypeBoosting;
+                    case 1:
+                        return cardTypeAilment;
+                    case 2:
+                        return cardTypeBoosting;
+                    case 3:
+                        return cardTypeAilment;
+                    case 4:
+                        return cardTypeBoosting;
                     case 5:
                         return cardTypeAilment;
                 }
@@ -1589,6 +1729,70 @@ public class EnemyCards {
                     case 5:
                         return true;
                 }
+                // WORLD 5 LEVEL 2
+            case 34:
+                switch (cardNr) {
+                    case 0:
+                        return true;
+                    case 1:
+                        return true;
+                    case 2:
+                        return true;
+                    case 3:
+                        return true;
+                    case 4:
+                        return true;
+                    case 5:
+                        return true;
+                }
+                // WORLD 5 LEVEL 3
+            case 35:
+                switch (cardNr) {
+                    case 0:
+                        return true;
+                    case 1:
+                        return true;
+                    case 2:
+                        return true;
+                    case 3:
+                        return true;
+                    case 4:
+                        return true;
+                    case 5:
+                        return true;
+                }
+                // WORLD 5 LEVEL 4
+            case 36:
+                switch (cardNr) {
+                    case 0:
+                        return true;
+                    case 1:
+                        return true;
+                    case 2:
+                        return true;
+                    case 3:
+                        return true;
+                    case 4:
+                        return true;
+                    case 5:
+                        return true;
+                }
+                // WORLD 5 LEVEL 5
+            case 37:
+                switch (cardNr) {
+                    case 0:
+                        return true;
+                    case 1:
+                        return true;
+                    case 2:
+                        return true;
+                    case 3:
+                        return true;
+                    case 4:
+                        return true;
+                    case 5:
+                        return true;
+                }
         }
         return false;
     }
@@ -2028,6 +2232,70 @@ public class EnemyCards {
                         return ConfuseImgPath;
                     case 5:
                         return AgonyImgPath;
+                }
+                // WORLD 5 LEVEL 2
+            case 34:
+                switch (cardNr) {
+                    case 0:
+                        return TakeAimImgPath;
+                    case 1:
+                        return SalvageImgPath;
+                    case 2:
+                        return RestoreImgPath;
+                    case 3:
+                        return ConcentrateImgPath;
+                    case 4:
+                        return Steal3ImgPath;
+                    case 5:
+                        return BlindImgPath;
+                }
+                // WORLD 5 LEVEL 3
+            case 35:
+                switch (cardNr) {
+                    case 0:
+                        return MaledictionImgPath;
+                    case 1:
+                        return RewindImgPath;
+                    case 2:
+                        return InfestImgPath;
+                    case 3:
+                        return ConcentrateImgPath;
+                    case 4:
+                        return ChargeImgPath;
+                    case 5:
+                        return BlindImgPath;
+                }
+                // WORLD 5 LEVEL 4
+            case 36:
+                switch (cardNr) {
+                    case 0:
+                        return CurseImgPath;
+                    case 1:
+                        return SlowDownImgPath;
+                    case 2:
+                        return ConfuseImgPath;
+                    case 3:
+                        return AgonyImgPath;
+                    case 4:
+                        return DispelImgPath;
+                    case 5:
+                        return SilenceImgPath;
+                }
+                // WORLD 5 LEVEL 5
+            case 37:
+                switch (cardNr) {
+                    case 0:
+                        return RewindImgPath;
+                    case 1:
+                        return DeathSentenceImgPath;
+                    case 2:
+                        return HoardImgPath;
+                    case 3:
+                        return BlindImgPath;
+                    case 4:
+                        return ChargeImgPath;
+                    case 5:
+                        return SilenceImgPath;
                 }
         }
         return "";
@@ -2563,6 +2831,70 @@ public class EnemyCards {
                     case 5:
                         return AgonyCardName;
                 }
+                // WORLD 5 LEVEL 2
+            case 34:
+                switch (cardNr) {
+                    case 0:
+                        return TakeAimCardName;
+                    case 1:
+                        return SalvageCardName;
+                    case 2:
+                        return RestoreCardName;
+                    case 3:
+                        return ConcentrateCardName;
+                    case 4:
+                        return Steal3CardName;
+                    case 5:
+                        return BlindCardName;
+                }
+                // WORLD 5 LEVEL 3
+            case 35:
+                switch (cardNr) {
+                    case 0:
+                        return MaledictionCardName;
+                    case 1:
+                        return RewindCardName;
+                    case 2:
+                        return InfestCardName;
+                    case 3:
+                        return ConcentrateCardName;
+                    case 4:
+                        return ChargeCardName;
+                    case 5:
+                        return BlindCardName;
+                }
+                // WORLD 5 LEVEL 4
+            case 36:
+                switch (cardNr) {
+                    case 0:
+                        return CurseCardName;
+                    case 1:
+                        return SlowDownCardName;
+                    case 2:
+                        return ConfuseCardName;
+                    case 3:
+                        return AgonyCardName;
+                    case 4:
+                        return DispelCardName;
+                    case 5:
+                        return SilenceCardName;
+                }
+                // WORLD 5 LEVEL 5
+            case 37:
+                switch (cardNr) {
+                    case 0:
+                        return RewindCardName;
+                    case 1:
+                        return DeathSentenceCardName;
+                    case 2:
+                        return HoardCardName;
+                    case 3:
+                        return BlindCardName;
+                    case 4:
+                        return ChargeCardName;
+                    case 5:
+                        return SilenceCardName;
+                }
         }
         return "";
     }
@@ -3096,6 +3428,70 @@ public class EnemyCards {
                         return ConfuseCardCost;
                     case 5:
                         return AgonyCardCost;
+                }
+                // WORLD 5 LEVEL 2
+            case 34:
+                switch (cardNr) {
+                    case 0:
+                        return TakeAimCardCost;
+                    case 1:
+                        return SalvageCardCost;
+                    case 2:
+                        return RestoreCardCost;
+                    case 3:
+                        return ConcentrateCardCost;
+                    case 4:
+                        return Steal3CardCost;
+                    case 5:
+                        return BlindCardCost;
+                }
+                // WORLD 5 LEVEL 3
+            case 35:
+                switch (cardNr) {
+                    case 0:
+                        return MaledictionCardCost;
+                    case 1:
+                        return RewindCardCost;
+                    case 2:
+                        return InfestCardCost;
+                    case 3:
+                        return ConcentrateCardCost;
+                    case 4:
+                        return ChargeCardCost;
+                    case 5:
+                        return BlindCardCost;
+                }
+                // WORLD 5 LEVEL 4
+            case 36:
+                switch (cardNr) {
+                    case 0:
+                        return CurseCardCost;
+                    case 1:
+                        return SlowDownCardCost;
+                    case 2:
+                        return ConfuseCardCost;
+                    case 3:
+                        return AgonyCardCost;
+                    case 4:
+                        return DispelCardCost;
+                    case 5:
+                        return SilenceCardCost;
+                }
+                // WORLD 5 LEVEL 5
+            case 37:
+                switch (cardNr) {
+                    case 0:
+                        return RewindCardCost;
+                    case 1:
+                        return DeathSentenceCardCost;
+                    case 2:
+                        return HoardCardCost;
+                    case 3:
+                        return BlindCardCost;
+                    case 4:
+                        return ChargeCardCost;
+                    case 5:
+                        return SilenceCardCost;
                 }
         }
         return 0;
