@@ -159,7 +159,7 @@ public class DBHandler {
             ac7.put(KEY_NAME, "Concentrate");
             ac7.put(KEY_IMAGE, "card_concentrate");
             ac7.put(KEY_TYPE, 3);
-            ac7.put(KEY_DESC, "Doubles all points gained next turn.");
+            ac7.put(KEY_DESC, "Doubles all points gained on next turn.");
             ac7.put(KEY_COST, 1);
             ac7.put(KEY_REQUIRESLVL, 6);
             ac7.put(KEY_ISUNLOCKED, 0);
@@ -219,7 +219,7 @@ public class DBHandler {
             ac013.put(KEY_NAME, "Mimic");
             ac013.put(KEY_IMAGE, "card_mimic");
             ac013.put(KEY_TYPE, 3);
-            ac013.put(KEY_DESC, "Copies the effect of the opponents last played card.");
+            ac013.put(KEY_DESC, "Copies the effect of the opponent's last played card.");
             ac013.put(KEY_COST, 1);
             ac013.put(KEY_REQUIRESLVL, 16);
             ac013.put(KEY_ISUNLOCKED, 0);
@@ -349,7 +349,7 @@ public class DBHandler {
             ac026.put(KEY_NAME, "Blind");
             ac026.put(KEY_IMAGE, "card_blind");
             ac026.put(KEY_TYPE, 2);
-            ac026.put(KEY_DESC, "Makes enemy more prone to miss. Lasts 2 turns.");
+            ac026.put(KEY_DESC, "Makes opponent more prone to miss. Lasts 2 turns.");
             ac026.put(KEY_COST, 1);
             ac026.put(KEY_REQUIRESLVL, 0);
             ac026.put(KEY_ISUNLOCKED, 0);
@@ -379,7 +379,7 @@ public class DBHandler {
             ac029.put(KEY_NAME, "Silence");
             ac029.put(KEY_IMAGE, "card_silence");
             ac029.put(KEY_TYPE, 2);
-            ac029.put(KEY_DESC, "Disables enemy's ability to play cards on next turn.");
+            ac029.put(KEY_DESC, "Disables opponent's ability to play cards on next turn.");
             ac029.put(KEY_COST, 1);
             ac029.put(KEY_REQUIRESLVL, 0);
             ac029.put(KEY_ISUNLOCKED, 0);

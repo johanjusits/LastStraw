@@ -24,9 +24,8 @@ import static android.graphics.Color.TRANSPARENT;
 public class Activity_Profile extends Activity implements View.OnClickListener {
 
     DBHandler db;
-    Button bSave;
     TextView tvLevelNumber;
-    ImageButton ivImg;
+    ImageButton ivImg, bSave;
     EditText etName;
     Cursor cursor;
     ProgressBar expBar;
@@ -46,7 +45,7 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
         expBar = (ProgressBar) findViewById(R.id.expBar);
         Drawable draw = getResources().getDrawable(R.drawable.customprogressbar);
         expBar.setProgressDrawable(draw);
-        bSave = (Button) findViewById(R.id.bSave);
+        bSave = (ImageButton) findViewById(R.id.bSave);
 
         bSave.setOnClickListener(this);
         ivImg.setOnClickListener(this);
