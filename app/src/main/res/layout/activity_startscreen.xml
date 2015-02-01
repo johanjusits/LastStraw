@@ -67,21 +67,21 @@
         android:layout_above="@+id/Btn_Play"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:text="New Card Available!"
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/newCardMsg"
         android:layout_above="@+id/Btn_Cards"
         android:layout_alignLeft="@+id/Btn_Cards"
         android:layout_alignStart="@+id/Btn_Cards"
         android:clickable="false"
-        android:background="@drawable/boosting_card_button"
         android:textColor="@color/textBlack"
         android:textSize="14sp"
         android:textStyle="bold"
         android:layout_marginBottom="5dp"
-        android:visibility="invisible" />
+        android:visibility="visible"
+        android:src="@drawable/menu_icon_newcard"
+        android:background="#00000000" />
 
     <ImageButton
         android:layout_width="32dp"

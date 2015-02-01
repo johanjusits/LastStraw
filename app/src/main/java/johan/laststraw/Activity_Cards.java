@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -14,7 +14,7 @@ import android.widget.TextView;
  */
 public class Activity_Cards extends Activity implements View.OnClickListener {
 
-    Button bField, bAilment, bBoosting;
+    ImageButton bField, bAilment, bBoosting;
     TextView newCard;
     Intent changeActivity;
     Boolean isThereANewCard;
@@ -24,9 +24,9 @@ public class Activity_Cards extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards);
 
-        bField = (Button) findViewById(R.id.bField);
-        bAilment = (Button) findViewById(R.id.bAilment);
-        bBoosting = (Button) findViewById(R.id.bBoosting);
+        bField = (ImageButton) findViewById(R.id.bField);
+        bAilment = (ImageButton) findViewById(R.id.bAilment);
+        bBoosting = (ImageButton) findViewById(R.id.bBoosting);
         newCard = (TextView) findViewById(R.id.tvNewCardTxt);
 
         bField.setOnClickListener(this);

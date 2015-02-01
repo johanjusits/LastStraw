@@ -308,7 +308,7 @@ public class EnemyInfo {
                     case 36:
                         return "Satyr";
                     case 37:
-                        return "Green Man";
+                        return "Centaur";
                     case 38:
                         return "Dryad";
                     case 39:

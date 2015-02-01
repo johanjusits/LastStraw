@@ -22,8 +22,8 @@ import static android.graphics.Color.TRANSPARENT;
 
 public class Activity_StartScreen extends Activity implements View.OnClickListener{
 
-    Button playButton, newCardMsg;
-    ImageButton resetButton, profileButton, rulesButton, cardStoreButton;
+    Button playButton;
+    ImageButton resetButton, profileButton, rulesButton, cardStoreButton, newCardMsg;
     Intent play, profile, cards, rules;
     DBHandler db;
     Cursor cursor;
@@ -41,7 +41,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         playButton = (Button) findViewById(R.id.Btn_Play);
         cardStoreButton = (ImageButton) findViewById(R.id.Btn_Cards);
         rulesButton = (ImageButton) findViewById(R.id.Btn_Rules);
-        newCardMsg = (Button) findViewById(R.id.newCardMsg);
+        newCardMsg = (ImageButton) findViewById(R.id.newCardMsg);
         resetButton = (ImageButton) findViewById(R.id.Btn_Reset);
 
         profileButton.setOnClickListener(this);
