@@ -4619,21 +4619,21 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             cardSpeedUp();
         }
         if (playedCard.equals("Steal")) {
-            if (playerClearAward == 4) {
+            if (playerConcentrateRound) {
                 cardSteal(2, 6);
             } else {
                 cardSteal(1, 3);
             }
         }
         if (playedCard.equals("Steal II")) {
-            if (playerClearAward == 4) {
+            if (playerConcentrateRound) {
                 cardSteal(6, 10);
             } else {
                 cardSteal(3, 5);
             }
         }
         if (playedCard.equals("Steal III")) {
-            if (playerClearAward == 4) {
+            if (playerConcentrateRound) {
                 cardSteal(10, 14);
             } else {
                 cardSteal(5, 7);
@@ -4765,21 +4765,21 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             cardCurse();
         }
         if (cardName.equals("Steal")) {
-            if (enemyHasConcentrate) {
+            if (enemyConcentrateRound) {
                 cardSteal(2, 6);
             } else {
                 cardSteal(1, 3);
             }
         }
         if (cardName.equals("Steal II")) {
-            if (enemyHasConcentrate) {
+            if (enemyConcentrateRound) {
                 cardSteal(6, 10);
             } else {
                 cardSteal(3, 5);
             }
         }
         if (cardName.equals("Steal III")) {
-            if (enemyHasConcentrate) {
+            if (enemyConcentrateRound) {
                 cardSteal(10, 14);
             } else {
                 cardSteal(5, 7);
@@ -7946,7 +7946,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect);
         ivCenterImage.setVisibility(View.VISIBLE);
         ivCenterImage.startAnimation(ani_fadeIn);
-        if (resetChance >= 90) {
+        if (resetChance >= 10) {
             ivCenterImage.setImageResource(R.drawable.demonic_prayer_effect_green);
             resetWorked = false;
         } else {
@@ -8351,7 +8351,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
             worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
-        lvlId = 37;
+        lvlId = 40;
         worldId = 5;
         db.close();
     }
@@ -12029,7 +12029,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     enemyClearAward = 2;
                 }
             }
-            if (enemyHasConcentrate) {
+            if (enemyConcentrateRound) {
                 enemyClearAward = enemyClearAward * 2;
             }
         }
