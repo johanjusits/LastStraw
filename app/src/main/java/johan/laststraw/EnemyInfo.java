@@ -196,6 +196,25 @@ public class EnemyInfo {
                     case 40:
                         return "portrait_boss";
                 }
+            case 6:
+                switch (levelId){
+                    case 33:
+                        return "portrait_trainyard";
+                    case 34:
+                        return "portrait_trainyard";
+                    case 35:
+                        return "portrait_trainyard";
+                    case 36:
+                        return "portrait_miniboss";
+                    case 37:
+                        return "portrait_trainyard";
+                    case 38:
+                        return "portrait_trainyard";
+                    case 39:
+                        return "portrait_trainyard";
+                    case 40:
+                        return "portrait_boss";
+                }
         }
         return null;
     }
@@ -296,6 +315,25 @@ public class EnemyInfo {
                         return "Unicorn";
                     case 40:
                         return "Leshy";
+                }
+            case 6:
+                switch (levelId){
+                    case 41:
+                        return "Thug";
+                    case 42:
+                        return "Bandit";
+                    case 43:
+                        return "Thief";
+                    case 44:
+                        return "Assassin";
+                    case 45:
+                        return "Ruffian";
+                    case 46:
+                        return "Gangster";
+                    case 47:
+                        return "Pickpocket";
+                    case 48:
+                        return "Big Bad Boss";
                 }
         }
         return null;

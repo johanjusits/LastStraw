@@ -1,9 +1,44 @@
 package johan.laststraw;
 
+import java.util.Random;
+
 /**
  * Created by Johan on 2015-01-07.
  */
 public class EnemyCards {
+
+    public static int genRand(int number) {
+        return new Random().nextInt(number);
+    }
+
+    // VARIABLES FOR RANDOMIZING ENEMY CARDS
+    int card1Type;
+    int card2Type;
+    int card3Type;
+    int card4Type;
+    int card5Type;
+    int card6Type;
+
+    int card1Cost;
+    int card2Cost;
+    int card3Cost;
+    int card4Cost;
+    int card5Cost;
+    int card6Cost;
+
+    String card1Name;
+    String card2Name;
+    String card3Name;
+    String card4Name;
+    String card5Name;
+    String card6Name;
+
+    String card1Path;
+    String card2Path;
+    String card3Path;
+    String card4Path;
+    String card5Path;
+    String card6Path;
 
     // CARD ICONS & TYPES
     static String cardIconField = "card_icon_field";

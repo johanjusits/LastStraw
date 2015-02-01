@@ -20,6 +20,8 @@ public class GameInfo {
                 return "chests";
             case 5:
                 return "fungi";
+            case 6:
+                return "barrels";
         }
         return "";
     }
@@ -44,6 +46,8 @@ public class GameInfo {
                 return "Spiders infests the chest";
             case 5:
                 return "Spiders infests the fungus";
+            case 6:
+                return "Spiders infests the barrel";
         }
         return "";
     }
@@ -60,6 +64,8 @@ public class GameInfo {
                 return "Chest is already infested";
             case 5:
                 return "Fungus is already infested";
+            case 6:
+                return "Barrel is already infested";
         }
         return "";
     }
@@ -75,6 +81,8 @@ public class GameInfo {
             case 4:
                 return "textWhite";
             case 5:
+                return "textWhite";
+            case 6:
                 return "textWhite";
         }
         return "";
@@ -92,6 +100,8 @@ public class GameInfo {
                 return 3;
             case 5:
                 return 4;
+            case 6:
+                return 5;
         }
         return 0;
     }
@@ -108,6 +118,8 @@ public class GameInfo {
                 return "activity_world004";
             case 5:
                 return "activity_world005";
+            case 6:
+                return "activity_world006";
         }
         return null;
     }
@@ -124,6 +136,8 @@ public class GameInfo {
                 return "object_chest";
             case 5:
                 return "object_fungus";
+            case 6:
+                return "object_barrel";
         }
         return null;
     }
@@ -140,6 +154,8 @@ public class GameInfo {
                 return "object_chest_opened";
             case 5:
                 return "object_fungus_broken";
+            case 6:
+                return "object_barrel_broken";
         }
         return null;
     }
@@ -156,6 +172,8 @@ public class GameInfo {
                 return "object_chest_webbed";
             case 5:
                 return "object_fungus_webbed";
+            case 6:
+                return "object_barrel_webbed";
         }
         return null;
     }
