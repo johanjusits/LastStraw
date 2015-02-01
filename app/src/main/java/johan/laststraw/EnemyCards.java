@@ -1,5 +1,7 @@
 package johan.laststraw;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -12,33 +14,26 @@ public class EnemyCards {
     }
 
     // VARIABLES FOR RANDOMIZING ENEMY CARDS
-    int card1Type;
-    int card2Type;
-    int card3Type;
-    int card4Type;
-    int card5Type;
-    int card6Type;
+    static int totalCards = 28;
+    static boolean cardAdded = false;
 
-    int card1Cost;
-    int card2Cost;
-    int card3Cost;
-    int card4Cost;
-    int card5Cost;
-    int card6Cost;
+    static int field = 1;
+    static int ailment = 2;
+    static int boosting = 3;
 
-    String card1Name;
-    String card2Name;
-    String card3Name;
-    String card4Name;
-    String card5Name;
-    String card6Name;
+    static int card1Type;
+    static int card2Type;
+    static int card3Type;
+    static int card4Type;
+    static int card5Type;
+    static int card6Type;
 
-    String card1Path;
-    String card2Path;
-    String card3Path;
-    String card4Path;
-    String card5Path;
-    String card6Path;
+    static String card1Name;
+    static String card2Name;
+    static String card3Name;
+    static String card4Name;
+    static String card5Name;
+    static String card6Name;
 
     // CARD ICONS & TYPES
     static String cardIconField = "card_icon_field";
@@ -141,6 +136,709 @@ public class EnemyCards {
     static int RewindCardCost = 0;
     static int DemonicPrayerCardCost = 0;
 
+    public static String randomCard(int cardNr){
+        int newCard = genRand(totalCards);
+        switch (newCard){
+            case 0:
+                switch (cardNr){
+                    case 0:
+                        card1Type = field;
+                    case 1:
+                        card2Type = field;
+                    case 2:
+                        card3Type = field;
+                    case 3:
+                        card4Type = field;
+                    case 4:
+                        card5Type = field;
+                    case 5:
+                        card6Type = field;
+                }
+                return Reinforce3CardName;
+            case 1:
+                switch (cardNr){
+                    case 0:
+                        card1Type = field;
+                    case 1:
+                        card2Type = field;
+                    case 2:
+                        card3Type = field;
+                    case 3:
+                        card4Type = field;
+                    case 4:
+                        card5Type = field;
+                    case 5:
+                        card6Type = field;
+                }
+                return Reinforce5CardName;
+            case 2:
+                switch (cardNr){
+                    case 0:
+                        card1Type = boosting;
+                    case 1:
+                        card2Type = boosting;
+                    case 2:
+                        card3Type = boosting;
+                    case 3:
+                        card4Type = boosting;
+                    case 4:
+                        card5Type = boosting;
+                    case 5:
+                        card6Type = boosting;
+                }
+                return SpeedUpCardName;
+            case 3:
+                switch (cardNr){
+                    case 0:
+                        card1Type = boosting;
+                    case 1:
+                        card2Type = boosting;
+                    case 2:
+                        card3Type = boosting;
+                    case 3:
+                        card4Type = boosting;
+                    case 4:
+                        card5Type = boosting;
+                    case 5:
+                        card6Type = boosting;
+                }
+                return SpeedUp2CardName;
+            case 4:
+                switch (cardNr){
+                    case 0:
+                        card1Type = ailment;
+                    case 1:
+                        card2Type = ailment;
+                    case 2:
+                        card3Type = ailment;
+                    case 3:
+                        card4Type = ailment;
+                    case 4:
+                        card5Type = ailment;
+                    case 5:
+                        card6Type = ailment;
+                }
+                return SlowDownCardName;
+            case 5:
+                switch (cardNr){
+                    case 0:
+                        card1Type = field;
+                    case 1:
+                        card2Type = field;
+                    case 2:
+                        card3Type = field;
+                    case 3:
+                        card4Type = field;
+                    case 4:
+                        card5Type = field;
+                    case 5:
+                        card6Type = field;
+                }
+                return Steal1CardName;
+            case 6:
+                switch (cardNr){
+                    case 0:
+                        card1Type = boosting;
+                    case 1:
+                        card2Type = boosting;
+                    case 2:
+                        card3Type = boosting;
+                    case 3:
+                        card4Type = boosting;
+                    case 4:
+                        card5Type = boosting;
+                    case 5:
+                        card6Type = boosting;
+                }
+                return ConcentrateCardName;
+            case 7:
+                switch (cardNr){
+                    case 0:
+                        card1Type = ailment;
+                    case 1:
+                        card2Type = ailment;
+                    case 2:
+                        card3Type = ailment;
+                    case 3:
+                        card4Type = ailment;
+                    case 4:
+                        card5Type = ailment;
+                    case 5:
+                        card6Type = ailment;
+                }
+                return CorruptionCardName;
+            case 8:
+                switch (cardNr){
+                    case 0:
+                        card1Type = ailment;
+                    case 1:
+                        card2Type = ailment;
+                    case 2:
+                        card3Type = ailment;
+                    case 3:
+                        card4Type = ailment;
+                    case 4:
+                        card5Type = ailment;
+                    case 5:
+                        card6Type = ailment;
+                }
+                return AgonyCardName;
+            case 9:
+                switch (cardNr){
+                    case 0:
+                        card1Type = ailment;
+                    case 1:
+                        card2Type = ailment;
+                    case 2:
+                        card3Type = ailment;
+                    case 3:
+                        card4Type = ailment;
+                    case 4:
+                        card5Type = ailment;
+                    case 5:
+                        card6Type = ailment;
+                }
+                return CurseCardName;
+            case 10:
+                switch (cardNr){
+                    case 0:
+                        card1Type = field;
+                    case 1:
+                        card2Type = field;
+                    case 2:
+                        card3Type = field;
+                    case 3:
+                        card4Type = field;
+                    case 4:
+                        card5Type = field;
+                    case 5:
+                        card6Type = field;
+                }
+                return Steal2CardName;
+            case 11:
+                switch (cardNr){
+                    case 0:
+                        card1Type = boosting;
+                    case 1:
+                        card2Type = boosting;
+                    case 2:
+                        card3Type = boosting;
+                    case 3:
+                        card4Type = boosting;
+                    case 4:
+                        card5Type = boosting;
+                    case 5:
+                        card6Type = boosting;
+                }
+                return MimicCardName;
+            case 12:
+                switch (cardNr){
+                    case 0:
+                        card1Type = boosting;
+                    case 1:
+                        card2Type = boosting;
+                    case 2:
+                        card3Type = boosting;
+                    case 3:
+                        card4Type = boosting;
+                    case 4:
+                        card5Type = boosting;
+                    case 5:
+                        card6Type = boosting;
+                }
+                return CureCardName;
+            case 13:
+                switch (cardNr){
+                    case 0:
+                        card1Type = field;
+                    case 1:
+                        card2Type = field;
+                    case 2:
+                        card3Type = field;
+                    case 3:
+                        card4Type = field;
+                    case 4:
+                        card5Type = field;
+                    case 5:
+                        card6Type = field;
+                }
+                return InfestCardName;
+            case 14:
+                switch (cardNr){
+                    case 0:
+                        card1Type = boosting;
+                    case 1:
+                        card2Type = boosting;
+                    case 2:
+                        card3Type = boosting;
+                    case 3:
+                        card4Type = boosting;
+                    case 4:
+                        card5Type = boosting;
+                    case 5:
+                        card6Type = boosting;
+                }
+                return ProtectCardName;
+            case 15:
+                switch (cardNr){
+                    case 0:
+                        card1Type = field;
+                    case 1:
+                        card2Type = field;
+                    case 2:
+                        card3Type = field;
+                    case 3:
+                        card4Type = field;
+                    case 4:
+                        card5Type = field;
+                    case 5:
+                        card6Type = field;
+                }
+                return SalvageCardName;
+            case 16:
+                switch (cardNr){
+                    case 0:
+                        card1Type = ailment;
+                    case 1:
+                        card2Type = ailment;
+                    case 2:
+                        card3Type = ailment;
+                    case 3:
+                        card4Type = ailment;
+                    case 4:
+                        card5Type = ailment;
+                    case 5:
+                        card6Type = ailment;
+                }
+                return SilenceCardName;
+            case 17:
+                switch (cardNr){
+                    case 0:
+                        card1Type = boosting;
+                    case 1:
+                        card2Type = boosting;
+                    case 2:
+                        card3Type = boosting;
+                    case 3:
+                        card4Type = boosting;
+                    case 4:
+                        card5Type = boosting;
+                    case 5:
+                        card6Type = boosting;
+                }
+                return ChargeCardName;
+            case 18:
+                switch (cardNr){
+                    case 0:
+                        card1Type = boosting;
+                    case 1:
+                        card2Type = boosting;
+                    case 2:
+                        card3Type = boosting;
+                    case 3:
+                        card4Type = boosting;
+                    case 4:
+                        card5Type = boosting;
+                    case 5:
+                        card6Type = boosting;
+                }
+                return TakeAimCardName;
+            case 19:
+                switch (cardNr){
+                    case 0:
+                        card1Type = ailment;
+                    case 1:
+                        card2Type = ailment;
+                    case 2:
+                        card3Type = ailment;
+                    case 3:
+                        card4Type = ailment;
+                    case 4:
+                        card5Type = ailment;
+                    case 5:
+                        card6Type = ailment;
+                }
+                return BlindCardName;
+            case 20:
+                switch (cardNr){
+                    case 0:
+                        card1Type = ailment;
+                    case 1:
+                        card2Type = ailment;
+                    case 2:
+                        card3Type = ailment;
+                    case 3:
+                        card4Type = ailment;
+                    case 4:
+                        card5Type = ailment;
+                    case 5:
+                        card6Type = ailment;
+                }
+                return DispelCardName;
+            case 21:
+                switch (cardNr){
+                    case 0:
+                        card1Type = field;
+                    case 1:
+                        card2Type = field;
+                    case 2:
+                        card3Type = field;
+                    case 3:
+                        card4Type = field;
+                    case 4:
+                        card5Type = field;
+                    case 5:
+                        card6Type = field;
+                }
+                return RestoreCardName;
+            case 22:
+                switch (cardNr){
+                    case 0:
+                        card1Type = ailment;
+                    case 1:
+                        card2Type = ailment;
+                    case 2:
+                        card3Type = ailment;
+                    case 3:
+                        card4Type = ailment;
+                    case 4:
+                        card5Type = ailment;
+                    case 5:
+                        card6Type = ailment;
+                }
+                return DeathSentenceCardName;
+            case 23:
+                switch (cardNr){
+                    case 0:
+                        card1Type = boosting;
+                    case 1:
+                        card2Type = boosting;
+                    case 2:
+                        card3Type = boosting;
+                    case 3:
+                        card4Type = boosting;
+                    case 4:
+                        card5Type = boosting;
+                    case 5:
+                        card6Type = boosting;
+                }
+                return HoardCardName;
+            case 24:
+                switch (cardNr){
+                    case 0:
+                        card1Type = ailment;
+                    case 1:
+                        card2Type = ailment;
+                    case 2:
+                        card3Type = ailment;
+                    case 3:
+                        card4Type = ailment;
+                    case 4:
+                        card5Type = ailment;
+                    case 5:
+                        card6Type = ailment;
+                }
+                return ConfuseCardName;
+            case 25:
+                switch (cardNr){
+                    case 0:
+                        card1Type = field;
+                    case 1:
+                        card2Type = field;
+                    case 2:
+                        card3Type = field;
+                    case 3:
+                        card4Type = field;
+                    case 4:
+                        card5Type = field;
+                    case 5:
+                        card6Type = field;
+                }
+                return Steal3CardName;
+            case 26:
+                switch (cardNr){
+                    case 0:
+                        card1Type = ailment;
+                    case 1:
+                        card2Type = ailment;
+                    case 2:
+                        card3Type = ailment;
+                    case 3:
+                        card4Type = ailment;
+                    case 4:
+                        card5Type = ailment;
+                    case 5:
+                        card6Type = ailment;
+                }
+                return MaledictionCardName;
+            case 27:
+                switch (cardNr){
+                    case 0:
+                        card1Type = boosting;
+                    case 1:
+                        card2Type = boosting;
+                    case 2:
+                        card3Type = boosting;
+                    case 3:
+                        card4Type = boosting;
+                    case 4:
+                        card5Type = boosting;
+                    case 5:
+                        card6Type = boosting;
+                }
+                return RewindCardName;
+            case 28:
+                switch (cardNr){
+                    case 0:
+                        card1Type = ailment;
+                    case 1:
+                        card2Type = ailment;
+                    case 2:
+                        card3Type = ailment;
+                    case 3:
+                        card4Type = ailment;
+                    case 4:
+                        card5Type = ailment;
+                    case 5:
+                        card6Type = ailment;
+                }
+                return DemonicPrayerCardName;
+        }
+        return "";
+    }
+
+    public static String setEnemyRandomCardIcon(int cardType){
+        switch (cardType){
+            case 1:
+                return cardIconField;
+            case 2:
+                return cardIconAilment;
+            case 3:
+                return cardIconBoosting;
+        }
+        return "";
+    }
+
+    public static String setEnemyRandomCardType(int cardType){
+        switch (cardType){
+            case 1:
+                return cardTypeField;
+            case 2:
+                return cardTypeAilment;
+            case 3:
+                return cardTypeBoosting;
+        }
+        return "";
+    }
+
+    public static String setEnemyRandomCardName(int cardNr, ArrayList<String> enemyCardsArray){
+        do {
+            String newCard = randomCard(cardNr);
+            int occurrences = Collections.frequency(enemyCardsArray, newCard);
+            if (occurrences < 2){
+                cardAdded = true;
+                switch (cardNr){
+                    case 0:
+                        card1Name = newCard;
+                    case 1:
+                        card2Name = newCard;
+                    case 2:
+                        card3Name = newCard;
+                    case 3:
+                        card4Name = newCard;
+                    case 4:
+                        card5Name = newCard;
+                    case 5:
+                        card6Name = newCard;
+                }
+                return newCard;
+            }
+        } while (cardAdded);
+        return "";
+    }
+
+    public static String setRandomCardImg(String cardName){
+        if (cardName.equals(Reinforce3CardName)){
+            return Reinforce3ImgPath;
+        }
+        if (cardName.equals(Reinforce5CardName)){
+            return Reinforce5ImgPath;
+        }
+        if (cardName.equals(SpeedUpCardName)){
+            return SpeedUpImgPath;
+        }
+        if (cardName.equals(SpeedUp2CardName)){
+            return SpeedUp2ImgPath;
+        }
+        if (cardName.equals(SlowDownCardName)){
+            return SlowDownImgPath;
+        }
+        if (cardName.equals(Steal1CardName)){
+            return Steal1ImgPath;
+        }
+        if (cardName.equals(ConcentrateCardName)){
+            return ConcentrateImgPath;
+        }
+        if (cardName.equals(CorruptionCardName)){
+            return CorruptionImgPath;
+        }
+        if (cardName.equals(AgonyCardName)){
+            return AgonyImgPath;
+        }
+        if (cardName.equals(CurseCardName)){
+            return CurseImgPath;
+        }
+        if (cardName.equals(Steal2CardName)){
+            return Steal2ImgPath;
+        }
+        if (cardName.equals(MimicCardName)){
+            return MimicImgPath;
+        }
+        if (cardName.equals(CureCardName)){
+            return CureImgPath;
+        }
+        if (cardName.equals(InfestCardName)){
+            return InfestImgPath;
+        }
+        if (cardName.equals(ProtectCardName)){
+            return ProtectImgPath;
+        }
+        if (cardName.equals(SalvageCardName)){
+            return SalvageImgPath;
+        }
+        if (cardName.equals(SilenceCardName)){
+            return SilenceImgPath;
+        }
+        if (cardName.equals(ChargeCardName)){
+            return ChargeImgPath;
+        }
+        if (cardName.equals(TakeAimCardName)){
+            return TakeAimImgPath;
+        }
+        if (cardName.equals(BlindCardName)){
+            return BlindImgPath;
+        }
+        if (cardName.equals(DispelCardName)){
+            return DispelImgPath;
+        }
+        if (cardName.equals(RestoreCardName)){
+            return RestoreImgPath;
+        }
+        if (cardName.equals(DeathSentenceCardName)){
+            return DeathSentenceImgPath;
+        }
+        if (cardName.equals(HoardCardName)){
+            return HoardImgPath;
+        }
+        if (cardName.equals(ConfuseCardName)){
+            return ConfuseImgPath;
+        }
+        if (cardName.equals(Steal3CardName)){
+            return Steal3ImgPath;
+        }
+        if (cardName.equals(MaledictionCardName)){
+            return MaledictionImgPath;
+        }
+        if (cardName.equals(RewindCardName)){
+            return RewindImgPath;
+        }
+        if (cardName.equals(DemonicPrayerCardName)){
+            return DemonicPrayerImgPath;
+        }
+        return "";
+    }
+
+    public static int setRandomCardCost(String cardName){
+        if (cardName.equals(Reinforce3CardName)){
+            return Reinforce3CardCost;
+        }
+        if (cardName.equals(Reinforce5CardName)){
+            return Reinforce5CardCost;
+        }
+        if (cardName.equals(SpeedUpCardName)){
+            return SpeedUpCardCost;
+        }
+        if (cardName.equals(SpeedUp2CardName)){
+            return SpeedUp2CardCost;
+        }
+        if (cardName.equals(SlowDownCardName)){
+            return SlowDownCardCost;
+        }
+        if (cardName.equals(Steal1CardName)){
+            return Steal1CardCost;
+        }
+        if (cardName.equals(ConcentrateCardName)){
+            return ConcentrateCardCost;
+        }
+        if (cardName.equals(CorruptionCardName)){
+            return CorruptionCardCost;
+        }
+        if (cardName.equals(AgonyCardName)){
+            return AgonyCardCost;
+        }
+        if (cardName.equals(CurseCardName)){
+            return CurseCardCost;
+        }
+        if (cardName.equals(Steal2CardName)){
+            return Steal2CardCost;
+        }
+        if (cardName.equals(MimicCardName)){
+            return MimicCardCost;
+        }
+        if (cardName.equals(CureCardName)){
+            return CureCardCost;
+        }
+        if (cardName.equals(InfestCardName)){
+            return InfestCardCost;
+        }
+        if (cardName.equals(ProtectCardName)){
+            return ProtectCardCost;
+        }
+        if (cardName.equals(SalvageCardName)){
+            return SalvageCardCost;
+        }
+        if (cardName.equals(SilenceCardName)){
+            return SilenceCardCost;
+        }
+        if (cardName.equals(ChargeCardName)){
+            return ChargeCardCost;
+        }
+        if (cardName.equals(TakeAimCardName)){
+            return TakeAimCardCost;
+        }
+        if (cardName.equals(BlindCardName)){
+            return BlindCardCost;
+        }
+        if (cardName.equals(DispelCardName)){
+            return DispelCardCost;
+        }
+        if (cardName.equals(RestoreCardName)){
+            return RestoreCardCost;
+        }
+        if (cardName.equals(DeathSentenceCardName)){
+            return DeathSentenceCardCost;
+        }
+        if (cardName.equals(HoardCardName)){
+            return HoardCardCost;
+        }
+        if (cardName.equals(ConfuseCardName)){
+            return ConfuseCardCost;
+        }
+        if (cardName.equals(Steal3CardName)){
+            return Steal3CardCost;
+        }
+        if (cardName.equals(MaledictionCardName)){
+            return MaledictionCardCost;
+        }
+        if (cardName.equals(RewindCardName)){
+            return RewindCardCost;
+        }
+        if (cardName.equals(DemonicPrayerCardName)){
+            return DemonicPrayerCardCost;
+        }
+        return 0;
+    }
+
     public static int getEnemyTotalCards(int levelId) {
         switch (levelId) {
             //WORLD 001
@@ -227,6 +925,16 @@ public class EnemyCards {
             case 39:
                 return 6;
             case 40:
+                return 6;
+            //WORLD 006
+            case 41:
+            case 42:
+            case 43:
+            case 44:
+            case 45:
+            case 46:
+            case 47:
+            case 48:
                 return 6;
         }
         return 0;
@@ -780,6 +1488,29 @@ public class EnemyCards {
                     case 5:
                         return cardIconAilment;
                 }
+                // WORLD 6
+            case 41:
+            case 42:
+            case 43:
+            case 44:
+            case 45:
+            case 46:
+            case 47:
+            case 48:
+                switch (cardNr) {
+                    case 0:
+                        return setEnemyRandomCardIcon(card1Type);
+                    case 1:
+                        return setEnemyRandomCardIcon(card2Type);
+                    case 2:
+                        return setEnemyRandomCardIcon(card3Type);
+                    case 3:
+                        return setEnemyRandomCardIcon(card4Type);
+                    case 4:
+                        return setEnemyRandomCardIcon(card5Type);
+                    case 5:
+                        return setEnemyRandomCardIcon(card6Type);
+                }
         }
         return "";
     }
@@ -1331,6 +2062,28 @@ public class EnemyCards {
                         return cardTypeAilment;
                     case 5:
                         return cardTypeAilment;
+                }
+            case 41:
+            case 42:
+            case 43:
+            case 44:
+            case 45:
+            case 46:
+            case 47:
+            case 48:
+                switch (cardNr) {
+                    case 0:
+                        return setEnemyRandomCardType(card1Type);
+                    case 1:
+                        return setEnemyRandomCardType(card2Type);
+                    case 2:
+                        return setEnemyRandomCardType(card3Type);
+                    case 3:
+                        return setEnemyRandomCardType(card4Type);
+                    case 4:
+                        return setEnemyRandomCardType(card5Type);
+                    case 5:
+                        return setEnemyRandomCardType(card6Type);
                 }
         }
         return "";
@@ -1978,6 +2731,24 @@ public class EnemyCards {
                     case 5:
                         return true;
                 }
+                //WORLD 6
+            case 41:
+            case 42:
+            case 43:
+            case 44:
+            case 45:
+            case 46:
+            case 47:
+            case 48:
+                switch (cardNr) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        return true;
+                }
         }
         return false;
     }
@@ -2530,11 +3301,33 @@ public class EnemyCards {
                     case 5:
                         return MaledictionImgPath;
                 }
+            case 41:
+            case 42:
+            case 43:
+            case 44:
+            case 45:
+            case 46:
+            case 47:
+            case 48:
+                switch (cardNr) {
+                    case 0:
+                        return setRandomCardImg(card1Name);
+                    case 1:
+                        return setRandomCardImg(card2Name);
+                    case 2:
+                        return setRandomCardImg(card3Name);
+                    case 3:
+                        return setRandomCardImg(card4Name);
+                    case 4:
+                        return setRandomCardImg(card5Name);
+                    case 5:
+                        return setRandomCardImg(card6Name);
+                }
         }
         return "";
     }
 
-    public static String getEnemyCardName(int levelId, int cardNr) {
+    public static String getEnemyCardName(int levelId, int cardNr, ArrayList<String> enemyCardsArray) {
         switch (levelId) {
             // WORLD 1 LEVEL 1
             case 1:
@@ -3175,6 +3968,25 @@ public class EnemyCards {
                         return AgonyCardName;
                     case 5:
                         return MaledictionCardName;
+                }
+                //WORLD 6 LEVEL 1-8
+            case 41:
+            case 42:
+            case 43:
+            case 44:
+            case 45:
+            case 46:
+            case 47:
+            case 48:
+                switch (cardNr) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        cardAdded = false;
+                        return setEnemyRandomCardName(cardNr, enemyCardsArray);
                 }
         }
         return "";
@@ -3821,6 +4633,28 @@ public class EnemyCards {
                         return AgonyCardCost;
                     case 5:
                         return MaledictionCardCost;
+                }
+            case 41:
+            case 42:
+            case 43:
+            case 44:
+            case 45:
+            case 46:
+            case 47:
+            case 48:
+                switch (cardNr) {
+                    case 0:
+                        return setRandomCardCost(card1Name);
+                    case 1:
+                        return setRandomCardCost(card2Name);
+                    case 2:
+                        return setRandomCardCost(card3Name);
+                    case 3:
+                        return setRandomCardCost(card4Name);
+                    case 4:
+                        return setRandomCardCost(card5Name);
+                    case 5:
+                        return setRandomCardCost(card6Name);
                 }
         }
         return 0;
