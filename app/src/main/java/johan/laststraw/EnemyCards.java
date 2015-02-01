@@ -14,7 +14,7 @@ public class EnemyCards {
     }
 
     // VARIABLES FOR RANDOMIZING ENEMY CARDS
-    static int totalCards = 28;
+    static int totalCards = 29;
     static boolean cardAdded = false;
 
     static int field = 1;
@@ -138,6 +138,7 @@ public class EnemyCards {
 
     public static String randomCard(int cardNr){
         int newCard = genRand(totalCards);
+        System.out.println("cardNr: " + String.valueOf(cardNr) + " newCard Nr: " + String.valueOf(newCard));
         switch (newCard){
             case 0:
                 switch (cardNr){
@@ -604,6 +605,7 @@ public class EnemyCards {
                 }
                 return DemonicPrayerCardName;
         }
+        System.out.println("Här");
         return "";
     }
 
@@ -640,20 +642,32 @@ public class EnemyCards {
                 switch (cardNr){
                     case 0:
                         card1Name = newCard;
+                        System.out.println("card1Name: " + card1Name);
+                        break;
                     case 1:
                         card2Name = newCard;
+                        System.out.println("card2Name: " + card2Name);
+                        break;
                     case 2:
                         card3Name = newCard;
+                        System.out.println("card3Name: " + card3Name);
+                        break;
                     case 3:
                         card4Name = newCard;
+                        System.out.println("card4Name: " + card4Name);
+                        break;
                     case 4:
                         card5Name = newCard;
+                        System.out.println("card5Name: " + card5Name);
+                        break;
                     case 5:
                         card6Name = newCard;
+                        System.out.println("card6Name: " + card6Name);
+                        break;
                 }
                 return newCard;
             }
-        } while (cardAdded);
+        } while (!cardAdded);
         return "";
     }
 
@@ -2759,7 +2773,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr) {
                     case 0:
-                        return ConfuseImgPath;
+                        return Reinforce3ImgPath;
                 }
                 // WORLD 1 LEVEL 2
             case 2:
@@ -3333,7 +3347,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr) {
                     case 0:
-                        return ConfuseCardName;
+                        return Reinforce3CardName;
                     case 1:
                         return "";
                     case 2:
