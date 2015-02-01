@@ -121,7 +121,7 @@ public class DBHandler {
             ac3.put(KEY_TYPE, 1);
             ac3.put(KEY_DESC, "Brings back three objects.");
             ac3.put(KEY_REQUIRESLVL, 3);
-            ac3.put(KEY_COST, 1);
+            ac3.put(KEY_COST, 0);
             ac3.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac3);
 
@@ -340,7 +340,7 @@ public class DBHandler {
             ac025.put(KEY_IMAGE, "card_obj_plus_5");
             ac025.put(KEY_TYPE, 1);
             ac025.put(KEY_DESC, "Brings back five objects.");
-            ac025.put(KEY_COST, 2);
+            ac025.put(KEY_COST, 1);
             ac025.put(KEY_REQUIRESLVL, 0);
             ac025.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac025);
@@ -405,14 +405,14 @@ public class DBHandler {
             ac031.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac031);
 
-            /* ADDS CARDS TO OWNED CARDS */
+            /* ADDS CARDS TO OWNED CARDS
             ContentValues oc1 = new ContentValues();
             oc1.put(KEY_NAME, "Confuse");
             oc1.put(KEY_IMAGE, "card_confuse");
             oc1.put(KEY_TYPE, 2);
             oc1.put(KEY_COST, 2);
             oc1.put(KEY_DESC, "Causes enemy to sometimes get addition and subtraction mixed up.");
-            db.insert(OwnedCards, null, oc1);
+            db.insert(OwnedCards, null, oc1);*/
 
             /* INITIAL PLAYER VALUES */
             ContentValues playerInfo = new ContentValues();

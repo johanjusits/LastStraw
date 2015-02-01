@@ -295,6 +295,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         layoutId = getResources().getIdentifier(layoutName, "layout", getPackageName());
         setContentView(layoutId);
 
+        enemyCardsArray.clear();
         enemyCardsArray.add("Empty");
         enemyCardsArray.add("Empty");
         enemyCardsArray.add("Empty");
@@ -547,7 +548,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
         cardOrNotNumber = GameInfo.getRandomCardOrNotNr(worldId);
         aiPattern = genRand(AiPatterns.getAiPatternNr(lvlId));
-        System.out.println("CardOrNotNumber: " + String.valueOf(cardOrNotNumber));
 
         SoundEffects.setupSounds(this);
         clearSoundId = GameInfo.getClearSound(worldId);
@@ -2101,7 +2101,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         /* Checks if enemy has any cards left and decides move pattern accordingly */
         if (enemyCardsRemaining > 0 && !enemyIsSilenced) {
             int cardOrClear = AiPatterns.initAiPatternCardOrNot(lvlId, aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
-            System.out.println(String.valueOf("cardOrClear = " + cardOrClear));
             /* If number is higher than cardOrNotNumber the AI will play a card */
             if (cardOrClear >= cardOrNotNumber) {
                 if (aiPattern == 0) {
@@ -8371,8 +8370,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
             worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
-        lvlId = 41;
-        worldId = 6;
+        //lvlId = 41;
+        //worldId = 6;
         db.close();
     }
 
