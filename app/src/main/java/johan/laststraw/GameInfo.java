@@ -30,7 +30,21 @@ public class GameInfo {
         return new Random().nextInt((max - min) + 1) + min;
     }
 
-    public static int getRandomCardOrNotNr(){
+    public static int getRandomCardOrNotNr(int worldId){
+        switch (worldId){
+            case 1:
+                return genRand(80, 65);
+            case 2:
+                return genRand(75, 55);
+            case 3:
+                return genRand(70, 50);
+            case 4:
+                return genRand(65, 45);
+            case 5:
+                return genRand(60, 40);
+            case 6:
+                return genRand(55, 35);
+        }
         return genRand(85, 65);
     }
 

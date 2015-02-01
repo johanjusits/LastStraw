@@ -131,6 +131,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String redColorName = "textBrightRed";
     String greenColorName = "supergreen";
     String whiteColorName = "textWhite";
+    static ArrayList<String> enemyCardsArray = new ArrayList<String>();
     /* INTS */
     int confuseMixUpChance;
     int objectValue;
@@ -289,11 +290,17 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         db = new DBHandler(this);
 
         getLevelInfo();
-        System.out.println("Level ID: " + String.valueOf(lvlId));
 
         layoutName = GameInfo.getWorldBackground(worldId);
         layoutId = getResources().getIdentifier(layoutName, "layout", getPackageName());
         setContentView(layoutId);
+
+        enemyCardsArray.add("Empty");
+        enemyCardsArray.add("Empty");
+        enemyCardsArray.add("Empty");
+        enemyCardsArray.add("Empty");
+        enemyCardsArray.add("Empty");
+        enemyCardsArray.add("Empty");
 
         enemyStartingCards = EnemyCards.getEnemyTotalCards(lvlId);
         enemyCardsRemaining = EnemyCards.getEnemyTotalCards(lvlId);
@@ -444,7 +451,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         storeCurrentLevel();
         getPlayerCards();
         setPlayerCardIcons();
-        setEnemyCardsIcons();
 
         playerHaste = playerName + " gains Haste";
         playerSalvage = playerName + " gains Salvage";
@@ -489,12 +495,27 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
         enemyName = EnemyInfo.getEnemyName(worldId, lvlId);
 
-        enemyCard1Name = EnemyCards.getEnemyCardName(lvlId, 0);
-        enemyCard2Name = EnemyCards.getEnemyCardName(lvlId, 1);
-        enemyCard3Name = EnemyCards.getEnemyCardName(lvlId, 2);
-        enemyCard4Name = EnemyCards.getEnemyCardName(lvlId, 3);
-        enemyCard5Name = EnemyCards.getEnemyCardName(lvlId, 4);
-        enemyCard6Name = EnemyCards.getEnemyCardName(lvlId, 5);
+        enemyCard1Name = EnemyCards.getEnemyCardName(lvlId, 0, enemyCardsArray);
+        enemyCardsArray.add(enemyCard1Name);
+        enemyCard2Name = EnemyCards.getEnemyCardName(lvlId, 1, enemyCardsArray);
+        enemyCardsArray.add(enemyCard2Name);
+        enemyCard3Name = EnemyCards.getEnemyCardName(lvlId, 2, enemyCardsArray);
+        enemyCardsArray.add(enemyCard3Name);
+        enemyCard4Name = EnemyCards.getEnemyCardName(lvlId, 3, enemyCardsArray);
+        enemyCardsArray.add(enemyCard4Name);
+        enemyCard5Name = EnemyCards.getEnemyCardName(lvlId, 4, enemyCardsArray);
+        enemyCardsArray.add(enemyCard5Name);
+        enemyCard6Name = EnemyCards.getEnemyCardName(lvlId, 5, enemyCardsArray);
+        enemyCardsArray.add(enemyCard6Name);
+
+        System.out.println("Card 1: " + enemyCard1Name);
+        System.out.println("Card 2: " + enemyCard2Name);
+        System.out.println("Card 3: " + enemyCard3Name);
+        System.out.println("Card 4: " + enemyCard4Name);
+        System.out.println("Card 5: " + enemyCard5Name);
+        System.out.println("Card 6: " + enemyCard6Name);
+
+        setEnemyCardsIcons();
 
         enemyCard1Cost = EnemyCards.getEnemyCardCost(lvlId, 0);
         enemyCard2Cost = EnemyCards.getEnemyCardCost(lvlId, 1);
@@ -524,10 +545,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         objectBrokenImg = getResources().getIdentifier(objectBrokenImgName, "drawable", getPackageName());
         objectWebbedImg = getResources().getIdentifier(objectWebbedImgName, "drawable", getPackageName());
 
-        cardOrNotNumber = GameInfo.getRandomCardOrNotNr();
+        cardOrNotNumber = GameInfo.getRandomCardOrNotNr(worldId);
         aiPattern = genRand(AiPatterns.getAiPatternNr(lvlId));
         System.out.println("CardOrNotNumber: " + String.valueOf(cardOrNotNumber));
-        System.out.println("AI Pattern: " + String.valueOf(aiPattern));
 
         SoundEffects.setupSounds(this);
         clearSoundId = GameInfo.getClearSound(worldId);
@@ -8351,8 +8371,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
             worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
-        lvlId = 40;
-        worldId = 5;
+        lvlId = 41;
+        worldId = 6;
         db.close();
     }
 

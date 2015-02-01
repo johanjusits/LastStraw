@@ -135,6 +135,16 @@ public class AiPatterns {
                     return 5;
                 case 40:
                     return 5;
+                //WORLD 6
+                case 41:
+                case 42:
+                case 43:
+                case 44:
+                case 45:
+                case 46:
+                case 47:
+                case 48:
+                    return 1;
             }
         return 1;
     }
@@ -226,6 +236,16 @@ public class AiPatterns {
                 return w005_l007_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
             case 40:
                 return w005_l008_AI_CardOrNot(aiPattern, enemyTurnCounter, enemyMoveCounter, objectsRemaining);
+            //WORLD 6
+            case 41:
+            case 42:
+            case 43:
+            case 44:
+            case 45:
+            case 46:
+            case 47:
+            case 48:
+                return w006_AI_CardOrNot(objectsRemaining);
         }
         return 0;
     }
@@ -301,6 +321,16 @@ public class AiPatterns {
                 return w005_l007_AI_PickCard(aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
             case 40:
                 return w005_l008_AI_PickCard(aiPattern, enemyTurnCounter, enemyMoveCounter, enemyStartingCards, pool, objectsRemaining);
+            //WORLD 6
+            case 41:
+            case 42:
+            case 43:
+            case 44:
+            case 45:
+            case 46:
+            case 47:
+            case 48:
+                return w006_AI_PickCard(pool, enemyStartingCards);
         }
         return 0;
     }
@@ -4288,6 +4318,19 @@ public class AiPatterns {
             }
         }
         return 0;
+    }
+
+    //WORLD 6 LEVEL 1-8
+    public static int w006_AI_CardOrNot(int objectsRemaining){
+        if (objectsRemaining == 1) {
+            return 99;
+        } else {
+            return genRand(100);
+        }
+    }
+
+    public static int w006_AI_PickCard(ArrayList<Integer> pool, int enemyStartingCards){
+        return randomizeEnemyCardSelect(enemyStartingCards, pool);
     }
 
 }
