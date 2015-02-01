@@ -198,21 +198,21 @@ public class EnemyInfo {
                 }
             case 6:
                 switch (levelId){
-                    case 33:
+                    case 41:
                         return "portrait_trainyard";
-                    case 34:
+                    case 42:
                         return "portrait_trainyard";
-                    case 35:
+                    case 43:
                         return "portrait_trainyard";
-                    case 36:
+                    case 44:
                         return "portrait_miniboss";
-                    case 37:
+                    case 45:
                         return "portrait_trainyard";
-                    case 38:
+                    case 46:
                         return "portrait_trainyard";
-                    case 39:
+                    case 47:
                         return "portrait_trainyard";
-                    case 40:
+                    case 48:
                         return "portrait_boss";
                 }
         }
