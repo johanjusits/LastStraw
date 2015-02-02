@@ -61,17 +61,17 @@ public class AllCardsAdapter extends CursorAdapter {
             if (imagePath.equals("card_speed_up")){
                 Picasso.with(context).load(R.drawable.card_speed_up).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
             }
-            if (imagePath.equals("card_steal_3")){
-                Picasso.with(context).load(R.drawable.card_steal_3).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            if (imagePath.equals("card_leech")){
+                Picasso.with(context).load(R.drawable.card_leech).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
             }
             if (imagePath.equals("card_concentrate")){
                 Picasso.with(context).load(R.drawable.card_concentrate).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
             }
-            if (imagePath.equals("card_steal_5")){
-                Picasso.with(context).load(R.drawable.card_steal_5).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            if (imagePath.equals("card_leech_2")){
+                Picasso.with(context).load(R.drawable.card_leech_2).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
             }
-            if (imagePath.equals("card_steal_7")){
-                Picasso.with(context).load(R.drawable.card_steal_7).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            if (imagePath.equals("card_leech_3")){
+                Picasso.with(context).load(R.drawable.card_leech_3).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
             }
             if (imagePath.equals("card_infest")){
                 Picasso.with(context).load(R.drawable.card_infest).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
@@ -139,6 +139,9 @@ public class AllCardsAdapter extends CursorAdapter {
             if (imagePath.equals("card_confuse")){
                 Picasso.with(context).load(R.drawable.card_confuse).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
             }
+            if (imagePath.equals("card_precision")){
+                Picasso.with(context).load(R.drawable.card_precision).placeholder(R.drawable.card_placeholder).into(viewLocked.imageHolder);
+            }
 
         } else {
             viewUnlocked = (UnlockedHolder) view.getTag();
@@ -155,17 +158,17 @@ public class AllCardsAdapter extends CursorAdapter {
             if (imagePath.equals("card_speed_up")){
                 Picasso.with(context).load(R.drawable.card_speed_up).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
             }
-            if (imagePath.equals("card_steal_3")){
-                Picasso.with(context).load(R.drawable.card_steal_3).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            if (imagePath.equals("card_leech")){
+                Picasso.with(context).load(R.drawable.card_leech).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
             }
             if (imagePath.equals("card_concentrate")){
                 Picasso.with(context).load(R.drawable.card_concentrate).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
             }
-            if (imagePath.equals("card_steal_5")){
-                Picasso.with(context).load(R.drawable.card_steal_5).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            if (imagePath.equals("card_leech_2")){
+                Picasso.with(context).load(R.drawable.card_leech_2).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
             }
-            if (imagePath.equals("card_steal_7")){
-                Picasso.with(context).load(R.drawable.card_steal_7).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            if (imagePath.equals("card_leech_3")){
+                Picasso.with(context).load(R.drawable.card_leech_3).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
             }
             if (imagePath.equals("card_infest")){
                 Picasso.with(context).load(R.drawable.card_infest).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
@@ -232,6 +235,9 @@ public class AllCardsAdapter extends CursorAdapter {
             }
             if (imagePath.equals("card_confuse")){
                 Picasso.with(context).load(R.drawable.card_confuse).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
+            }
+            if (imagePath.equals("card_precision")){
+                Picasso.with(context).load(R.drawable.card_precision).placeholder(R.drawable.card_placeholder).into(viewUnlocked.imageHolder);
             }
         }
 

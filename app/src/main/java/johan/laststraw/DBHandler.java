@@ -146,10 +146,10 @@ public class DBHandler {
             db.insert(AllCards, null, ac5);
 
             ContentValues ac6 = new ContentValues();
-            ac6.put(KEY_NAME, "Steal");
-            ac6.put(KEY_IMAGE, "card_steal_3");
+            ac6.put(KEY_NAME, "Leech");
+            ac6.put(KEY_IMAGE, "card_leech");
             ac6.put(KEY_TYPE, 1);
-            ac6.put(KEY_DESC, "Steals 1-3 points from the opponent.");
+            ac6.put(KEY_DESC, "Drains 1-3 points from the opponent.");
             ac6.put(KEY_COST, 1);
             ac6.put(KEY_REQUIRESLVL, 0);
             ac6.put(KEY_ISUNLOCKED, 0);
@@ -166,20 +166,20 @@ public class DBHandler {
             db.insert(AllCards, null, ac7);
 
             ContentValues ac8 = new ContentValues();
-            ac8.put(KEY_NAME, "Steal II");
-            ac8.put(KEY_IMAGE, "card_steal_5");
+            ac8.put(KEY_NAME, "Leech II");
+            ac8.put(KEY_IMAGE, "card_leech_2");
             ac8.put(KEY_TYPE, 1);
-            ac8.put(KEY_DESC, "Steals 3-5 points from the opponent.");
+            ac8.put(KEY_DESC, "Drains 3-5 points from the opponent.");
             ac8.put(KEY_COST, 2);
             ac8.put(KEY_REQUIRESLVL, 9);
             ac8.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac8);
 
             ContentValues ac9 = new ContentValues();
-            ac9.put(KEY_NAME, "Steal III");
-            ac9.put(KEY_IMAGE, "card_steal_7");
+            ac9.put(KEY_NAME, "Leech III");
+            ac9.put(KEY_IMAGE, "card_leech_3");
             ac9.put(KEY_TYPE, 1);
-            ac9.put(KEY_DESC, "Steals 5-7 points from the opponent.");
+            ac9.put(KEY_DESC, "Drains 5-7 points from the opponent.");
             ac9.put(KEY_COST, 3);
             ac9.put(KEY_REQUIRESLVL, 13);
             ac9.put(KEY_ISUNLOCKED, 0);
@@ -405,14 +405,24 @@ public class DBHandler {
             ac031.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac031);
 
-            /* ADDS CARDS TO OWNED CARDS
+            ContentValues ac032 = new ContentValues();
+            ac032.put(KEY_NAME, "Precision");
+            ac032.put(KEY_IMAGE, "card_precision");
+            ac032.put(KEY_TYPE, 3);
+            ac032.put(KEY_DESC, "Increases Critical strike rate by 20%. Lasts 2 turns.");
+            ac032.put(KEY_COST, 1);
+            ac032.put(KEY_REQUIRESLVL, 0);
+            ac032.put(KEY_ISUNLOCKED, 0);
+            db.insert(AllCards, null, ac032);
+
+            /* ADDS CARDS TO OWNED CARDS */
             ContentValues oc1 = new ContentValues();
-            oc1.put(KEY_NAME, "Confuse");
-            oc1.put(KEY_IMAGE, "card_confuse");
-            oc1.put(KEY_TYPE, 2);
-            oc1.put(KEY_COST, 2);
-            oc1.put(KEY_DESC, "Causes enemy to sometimes get addition and subtraction mixed up.");
-            db.insert(OwnedCards, null, oc1);*/
+            oc1.put(KEY_NAME, "Precision");
+            oc1.put(KEY_IMAGE, "card_precision");
+            oc1.put(KEY_TYPE, 3);
+            oc1.put(KEY_COST, 1);
+            oc1.put(KEY_DESC, "Increases Critical strike rate by 20%. Lasts 2 turns.");
+            db.insert(OwnedCards, null, oc1);
 
             /* INITIAL PLAYER VALUES */
             ContentValues playerInfo = new ContentValues();

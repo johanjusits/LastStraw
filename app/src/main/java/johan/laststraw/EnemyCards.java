@@ -14,7 +14,7 @@ public class EnemyCards {
     }
 
     // VARIABLES FOR RANDOMIZING ENEMY CARDS
-    static int totalCards = 29;
+    static int totalCards = 30;
     static boolean cardAdded = false;
 
     static int field = 1;
@@ -49,12 +49,12 @@ public class EnemyCards {
     static String SpeedUpImgPath = "card_speed_up";
     static String SpeedUp2ImgPath = "card_speed_up_2";
     static String SlowDownImgPath = "card_slowdown";
-    static String Steal1ImgPath = "card_steal_3";
+    static String Leech1ImgPath = "card_leech";
     static String ConcentrateImgPath = "card_concentrate";
     static String CorruptionImgPath = "card_corruption";
     static String AgonyImgPath = "card_agony";
     static String CurseImgPath = "card_curse";
-    static String Steal2ImgPath = "card_steal_5";
+    static String Leech2ImgPath = "card_leech_2";
     static String MimicImgPath = "card_mimic";
     static String CureImgPath = "card_cure";
     static String InfestImgPath = "card_infest";
@@ -68,11 +68,12 @@ public class EnemyCards {
     static String DispelImgPath = "card_dispel";
     static String DeathSentenceImgPath = "card_death_sentence";
     static String MaledictionImgPath = "card_malediction";
-    static String Steal3ImgPath = "card_steal_7";
+    static String Leech3ImgPath = "card_leech_3";
     static String RewindImgPath = "card_rewind";
     static String HoardImgPath = "card_hoard";
     static String RestoreImgPath = "card_restore";
     static String ConfuseImgPath = "card_confuse";
+    static String PrecisionImgPath = "card_precision";
 
     // CARD NAMES
     static String Reinforce3CardName = "Reinforce III";
@@ -80,12 +81,12 @@ public class EnemyCards {
     static String SpeedUpCardName = "Speed Up";
     static String SpeedUp2CardName = "Speed Up II";
     static String SlowDownCardName = "Slow Down";
-    static String Steal1CardName = "Steal";
+    static String Leech1CardName = "Leech";
     static String ConcentrateCardName = "Concentrate";
     static String CorruptionCardName = "Corruption";
     static String AgonyCardName = "Agony";
     static String CurseCardName = "Curse";
-    static String Steal2CardName = "Steal II";
+    static String Leech2CardName = "Leech II";
     static String MimicCardName = "Mimic";
     static String CureCardName = "Cure";
     static String InfestCardName = "Infest";
@@ -99,11 +100,12 @@ public class EnemyCards {
     static String DispelCardName = "Dispel";
     static String DeathSentenceCardName = "Death Sentence";
     static String MaledictionCardName = "Malediction";
-    static String Steal3CardName = "Steal III";
+    static String Leech3CardName = "Leech III";
     static String RewindCardName = "Rewind";
     static String HoardCardName = "Hoard";
     static String RestoreCardName = "Restore";
     static String ConfuseCardName = "Confuse";
+    static String PrecisionCardName = "Precision";
 
     // CARD COSTS
     static int Reinforce3CardCost = 0;
@@ -111,12 +113,12 @@ public class EnemyCards {
     static int SpeedUpCardCost = 0;
     static int SpeedUp2CardCost = 1;
     static int SlowDownCardCost = 1;
-    static int Steal1CardCost = 1;
+    static int Leech1CardCost = 1;
     static int ConcentrateCardCost = 1;
     static int CorruptionCardCost = 1;
     static int AgonyCardCost = 2;
     static int CurseCardCost = 2;
-    static int Steal2CardCost = 2;
+    static int Leech2CardCost = 2;
     static int MimicCardCost = 1;
     static int CureCardCost = 1;
     static int InfestCardCost = 1;
@@ -131,10 +133,11 @@ public class EnemyCards {
     static int DeathSentenceCardCost = 2;
     static int HoardCardCost = 1;
     static int ConfuseCardCost = 2;
-    static int Steal3CardCost = 3;
+    static int Leech3CardCost = 3;
     static int MaledictionCardCost = 3;
     static int RewindCardCost = 0;
     static int DemonicPrayerCardCost = 0;
+    static int PrecisionCardCost = 1;
 
     public static String randomCard(int cardNr){
         int newCard = genRand(totalCards);
@@ -235,7 +238,7 @@ public class EnemyCards {
                     case 5:
                         card6Type = field;
                 }
-                return Steal1CardName;
+                return Leech1CardName;
             case 6:
                 switch (cardNr){
                     case 0:
@@ -315,7 +318,7 @@ public class EnemyCards {
                     case 5:
                         card6Type = field;
                 }
-                return Steal2CardName;
+                return Leech2CardName;
             case 11:
                 switch (cardNr){
                     case 0:
@@ -555,7 +558,7 @@ public class EnemyCards {
                     case 5:
                         card6Type = field;
                 }
-                return Steal3CardName;
+                return Leech3CardName;
             case 26:
                 switch (cardNr){
                     case 0:
@@ -604,6 +607,22 @@ public class EnemyCards {
                         card6Type = ailment;
                 }
                 return DemonicPrayerCardName;
+            case 29:
+                switch (cardNr){
+                    case 0:
+                        card1Type = boosting;
+                    case 1:
+                        card2Type = boosting;
+                    case 2:
+                        card3Type = boosting;
+                    case 3:
+                        card4Type = boosting;
+                    case 4:
+                        card5Type = boosting;
+                    case 5:
+                        card6Type = boosting;
+                }
+                return PrecisionCardName;
         }
         System.out.println("Här");
         return "";
@@ -687,8 +706,8 @@ public class EnemyCards {
         if (cardName.equals(SlowDownCardName)){
             return SlowDownImgPath;
         }
-        if (cardName.equals(Steal1CardName)){
-            return Steal1ImgPath;
+        if (cardName.equals(Leech1CardName)){
+            return Leech1ImgPath;
         }
         if (cardName.equals(ConcentrateCardName)){
             return ConcentrateImgPath;
@@ -702,8 +721,8 @@ public class EnemyCards {
         if (cardName.equals(CurseCardName)){
             return CurseImgPath;
         }
-        if (cardName.equals(Steal2CardName)){
-            return Steal2ImgPath;
+        if (cardName.equals(Leech2CardName)){
+            return Leech2ImgPath;
         }
         if (cardName.equals(MimicCardName)){
             return MimicImgPath;
@@ -747,8 +766,8 @@ public class EnemyCards {
         if (cardName.equals(ConfuseCardName)){
             return ConfuseImgPath;
         }
-        if (cardName.equals(Steal3CardName)){
-            return Steal3ImgPath;
+        if (cardName.equals(Leech3CardName)){
+            return Leech3ImgPath;
         }
         if (cardName.equals(MaledictionCardName)){
             return MaledictionImgPath;
@@ -758,6 +777,9 @@ public class EnemyCards {
         }
         if (cardName.equals(DemonicPrayerCardName)){
             return DemonicPrayerImgPath;
+        }
+        if (cardName.equals(PrecisionCardName)){
+            return PrecisionImgPath;
         }
         return "";
     }
@@ -778,8 +800,8 @@ public class EnemyCards {
         if (cardName.equals(SlowDownCardName)){
             return SlowDownCardCost;
         }
-        if (cardName.equals(Steal1CardName)){
-            return Steal1CardCost;
+        if (cardName.equals(Leech1CardName)){
+            return Leech1CardCost;
         }
         if (cardName.equals(ConcentrateCardName)){
             return ConcentrateCardCost;
@@ -793,8 +815,8 @@ public class EnemyCards {
         if (cardName.equals(CurseCardName)){
             return CurseCardCost;
         }
-        if (cardName.equals(Steal2CardName)){
-            return Steal2CardCost;
+        if (cardName.equals(Leech2CardName)){
+            return Leech2CardCost;
         }
         if (cardName.equals(MimicCardName)){
             return MimicCardCost;
@@ -838,8 +860,8 @@ public class EnemyCards {
         if (cardName.equals(ConfuseCardName)){
             return ConfuseCardCost;
         }
-        if (cardName.equals(Steal3CardName)){
-            return Steal3CardCost;
+        if (cardName.equals(Leech3CardName)){
+            return Leech3CardCost;
         }
         if (cardName.equals(MaledictionCardName)){
             return MaledictionCardCost;
@@ -849,6 +871,9 @@ public class EnemyCards {
         }
         if (cardName.equals(DemonicPrayerCardName)){
             return DemonicPrayerCardCost;
+        }
+        if (cardName.equals(PrecisionCardName)){
+            return PrecisionCardCost;
         }
         return 0;
     }
@@ -2773,7 +2798,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr) {
                     case 0:
-                        return Reinforce3ImgPath;
+                        return PrecisionImgPath;
                 }
                 // WORLD 1 LEVEL 2
             case 2:
@@ -2845,7 +2870,7 @@ public class EnemyCards {
                     case 1:
                         return ConcentrateImgPath;
                     case 2:
-                        return Steal1ImgPath;
+                        return Leech1ImgPath;
                 }
                 // WORLD 2 LEVEL 1
             case 9:
@@ -2873,7 +2898,7 @@ public class EnemyCards {
             case 11:
                 switch (cardNr) {
                     case 0:
-                        return Steal1ImgPath;
+                        return Leech1ImgPath;
                     case 1:
                         return SpeedUpImgPath;
                     case 2:
@@ -2917,7 +2942,7 @@ public class EnemyCards {
                     case 1:
                         return CurseImgPath;
                     case 2:
-                        return Steal2ImgPath;
+                        return Leech2ImgPath;
                 }
                 // WORLD 2 LEVEL 7
             case 15:
@@ -2927,7 +2952,7 @@ public class EnemyCards {
                     case 1:
                         return AgonyImgPath;
                     case 2:
-                        return Steal1ImgPath;
+                        return Leech1ImgPath;
                     case 3:
                         return MimicImgPath;
                 }
@@ -2955,9 +2980,9 @@ public class EnemyCards {
                     case 1:
                         return SpeedUpImgPath;
                     case 2:
-                        return Steal2ImgPath;
+                        return Leech2ImgPath;
                     case 3:
-                        return Steal2ImgPath;
+                        return Leech2ImgPath;
                 }
                 // WORLD 3 LEVEL 2
             case 18:
@@ -2981,7 +3006,7 @@ public class EnemyCards {
                     case 2:
                         return ConcentrateImgPath;
                     case 3:
-                        return Steal2ImgPath;
+                        return Leech2ImgPath;
                     case 4:
                         return CorruptionImgPath;
                     case 5:
@@ -2991,9 +3016,9 @@ public class EnemyCards {
             case 20:
                 switch (cardNr) {
                     case 0:
-                        return Steal2ImgPath;
+                        return Leech2ImgPath;
                     case 1:
-                        return Steal2ImgPath;
+                        return Leech2ImgPath;
                     case 2:
                         return ConcentrateImgPath;
                     case 3:
@@ -3085,7 +3110,7 @@ public class EnemyCards {
                     case 2:
                         return ProtectImgPath;
                     case 3:
-                        return Steal2ImgPath;
+                        return Leech2ImgPath;
                     case 4:
                         return BlindImgPath;
                     case 5:
@@ -3135,7 +3160,7 @@ public class EnemyCards {
                     case 3:
                         return TakeAimImgPath;
                     case 4:
-                        return Steal2ImgPath;
+                        return Leech2ImgPath;
                     case 5:
                         return SpeedUp2ImgPath;
                 }
@@ -3183,9 +3208,9 @@ public class EnemyCards {
                     case 3:
                         return Reinforce5ImgPath;
                     case 4:
-                        return Steal2ImgPath;
+                        return Leech2ImgPath;
                     case 5:
-                        return Steal2ImgPath;
+                        return Leech2ImgPath;
                 }
                 // WORLD 5 LEVEL 1
             case 33:
@@ -3215,7 +3240,7 @@ public class EnemyCards {
                     case 3:
                         return ConcentrateImgPath;
                     case 4:
-                        return Steal3ImgPath;
+                        return Leech3ImgPath;
                     case 5:
                         return BlindImgPath;
                 }
@@ -3287,9 +3312,9 @@ public class EnemyCards {
             case 39:
                 switch (cardNr) {
                     case 0:
-                        return Steal3ImgPath;
+                        return Leech3ImgPath;
                     case 1:
-                        return Steal3ImgPath;
+                        return Leech3ImgPath;
                     case 2:
                         return ChargeImgPath;
                     case 3:
@@ -3347,7 +3372,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr) {
                     case 0:
-                        return Reinforce3CardName;
+                        return PrecisionCardName;
                     case 1:
                         return "";
                     case 2:
@@ -3463,7 +3488,7 @@ public class EnemyCards {
                     case 1:
                         return ConcentrateCardName;
                     case 2:
-                        return Steal1CardName;
+                        return Leech1CardName;
                     case 3:
                         return "";
                     case 4:
@@ -3507,7 +3532,7 @@ public class EnemyCards {
             case 11:
                 switch (cardNr) {
                     case 0:
-                        return Steal1CardName;
+                        return Leech1CardName;
                     case 1:
                         return SpeedUpCardName;
                     case 2:
@@ -3559,7 +3584,7 @@ public class EnemyCards {
                     case 1:
                         return CurseCardName;
                     case 2:
-                        return Steal2CardName;
+                        return Leech2CardName;
                     case 3:
                         return "";
                     case 4:
@@ -3575,7 +3600,7 @@ public class EnemyCards {
                     case 1:
                         return AgonyCardName;
                     case 2:
-                        return Steal1CardName;
+                        return Leech1CardName;
                     case 3:
                         return MimicCardName;
                     case 4:
@@ -3607,9 +3632,9 @@ public class EnemyCards {
                     case 1:
                         return SpeedUpCardName;
                     case 2:
-                        return Steal2CardName;
+                        return Leech2CardName;
                     case 3:
-                        return Steal2CardName;
+                        return Leech2CardName;
                     case 4:
                         return "";
                     case 5:
@@ -3641,7 +3666,7 @@ public class EnemyCards {
                     case 2:
                         return ConcentrateCardName;
                     case 3:
-                        return Steal2CardName;
+                        return Leech2CardName;
                     case 4:
                         return CorruptionCardName;
                     case 5:
@@ -3651,9 +3676,9 @@ public class EnemyCards {
             case 20:
                 switch (cardNr) {
                     case 0:
-                        return Steal2CardName;
+                        return Leech2CardName;
                     case 1:
-                        return Steal2CardName;
+                        return Leech2CardName;
                     case 2:
                         return ConcentrateCardName;
                     case 3:
@@ -3753,7 +3778,7 @@ public class EnemyCards {
                     case 2:
                         return ProtectCardName;
                     case 3:
-                        return Steal2CardName;
+                        return Leech2CardName;
                     case 4:
                         return BlindCardName;
                     case 5:
@@ -3803,7 +3828,7 @@ public class EnemyCards {
                     case 3:
                         return TakeAimCardName;
                     case 4:
-                        return Steal2CardName;
+                        return Leech2CardName;
                     case 5:
                         return SpeedUp2CardName;
                 }
@@ -3851,9 +3876,9 @@ public class EnemyCards {
                     case 3:
                         return Reinforce5CardName;
                     case 4:
-                        return Steal2CardName;
+                        return Leech2CardName;
                     case 5:
-                        return Steal2CardName;
+                        return Leech2CardName;
                 }
                 // WORLD 5 LEVEL 1
             case 33:
@@ -3883,7 +3908,7 @@ public class EnemyCards {
                     case 3:
                         return ConcentrateCardName;
                     case 4:
-                        return Steal3CardName;
+                        return Leech3CardName;
                     case 5:
                         return BlindCardName;
                 }
@@ -3955,9 +3980,9 @@ public class EnemyCards {
             case 39:
                 switch (cardNr) {
                     case 0:
-                        return Steal3CardName;
+                        return Leech3CardName;
                     case 1:
-                        return Steal3CardName;
+                        return Leech3CardName;
                     case 2:
                         return ChargeCardName;
                     case 3:
@@ -4012,7 +4037,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr) {
                     case 0:
-                        return Reinforce3CardCost;
+                        return PrecisionCardCost;
                     case 1:
                         return 0;
                     case 2:
@@ -4128,7 +4153,7 @@ public class EnemyCards {
                     case 1:
                         return ConcentrateCardCost;
                     case 2:
-                        return Steal1CardCost;
+                        return Leech1CardCost;
                     case 3:
                         return 0;
                     case 4:
@@ -4172,7 +4197,7 @@ public class EnemyCards {
             case 11:
                 switch (cardNr) {
                     case 0:
-                        return Steal1CardCost;
+                        return Leech1CardCost;
                     case 1:
                         return SpeedUpCardCost;
                     case 2:
@@ -4224,7 +4249,7 @@ public class EnemyCards {
                     case 1:
                         return CurseCardCost;
                     case 2:
-                        return Steal2CardCost;
+                        return Leech2CardCost;
                     case 3:
                         return 0;
                     case 4:
@@ -4240,7 +4265,7 @@ public class EnemyCards {
                     case 1:
                         return AgonyCardCost;
                     case 2:
-                        return Steal1CardCost;
+                        return Leech1CardCost;
                     case 3:
                         return MimicCardCost;
                     case 4:
@@ -4272,9 +4297,9 @@ public class EnemyCards {
                     case 1:
                         return SpeedUpCardCost;
                     case 2:
-                        return Steal2CardCost;
+                        return Leech2CardCost;
                     case 3:
-                        return Steal2CardCost;
+                        return Leech2CardCost;
                     case 4:
                         return 0;
                     case 5:
@@ -4306,7 +4331,7 @@ public class EnemyCards {
                     case 2:
                         return ConcentrateCardCost;
                     case 3:
-                        return Steal2CardCost;
+                        return Leech2CardCost;
                     case 4:
                         return CorruptionCardCost;
                     case 5:
@@ -4316,9 +4341,9 @@ public class EnemyCards {
             case 20:
                 switch (cardNr) {
                     case 0:
-                        return Steal2CardCost;
+                        return Leech2CardCost;
                     case 1:
-                        return Steal2CardCost;
+                        return Leech2CardCost;
                     case 2:
                         return ConcentrateCardCost;
                     case 3:
@@ -4418,7 +4443,7 @@ public class EnemyCards {
                     case 2:
                         return ProtectCardCost;
                     case 3:
-                        return Steal2CardCost;
+                        return Leech2CardCost;
                     case 4:
                         return BlindCardCost;
                     case 5:
@@ -4468,7 +4493,7 @@ public class EnemyCards {
                     case 3:
                         return TakeAimCardCost;
                     case 4:
-                        return Steal2CardCost;
+                        return Leech2CardCost;
                     case 5:
                         return SpeedUp2CardCost;
                 }
@@ -4516,9 +4541,9 @@ public class EnemyCards {
                     case 3:
                         return Reinforce5CardCost;
                     case 4:
-                        return Steal2CardCost;
+                        return Leech2CardCost;
                     case 5:
-                        return Steal2CardCost;
+                        return Leech2CardCost;
                 }
                 // WORLD 5 LEVEL 1
             case 33:
@@ -4548,7 +4573,7 @@ public class EnemyCards {
                     case 3:
                         return ConcentrateCardCost;
                     case 4:
-                        return Steal3CardCost;
+                        return Leech3CardCost;
                     case 5:
                         return BlindCardCost;
                 }
@@ -4620,9 +4645,9 @@ public class EnemyCards {
             case 39:
                 switch (cardNr) {
                     case 0:
-                        return Steal3CardCost;
+                        return Leech3CardCost;
                     case 1:
-                        return Steal3CardCost;
+                        return Leech3CardCost;
                     case 2:
                         return ChargeCardCost;
                     case 3:
