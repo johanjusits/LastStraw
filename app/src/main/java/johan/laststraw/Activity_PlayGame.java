@@ -62,6 +62,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String ailmentFailed = "Protect wards off ailment.";
     String enemySlowed = "Enemy suffers Slow";
     String enemyHaste = "Enemy gains Haste";
+    String enemyPrecision = "Enemy gains Precision";
     String enemySalvage = "Enemy gains Salvage";
     String enemyCharge = "Enemy gains Charge";
     String enemyTakeAim = "Enemy gains Accuracy";
@@ -83,6 +84,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String enemyHoarded = "Enemy keeps played card!";
     String enemyDispelled = "Enemy suffers Dispel";
     String playerHaste = "";
+    String playerPrecision = "";
     String playerSalvage = "";
     String playerCharge = "";
     String playerTakeAim = "";
@@ -200,6 +202,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     int playerCorruptedPenalty = 0;
     int enemyCorruptedPenalty = 0;
     int playerSalvageCountdown = -1;
+    int playerPrecisionCountdown = -1;
     int playerAccuracyCountdown = -1;
     int playerChargeCountdown = -1;
     int playerCurseCountdown = -1;
@@ -207,6 +210,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     int enemyCurseCountdown = -1;
     int enemyConfuseCountdown = -1;
     int enemySalvageCountdown = -1;
+    int enemyPrecisionCountdown = -1;
     int enemyAccuracyCountdown = -1;
     int enemyChargeCountdown = -1;
     int playerAgonyCountdown = -1;
@@ -233,9 +237,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     boolean playerHasSalvage = false;
     boolean playerHasCharge = false;
     boolean playerHasAccuracy = false;
+    boolean playerHasPrecision = false;
     boolean enemyHasSalvage = false;
     boolean enemyHasCharge = false;
     boolean enemyHasAccuracy = false;
+    boolean enemyHasPrecision = false;
     boolean enemyCrit = false;
     boolean enemyHit = false;
     boolean playerHit = false;
@@ -454,6 +460,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         setPlayerCardIcons();
 
         playerHaste = playerName + " gains Haste";
+        playerPrecision = playerName + " gains Precision";
         playerSalvage = playerName + " gains Salvage";
         playerCharge = playerName + " gains Charge";
         playerTakeAim = playerName + " gains Accuracy";
@@ -2089,6 +2096,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyIsConfused && enemyConfuseCountdown == 0) {
             enemyConfuseEnd();
         } else {
+            checkIfEnemyPrecisionEnds();
+        }
+    }
+
+    private void checkIfEnemyPrecisionEnds() {
+        if (enemyHasPrecision && enemyPrecisionCountdown == 0) {
+            enemyPrecisionEnd();
+        } else {
             enemyTurn();
         }
     }
@@ -2507,6 +2522,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (enemyIsConfused && enemyConfuseCountdown != -1) {
             enemyConfuseCountdown--;
         }
+        if (enemyHasPrecision && enemyPrecisionCountdown == -1) {
+            enemyPrecisionCountdown = 3;
+        }
+        if (enemyHasPrecision && enemyPrecisionCountdown != -1) {
+            enemyPrecisionCountdown--;
+        }
         enemyIsSlowed = false;
         enemyHasHaste = false;
         enemyHasHaste2 = false;
@@ -2709,6 +2730,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (playerIsConfused && playerConfuseCountdown == 0) {
             playerConfuseEnd();
         } else {
+            checkIfPlayerPrecisionEnds();
+        }
+    }
+
+    private void checkIfPlayerPrecisionEnds() {
+        if (playerHasPrecision && playerPrecisionCountdown == 0) {
+            playerPrecisionEnd();
+        } else {
             playerTurn();
         }
     }
@@ -2816,6 +2845,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (playerIsConfused && playerConfuseCountdown != -1) {
             playerConfuseCountdown--;
+        }
+        if (playerHasPrecision && playerPrecisionCountdown == -1) {
+            playerPrecisionCountdown = 3;
+        }
+        if (playerHasPrecision && playerPrecisionCountdown != -1) {
+            playerPrecisionCountdown--;
         }
         playerIsSlowed = false;
         playerIsCorrupted = false;
@@ -4724,6 +4759,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         if (playedCard.equals("Confuse")) {
             cardConfuse();
         }
+        if (playedCard.equals("Precision")) {
+            cardPrecision();
+        }
         if (errorMsg) {
             myHandler.postDelayed(new Runnable() {
                 public void run() {
@@ -4857,6 +4895,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (cardName.equals("Confuse")) {
             cardConfuse();
+        }
+        if (cardName.equals("Precision")) {
+            cardPrecision();
         }
     }
 
@@ -5938,6 +5979,61 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         enemyHasAccuracy = true;
                         enemyHitChancePercentage = 100;
                         addEnemyAccuracy();
+                        activeEnemyStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        }
+    }
+
+    /* PRECISION CARD EFFECT METHOD */
+    private void cardPrecision() {
+        if (playerTurn) {
+            if (!Arrays.asList(playerStatuses).contains("Precision")) {
+                tvCenterMessage.setText(playerPrecision);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activePlayerStatuses < 5 && !Arrays.asList(playerStatuses).contains("Precision")) {
+                        playerHasPrecision = true;
+                        playerCritChancePercentage = 25;
+                        addPlayerPrecision();
+                        activePlayerStatuses++;
+                    } else {
+                        errorMsg = true;
+                        tvCenterMessage.setText(buffAlreadyActiveError);
+                        tvCenterMessage.startAnimation(ani_fadeIn);
+                        myHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                tvCenterMessage.startAnimation(ani_fadeOut);
+                            }
+                        }, 1500);
+                    }
+                }
+            }, 1000);
+        } else {
+            if (!Arrays.asList(enemyStatuses).contains("Precision")) {
+                tvCenterMessage.setText(enemyPrecision);
+                tvCenterMessage.startAnimation(ani_fadeIn);
+            }
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                    if (activeEnemyStatuses < 5 && !Arrays.asList(enemyStatuses).contains("Precision")) {
+                        enemyHasPrecision = true;
+                        enemyCritChancePercentage = 25;
+                        addEnemyPrecision();
                         activeEnemyStatuses++;
                     } else {
                         errorMsg = true;
@@ -7054,6 +7150,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
+                if (lastEnemyPlayedCard.equals("Precision")) {
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardPrecision();
+                        }
+                    }, 2000);
+                }
             } else {
                 tvCenterMessage.startAnimation(ani_fadeIn);
                 tvCenterMessage.setText("Mimic failed");
@@ -7421,6 +7529,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             cardConfuse();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Precision")) {
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardPrecision();
                         }
                     }, 2000);
                 }
@@ -8416,6 +8536,43 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
+    /* ADD PLAYER PRECISION */
+    private void addPlayerPrecision() {
+        int freeSpot = getFreePlayerStatusSpot();
+        switch (freeSpot) {
+            case 0:
+                playerStatuses[0] = "Precision";
+                playerStatusIcon1.setImageResource(R.drawable.buff_precision);
+                playerStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                playerStatuses[1] = "Precision";
+                playerStatusIcon2.setImageResource(R.drawable.buff_precision);
+                playerStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                playerStatuses[2] = "Precision";
+                playerStatusIcon3.setImageResource(R.drawable.buff_precision);
+                playerStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                playerStatuses[3] = "Precision";
+                playerStatusIcon4.setImageResource(R.drawable.buff_precision);
+                playerStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                playerStatuses[4] = "Precision";
+                playerStatusIcon5.setImageResource(R.drawable.buff_precision);
+                playerStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                playerStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
     /* ADD PLAYER SALVAGE */
     private void addPlayerSalvage() {
         int freeSpot = getFreePlayerStatusSpot();
@@ -9163,6 +9320,43 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             case 4:
                 enemyStatuses[4] = "Accuracy";
                 enemyStatusIcon5.setImageResource(R.drawable.buff_takeaim);
+                enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon5.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    /* ADD ENEMY PRECISION */
+    private void addEnemyPrecision() {
+        int freeSpot = getFreeEnemyStatusSpot();
+        switch (freeSpot) {
+            case 0:
+                enemyStatuses[0] = "Precision";
+                enemyStatusIcon1.setImageResource(R.drawable.buff_precision);
+                enemyStatusIcon1.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon1.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                enemyStatuses[1] = "Precision";
+                enemyStatusIcon2.setImageResource(R.drawable.buff_precision);
+                enemyStatusIcon2.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon2.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                enemyStatuses[2] = "Precision";
+                enemyStatusIcon3.setImageResource(R.drawable.buff_precision);
+                enemyStatusIcon3.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon3.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                enemyStatuses[3] = "Precision";
+                enemyStatusIcon4.setImageResource(R.drawable.buff_precision);
+                enemyStatusIcon4.setBackgroundResource(R.drawable.frame_black);
+                enemyStatusIcon4.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                enemyStatuses[4] = "Precision";
+                enemyStatusIcon5.setImageResource(R.drawable.buff_precision);
                 enemyStatusIcon5.setBackgroundResource(R.drawable.frame_black);
                 enemyStatusIcon5.setVisibility(View.VISIBLE);
                 break;
@@ -10085,6 +10279,28 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 2000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
+                checkIfPlayerPrecisionEnds();
+            }
+        }, 3000);
+    }
+
+    private void playerPrecisionEnd() {
+        playerHasPrecision = false;
+        playerPrecisionCountdown = -1;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText(playerName + " precision fades..");
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearPlayerStatus("Precision");
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
                 playerTurn();
             }
         }, 3000);
@@ -10407,6 +10623,28 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }, 2000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
+                checkIfEnemyPrecisionEnds();
+            }
+        }, 3000);
+    }
+
+    private void enemyPrecisionEnd() {
+        enemyHasPrecision = false;
+        enemyPrecisionCountdown = -1;
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeIn);
+                tvCenterMessage.setText("Enemy precision fades..");
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.startAnimation(ani_fadeOut);
+                clearEnemyStatus("Precision");
+            }
+        }, 2000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
                 enemyTurn();
             }
         }, 3000);
@@ -10465,6 +10703,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 enemyHitChancePercentage = 100;
             }
         }
+        if (debuffName.equals("Precision")) {
+            enemyCritChancePercentage = 5;
+        }
     }
 
     private void clearPlayerStatus(String debuffName) {
@@ -10514,6 +10755,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             } else {
                 playerHitChancePercentage = 100;
             }
+        }
+        if (debuffName.equals("Precision")) {
+            playerCritChancePercentage = 5;
         }
     }
 
@@ -10827,6 +11071,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             playerAccuracyCountdown = -1;
             clearPlayerStatus("Accuracy");
         }
+        check = findPlayerBuff("Precision");
+        if (check != -1) {
+            playerHasPrecision = false;
+            playerPrecisionCountdown = -1;
+            clearPlayerStatus("Precision");
+        }
     }
 
     /* FIND ENEMY BUFFS */
@@ -10899,6 +11149,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             enemyHasAccuracy = false;
             enemyAccuracyCountdown = -1;
             clearEnemyStatus("Accuracy");
+        }
+        check = findEnemyBuff("Precision");
+        if (check != -1) {
+            enemyHasPrecision = false;
+            enemyPrecisionCountdown = -1;
+            clearEnemyStatus("Precision");
         }
     }
 
@@ -11919,7 +12175,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     private void setObjMsgLocation() {
         RelativeLayout.LayoutParams objMsgSettings = (RelativeLayout.LayoutParams) tvObjMsg.getLayoutParams();
         objMsgSettings.addRule(RelativeLayout.ABOVE, getCurrentObject(objectsRemaining));
-        if (objectsRemaining == 1 && !playerHit || objectsRemaining == 1 && nextObjIsInfested) {
+        if (objectsRemaining == 1 && !playerHit || objectsRemaining == 1 && nextObjIsInfested || objectsRemaining == 1 && !enemyHit) {
             objMsgSettings.addRule(RelativeLayout.ALIGN_RIGHT, getCurrentObject(objectsRemaining));
             objMsgSettings.addRule(RelativeLayout.ALIGN_LEFT, 0);
         } else {

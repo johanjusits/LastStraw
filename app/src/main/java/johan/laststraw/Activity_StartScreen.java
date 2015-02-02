@@ -120,6 +120,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         checkBoss3();
         //CHECKS IF MINI BOSS 4 HAS BEEN BEATEN
         checkMiniBoss4();
+        //CHECKS IF MINI BOSS 5 HAS BEEN BEATEN
+        checkMiniBoss5();
     }
 
     private void awardNewCard() {
@@ -161,8 +163,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 9 && sharedPrefLvl == 8){
-                addCard("Steal II", "card_steal_5", 1, 2, "Steals 3-5 points from the opponent.", 6);
-                confirmSuccess("You have unlocked the Steal II card!", Activity_StartScreen.this);
+                addCard("Leech II", "card_leech_2", 1, 2, "Drains 3-5 points from the opponent.", 6);
+                confirmSuccess("You have unlocked the Leech II card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
@@ -185,8 +187,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         if (dbLvl > sharedPrefLvl){
             if (dbLvl == 13 && sharedPrefLvl == 12){
-                addCard("Steal III", "card_steal_7", 1, 3, "Steals 5-7 points from the opponent.", 7);
-                confirmSuccess("You have unlocked the Steal III card!", Activity_StartScreen.this);
+                addCard("Leech III", "card_leech_3", 1, 3, "Drains 5-7 points from the opponent.", 7);
+                confirmSuccess("You have unlocked the Leech III card!", Activity_StartScreen.this);
             }
         }
         if (dbLvl > sharedPrefLvl){
@@ -405,6 +407,26 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
     }
 
+    private void checkMiniBoss5(){
+        int checkMiniBoss1 = getLevelInfo(36);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean player6thSlotAwarded = preferences.getBoolean("player6thSlotAwarded", false);
+        if (checkMiniBoss1 == 1 && !player6thSlotAwarded){
+            try {
+                db.open();
+            } catch (java.sql.SQLException e) {
+                e.printStackTrace();
+            }
+            db.updatePlayerSlots(6);
+            preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("player6thSlotAwarded", true);
+            editor.apply();
+            confirmSuccess("You have unlocked the last card slot!", Activity_StartScreen.this);
+            db.close();
+        }
+    }
+
     private void checkBoss1(){
         int checkBoss1 = getLevelInfo(8);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -419,8 +441,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("stealCardAwarded", true);
             editor.apply();
-            addCard("Steal", "card_steal_3", 1, 1, "Steals 1-3 points from the opponent.", 6);
-            confirmSuccess("You have unlocked the Steal card!", Activity_StartScreen.this);
+            addCard("Leech", "card_leech", 1, 1, "Drains 1-3 points from the opponent.", 4);
+            confirmSuccess("You have unlocked the Leech card!", Activity_StartScreen.this);
             db.close();
         }
     }
@@ -439,7 +461,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("curseCardAwarded", true);
             editor.apply();
-            addCard("Curse", "card_curse", 2, 2, "Reduces score by half after three turns.", 15);
+            addCard("Curse", "card_curse", 2, 2, "Reduces score by half after three turns.", 13);
             confirmSuccess("You have unlocked the Curse card!", Activity_StartScreen.this);
             db.close();
         }
@@ -459,7 +481,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("cureCardAwarded", true);
             editor.apply();
-            addCard("Cure", "card_cure", 3, 1, "Removes all ailments from yourself.", 20);
+            addCard("Cure", "card_cure", 3, 1, "Removes all ailments from yourself.", 18);
             confirmSuccess("You have unlocked the Cure card!", Activity_StartScreen.this);
             db.close();
         }
