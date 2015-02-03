@@ -24,7 +24,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
 
     Button playButton;
     ImageButton resetButton, profileButton, rulesButton, cardStoreButton, newCardMsg;
-    Intent play, profile, cards, rules;
+    Intent play, profile, cards, tutorial;
     DBHandler db;
     Cursor cursor;
     int dbLvl, sharedPrefLvl;
@@ -74,9 +74,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 startActivity(cards);
                 break;
             case R.id.Btn_Rules:
-                rules = new Intent(Activity_StartScreen.this, Activity_Rules_P1.class);
-                rules.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(rules);
+                String msg = "Launch Tutorial?";
+                confirmTutorialLaunch(msg, Activity_StartScreen.this);
                 break;
             case R.id.Btn_Reset:
                 String message = "Reset all data? \nWARNING! \nThis is irreversible!";
@@ -246,6 +245,39 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         editor.putInt("CurrentLevel", dbLvl);
         editor.putBoolean("NewCard", true);
         editor.apply();
+    }
+
+    private void confirmTutorialLaunch(String message, final Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_removeall);
+        if (sizeName.equals("xlarge")){
+            dialog.getWindow().setLayout(600, 350);
+        }
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvError);
+        tvText.setText(message);
+
+        /* YES CLICKED */
+        Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                tutorial = new Intent(Activity_StartScreen.this, Activity_Tutorial.class);
+                tutorial.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(tutorial);
+                dialog.dismiss();
+            }
+        });
+
+        /* NO CLICKED */
+        Button buttonDialogNo = (Button) dialog.findViewById(R.id.bConfirmCancel);
+        buttonDialogNo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void confirmReset(String message, final Context context) {
