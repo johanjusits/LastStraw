@@ -2798,7 +2798,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr) {
                     case 0:
-                        return PrecisionImgPath;
+                        return Reinforce3ImgPath;
                 }
                 // WORLD 1 LEVEL 2
             case 2:
@@ -3372,7 +3372,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr) {
                     case 0:
-                        return PrecisionCardName;
+                        return Reinforce3CardName;
                     case 1:
                         return "";
                     case 2:
@@ -4037,7 +4037,7 @@ public class EnemyCards {
             case 1:
                 switch (cardNr) {
                     case 0:
-                        return PrecisionCardCost;
+                        return Reinforce3CardCost;
                     case 1:
                         return 0;
                     case 2:

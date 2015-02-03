@@ -33,9 +33,9 @@ import java.util.Random;
 import static android.graphics.Color.TRANSPARENT;
 
 /**
- * Created by Johan on 2015-01-07.
+ * Created by Johan on 2015-02-03.
  */
-public class Activity_PlayGame extends Activity implements View.OnClickListener, Animation.AnimationListener {
+public class Activity_Tutorial extends Activity implements View.OnClickListener, Animation.AnimationListener {
 
     ImageButton obj001, obj002, obj003, obj004, obj005, obj006, obj007, obj008, obj009,
             obj010, obj011, obj012, obj013, obj014, obj015, obj016;
@@ -318,7 +318,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         penaltyColor = getResources().getIdentifier(redColorName, "color", getPackageName());
         neutralColor = getResources().getIdentifier(whiteColorName, "color", getPackageName());
 
-        context = Activity_PlayGame.this;
+        context = Activity_Tutorial.this;
         layout_objectRow = (ViewGroup) findViewById(R.id.objectRow);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -390,6 +390,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         /* SETS THE BUTTON */
         btnEndTurn = (Button) findViewById(R.id.bEndTurn);
         btnEndTurn.setOnClickListener(this);
+        btnEndTurn.setClickable(false);
 
         /*SETS STATUS ICONS */
         playerStatusIcon1 = (ImageView) findViewById(R.id.tvPlayerStatus1);
@@ -445,7 +446,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         tvEnemyScore = (TextView) findViewById(R.id.tvEnemyScore);
         tvEnemyName = (TextView) findViewById(R.id.tvEnemyName);
         tvCenterMessage.setText("");
-        tvEnemyName.setText(EnemyInfo.getEnemyName(worldId, lvlId));
+        tvEnemyName.setText("Tutorial");
         tvEnemyLvl = (TextView) findViewById(R.id.tvEnemyLvl);
         tvEnemyLvl.setText("Lv: " + String.valueOf(EnemyInfo.getEnemyLevel(lvlId)));
         tvPlayerMovesNumber.setText(String.valueOf(playerMoves));
@@ -457,7 +458,6 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         getLevelInfo();
         storeCurrentLevel();
         getPlayerCards();
-        setPlayerCardIcons();
 
         playerHaste = playerName + " gains Haste";
         playerPrecision = playerName + " gains Precision";
@@ -559,7 +559,387 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         SoundEffects.setupSounds(this);
         clearSoundId = GameInfo.getClearSound(worldId);
 
-        coinFlipStart();
+        startTutorial();
+    }
+
+    private void startTutorial(){
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                String tutHeadline = "Welcome to Last Straw!";
+                String tutText = "This level will explain everything you'll need to know about this game. Let's get down to action! ";
+                tutorialWindow001(tutHeadline, tutText, context);
+            }
+        }, 1500);
+    }
+
+    private void next001(){
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                String tutHeadline = "";
+                String tutText = "Let's start in the upper left corner of the screen. It displays YOUR info. The portrait can be" +
+                        " changed in the Settings. Last Straw is a turn based game. Each turn consists of moves, which by default is" +
+                        " three. You can also see your current experience to reach next level, your name and your score.";
+                tutorialWindow002(tutHeadline, tutText, context);
+            }
+        }, 500);
+    }
+
+    private void next002(){
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                String tutHeadline = "";
+                String tutText = "The same info about your opponent can be found on the other side of the screen. In between the two," +
+                        " you can see a button. This button tells you who's turn it is. It is also the button you push when you want" +
+                        " to end your turn.";
+                tutorialWindow003(tutHeadline, tutText, context);
+            }
+        }, 500);
+    }
+
+    private void next003(){
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                String tutHeadline = "";
+                String tutText = "The main goal of this game is to get the highest score. Score points can be earned two different ways. " +
+                        " By clearing objects (which you can see at the bottom of the screen). When the last object" +
+                        " is cleared, the game is over. Whoever does clear the last one will be punished, so think carefully when there's" +
+                        " only a few left.";
+                tutorialWindow004(tutHeadline, tutText, context);
+            }
+        }, 500);
+    }
+
+    private void next004(){
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                String tutHeadline = "";
+                String tutText = "When you clear an object, you use 1 of your moves for this turn. Each object is worth 1-3 points." +
+                        " However be aware that they can be hard to hit sometimes, resulting in a (Miss). Occasionally, you do an extra good" +
+                        " job clearing it and will be rewarded for that (Crit) resulting in double points gained of the objects value.";
+                tutorialWindow005(tutHeadline, tutText, context);
+            }
+        }, 500);
+    }
+
+    private void next005(){
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                String tutHeadline = "";
+                String tutText = "Now, the second way to earn points is through cards. Such as the one seen in the" +
+                        " picture above. Cards is what brings that little extra to Last Straw. They are divided into" +
+                        " three categories, depending on what they do.";
+                tutorialWindow006(tutHeadline, tutText, context);
+            }
+        }, 500);
+    }
+
+    private void next006(){
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                String tutHeadline = "";
+                String tutText = "Field, Ailment and Boosting. Field cards affect the board somehow," +
+                        " like bringing back objects. Ailment cards afffect the opponent, such as" +
+                        " disabling the usage of cards or limiting number of moves. Boosting cards have a positive effect" +
+                        " on the user, such as gaining additional moves.";
+                tutorialWindow007(tutHeadline, tutText, context);
+            }
+        }, 500);
+    }
+
+    private void next007(){
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                String tutHeadline = "";
+                String tutText = "You can have a total of six cards in each game. You're only allowed to bring a " +
+                        " total of two of the same card, however you may mix the cards. If you only " +
+                        " want to bring Boosting cards, that's fine. On certain levels that might be good, but ideally, you" +
+                        " should aim to bring cards that counters your opponent's.";
+                tutorialWindow008(tutHeadline, tutText, context);
+            }
+        }, 500);
+    }
+
+    private void next008(){
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                String tutHeadline = "";
+                String tutText = "That's it! I think you know enough to try it out. I'll give you a few cards and enable the" +
+                        " board for you. Oh, one last thing! Before the game starts. A coin flip will decide who starts. " +
+                        "Remember, don't clear the last object! Good luck!";
+                tutorialWindow009(tutHeadline, tutText, context);
+            }
+        }, 500);
+
+    }
+
+    private void next009(){
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                playerCard1Type = 1;
+                playerCard1Cost = 1;
+                playerCard1Name = "Leech";
+                playerCard1Img = "card_leech";
+                playerCard2Type = 2;
+                playerCard2Cost = 1;
+                playerCard2Name = "Blind";
+                playerCard2Img = "card_blind";
+                playerCard3Type = 3;
+                playerCard3Cost = 1;
+                playerCard3Name = "Precision";
+                playerCard3Img = "card_precision";
+
+                setPlayerCardIcons();
+            }
+        }, 1000);
+
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                coinFlipStart();
+            }
+        }, 2000);
+    }
+
+    private void tutorialWindow001(String head, String message, final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_tutorial);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        ImageView ivTutImg = (ImageView) dialog.findViewById(R.id.ivTutImg);
+        TextView tvHead = (TextView) dialog.findViewById(R.id.tvHeadline);
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvTutText);
+
+        ivTutImg.setVisibility(View.GONE);
+        tvHead.setText(head);
+        tvText.setText(message);
+
+        /* YES CLICKED */
+        ImageButton buttonDialogYes = (ImageButton) dialog.findViewById(R.id.ibNext);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                next001();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void tutorialWindow002(String head, String message, final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_tutorial);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        ImageView ivTutImg = (ImageView) dialog.findViewById(R.id.ivTutImg);
+        TextView tvHead = (TextView) dialog.findViewById(R.id.tvHeadline);
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvTutText);
+
+        ivTutImg.setVisibility(View.GONE);
+        tvHead.setVisibility(View.GONE);
+        tvText.setText(message);
+
+        /* YES CLICKED */
+        ImageButton buttonDialogYes = (ImageButton) dialog.findViewById(R.id.ibNext);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                next002();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void tutorialWindow003(String head, String message, final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_tutorial);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        ImageView ivTutImg = (ImageView) dialog.findViewById(R.id.ivTutImg);
+        TextView tvHead = (TextView) dialog.findViewById(R.id.tvHeadline);
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvTutText);
+
+        ivTutImg.setVisibility(View.GONE);
+        tvHead.setVisibility(View.GONE);
+        tvText.setText(message);
+
+        /* YES CLICKED */
+        ImageButton buttonDialogYes = (ImageButton) dialog.findViewById(R.id.ibNext);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                next003();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void tutorialWindow004(String head, String message, final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_tutorial);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        ImageView ivTutImg = (ImageView) dialog.findViewById(R.id.ivTutImg);
+        TextView tvHead = (TextView) dialog.findViewById(R.id.tvHeadline);
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvTutText);
+
+        ivTutImg.setVisibility(View.GONE);
+        tvHead.setVisibility(View.GONE);
+        tvText.setText(message);
+
+        /* YES CLICKED */
+        ImageButton buttonDialogYes = (ImageButton) dialog.findViewById(R.id.ibNext);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                next004();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void tutorialWindow005(String head, String message, final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_tutorial);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        ImageView ivTutImg = (ImageView) dialog.findViewById(R.id.ivTutImg);
+        TextView tvHead = (TextView) dialog.findViewById(R.id.tvHeadline);
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvTutText);
+
+        ivTutImg.setVisibility(View.GONE);
+        tvHead.setVisibility(View.GONE);
+        tvText.setText(message);
+
+        /* YES CLICKED */
+        ImageButton buttonDialogYes = (ImageButton) dialog.findViewById(R.id.ibNext);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                next005();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void tutorialWindow006(String head, String message, final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_tutorial);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        ImageView ivTutImg = (ImageView) dialog.findViewById(R.id.ivTutImg);
+        TextView tvHead = (TextView) dialog.findViewById(R.id.tvHeadline);
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvTutText);
+
+        ivTutImg.setImageResource(R.drawable.card_leech);
+        tvHead.setVisibility(View.GONE);
+        tvText.setText(message);
+
+        /* YES CLICKED */
+        ImageButton buttonDialogYes = (ImageButton) dialog.findViewById(R.id.ibNext);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                next006();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void tutorialWindow007(String head, String message, final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_tutorial);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        ImageView ivTutImg = (ImageView) dialog.findViewById(R.id.ivTutImg);
+        TextView tvHead = (TextView) dialog.findViewById(R.id.tvHeadline);
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvTutText);
+
+        ivTutImg.setImageResource(R.drawable.card_leech);
+        tvHead.setVisibility(View.GONE);
+        tvText.setText(message);
+
+        /* YES CLICKED */
+        ImageButton buttonDialogYes = (ImageButton) dialog.findViewById(R.id.ibNext);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                next007();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void tutorialWindow008(String head, String message, final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_tutorial);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        ImageView ivTutImg = (ImageView) dialog.findViewById(R.id.ivTutImg);
+        TextView tvHead = (TextView) dialog.findViewById(R.id.tvHeadline);
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvTutText);
+
+        ivTutImg.setVisibility(View.GONE);
+        tvHead.setVisibility(View.GONE);
+        tvText.setText(message);
+
+        /* YES CLICKED */
+        ImageButton buttonDialogYes = (ImageButton) dialog.findViewById(R.id.ibNext);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                next008();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void tutorialWindow009(String head, String message, final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_tutorial);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        ImageView ivTutImg = (ImageView) dialog.findViewById(R.id.ivTutImg);
+        TextView tvHead = (TextView) dialog.findViewById(R.id.tvHeadline);
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvTutText);
+
+        ivTutImg.setVisibility(View.GONE);
+        tvHead.setVisibility(View.GONE);
+        tvText.setText(message);
+
+        /* YES CLICKED */
+        ImageButton buttonDialogYes = (ImageButton) dialog.findViewById(R.id.ibNext);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                next009();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     /* This Method contains a switch handling player clicks on object */
@@ -2747,6 +3127,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* PLAYER TURN START */
     private void playerTurn() {
         btnEndTurn.setEnabled(true);
+        btnEndTurn.setClickable(true);
         btnEndTurn.setText("End Turn");
         enable(layout_objectRow);
         enablePlayerCards();
@@ -3731,11 +4112,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     tvWhoWon.setTextColor(getResources().getColor(R.color.textWhite));
                     tvWhoWon.setText("You Win!");
                     playerWon = true;
-                    checkLevelInfo();
+                    //checkLevelInfo();
                 } else {
                     tvWhoWon.setTextColor(getResources().getColor(R.color.textRed));
                     tvWhoWon.setText("You Lose..");
-                    checkLevelInfo();
+                    //checkLevelInfo();
                 }
                 tvPlayerFinalScore.setText(String.valueOf(finalPlayerScore));
                 tvEnemyFinalScore.setText(String.valueOf(finalEnemyScore));
@@ -3745,26 +4126,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 buttonDialogYes.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         dialog.dismiss();
-                        if (finalPlayerScore > lvlhighscore) {
-                            myHandler.postDelayed(new Runnable() {
-                                public void run() {
-                                    tvCenterMessage.setText("NEW HIGH SCORE!");
-                                    tvCenterMessage.startAnimation(ani_fadeIn);
-                                }
-                            }, 500);
-                            myHandler.postDelayed(new Runnable() {
-                                public void run() {
-                                    tvCenterMessage.startAnimation(ani_fadeOut);
-                                    updateExp();
-                                }
-                            }, 3500);
-                        } else {
-                            myHandler.postDelayed(new Runnable() {
-                                public void run() {
-                                    updateExp();
-                                }
-                            }, 500);
-                        }
+                        finish();
+                        overridePendingTransition(0, 0);
                     }
                 });
                 dialog.show();
@@ -4668,23 +5031,23 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (playedCard.equals("Leech")) {
             if (playerConcentrateRound) {
-                cardLeech(2, 6);
+                cardSteal(2, 6);
             } else {
-                cardLeech(1, 3);
+                cardSteal(1, 3);
             }
         }
-        if (playedCard.equals("Leech II")) {
+        if (playedCard.equals("Steal II")) {
             if (playerConcentrateRound) {
-                cardLeech(6, 10);
+                cardSteal(6, 10);
             } else {
-                cardLeech(3, 5);
+                cardSteal(3, 5);
             }
         }
-        if (playedCard.equals("Leech III")) {
+        if (playedCard.equals("Steal III")) {
             if (playerConcentrateRound) {
-                cardLeech(10, 14);
+                cardSteal(10, 14);
             } else {
-                cardLeech(5, 7);
+                cardSteal(5, 7);
             }
         }
         if (playedCard.equals("Concentrate")) {
@@ -4811,23 +5174,23 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         if (cardName.equals("Leech")) {
             if (enemyConcentrateRound) {
-                cardLeech(2, 6);
+                cardSteal(2, 6);
             } else {
-                cardLeech(1, 3);
+                cardSteal(1, 3);
             }
         }
-        if (cardName.equals("Leech II")) {
+        if (cardName.equals("Steal II")) {
             if (enemyConcentrateRound) {
-                cardLeech(6, 10);
+                cardSteal(6, 10);
             } else {
-                cardLeech(3, 5);
+                cardSteal(3, 5);
             }
         }
-        if (cardName.equals("Leech III")) {
+        if (cardName.equals("Steal III")) {
             if (enemyConcentrateRound) {
-                cardLeech(10, 14);
+                cardSteal(10, 14);
             } else {
-                cardLeech(5, 7);
+                cardSteal(5, 7);
             }
         }
         if (cardName.equals("Agony")) {
@@ -4892,6 +5255,330 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* -----------------------------------------
     * CARD EFFECT METHODS
     *  -----------------------------------------*/
+
+    /* REINFORCE 1 CARD EFFECT METHOD */
+    private void cardReinforce1() {
+        if (objectsRemaining == 16) {
+            tvCenterMessage.setText(boardIsFullError);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 1000);
+        }
+        if (objectsRemaining == 15) {
+            if (nextObjIsInfested) {
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
+            } else {
+                obj001.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 14) {
+            if (nextObjIsInfested) {
+                obj002.setImageResource(objectWebbedImg);
+                obj003.setImageResource(objectImg);
+            } else {
+                obj002.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 13) {
+            if (nextObjIsInfested) {
+                obj003.setImageResource(objectWebbedImg);
+                obj004.setImageResource(objectImg);
+            } else {
+                obj003.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 12) {
+            if (nextObjIsInfested) {
+                obj004.setImageResource(objectWebbedImg);
+                obj005.setImageResource(objectImg);
+            } else {
+                obj004.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 11) {
+            if (nextObjIsInfested) {
+                obj005.setImageResource(objectWebbedImg);
+                obj006.setImageResource(objectImg);
+            } else {
+                obj005.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 10) {
+            if (nextObjIsInfested) {
+                obj006.setImageResource(objectWebbedImg);
+                obj007.setImageResource(objectImg);
+            } else {
+                obj006.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 9) {
+            if (nextObjIsInfested) {
+                obj007.setImageResource(objectWebbedImg);
+                obj008.setImageResource(objectImg);
+            } else {
+                obj007.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 8) {
+            if (nextObjIsInfested) {
+                obj008.setImageResource(objectWebbedImg);
+                obj009.setImageResource(objectImg);
+            } else {
+                obj008.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 7) {
+            if (nextObjIsInfested) {
+                obj009.setImageResource(objectWebbedImg);
+                obj010.setImageResource(objectImg);
+            } else {
+                obj009.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 6) {
+            if (nextObjIsInfested) {
+                obj010.setImageResource(objectWebbedImg);
+                obj011.setImageResource(objectImg);
+            } else {
+                obj010.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 5) {
+            if (nextObjIsInfested) {
+                obj011.setImageResource(objectWebbedImg);
+                obj012.setImageResource(objectImg);
+            } else {
+                obj011.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 4) {
+            if (nextObjIsInfested) {
+                obj012.setImageResource(objectWebbedImg);
+                obj013.setImageResource(objectImg);
+            } else {
+                obj012.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 3) {
+            if (nextObjIsInfested) {
+                obj013.setImageResource(objectWebbedImg);
+                obj014.setImageResource(objectImg);
+            } else {
+                obj013.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 2) {
+            if (nextObjIsInfested) {
+                obj014.setImageResource(objectWebbedImg);
+                obj015.setImageResource(objectImg);
+            } else {
+                obj014.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 1) {
+            if (nextObjIsInfested) {
+                obj015.setImageResource(objectWebbedImg);
+                obj016.setImageResource(objectImg);
+            } else {
+                obj015.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+    }
+
+    /* REINFORCE 2 CARD EFFECT METHOD */
+    private void cardReinforce2() {
+        if (objectsRemaining == 16) {
+            tvCenterMessage.setText(boardIsFullError);
+            tvCenterMessage.startAnimation(ani_fadeIn);
+            myHandler.postDelayed(new Runnable() {
+                public void run() {
+                    tvCenterMessage.startAnimation(ani_fadeOut);
+                }
+            }, 1000);
+        }
+        if (objectsRemaining == 15) {
+            if (nextObjIsInfested) {
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
+            } else {
+                obj001.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 1;
+        }
+        if (objectsRemaining == 14) {
+            if (nextObjIsInfested) {
+                obj001.setImageResource(objectWebbedImg);
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
+            } else {
+                obj001.setImageResource(objectImg);
+                obj002.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 13) {
+            if (nextObjIsInfested) {
+                obj002.setImageResource(objectWebbedImg);
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+            } else {
+                obj002.setImageResource(objectImg);
+                obj003.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 12) {
+            if (nextObjIsInfested) {
+                obj003.setImageResource(objectWebbedImg);
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+            } else {
+                obj003.setImageResource(objectImg);
+                obj004.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 11) {
+            if (nextObjIsInfested) {
+                obj004.setImageResource(objectWebbedImg);
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+            } else {
+                obj004.setImageResource(objectImg);
+                obj005.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 10) {
+            if (nextObjIsInfested) {
+                obj005.setImageResource(objectWebbedImg);
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+            } else {
+                obj005.setImageResource(objectImg);
+                obj006.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 9) {
+            if (nextObjIsInfested) {
+                obj006.setImageResource(objectWebbedImg);
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+            } else {
+                obj006.setImageResource(objectImg);
+                obj007.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 8) {
+            if (nextObjIsInfested) {
+                obj007.setImageResource(objectWebbedImg);
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+            } else {
+                obj007.setImageResource(objectImg);
+                obj008.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 7) {
+            if (nextObjIsInfested) {
+                obj008.setImageResource(objectWebbedImg);
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+            } else {
+                obj008.setImageResource(objectImg);
+                obj009.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 6) {
+            if (nextObjIsInfested) {
+                obj009.setImageResource(objectWebbedImg);
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+            } else {
+                obj009.setImageResource(objectImg);
+                obj010.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 5) {
+            if (nextObjIsInfested) {
+                obj010.setImageResource(objectWebbedImg);
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+            } else {
+                obj010.setImageResource(objectImg);
+                obj011.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 4) {
+            if (nextObjIsInfested) {
+                obj011.setImageResource(objectWebbedImg);
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+            } else {
+                obj011.setImageResource(objectImg);
+                obj012.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 3) {
+            if (nextObjIsInfested) {
+                obj012.setImageResource(objectWebbedImg);
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
+            } else {
+                obj012.setImageResource(objectImg);
+                obj013.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 2) {
+            if (nextObjIsInfested) {
+                obj013.setImageResource(objectWebbedImg);
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
+            } else {
+                obj013.setImageResource(objectImg);
+                obj014.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+        if (objectsRemaining == 1) {
+            if (nextObjIsInfested) {
+                obj014.setImageResource(objectWebbedImg);
+                obj015.setImageResource(objectImg);
+                obj016.setImageResource(objectImg);
+            } else {
+                obj014.setImageResource(objectImg);
+                obj015.setImageResource(objectImg);
+            }
+            objectsRemaining = objectsRemaining + 2;
+        }
+    }
 
     /* REINFORCE 3 CARD EFFECT METHOD */
     private void cardReinforce3() {
@@ -6381,8 +7068,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
     }
 
-    /* LEECH CARD EFFECT METHOD */
-    private void cardLeech(int min, int max) {
+    /* STEAL CARD EFFECT METHOD */
+    private void cardSteal(int min, int max) {
         int finalNumber;
         if (playerTurn) {
             tvEnemyScore.startAnimation(ani_shake);
@@ -6514,7 +7201,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Leech")) {
+                if (lastEnemyPlayedCard.equals("Steal")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6522,7 +7209,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            cardLeech(1, 3);
+                            cardSteal(1, 3);
                         }
                     }, 2000);
                 }
@@ -6538,7 +7225,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Leech II")) {
+                if (lastEnemyPlayedCard.equals("Steal II")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6546,11 +7233,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            cardLeech(3, 5);
+                            cardSteal(3, 5);
                         }
                     }, 2000);
                 }
-                if (lastEnemyPlayedCard.equals("Leech III")) {
+                if (lastEnemyPlayedCard.equals("Steal III")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6558,7 +7245,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            cardLeech(5, 7);
+                            cardSteal(5, 7);
                         }
                     }, 2000);
                 }
@@ -6824,6 +7511,30 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 } else {
                     tvCenterMessage.setText("Mimic copies " + lastPlayerPlayedCard);
                 }
+                if (lastPlayerPlayedCard.equals("Reinforce")) {
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardReinforce1();
+                        }
+                    }, 2000);
+                }
+                if (lastPlayerPlayedCard.equals("Reinforce II")) {
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            tvCenterMessage.startAnimation(ani_fadeOut);
+                        }
+                    }, 1000);
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            cardReinforce2();
+                        }
+                    }, 2000);
+                }
                 if (lastPlayerPlayedCard.equals("Reinforce III")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
@@ -6872,7 +7583,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Leech")) {
+                if (lastPlayerPlayedCard.equals("Steal")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6880,7 +7591,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            cardLeech(1, 3);
+                            cardSteal(1, 3);
                         }
                     }, 2000);
                 }
@@ -6896,7 +7607,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Leech II")) {
+                if (lastPlayerPlayedCard.equals("Steal II")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6904,11 +7615,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            cardLeech(3, 5);
+                            cardSteal(3, 5);
                         }
                     }, 2000);
                 }
-                if (lastPlayerPlayedCard.equals("Leech III")) {
+                if (lastPlayerPlayedCard.equals("Steal III")) {
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvCenterMessage.startAnimation(ani_fadeOut);
@@ -6916,7 +7627,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }, 1000);
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
-                            cardLeech(5, 7);
+                            cardSteal(5, 7);
                         }
                     }, 2000);
                 }
@@ -8106,8 +8817,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
             worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
-        //lvlId = 41;
-        //worldId = 6;
+        lvlId = 1;
+        worldId = 1;
         db.close();
     }
 
@@ -12333,5 +13044,4 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
 }
-
 

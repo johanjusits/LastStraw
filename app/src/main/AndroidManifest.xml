@@ -68,27 +68,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity_Rules_P1"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".Activity_Rules_P2"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".Activity_Rules_P3"
+            android:name=".Activity_Tutorial"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
             <intent-filter>
