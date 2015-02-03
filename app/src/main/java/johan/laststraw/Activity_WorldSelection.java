@@ -23,6 +23,12 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
     int totalScore;
     ImageView w1star1, w1star2, w1star3, w2star1, w2star2, w2star3, w3star1, w3star2, w3star3,
             w4star1, w4star2, w4star3, w5star1, w5star2, w5star3, w6star1, w6star2, w6star3;
+    boolean w1gold = false;
+    boolean w2gold = false;
+    boolean w3gold = false;
+    boolean w4gold = false;
+    boolean w5gold = false;
+    boolean w6gold = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,8 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         getWorldHighScores(2);
         getWorldHighScores(3);
         getWorldHighScores(4);
+        getWorldHighScores(5);
+        getWorldHighScores(6);
         //Check World 1 if is cleared
         getLevelInfo(8);
         //Check World 2 if is cleared
@@ -221,29 +229,54 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
     }
 
     private void unlockWorlds(int worldId, int worldCleared){
+        if (w1gold){
+            bFields.setBackgroundResource(R.drawable.world_gold);
+        } else {
+            bFields.setBackgroundResource(R.drawable.lvlselection_button);
+        }
         if (worldId == 1 && worldCleared == 1){
             bDungeon.setImageResource(R.drawable.world_dungeon);
-            bDungeon.setBackgroundResource(R.drawable.lvlselection_button);
+            if (w2gold){
+                bDungeon.setBackgroundResource(R.drawable.world_gold);
+            } else {
+                bDungeon.setBackgroundResource(R.drawable.lvlselection_button);
+            }
             bDungeon.setClickable(true);
         }
         if (worldId == 2 && worldCleared == 1){
             bMountains.setImageResource(R.drawable.world_mountains);
-            bMountains.setBackgroundResource(R.drawable.lvlselection_button);
+            if (w3gold){
+                bMountains.setBackgroundResource(R.drawable.world_gold);
+            } else {
+                bMountains.setBackgroundResource(R.drawable.lvlselection_button);
+            }
             bMountains.setClickable(true);
         }
         if (worldId == 3 && worldCleared == 1){
             bWreckage.setImageResource(R.drawable.world_wreckage);
-            bWreckage.setBackgroundResource(R.drawable.lvlselection_button);
+            if (w4gold){
+                bWreckage.setBackgroundResource(R.drawable.world_gold);
+            } else {
+                bWreckage.setBackgroundResource(R.drawable.lvlselection_button);
+            }
             bWreckage.setClickable(true);
         }
         if (worldId == 4 && worldCleared == 1){
             bWoods.setImageResource(R.drawable.world_woods);
-            bWoods.setBackgroundResource(R.drawable.lvlselection_button);
+            if (w5gold){
+                bWoods.setBackgroundResource(R.drawable.world_gold);
+            } else {
+                bWoods.setBackgroundResource(R.drawable.lvlselection_button);
+            }
             bWoods.setClickable(true);
         }
         if (worldId == 5 && worldCleared == 1){
             bTrain.setImageResource(R.drawable.world_trainyard);
-            bTrain.setBackgroundResource(R.drawable.lvlselection_button);
+            if (w6gold){
+                bTrain.setBackgroundResource(R.drawable.world_gold);
+            } else {
+                bTrain.setBackgroundResource(R.drawable.lvlselection_button);
+            }
             bTrain.setClickable(true);
         }
     }
@@ -260,6 +293,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             w1star1.setImageResource(R.drawable.star_full);
             w1star2.setImageResource(R.drawable.star_full);
             w1star3.setImageResource(R.drawable.star_full);
+            w1gold = true;
         }
     }
 
@@ -275,6 +309,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             w2star1.setImageResource(R.drawable.star_full);
             w2star2.setImageResource(R.drawable.star_full);
             w2star3.setImageResource(R.drawable.star_full);
+            w2gold = true;
         }
     }
 
@@ -290,6 +325,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             w3star1.setImageResource(R.drawable.star_full);
             w3star2.setImageResource(R.drawable.star_full);
             w3star3.setImageResource(R.drawable.star_full);
+            w3gold = true;
         }
     }
 
@@ -305,6 +341,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             w4star1.setImageResource(R.drawable.star_full);
             w4star2.setImageResource(R.drawable.star_full);
             w4star3.setImageResource(R.drawable.star_full);
+            w4gold = true;
         }
     }
 
@@ -320,6 +357,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             w5star1.setImageResource(R.drawable.star_full);
             w5star2.setImageResource(R.drawable.star_full);
             w5star3.setImageResource(R.drawable.star_full);
+            w5gold = true;
         }
     }
 
@@ -335,6 +373,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             w6star1.setImageResource(R.drawable.star_full);
             w6star2.setImageResource(R.drawable.star_full);
             w6star3.setImageResource(R.drawable.star_full);
+            w6gold = true;
         }
     }
 }
