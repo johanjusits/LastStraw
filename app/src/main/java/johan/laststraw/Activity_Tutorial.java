@@ -932,6 +932,7 @@ public class Activity_Tutorial extends Activity implements View.OnClickListener,
 
         /* YES CLICKED */
         ImageButton buttonDialogYes = (ImageButton) dialog.findViewById(R.id.ibNext);
+        buttonDialogYes.setImageResource(R.drawable.menu_icon_ok);
         buttonDialogYes.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 next009();

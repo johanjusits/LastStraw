@@ -28,6 +28,14 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
         lv007Cleared, lv008Cleared;
     int lv001Score, lv002Score, lv003Score, lv004Score, lv005Score, lv006Score,
             lv007Score, lv008Score;
+    boolean lv1gold = false;
+    boolean lv2gold = false;
+    boolean lv3gold = false;
+    boolean lv4gold = false;
+    boolean lv5gold = false;
+    boolean lv6gold = false;
+    boolean lv7gold = false;
+    boolean lv8gold = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -282,39 +290,72 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
     }
 
     private void unlockLevels(){
+        if (lv1gold){
+            bLv001.setBackgroundResource(R.drawable.world_gold);
+        } else {
+            bLv001.setBackgroundResource(R.drawable.lvlselection_button);
+        }
         if (lv001Cleared == 1){
             bLv002.setImageResource(R.drawable.icon_fields);
-            bLv002.setBackgroundResource(R.drawable.lvlselection_button);
+            if (lv2gold){
+                bLv002.setBackgroundResource(R.drawable.world_gold);
+            } else {
+                bLv002.setBackgroundResource(R.drawable.lvlselection_button);
+            }
             bLv002.setClickable(true);
         }
         if (lv002Cleared == 1){
             bLv003.setImageResource(R.drawable.icon_fields);
-            bLv003.setBackgroundResource(R.drawable.lvlselection_button);
+            if (lv3gold){
+                bLv003.setBackgroundResource(R.drawable.world_gold);
+            } else {
+                bLv003.setBackgroundResource(R.drawable.lvlselection_button);
+            }
             bLv003.setClickable(true);
         }
         if (lv003Cleared == 1){
             bLv004.setImageResource(R.drawable.icon_miniboss);
-            bLv004.setBackgroundResource(R.drawable.lvlselection_button);
+            if (lv4gold){
+                bLv004.setBackgroundResource(R.drawable.world_gold);
+            } else {
+                bLv004.setBackgroundResource(R.drawable.lvlselection_button);
+            }
             bLv004.setClickable(true);
         }
         if (lv004Cleared == 1){
             bLv005.setImageResource(R.drawable.icon_fields);
-            bLv005.setBackgroundResource(R.drawable.lvlselection_button);
+            if (lv5gold){
+                bLv005.setBackgroundResource(R.drawable.world_gold);
+            } else {
+                bLv005.setBackgroundResource(R.drawable.lvlselection_button);
+            }
             bLv005.setClickable(true);
         }
         if (lv005Cleared == 1){
             bLv006.setImageResource(R.drawable.icon_fields);
-            bLv006.setBackgroundResource(R.drawable.lvlselection_button);
+            if (lv6gold){
+                bLv006.setBackgroundResource(R.drawable.world_gold);
+            } else {
+                bLv006.setBackgroundResource(R.drawable.lvlselection_button);
+            }
             bLv006.setClickable(true);
         }
         if (lv006Cleared == 1){
             bLv007.setImageResource(R.drawable.icon_fields);
-            bLv007.setBackgroundResource(R.drawable.lvlselection_button);
+            if (lv7gold){
+                bLv007.setBackgroundResource(R.drawable.world_gold);
+            } else {
+                bLv007.setBackgroundResource(R.drawable.lvlselection_button);
+            }
             bLv007.setClickable(true);
         }
         if (lv007Cleared == 1){
             bLv008.setImageResource(R.drawable.icon_boss);
-            bLv008.setBackgroundResource(R.drawable.lvlselection_button);
+            if (lv8gold){
+                bLv008.setBackgroundResource(R.drawable.world_gold);
+            } else {
+                bLv008.setBackgroundResource(R.drawable.lvlselection_button);
+            }
             bLv008.setClickable(true);
         }
     }
@@ -331,6 +372,7 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             lv1star1.setImageResource(R.drawable.star_full);
             lv1star2.setImageResource(R.drawable.star_full);
             lv1star3.setImageResource(R.drawable.star_full);
+            lv1gold = true;
         }
     }
 
@@ -346,6 +388,7 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             lv2star1.setImageResource(R.drawable.star_full);
             lv2star2.setImageResource(R.drawable.star_full);
             lv2star3.setImageResource(R.drawable.star_full);
+            lv2gold = true;
         }
     }
 
@@ -361,6 +404,7 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             lv3star1.setImageResource(R.drawable.star_full);
             lv3star2.setImageResource(R.drawable.star_full);
             lv3star3.setImageResource(R.drawable.star_full);
+            lv3gold = true;
         }
     }
 
@@ -376,6 +420,7 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             lv4star1.setImageResource(R.drawable.star_full);
             lv4star2.setImageResource(R.drawable.star_full);
             lv4star3.setImageResource(R.drawable.star_full);
+            lv4gold = true;
         }
     }
 
@@ -391,6 +436,7 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             lv5star1.setImageResource(R.drawable.star_full);
             lv5star2.setImageResource(R.drawable.star_full);
             lv5star3.setImageResource(R.drawable.star_full);
+            lv5gold = true;
         }
     }
 
@@ -406,6 +452,7 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             lv6star1.setImageResource(R.drawable.star_full);
             lv6star2.setImageResource(R.drawable.star_full);
             lv6star3.setImageResource(R.drawable.star_full);
+            lv6gold = true;
         }
     }
 
@@ -421,6 +468,7 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             lv7star1.setImageResource(R.drawable.star_full);
             lv7star2.setImageResource(R.drawable.star_full);
             lv7star3.setImageResource(R.drawable.star_full);
+            lv7gold = true;
         }
     }
 
@@ -436,6 +484,7 @@ public class Activity_Fields_LevelSelection extends Activity implements View.OnC
             lv8star1.setImageResource(R.drawable.star_full);
             lv8star2.setImageResource(R.drawable.star_full);
             lv8star3.setImageResource(R.drawable.star_full);
+            lv8gold = true;
         }
     }
 }

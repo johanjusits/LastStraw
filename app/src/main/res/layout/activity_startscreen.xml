@@ -93,4 +93,38 @@
         android:scaleType="centerCrop"
         android:background="@drawable/reset_button" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvAccScore"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/textBlack"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Score: "
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/tvAccScore"
+        android:layout_toLeftOf="@+id/tvAccScore"
+        android:layout_toStartOf="@+id/tvAccScore"
+        android:textSize="16sp"
+        android:textColor="@color/textBlack" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Btn_Credits"
+        android:layout_above="@+id/Btn_Play"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#00000000"
+        android:src="@drawable/menu_icon_credits"
+        android:scaleType="center" />
+
 </RelativeLayout>

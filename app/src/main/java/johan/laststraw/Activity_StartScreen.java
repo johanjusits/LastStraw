@@ -23,14 +23,15 @@ import static android.graphics.Color.TRANSPARENT;
 public class Activity_StartScreen extends Activity implements View.OnClickListener{
 
     Button playButton;
-    ImageButton resetButton, profileButton, rulesButton, cardStoreButton, newCardMsg;
-    Intent play, profile, cards, tutorial;
+    ImageButton resetButton, profileButton, rulesButton, cardStoreButton, newCardMsg, bcredits;
+    Intent play, profile, cards, tutorial, credits;
     DBHandler db;
     Cursor cursor;
     int dbLvl, sharedPrefLvl;
     int lvlcleared;
     String sizeName;
     String densityName;
+    TextView tvAccountScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +43,16 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         cardStoreButton = (ImageButton) findViewById(R.id.Btn_Cards);
         rulesButton = (ImageButton) findViewById(R.id.Btn_Rules);
         newCardMsg = (ImageButton) findViewById(R.id.newCardMsg);
+        tvAccountScore = (TextView) findViewById(R.id.tvAccScore);
         resetButton = (ImageButton) findViewById(R.id.Btn_Reset);
+        bcredits = (ImageButton) findViewById(R.id.Btn_Credits);
 
         profileButton.setOnClickListener(this);
         playButton.setOnClickListener(this);
         cardStoreButton.setOnClickListener(this);
         rulesButton.setOnClickListener(this);
         resetButton.setOnClickListener(this);
+        bcredits.setOnClickListener(this);
 
         getScreenSize();
 
@@ -76,6 +80,10 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             case R.id.Btn_Rules:
                 String msg = "Launch Tutorial?";
                 confirmTutorialLaunch(msg, Activity_StartScreen.this);
+                break;
+            case R.id.Btn_Credits:
+                String msg2 = "Launch Credits?";
+                confirmCreditsLaunch(msg2, Activity_StartScreen.this);
                 break;
             case R.id.Btn_Reset:
                 String message = "Reset all data? \nWARNING! \nThis is irreversible!";
@@ -121,6 +129,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         checkMiniBoss4();
         //CHECKS IF MINI BOSS 5 HAS BEEN BEATEN
         checkMiniBoss5();
+
+        updateAccountScore();
     }
 
     private void awardNewCard() {
@@ -266,6 +276,39 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 tutorial = new Intent(Activity_StartScreen.this, Activity_Tutorial.class);
                 tutorial.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(tutorial);
+                dialog.dismiss();
+            }
+        });
+
+        /* NO CLICKED */
+        Button buttonDialogNo = (Button) dialog.findViewById(R.id.bConfirmCancel);
+        buttonDialogNo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void confirmCreditsLaunch(String message, final Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_removeall);
+        if (sizeName.equals("xlarge")){
+            dialog.getWindow().setLayout(600, 350);
+        }
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvError);
+        tvText.setText(message);
+
+        /* YES CLICKED */
+        Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                credits = new Intent(Activity_StartScreen.this, Activity_Credits.class);
+                credits.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(credits);
                 dialog.dismiss();
             }
         });
@@ -524,5 +567,11 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         densityName = DeviceDensity.getDensityName(this);
         System.out.println("Screen size:" + sizeName);
         System.out.println("Screen dpi:" + densityName);
+    }
+
+    private void updateAccountScore(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int accountScore = preferences.getInt("AccountScore", 0);
+        tvAccountScore.setText(String.valueOf(accountScore));
     }
 }

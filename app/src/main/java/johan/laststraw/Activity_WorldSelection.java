@@ -2,8 +2,10 @@ package johan.laststraw;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,7 +22,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
     Cursor cursor;
     TextView world001High, world002High, world003High, world004High, world005High, world006High;
     int w001lv001score, w001lv002score, w001lv003score, w001lv004score, w001lv005score, w001lv006score, w001lv007score, w001lv008score;
-    int totalScore;
+    int totalScore, accountScore;
     ImageView w1star1, w1star2, w1star3, w2star1, w2star2, w2star3, w3star1, w3star2, w3star3,
             w4star1, w4star2, w4star3, w5star1, w5star2, w5star3, w6star1, w6star2, w6star3;
     boolean w1gold = false;
@@ -203,6 +205,17 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             world006High.setText(String.valueOf(totalScore));
             setW6Stars();
         }
+
+        accountScore = Integer.parseInt(world001High.getText().toString()) +
+                Integer.parseInt(world002High.getText().toString()) +
+                Integer.parseInt(world003High.getText().toString()) +
+                Integer.parseInt(world004High.getText().toString()) +
+                Integer.parseInt(world005High.getText().toString()) +
+                Integer.parseInt(world006High.getText().toString());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("AccountScore", accountScore);
+        editor.apply();
     }
 
     @Override
