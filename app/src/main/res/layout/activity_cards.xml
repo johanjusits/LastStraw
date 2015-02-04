@@ -4,45 +4,35 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="16dp"
-    android:background="@drawable/bg_menus">
+    android:background="@drawable/bg_menus"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You got a new card!"
+        android:id="@+id/tvNewCardTxt"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/textBlack"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        android:layout_marginBottom="8dp" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center_horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select a card category:"
-            android:id="@+id/textView"
-            android:textSize="20sp"
-            android:textColor="@color/textBlack"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="You got a new card!"
-            android:id="@+id/tvNewCardTxt"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/textBlack"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:visibility="invisible"
-            android:layout_marginTop="20dp" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="FIELD"
             android:id="@+id/bField"
-            android:layout_gravity="center_horizontal"
             android:background="#00000000"
             android:textStyle="bold"
             android:textColor="@color/textBlack"
-            android:layout_marginTop="32dp"
             android:src="@drawable/menu_icon_field" />
 
         <ImageButton
@@ -50,23 +40,21 @@
             android:layout_height="wrap_content"
             android:text="AILMENT"
             android:id="@+id/bAilment"
-            android:layout_gravity="center_horizontal"
             android:background="#00000000"
             android:textColor="@color/textBlack"
             android:textStyle="bold"
+            android:src="@drawable/menu_icon_ailment"
             android:layout_marginTop="16dp"
-            android:src="@drawable/menu_icon_ailment" />
+            android:layout_marginBottom="16dp" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BOOSTING"
             android:id="@+id/bBoosting"
-            android:layout_gravity="center_horizontal"
             android:background="#00000000"
             android:textStyle="bold"
             android:textColor="@color/textBlack"
-            android:layout_marginTop="16dp"
             android:src="@drawable/menu_icon_boosting" />
 
     </LinearLayout>

@@ -415,14 +415,14 @@ public class DBHandler {
             ac032.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac032);
 
-            /* ADDS CARDS TO OWNED CARDS */
+            /* ADDS CARDS TO OWNED CARDS
             ContentValues oc1 = new ContentValues();
             oc1.put(KEY_NAME, "Precision");
             oc1.put(KEY_IMAGE, "card_precision");
             oc1.put(KEY_TYPE, 3);
             oc1.put(KEY_COST, 1);
             oc1.put(KEY_DESC, "Increases Critical strike rate by 20%. Lasts 2 turns.");
-            db.insert(OwnedCards, null, oc1);
+            db.insert(OwnedCards, null, oc1);*/
 
             /* INITIAL PLAYER VALUES */
             ContentValues playerInfo = new ContentValues();
