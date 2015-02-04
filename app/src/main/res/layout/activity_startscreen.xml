@@ -57,7 +57,8 @@
         android:background="#00000000"
         android:src="@drawable/menu_icon_guide"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -120,11 +121,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Btn_Credits"
-        android:layout_above="@+id/Btn_Play"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:background="#00000000"
         android:src="@drawable/menu_icon_credits"
-        android:scaleType="center" />
+        android:scaleType="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/Btn_Play"
+        android:layout_alignEnd="@+id/Btn_Play" />
 
 </RelativeLayout>
