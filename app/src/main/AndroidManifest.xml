@@ -2,12 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="johan.laststraw" >
 
-    <compatible-screens>
-
-        <!-- all small size screens -->
-        <screen
-            android:screenDensity="ldpi"
-            android:screenSize="small" />
+    <!--<compatible-screens>
+        small size screens
         <screen
             android:screenDensity="mdpi"
             android:screenSize="small" />
@@ -15,12 +11,9 @@
             android:screenDensity="hdpi"
             android:screenSize="small" />
         <screen
-            android:screenDensity="xhdpi"
+            android:screenDensity="xxhdpi"
             android:screenSize="small" />
-        <!-- all normal size screens -->
-        <screen
-            android:screenDensity="ldpi"
-            android:screenSize="normal" />
+        normal size screens
         <screen
             android:screenDensity="mdpi"
             android:screenSize="normal" />
@@ -28,9 +21,9 @@
             android:screenDensity="hdpi"
             android:screenSize="normal" />
         <screen
-            android:screenDensity="xhdpi"
+            android:screenDensity="xxhdpi"
             android:screenSize="normal" />
-    </compatible-screens>
+    </compatible-screens>-->
 
     <application
         android:allowBackup="true"
