@@ -261,9 +261,6 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmdialog_removeall);
-        if (sizeName.equals("xlarge")){
-            dialog.getWindow().setLayout(600, 350);
-        }
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
         TextView tvText = (TextView) dialog.findViewById(R.id.tvError);
@@ -294,9 +291,6 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmdialog_removeall);
-        if (sizeName.equals("xlarge")){
-            dialog.getWindow().setLayout(600, 350);
-        }
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
         TextView tvText = (TextView) dialog.findViewById(R.id.tvError);
