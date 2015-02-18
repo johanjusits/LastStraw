@@ -226,17 +226,17 @@ public class EnemyInfo {
                     case 1:
                         return "Farmhand";
                     case 2:
-                        return "Farmhand Zack";
+                        return "Farmhand";
                     case 3:
-                        return "Farmhand Jack";
+                        return "Farmhand";
                     case 4:
                         return "Farmboss Arvid";
                     case 5:
-                        return "Farmhand Bo";
+                        return "Farmhand";
                     case 6:
-                        return "Farmhand Nick";
+                        return "Farmhand";
                     case 7:
-                        return "Farmhand Seth";
+                        return "Farmhand";
                     case 8:
                         return "Farmlord Bengt";
                 }
