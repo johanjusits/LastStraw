@@ -108,7 +108,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Trainyard - Level 1");
+                editor.putString("LevelName", "World 6 - Level 1");
                 editor.putInt("LoadedLevelId", 41);
                 editor.apply();
                 pickCards = new Intent(Activity_Trainyard_LevelSelection.this, Activity_CardSelection.class);
@@ -121,7 +121,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Trainyard - Level 2");
+                editor.putString("LevelName", "World 6 - Level 2");
                 editor.putInt("LoadedLevelId", 42);
                 editor.apply();
                 pickCards = new Intent(Activity_Trainyard_LevelSelection.this, Activity_CardSelection.class);
@@ -134,7 +134,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Trainyard - Level 3");
+                editor.putString("LevelName", "World 6 - Level 3");
                 editor.putInt("LoadedLevelId", 43);
                 editor.apply();
                 pickCards = new Intent(Activity_Trainyard_LevelSelection.this, Activity_CardSelection.class);
@@ -147,7 +147,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Trainyard - Level 4");
+                editor.putString("LevelName", "World 6 - Level 4");
                 editor.putInt("LoadedLevelId", 44);
                 editor.apply();
                 pickCards = new Intent(Activity_Trainyard_LevelSelection.this, Activity_CardSelection.class);
@@ -160,7 +160,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Trainyard - Level 5");
+                editor.putString("LevelName", "World 6 - Level 5");
                 editor.putInt("LoadedLevelId", 45);
                 editor.apply();
                 pickCards = new Intent(Activity_Trainyard_LevelSelection.this, Activity_CardSelection.class);
@@ -173,7 +173,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Trainyard - Level 6");
+                editor.putString("LevelName", "World 6 - Level 6");
                 editor.putInt("LoadedLevelId", 46);
                 editor.apply();
                 pickCards = new Intent(Activity_Trainyard_LevelSelection.this, Activity_CardSelection.class);
@@ -186,7 +186,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Trainyard - Level 7");
+                editor.putString("LevelName", "World 6 - Level 7");
                 editor.putInt("LoadedLevelId", 47);
                 editor.apply();
                 pickCards = new Intent(Activity_Trainyard_LevelSelection.this, Activity_CardSelection.class);
@@ -199,7 +199,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Trainyard - Level 8");
+                editor.putString("LevelName", "World 6 - Level 8");
                 editor.putInt("LoadedLevelId", 48);
                 editor.apply();
                 pickCards = new Intent(Activity_Trainyard_LevelSelection.this, Activity_CardSelection.class);
@@ -296,7 +296,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
             bLv001.setBackgroundResource(R.drawable.lvlselection_button);
         }
         if (lv001Cleared == 1){
-            bLv002.setImageResource(R.drawable.icon_trainyard);
+            bLv002.setImageResource(R.drawable.icon_level2);
             if (lv2gold){
                 bLv002.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -305,7 +305,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
             bLv002.setClickable(true);
         }
         if (lv002Cleared == 1){
-            bLv003.setImageResource(R.drawable.icon_trainyard);
+            bLv003.setImageResource(R.drawable.icon_level3);
             if (lv3gold){
                 bLv003.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -323,7 +323,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
             bLv004.setClickable(true);
         }
         if (lv004Cleared == 1){
-            bLv005.setImageResource(R.drawable.icon_trainyard);
+            bLv005.setImageResource(R.drawable.icon_level5);
             if (lv5gold){
                 bLv005.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -332,7 +332,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
             bLv005.setClickable(true);
         }
         if (lv005Cleared == 1){
-            bLv006.setImageResource(R.drawable.icon_trainyard);
+            bLv006.setImageResource(R.drawable.icon_level6);
             if (lv6gold){
                 bLv006.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -341,7 +341,7 @@ public class Activity_Trainyard_LevelSelection extends Activity implements View.
             bLv006.setClickable(true);
         }
         if (lv006Cleared == 1){
-            bLv007.setImageResource(R.drawable.icon_trainyard);
+            bLv007.setImageResource(R.drawable.icon_level7);
             if (lv7gold){
                 bLv007.setBackgroundResource(R.drawable.world_gold);
             } else {

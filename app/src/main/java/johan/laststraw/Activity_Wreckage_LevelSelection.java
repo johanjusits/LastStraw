@@ -108,7 +108,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Wreckage - Level 1");
+                editor.putString("LevelName", "World 4 - Level 1");
                 editor.putInt("LoadedLevelId", 25);
                 editor.apply();
                 pickCards = new Intent(Activity_Wreckage_LevelSelection.this, Activity_CardSelection.class);
@@ -121,7 +121,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Wreckage - Level 2");
+                editor.putString("LevelName", "World 4 - Level 2");
                 editor.putInt("LoadedLevelId", 26);
                 editor.apply();
                 pickCards = new Intent(Activity_Wreckage_LevelSelection.this, Activity_CardSelection.class);
@@ -134,7 +134,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Wreckage - Level 3");
+                editor.putString("LevelName", "World 4 - Level 3");
                 editor.putInt("LoadedLevelId", 27);
                 editor.apply();
                 pickCards = new Intent(Activity_Wreckage_LevelSelection.this, Activity_CardSelection.class);
@@ -147,7 +147,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Wreckage - Level 4");
+                editor.putString("LevelName", "World 4 - Level 4");
                 editor.putInt("LoadedLevelId", 28);
                 editor.apply();
                 pickCards = new Intent(Activity_Wreckage_LevelSelection.this, Activity_CardSelection.class);
@@ -160,7 +160,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Wreckage - Level 5");
+                editor.putString("LevelName", "World 4 - Level 5");
                 editor.putInt("LoadedLevelId", 29);
                 editor.apply();
                 pickCards = new Intent(Activity_Wreckage_LevelSelection.this, Activity_CardSelection.class);
@@ -173,7 +173,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Wreckage - Level 6");
+                editor.putString("LevelName", "World 4 - Level 6");
                 editor.putInt("LoadedLevelId", 30);
                 editor.apply();
                 pickCards = new Intent(Activity_Wreckage_LevelSelection.this, Activity_CardSelection.class);
@@ -186,7 +186,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Wreckage - Level 7");
+                editor.putString("LevelName", "World 4 - Level 7");
                 editor.putInt("LoadedLevelId", 31);
                 editor.apply();
                 pickCards = new Intent(Activity_Wreckage_LevelSelection.this, Activity_CardSelection.class);
@@ -199,7 +199,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Wreckage - Level 8");
+                editor.putString("LevelName", "World 4 - Level 8");
                 editor.putInt("LoadedLevelId", 32);
                 editor.apply();
                 pickCards = new Intent(Activity_Wreckage_LevelSelection.this, Activity_CardSelection.class);
@@ -296,7 +296,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
             bLv001.setBackgroundResource(R.drawable.lvlselection_button);
         }
         if (lv001Cleared == 1){
-            bLv002.setImageResource(R.drawable.icon_wreckage);
+            bLv002.setImageResource(R.drawable.icon_level2);
             if (lv2gold){
                 bLv002.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -305,7 +305,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
             bLv002.setClickable(true);
         }
         if (lv002Cleared == 1){
-            bLv003.setImageResource(R.drawable.icon_wreckage);
+            bLv003.setImageResource(R.drawable.icon_level3);
             if (lv3gold){
                 bLv003.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -323,7 +323,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
             bLv004.setClickable(true);
         }
         if (lv004Cleared == 1){
-            bLv005.setImageResource(R.drawable.icon_wreckage);
+            bLv005.setImageResource(R.drawable.icon_level5);
             if (lv5gold){
                 bLv005.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -332,7 +332,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
             bLv005.setClickable(true);
         }
         if (lv005Cleared == 1){
-            bLv006.setImageResource(R.drawable.icon_wreckage);
+            bLv006.setImageResource(R.drawable.icon_level6);
             if (lv6gold){
                 bLv006.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -341,7 +341,7 @@ public class Activity_Wreckage_LevelSelection extends Activity implements View.O
             bLv006.setClickable(true);
         }
         if (lv006Cleared == 1){
-            bLv007.setImageResource(R.drawable.icon_wreckage);
+            bLv007.setImageResource(R.drawable.icon_level7);
             if (lv7gold){
                 bLv007.setBackgroundResource(R.drawable.world_gold);
             } else {

@@ -23,22 +23,13 @@
             <!-- World: Tool Shed
             Object: Nails
             Enemies: Mechanics -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/world_fields"
-                android:id="@+id/tvWorld001"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:textStyle="bold"
-                android:textColor="@color/textBlack" />
 
             <ImageButton
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:id="@+id/imgBtnWorld001"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/world_fields"
+                android:src="@drawable/portrait_w01"
                 android:scaleType="centerCrop"
                 style="@style/lvlSelectionButton" />
 
@@ -87,15 +78,6 @@
             <!-- World: Fields
             Object: Wheat
             Enemies: Farmers -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dungeon"
-                android:id="@+id/tvWorld002"
-                android:layout_gravity="center_horizontal"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/textBlack" />
 
             <ImageButton
                 android:layout_width="78dp"
@@ -103,8 +85,8 @@
                 android:id="@+id/imgBtnWorld002"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/gray_button"
-                android:src="@drawable/world_dungeon"
-                android:scaleType="center"
+                android:src="@drawable/portrait_w02"
+                android:scaleType="centerCrop"
                 android:clickable="false"
                 style="@style/lvlSelectionButton" />
 
@@ -153,15 +135,6 @@
             <!-- World: Theme Park
             Object: Balloons
             Enemies: Clowns -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mountains"
-                android:id="@+id/tvWorld003"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:textStyle="bold"
-                android:textColor="@color/textBlack" />
 
             <ImageButton
                 android:layout_width="78dp"
@@ -169,8 +142,8 @@
                 android:id="@+id/imgBtnWorld003"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/gray_button"
-                android:src="@drawable/world_mountains"
-                android:scaleType="center"
+                android:src="@drawable/portrait_w03"
+                android:scaleType="centerCrop"
                 android:clickable="false"
                 style="@style/lvlSelectionButton" />
 
@@ -228,22 +201,13 @@
             <!-- World: Cathedral
             Object: Candles
             Enemies: Cultists -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Wreckage"
-                android:id="@+id/tvWorld004"
-                android:layout_gravity="center_horizontal"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/textBlack" />
 
             <ImageButton
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:id="@+id/imgBtnWorld004"
-                android:src="@drawable/world_wreckage"
-                android:scaleType="center"
+                android:src="@drawable/portrait_w04"
+                android:scaleType="centerCrop"
                 android:background="@drawable/gray_button"
                 android:layout_gravity="center_horizontal"
                 android:clickable="false"
@@ -294,22 +258,13 @@
             <!-- World: Jungle
             Object: Spears
             Enemies: Savages -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Woods"
-                android:id="@+id/lv5name"
-                android:layout_gravity="center_horizontal"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/textBlack" />
 
             <ImageButton
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:id="@+id/imgBtnWorld005"
-                android:src="@drawable/world_woods"
-                android:scaleType="center"
+                android:src="@drawable/portrait_w05"
+                android:scaleType="centerCrop"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/gray_button"
                 android:clickable="false"
@@ -360,26 +315,17 @@
             <!-- World: Back Street
             Object: Street Lights
             Enemies: Ruffians -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Trainyard"
-                android:id="@+id/tvWorld006"
-                android:layout_gravity="center_horizontal"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/textBlack" />
 
             <ImageButton
                 android:layout_width="78dp"
                 android:layout_height="78dp"
                 android:id="@+id/imgBtnWorld006"
                 android:background="@drawable/gray_button"
-                android:scaleType="center"
+                android:scaleType="centerCrop"
                 android:layout_gravity="center_horizontal"
                 android:clickable="false"
                 style="@style/lvlSelectionButton"
-                android:src="@drawable/world_trainyard" />
+                android:src="@drawable/portrait_w06" />
 
             <LinearLayout
                 android:orientation="horizontal"

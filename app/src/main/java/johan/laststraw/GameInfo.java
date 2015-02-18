@@ -13,15 +13,15 @@ public class GameInfo {
             case 1:
                 return "wheat";
             case 2:
-                return "skeletons";
+                return "wheat";
             case 3:
-                return "snowmen";
+                return "wheat";
             case 4:
-                return "chests";
+                return "wheat";
             case 5:
-                return "fungi";
+                return "wheat";
             case 6:
-                return "barrels";
+                return "wheat";
         }
         return "";
     }
@@ -53,15 +53,15 @@ public class GameInfo {
             case 1:
                 return "Spiders infests the wheat";
             case 2:
-                return "Spiders infests the skeleton";
+                return "Spiders infests the wheat";
             case 3:
-                return "Spiders infests the snowman";
+                return "Spiders infests the wheat";
             case 4:
-                return "Spiders infests the chest";
+                return "Spiders infests the wheat";
             case 5:
-                return "Spiders infests the fungus";
+                return "Spiders infests the wheat";
             case 6:
-                return "Spiders infests the barrel";
+                return "Spiders infests the wheat";
         }
         return "";
     }
@@ -71,15 +71,15 @@ public class GameInfo {
             case 1:
                 return "Wheat is already infested";
             case 2:
-                return "Skeleton is already infested";
+                return "Wheat is already infested";
             case 3:
-                return "Snowman is already infested";
+                return "Wheat is already infested";
             case 4:
-                return "Chest is already infested";
+                return "Wheat is already infested";
             case 5:
-                return "Fungus is already infested";
+                return "Wheat is already infested";
             case 6:
-                return "Barrel is already infested";
+                return "Wheat is already infested";
         }
         return "";
     }
@@ -89,15 +89,15 @@ public class GameInfo {
             case 1:
                 return "textBlack";
             case 2:
-                return "textWhite";
+                return "textBlack";
             case 3:
                 return "textBlack";
             case 4:
-                return "textWhite";
+                return "textBlack";
             case 5:
-                return "textWhite";
+                return "textBlack";
             case 6:
-                return "textWhite";
+                return "textBlack";
         }
         return "";
     }
@@ -107,15 +107,15 @@ public class GameInfo {
             case 1:
                 return 0;
             case 2:
-                return 1;
+                return 0;
             case 3:
-                return 2;
+                return 0;
             case 4:
-                return 3;
+                return 0;
             case 5:
-                return 4;
+                return 0;
             case 6:
-                return 5;
+                return 0;
         }
         return 0;
     }
@@ -125,15 +125,15 @@ public class GameInfo {
             case 1:
                 return "activity_world001";
             case 2:
-                return "activity_world002";
+                return "activity_world001";
             case 3:
-                return "activity_world003";
+                return "activity_world001";
             case 4:
-                return "activity_world004";
+                return "activity_world001";
             case 5:
-                return "activity_world005";
+                return "activity_world001";
             case 6:
-                return "activity_world006";
+                return "activity_world001";
         }
         return null;
     }
@@ -143,15 +143,15 @@ public class GameInfo {
             case 1:
                 return "object_wheat";
             case 2:
-                return "object_skeleton";
+                return "object_wheat";
             case 3:
-                return "object_snowman";
+                return "object_wheat";
             case 4:
-                return "object_chest";
+                return "object_wheat";
             case 5:
-                return "object_fungus";
+                return "object_wheat";
             case 6:
-                return "object_barrel";
+                return "object_wheat";
         }
         return null;
     }
@@ -161,15 +161,15 @@ public class GameInfo {
             case 1:
                 return "object_wheatbroken";
             case 2:
-                return "object_skeleton_broken";
+                return "object_wheatbroken";
             case 3:
-                return "object_snowman_broken";
+                return "object_wheatbroken";
             case 4:
-                return "object_chest_opened";
+                return "object_wheatbroken";
             case 5:
-                return "object_fungus_broken";
+                return "object_wheatbroken";
             case 6:
-                return "object_barrel_broken";
+                return "object_wheatbroken";
         }
         return null;
     }
@@ -179,15 +179,15 @@ public class GameInfo {
             case 1:
                 return "object_wheat_webbed";
             case 2:
-                return "object_skeleton_webbed";
+                return "object_wheat_webbed";
             case 3:
-                return "object_snowman_webbed";
+                return "object_wheat_webbed";
             case 4:
-                return "object_chest_webbed";
+                return "object_wheat_webbed";
             case 5:
-                return "object_fungus_webbed";
+                return "object_wheat_webbed";
             case 6:
-                return "object_barrel_webbed";
+                return "object_wheat_webbed";
         }
         return null;
     }

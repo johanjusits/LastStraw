@@ -108,7 +108,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Woods - Level 1");
+                editor.putString("LevelName", "World 5 - Level 1");
                 editor.putInt("LoadedLevelId", 33);
                 editor.apply();
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
@@ -121,7 +121,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Woods - Level 2");
+                editor.putString("LevelName", "World 5 - Level 2");
                 editor.putInt("LoadedLevelId", 34);
                 editor.apply();
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
@@ -134,7 +134,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Woods - Level 3");
+                editor.putString("LevelName", "World 5 - Level 3");
                 editor.putInt("LoadedLevelId", 35);
                 editor.apply();
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
@@ -147,7 +147,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Woods - Level 4");
+                editor.putString("LevelName", "World 5 - Level 4");
                 editor.putInt("LoadedLevelId", 36);
                 editor.apply();
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
@@ -160,7 +160,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Woods - Level 5");
+                editor.putString("LevelName", "World 5 - Level 5");
                 editor.putInt("LoadedLevelId", 37);
                 editor.apply();
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
@@ -173,7 +173,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Woods - Level 6");
+                editor.putString("LevelName", "World 5 - Level 6");
                 editor.putInt("LoadedLevelId", 38);
                 editor.apply();
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
@@ -186,7 +186,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Woods - Level 7");
+                editor.putString("LevelName", "World 5 - Level 7");
                 editor.putInt("LoadedLevelId", 39);
                 editor.apply();
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
@@ -199,7 +199,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.putString("LevelToLoad", ".Activity_PlayGame");
-                editor.putString("LevelName", "Woods - Level 8");
+                editor.putString("LevelName", "World 5 - Level 8");
                 editor.putInt("LoadedLevelId", 40);
                 editor.apply();
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
@@ -296,7 +296,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
             bLv001.setBackgroundResource(R.drawable.lvlselection_button);
         }
         if (lv001Cleared == 1){
-            bLv002.setImageResource(R.drawable.icon_woods);
+            bLv002.setImageResource(R.drawable.icon_level2);
             if (lv2gold){
                 bLv002.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -305,7 +305,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
             bLv002.setClickable(true);
         }
         if (lv002Cleared == 1){
-            bLv003.setImageResource(R.drawable.icon_woods);
+            bLv003.setImageResource(R.drawable.icon_level3);
             if (lv3gold){
                 bLv003.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -323,7 +323,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
             bLv004.setClickable(true);
         }
         if (lv004Cleared == 1){
-            bLv005.setImageResource(R.drawable.icon_woods);
+            bLv005.setImageResource(R.drawable.icon_level5);
             if (lv5gold){
                 bLv005.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -332,7 +332,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
             bLv005.setClickable(true);
         }
         if (lv005Cleared == 1){
-            bLv006.setImageResource(R.drawable.icon_woods);
+            bLv006.setImageResource(R.drawable.icon_level6);
             if (lv6gold){
                 bLv006.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -341,7 +341,7 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
             bLv006.setClickable(true);
         }
         if (lv006Cleared == 1){
-            bLv007.setImageResource(R.drawable.icon_woods);
+            bLv007.setImageResource(R.drawable.icon_level7);
             if (lv7gold){
                 bLv007.setBackgroundResource(R.drawable.world_gold);
             } else {

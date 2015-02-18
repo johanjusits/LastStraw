@@ -4,10 +4,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/bg_world001"
-    android:id="@+id/rootLayout">
+    android:id="@+id/rootLayout"
+    android:background="@drawable/background_w_soil">
 
     <!-- PLAYER STATUS ICONS-->
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -154,7 +155,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:id="@+id/ivEnemyPortrait"
-        android:src="@drawable/portrait_fields"
+        android:src="@drawable/portrait_w01"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:scaleType="fitCenter"
@@ -349,7 +350,7 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:visibility="visible"
-        android:textColor="@color/textWhite"
+        android:textColor="@color/textBlack"
         android:textSize="20sp"
         style="@style/WhiteTextBlackOutline" />
 
@@ -532,7 +533,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvObjMsg"
-            android:textColor="@color/textWhite"
+            android:textColor="@color/textBlack"
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_above="@+id/obj001"
