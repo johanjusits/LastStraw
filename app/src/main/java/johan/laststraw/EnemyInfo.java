@@ -224,13 +224,13 @@ public class EnemyInfo {
             case 1:
                 switch (levelId){
                     case 1:
-                        return "Farmhand Mack";
+                        return "Farmhand";
                     case 2:
                         return "Farmhand Zack";
                     case 3:
                         return "Farmhand Jack";
                     case 4:
-                        return "Farmboss Leo";
+                        return "Farmboss Arvid";
                     case 5:
                         return "Farmhand Bo";
                     case 6:
@@ -238,102 +238,102 @@ public class EnemyInfo {
                     case 7:
                         return "Farmhand Seth";
                     case 8:
-                        return "Farmlord Dwayne";
+                        return "Farmlord Bengt";
                 }
             case 2:
                 switch (levelId){
                     case 9:
-                        return "Eerie Ghost";
+                        return "Farmhand";
                     case 10:
-                        return "Apparition";
+                        return "Farmhand";
                     case 11:
-                        return "Phantom";
+                        return "Farmhand";
                     case 12:
-                        return "Ghoul";
+                        return "Farmboss Valdemar";
                     case 13:
-                        return "Specter";
+                        return "Farmhand";
                     case 14:
-                        return "Revenant";
+                        return "Farmhand";
                     case 15:
-                        return "Spirit";
+                        return "Farmhand";
                     case 16:
-                        return "Lost Soul";
+                        return "Farmlord Hjalmar";
                 }
             case 3:
                 switch (levelId){
                     case 17:
-                        return "Lost Climber";
+                        return "Farmhand";
                     case 18:
-                        return "Adventurer";
+                        return "Farmhand";
                     case 19:
-                        return "Snow Wolf";
+                        return "Farmhand";
                     case 20:
-                        return "Mad Hermit";
+                        return "Farmboss Gustaf";
                     case 21:
-                        return "Cougar";
+                        return "Farmhand";
                     case 22:
-                        return "Wanderer";
+                        return "Farmhand";
                     case 23:
-                        return "Giant Bear";
+                        return "Farmhand";
                     case 24:
-                        return "Yeti";
+                        return "Farmlord Kenneth";
                 }
             case 4:
                 switch (levelId){
                     case 25:
-                        return "Fisherman";
+                        return "Farmhand";
                     case 26:
-                        return "Deck Worker";
+                        return "Farmhand";
                     case 27:
-                        return "Recruit Adam";
+                        return "Farmhand";
                     case 28:
-                        return "Seaman John";
+                        return "Farmboss Sture";
                     case 29:
-                        return "Lieutenant Fay";
+                        return "Farmhand";
                     case 30:
-                        return "Commander Lee";
+                        return "Farmhand";
                     case 31:
-                        return "Captain Riker";
+                        return "Farmhand";
                     case 32:
-                        return "Admiral Crone ";
+                        return "Farmlord Olof";
                 }
             case 5:
                 switch (levelId){
                     case 33:
-                        return "Lepricon";
+                        return "Farmhand";
                     case 34:
-                        return "Elf";
+                        return "Farmhand";
                     case 35:
-                        return "Owlman";
+                        return "Farmhand";
                     case 36:
-                        return "Satyr";
+                        return "Farmboss Karl";
                     case 37:
-                        return "Centaur";
+                        return "Farmhand";
                     case 38:
-                        return "Dryad";
+                        return "Farmhand";
                     case 39:
-                        return "Unicorn";
+                        return "Farmhand";
                     case 40:
-                        return "Leshy";
+                        return "Farmlord Reinhard";
                 }
             case 6:
                 switch (levelId){
                     case 41:
-                        return "Thug";
+                        return "Farmhand";
                     case 42:
-                        return "Bandit";
+                        return "Farmhand";
                     case 43:
-                        return "Thief";
+                        return "Farmhand";
                     case 44:
-                        return "Assassin";
+                        return "Farmboss Dan";
                     case 45:
-                        return "Ruffian";
+                        return "Farmhand";
                     case 46:
-                        return "Gangster";
+                        return "Farmhand";
                     case 47:
-                        return "Pickpocket";
+                        return "Farmhand";
                     case 48:
-                        return "Big Bad Boss";
+                        return "Farmlord Johan";
                 }
         }
         return null;
