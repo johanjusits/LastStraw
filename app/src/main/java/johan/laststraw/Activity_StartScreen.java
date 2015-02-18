@@ -28,7 +28,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
     DBHandler db;
     Cursor cursor;
     int dbLvl, sharedPrefLvl;
-    int lvlcleared;
+    int lvlcleared, chosenCard;
     String sizeName;
     String densityName;
     TextView tvAccountScore;
@@ -56,16 +56,35 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
 
         getScreenSize();
 
+        db = new DBHandler(this);
+
+        try {
+            db.open();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+        cursor = db.getPlayerInfo();
+        if (cursor != null && cursor.moveToFirst()) {
+            chosenCard = cursor.getInt(cursor.getColumnIndex("chosenstartcard"));
+        }
+
+        db.close();
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.Btn_Play:
-                play = new Intent(Activity_StartScreen.this, Activity_WorldSelection.class);
-                play.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(play);
-                break;
+                if (chosenCard == 0){
+                    confirmChooseCard("Choose Starting Card:", Activity_StartScreen.this);
+                    break;
+                } else {
+                    play = new Intent(Activity_StartScreen.this, Activity_WorldSelection.class);
+                    play.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(play);
+                    break;
+                }
             case R.id.Btn_Profile:
                 profile = new Intent(Activity_StartScreen.this, Activity_Profile.class);
                 profile.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -104,6 +123,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         }
         cursor = db.getPlayerInfo();
         if (cursor != null && cursor.moveToFirst()) {
+            chosenCard = cursor.getInt(cursor.getColumnIndex("chosenstartcard"));
             dbLvl = cursor.getInt(cursor.getColumnIndex("level"));
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             sharedPrefLvl = preferences.getInt("CurrentLevel", 0);
@@ -311,6 +331,81 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         Button buttonDialogNo = (Button) dialog.findViewById(R.id.bConfirmCancel);
         buttonDialogNo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void confirmChooseCard(String message, final Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_startercard);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvTitle);
+        tvText.setText(message);
+
+        /* SILENCE CLICKED */
+        ImageButton buttonDialogSilence = (ImageButton) dialog.findViewById(R.id.ibCardSilence);
+        buttonDialogSilence.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    db.open();
+                } catch (java.sql.SQLException e) {
+                    e.printStackTrace();
+                }
+                addCard("Silence", "card_silence", 2, 1, "Disables opponent's ability to play cards on next turn.", 27);
+                updatePlayerInfo();
+                confirmSuccess("Card chosen!", Activity_StartScreen.this);
+                cursor = db.getPlayerInfo();
+                if (cursor != null && cursor.moveToFirst()) {
+                    chosenCard = cursor.getInt(cursor.getColumnIndex("chosenstartcard"));
+                }
+                db.close();
+                dialog.dismiss();
+            }
+        });
+
+        /* PRECISION CLICKED */
+        ImageButton buttonDialogPrecision = (ImageButton) dialog.findViewById(R.id.ibCardPrecision);
+        buttonDialogPrecision.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    db.open();
+                } catch (java.sql.SQLException e) {
+                    e.printStackTrace();
+                }
+                addCard("Precision", "card_precision", 3, 1, "Increases Critical strike rate by 20%. Lasts 2 turns.", 30);
+                updatePlayerInfo();
+                confirmSuccess("Card chosen!", Activity_StartScreen.this);
+                cursor = db.getPlayerInfo();
+                if (cursor != null && cursor.moveToFirst()) {
+                    chosenCard = cursor.getInt(cursor.getColumnIndex("chosenstartcard"));
+                }
+                db.close();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
+        /* SALVAGE CLICKED */
+        ImageButton buttonDialogSalvage = (ImageButton) dialog.findViewById(R.id.ibCardSalvage);
+        buttonDialogSalvage.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    db.open();
+                } catch (java.sql.SQLException e) {
+                    e.printStackTrace();
+                }
+                addCard("Salvage", "card_salvage", 1, 1, "Brings back five objects after 1 turn.", 26);
+                updatePlayerInfo();
+                confirmSuccess("Card chosen!", Activity_StartScreen.this);
+                cursor = db.getPlayerInfo();
+                if (cursor != null && cursor.moveToFirst()) {
+                    chosenCard = cursor.getInt(cursor.getColumnIndex("chosenstartcard"));
+                }
+                db.close();
                 dialog.dismiss();
             }
         });
@@ -567,5 +662,17 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int accountScore = preferences.getInt("AccountScore", 0);
         tvAccountScore.setText(String.valueOf(accountScore));
+    }
+
+    private void updatePlayerInfo(){
+        try {
+            db.open();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+
+        db.updatePlayerStarterCard(1);
+
+        db.close();
     }
 }

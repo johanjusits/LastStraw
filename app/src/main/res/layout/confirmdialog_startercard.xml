@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="fill_parent"
+    android:background="@drawable/confirm_box"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:padding="8dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/selectCardConfirmTitle"
+        android:id="@+id/tvTitle"
+        android:textIsSelectable="false"
+        android:textSize="20sp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/textBlack"
+        android:textStyle="bold"
+        android:layout_marginBottom="6dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Silence"
+            android:id="@+id/tvDesc1"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/textWhite"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precision"
+            android:id="@+id/tvDesc2"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/textWhite"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salvage"
+            android:id="@+id/tvDesc3"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/textWhite"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp">
+
+        <ImageButton
+            android:layout_width="96dp"
+            android:layout_height="128dp"
+            android:id="@+id/ibCardSilence"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/card_silence"
+            android:scaleType="fitCenter"
+            android:background="#00000000" />
+
+        <ImageButton
+            android:layout_width="96dp"
+            android:layout_height="128dp"
+            android:id="@+id/ibCardPrecision"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/card_precision"
+            android:scaleType="fitCenter"
+            android:background="#00000000"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp" />
+
+        <ImageButton
+            android:layout_width="96dp"
+            android:layout_height="128dp"
+            android:id="@+id/ibCardSalvage"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/card_salvage"
+            android:scaleType="fitCenter"
+            android:background="#00000000" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -104,114 +104,114 @@ public class EnemyInfo {
             case 1:
                 switch (levelId){
                     case 1:
-                        return "portrait_fields";
+                        return "portrait_w01";
                     case 2:
-                        return "portrait_fields";
+                        return "portrait_w01";
                     case 3:
-                        return "portrait_fields";
+                        return "portrait_w01";
                     case 4:
                         return "portrait_miniboss";
                     case 5:
-                        return "portrait_fields";
+                        return "portrait_w01";
                     case 6:
-                        return "portrait_fields";
+                        return "portrait_w01";
                     case 7:
-                        return "portrait_fields";
+                        return "portrait_w01";
                     case 8:
                         return "portrait_boss";
                 }
             case 2:
                 switch (levelId){
                     case 9:
-                        return "portrait_dungeon";
+                        return "portrait_w02";
                     case 10:
-                        return "portrait_dungeon";
+                        return "portrait_w02";
                     case 11:
-                        return "portrait_dungeon";
+                        return "portrait_w02";
                     case 12:
                         return "portrait_miniboss";
                     case 13:
-                        return "portrait_dungeon";
+                        return "portrait_w02";
                     case 14:
-                        return "portrait_dungeon";
+                        return "portrait_w02";
                     case 15:
-                        return "portrait_dungeon";
+                        return "portrait_w02";
                     case 16:
                         return "portrait_boss";
                 }
             case 3:
                 switch (levelId){
                     case 17:
-                        return "portrait_mountains";
+                        return "portrait_w03";
                     case 18:
-                        return "portrait_mountains";
+                        return "portrait_w03";
                     case 19:
-                        return "portrait_mountains";
+                        return "portrait_w03";
                     case 20:
                         return "portrait_miniboss";
                     case 21:
-                        return "portrait_mountains";
+                        return "portrait_w03";
                     case 22:
-                        return "portrait_mountains";
+                        return "portrait_w03";
                     case 23:
-                        return "portrait_mountains";
+                        return "portrait_w03";
                     case 24:
                         return "portrait_boss";
                 }
             case 4:
                 switch (levelId){
                     case 25:
-                        return "portrait_wreckage";
+                        return "portrait_w04";
                     case 26:
-                        return "portrait_wreckage";
+                        return "portrait_w04";
                     case 27:
-                        return "portrait_wreckage";
+                        return "portrait_w04";
                     case 28:
                         return "portrait_miniboss";
                     case 29:
-                        return "portrait_wreckage";
+                        return "portrait_w04";
                     case 30:
-                        return "portrait_wreckage";
+                        return "portrait_w04";
                     case 31:
-                        return "portrait_wreckage";
+                        return "portrait_w04";
                     case 32:
                         return "portrait_boss";
                 }
             case 5:
                 switch (levelId){
                     case 33:
-                        return "portrait_woods";
+                        return "portrait_w05";
                     case 34:
-                        return "portrait_woods";
+                        return "portrait_w05";
                     case 35:
-                        return "portrait_woods";
+                        return "portrait_w05";
                     case 36:
                         return "portrait_miniboss";
                     case 37:
-                        return "portrait_woods";
+                        return "portrait_w05";
                     case 38:
-                        return "portrait_woods";
+                        return "portrait_w05";
                     case 39:
-                        return "portrait_woods";
+                        return "portrait_w05";
                     case 40:
                         return "portrait_boss";
                 }
             case 6:
                 switch (levelId){
                     case 41:
-                        return "portrait_trainyard";
+                        return "portrait_w06";
                     case 42:
-                        return "portrait_trainyard";
+                        return "portrait_w06";
                     case 43:
-                        return "portrait_trainyard";
+                        return "portrait_w06";
                     case 44:
                         return "portrait_miniboss";
                     case 45:
-                        return "portrait_trainyard";
+                        return "portrait_w06";
                     case 46:
-                        return "portrait_trainyard";
+                        return "portrait_w06";
                     case 47:
-                        return "portrait_trainyard";
+                        return "portrait_w06";
                     case 48:
                         return "portrait_boss";
                 }

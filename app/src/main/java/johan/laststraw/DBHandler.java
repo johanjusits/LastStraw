@@ -26,6 +26,7 @@ public class DBHandler {
     public static final String KEY_ISUNLOCKED = "unlocked";
     public static final String KEY_REQUIRESLVL = "reqlvl";
     public static final String KEY_LVLSBEATEN = "lvlsbeaten";
+    public static final String KEY_CHOSENSTARTCARD = "chosenstartcard";
     public static final String KEY_COST = "cost";
     public static final String KEY_LVLCLEARED = "lvlcleared";
     public static final String KEY_LVLHIGHSCORE = "lvlhighscore";
@@ -86,6 +87,7 @@ public class DBHandler {
                             KEY_LEVEL + " INTEGER NOT NULL, " +
                             KEY_EXP + " INTEGER NOT NULL, " +
                             KEY_LVLSBEATEN + " INTEGER NOT NULL, " +
+                            KEY_CHOSENSTARTCARD + " INTEGER NOT NULL, " +
                             KEY_UNLOCKEDSLOTS + " INTEGER NOT NULL);"
             );
 
@@ -430,6 +432,7 @@ public class DBHandler {
             playerInfo.put(KEY_GENDER, "Male");
             playerInfo.put(KEY_LEVEL, 1);
             playerInfo.put(KEY_LVLSBEATEN, 0);
+            playerInfo.put(KEY_CHOSENSTARTCARD, 0);
             playerInfo.put(KEY_EXP, 0);
             playerInfo.put(KEY_UNLOCKEDSLOTS, 1);
             db.insert(PlayerInfo, null, playerInfo);
@@ -844,6 +847,13 @@ public class DBHandler {
     public long updatePlayerSlots(int slots) {
         ContentValues cv = new ContentValues();
         cv.put(KEY_UNLOCKEDSLOTS, slots);
+        return appDB.update(PlayerInfo, cv, "_id "+"="+1, null);
+    }
+
+    /* Method for updating player starter card */
+    public long updatePlayerStarterCard(int selected) {
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_CHOSENSTARTCARD, selected);
         return appDB.update(PlayerInfo, cv, "_id "+"="+1, null);
     }
 
