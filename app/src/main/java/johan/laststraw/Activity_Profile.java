@@ -24,7 +24,7 @@ import static android.graphics.Color.TRANSPARENT;
 public class Activity_Profile extends Activity implements View.OnClickListener {
 
     DBHandler db;
-    TextView tvLevelNumber;
+    TextView tvLevelNumber, tvKeys;
     ImageButton ivImg, bSave;
     EditText etName;
     Cursor cursor;
@@ -32,7 +32,7 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
     String playerGender = "";
     String sizeName;
     String densityName;
-    int level;
+    int level, keys;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_new_profile);
 
         tvLevelNumber = (TextView) findViewById(R.id.tvLevelNumber);
+        tvKeys = (TextView) findViewById(R.id.tvKeys);
         ivImg = (ImageButton) findViewById(R.id.ivImg);
         etName = (EditText) findViewById(R.id.etName);
         expBar = (ProgressBar) findViewById(R.id.expBar);
@@ -66,7 +67,9 @@ public class Activity_Profile extends Activity implements View.OnClickListener {
             etName.setText(cursor.getString(cursor.getColumnIndex("name")));
             etName.setSelection(etName.getText().length());
             level = cursor.getInt(cursor.getColumnIndex("level"));
+            keys = cursor.getInt(cursor.getColumnIndex("keys"));
             tvLevelNumber.setText(String.valueOf(level));
+            tvKeys.setText(String.valueOf(keys));
             expBar.setProgress(cursor.getInt(cursor.getColumnIndex("exp")));
 
             playerGender = cursor.getString(cursor.getColumnIndex("gender"));
