@@ -3,7 +3,9 @@ package johan.laststraw;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -3928,7 +3930,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                                     myHandler.postDelayed(new Runnable() {
                                         public void run() {
                                             dialog.dismiss();
-                                            finish();
+                                            Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
+                                            finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(finish);
                                             overridePendingTransition(0, 0);
                                         }
                                     }, 4000);
@@ -3939,7 +3943,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 dialog.dismiss();
-                                finish();
+                                Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
+                                finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(finish);
+                                overridePendingTransition(0, 0);
                             }
                         }, 5000);
                     }
@@ -12336,6 +12343,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         obj016.setImageResource(objectImg);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
 
 

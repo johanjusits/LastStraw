@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -16,6 +15,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import static android.graphics.Color.TRANSPARENT;
 
@@ -32,11 +34,22 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
     String sizeName;
     String densityName;
     TextView tvAccountScore;
+    private InterstitialAd interstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startscreen);
+
+        // Create the interstitial.
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-1205040448652074/2063651142");
+
+        // Create ad request.
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        // Begin loading your interstitial.
+        interstitialAd.loadAd(adRequest);
 
         profileButton = (ImageButton) findViewById(R.id.Btn_Profile);
         playButton = (Button) findViewById(R.id.Btn_Play);
@@ -151,6 +164,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         checkMiniBoss5();
 
         updateAccountScore();
+        displayAd();
     }
 
     private void awardNewCard() {
@@ -674,5 +688,11 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         db.updatePlayerStarterCard(1);
 
         db.close();
+    }
+
+    public void displayAd() {
+        if (interstitialAd.isLoaded()) {
+            interstitialAd.show();
+        }
     }
 }

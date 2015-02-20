@@ -114,7 +114,6 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(pickCards);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.bWorld001Lvl002:
@@ -127,7 +126,6 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(pickCards);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.bWorld001Lvl003:
@@ -140,7 +138,6 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(pickCards);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.bWorld001Lvl004:
@@ -153,7 +150,6 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(pickCards);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.bWorld001Lvl005:
@@ -166,7 +162,6 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(pickCards);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.bWorld001Lvl006:
@@ -179,7 +174,6 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(pickCards);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.bWorld001Lvl007:
@@ -192,7 +186,6 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(pickCards);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.bWorld001Lvl008:
@@ -205,7 +198,6 @@ public class Activity_Woods_LevelSelection extends Activity implements View.OnCl
                 pickCards = new Intent(Activity_Woods_LevelSelection.this, Activity_CardSelection.class);
                 pickCards.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(pickCards);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
         }
