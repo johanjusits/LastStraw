@@ -446,8 +446,8 @@ public class Activity_CardSelection extends Activity implements AdapterView.OnIt
             case R.id.bStartGame:
                 Intent startGame = new Intent();
                 startGame.setComponent(new ComponentName(packageName,packageName+chosenLevel));
+                startGame.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(startGame);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.bViewCards:

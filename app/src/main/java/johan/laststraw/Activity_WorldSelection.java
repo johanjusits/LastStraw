@@ -109,42 +109,36 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
                 worldSelected = new Intent(Activity_WorldSelection.this, Activity_Fields_LevelSelection.class);
                 worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(worldSelected);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.imgBtnWorld002:
                 worldSelected = new Intent(Activity_WorldSelection.this, Activity_Dungeon_LevelSelection.class);
                 worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(worldSelected);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.imgBtnWorld003:
                 worldSelected = new Intent(Activity_WorldSelection.this, Activity_Mountains_LevelSelection.class);
                 worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(worldSelected);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.imgBtnWorld004:
                 worldSelected = new Intent(Activity_WorldSelection.this, Activity_Wreckage_LevelSelection.class);
                 worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(worldSelected);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.imgBtnWorld005:
                 worldSelected = new Intent(Activity_WorldSelection.this, Activity_Woods_LevelSelection.class);
                 worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(worldSelected);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.imgBtnWorld006:
                 worldSelected = new Intent(Activity_WorldSelection.this, Activity_Trainyard_LevelSelection.class);
                 worldSelected.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(worldSelected);
-                finish();
                 overridePendingTransition(0, 0);
                 break;
         }
@@ -248,7 +242,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             bFields.setBackgroundResource(R.drawable.lvlselection_button);
         }
         if (worldId == 1 && worldCleared == 1){
-            bDungeon.setImageResource(R.drawable.world_dungeon);
+            bDungeon.setImageResource(R.drawable.portrait_w02);
             if (w2gold){
                 bDungeon.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -257,7 +251,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             bDungeon.setClickable(true);
         }
         if (worldId == 2 && worldCleared == 1){
-            bMountains.setImageResource(R.drawable.world_mountains);
+            bMountains.setImageResource(R.drawable.portrait_w03);
             if (w3gold){
                 bMountains.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -266,7 +260,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             bMountains.setClickable(true);
         }
         if (worldId == 3 && worldCleared == 1){
-            bWreckage.setImageResource(R.drawable.world_wreckage);
+            bWreckage.setImageResource(R.drawable.portrait_w04);
             if (w4gold){
                 bWreckage.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -275,7 +269,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             bWreckage.setClickable(true);
         }
         if (worldId == 4 && worldCleared == 1){
-            bWoods.setImageResource(R.drawable.world_woods);
+            bWoods.setImageResource(R.drawable.portrait_w05);
             if (w5gold){
                 bWoods.setBackgroundResource(R.drawable.world_gold);
             } else {
@@ -284,7 +278,7 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
             bWoods.setClickable(true);
         }
         if (worldId == 5 && worldCleared == 1){
-            bTrain.setImageResource(R.drawable.world_trainyard);
+            bTrain.setImageResource(R.drawable.portrait_w06);
             if (w6gold){
                 bTrain.setBackgroundResource(R.drawable.world_gold);
             } else {
