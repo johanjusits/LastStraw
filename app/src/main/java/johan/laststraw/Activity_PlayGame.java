@@ -3930,25 +3930,30 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                                     myHandler.postDelayed(new Runnable() {
                                         public void run() {
                                             dialog.dismiss();
-                                            Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
-                                            finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            startActivity(finish);
-                                            overridePendingTransition(0, 0);
+                                            getLevelInfo();
+                                            if (lvlcleared == 1){
+                                                exitOrContinue();
+                                            } else {
+                                                exitOrTryAgain();
+                                            }
                                         }
                                     }, 4000);
                                 }
                             }, 1500);
+                        } else {
+                            myHandler.postDelayed(new Runnable() {
+                                public void run() {
+                                    dialog.dismiss();
+                                    getLevelInfo();
+                                    if (lvlcleared == 1){
+                                        exitOrContinue();
+                                    } else {
+                                        exitOrTryAgain();
+                                    }
+                                }
+                            }, 5000);
                         }
 
-                        myHandler.postDelayed(new Runnable() {
-                            public void run() {
-                                dialog.dismiss();
-                                Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
-                                finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(finish);
-                                overridePendingTransition(0, 0);
-                            }
-                        }, 5000);
                     }
                 }, 2000);
 
@@ -3957,6 +3962,106 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 buttonDialogYes.setClickable(false);
                 buttonDialogYes.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
+                    }
+                });
+                dialog.show();
+            }
+        }, 1000);
+    }
+
+    /* METHOD TO LET PLAYER DECIDE WHAT TO DO AT END OF GAME, IF THE LEVEL HAS BEEN CLEARED */
+    private void exitOrContinue(){
+        final String density = DeviceDensity.getDensityName(this);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                final Dialog dialog = new Dialog(context);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.confirmdialog_endgame);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+                if (density.equals("xxhdpi")) {
+                    dialog.getWindow().setLayout(1000, 400);
+                } else if (density.equals("hdpi")) {
+                    dialog.getWindow().setLayout(500, 200);
+                } else if (density.equals("mdpi")) {
+                    dialog.getWindow().setLayout(400, 165);
+                } else if (density.equals("ldpi")) {
+                    dialog.getWindow().setLayout(350, 130);
+                }
+                dialog.setCancelable(false);
+
+                /* EXIT CLICKED */
+                Button exitButton = (Button) dialog.findViewById(R.id.bExit);
+                exitButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
+                        finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(finish);
+                        dialog.dismiss();
+                    }
+                });
+
+                /* CONTINUE CLICKED */
+                Button continueButton = (Button) dialog.findViewById(R.id.bContinue);
+                continueButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        int currentLvl = preferences.getInt("LoadedLevelId", 0);
+                        editor.putInt("LoadedLevelId", currentLvl + 1);
+                        editor.apply();
+                        Intent finish = new Intent(Activity_PlayGame.this, Activity_PlayGame.class);
+                        finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(finish);
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        }, 1000);
+    }
+
+    /* METHOD TO LET PLAYER DECIDE WHAT TO DO AT END OF GAME, IF THE LEVEL HAS NOT BEEN CLEARED */
+    private void exitOrTryAgain(){
+        final String density = DeviceDensity.getDensityName(this);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                final Dialog dialog = new Dialog(context);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.confirmdialog_endgame);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+                if (density.equals("xxhdpi")) {
+                    dialog.getWindow().setLayout(1000, 400);
+                } else if (density.equals("hdpi")) {
+                    dialog.getWindow().setLayout(500, 200);
+                } else if (density.equals("mdpi")) {
+                    dialog.getWindow().setLayout(400, 165);
+                } else if (density.equals("ldpi")) {
+                    dialog.getWindow().setLayout(350, 130);
+                }
+                dialog.setCancelable(false);
+
+                /* EXIT CLICKED */
+                Button exitButton = (Button) dialog.findViewById(R.id.bExit);
+                exitButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
+                        finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(finish);
+                        finish();
+                        dialog.dismiss();
+                    }
+                });
+
+                /* CONTINUE CLICKED */
+                Button continueButton = (Button) dialog.findViewById(R.id.bContinue);
+                continueButton.setText("RETRY");
+                continueButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent finish = new Intent(Activity_PlayGame.this, Activity_PlayGame.class);
+                        finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(finish);
+                        finish();
+                        dialog.dismiss();
                     }
                 });
                 dialog.show();
