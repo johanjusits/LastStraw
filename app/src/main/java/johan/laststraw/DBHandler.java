@@ -24,9 +24,10 @@ public class DBHandler {
     public static final String KEY_EXP = "exp";
     public static final String KEY_UNLOCKEDSLOTS = "slots";
     public static final String KEY_ISUNLOCKED = "unlocked";
-    public static final String KEY_REQUIRESLVL = "reqlvl";
+    public static final String KEY_KEYCOST = "keycost"; //KEYS COST NR
     public static final String KEY_LVLSBEATEN = "lvlsbeaten";
     public static final String KEY_CHOSENSTARTCARD = "chosenstartcard";
+    public static final String KEY_KEYS = "keys";
     public static final String KEY_COST = "cost";
     public static final String KEY_LVLCLEARED = "lvlcleared";
     public static final String KEY_LVLHIGHSCORE = "lvlhighscore";
@@ -75,7 +76,7 @@ public class DBHandler {
                             KEY_IMAGE + " TEXT NOT NULL, " +
                             KEY_TYPE + " INTEGER NOT NULL, " +
                             KEY_DESC + " TEXT NOT NULL, " +
-                            KEY_REQUIRESLVL + " INT NOT NULL, " +
+                            KEY_KEYCOST + " INT NOT NULL, " +
                             KEY_COST + " INT NOT NULL, " +
                             KEY_ISUNLOCKED + " INT NOT NULL);"
             );
@@ -88,6 +89,7 @@ public class DBHandler {
                             KEY_EXP + " INTEGER NOT NULL, " +
                             KEY_LVLSBEATEN + " INTEGER NOT NULL, " +
                             KEY_CHOSENSTARTCARD + " INTEGER NOT NULL, " +
+                            KEY_KEYS + " INTEGER NOT NULL, " +
                             KEY_UNLOCKEDSLOTS + " INTEGER NOT NULL);"
             );
 
@@ -122,7 +124,7 @@ public class DBHandler {
             ac3.put(KEY_IMAGE, "card_obj_plus_3");
             ac3.put(KEY_TYPE, 1);
             ac3.put(KEY_DESC, "Brings back three objects.");
-            ac3.put(KEY_REQUIRESLVL, 3);
+            ac3.put(KEY_KEYCOST, 1);
             ac3.put(KEY_COST, 0);
             ac3.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac3);
@@ -132,7 +134,7 @@ public class DBHandler {
             ac4.put(KEY_IMAGE, "card_slowdown");
             ac4.put(KEY_TYPE, 2);
             ac4.put(KEY_DESC, "Reduces opponent's moves by 1 next turn.");
-            ac4.put(KEY_REQUIRESLVL, 5);
+            ac4.put(KEY_KEYCOST, 1);
             ac4.put(KEY_COST, 1);
             ac4.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac4);
@@ -142,8 +144,8 @@ public class DBHandler {
             ac5.put(KEY_IMAGE, "card_speed_up");
             ac5.put(KEY_TYPE, 3);
             ac5.put(KEY_DESC, "Gain 1 additional moves on next turn.");
-            ac5.put(KEY_COST, 0);
-            ac5.put(KEY_REQUIRESLVL, 4);
+            ac5.put(KEY_COST, 1);
+            ac5.put(KEY_KEYCOST, 1);
             ac5.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac5);
 
@@ -153,7 +155,7 @@ public class DBHandler {
             ac6.put(KEY_TYPE, 1);
             ac6.put(KEY_DESC, "Drains 1-3 points from the opponent.");
             ac6.put(KEY_COST, 1);
-            ac6.put(KEY_REQUIRESLVL, 0);
+            ac6.put(KEY_KEYCOST, 0);
             ac6.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac6);
 
@@ -163,7 +165,7 @@ public class DBHandler {
             ac7.put(KEY_TYPE, 3);
             ac7.put(KEY_DESC, "Doubles all points gained on next turn.");
             ac7.put(KEY_COST, 1);
-            ac7.put(KEY_REQUIRESLVL, 6);
+            ac7.put(KEY_KEYCOST, 2);
             ac7.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac7);
 
@@ -173,7 +175,7 @@ public class DBHandler {
             ac8.put(KEY_TYPE, 1);
             ac8.put(KEY_DESC, "Drains 3-5 points from the opponent.");
             ac8.put(KEY_COST, 2);
-            ac8.put(KEY_REQUIRESLVL, 9);
+            ac8.put(KEY_KEYCOST, 1);
             ac8.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac8);
 
@@ -183,7 +185,7 @@ public class DBHandler {
             ac9.put(KEY_TYPE, 1);
             ac9.put(KEY_DESC, "Drains 5-7 points from the opponent.");
             ac9.put(KEY_COST, 3);
-            ac9.put(KEY_REQUIRESLVL, 13);
+            ac9.put(KEY_KEYCOST, 2);
             ac9.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac9);
 
@@ -193,7 +195,7 @@ public class DBHandler {
             ac010.put(KEY_TYPE, 1);
             ac010.put(KEY_DESC, "Infests the next object with spiders, making it more difficult to clear.");
             ac010.put(KEY_COST, 1);
-            ac010.put(KEY_REQUIRESLVL, 10);
+            ac010.put(KEY_KEYCOST, 1);
             ac010.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac010);
 
@@ -203,7 +205,7 @@ public class DBHandler {
             ac011.put(KEY_TYPE, 3);
             ac011.put(KEY_DESC, "Gain 2 additional moves on next turn.");
             ac011.put(KEY_COST, 1);
-            ac011.put(KEY_REQUIRESLVL, 12);
+            ac011.put(KEY_KEYCOST, 2);
             ac011.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac011);
 
@@ -213,7 +215,7 @@ public class DBHandler {
             ac012.put(KEY_TYPE, 2);
             ac012.put(KEY_DESC, "All moves cost one more next turn.");
             ac012.put(KEY_COST, 1);
-            ac012.put(KEY_REQUIRESLVL, 7);
+            ac012.put(KEY_KEYCOST, 1);
             ac012.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac012);
 
@@ -223,7 +225,7 @@ public class DBHandler {
             ac013.put(KEY_TYPE, 3);
             ac013.put(KEY_DESC, "Copies the effect of the opponent's last played card.");
             ac013.put(KEY_COST, 1);
-            ac013.put(KEY_REQUIRESLVL, 16);
+            ac013.put(KEY_KEYCOST, 2);
             ac013.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac013);
 
@@ -233,7 +235,7 @@ public class DBHandler {
             ac014.put(KEY_TYPE, 1);
             ac014.put(KEY_DESC, "Brings back half of the cleared objects.");
             ac014.put(KEY_COST, 1);
-            ac014.put(KEY_REQUIRESLVL, 17);
+            ac014.put(KEY_KEYCOST, 2);
             ac014.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac014);
 
@@ -243,7 +245,7 @@ public class DBHandler {
             ac015.put(KEY_TYPE, 2);
             ac015.put(KEY_DESC, "Reduces score by half after three turns.");
             ac015.put(KEY_COST, 2);
-            ac015.put(KEY_REQUIRESLVL, 0);
+            ac015.put(KEY_KEYCOST, 0);
             ac015.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac015);
 
@@ -253,7 +255,7 @@ public class DBHandler {
             ac016.put(KEY_TYPE, 2);
             ac016.put(KEY_DESC, "Reduces score by 3 at the start of the turn. Lasts three turns.");
             ac016.put(KEY_COST, 2);
-            ac016.put(KEY_REQUIRESLVL, 8);
+            ac016.put(KEY_KEYCOST, 2);
             ac016.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac016);
 
@@ -263,7 +265,7 @@ public class DBHandler {
             ac017.put(KEY_TYPE, 2);
             ac017.put(KEY_DESC, "Reduces score by 3/4 after four turns.");
             ac017.put(KEY_COST, 3);
-            ac017.put(KEY_REQUIRESLVL, 18);
+            ac017.put(KEY_KEYCOST, 3);
             ac017.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac017);
 
@@ -273,7 +275,7 @@ public class DBHandler {
             ac018.put(KEY_TYPE, 2);
             ac018.put(KEY_DESC, "10% chance to reset opponent's score. Ignores Protect.");
             ac018.put(KEY_COST, 0);
-            ac018.put(KEY_REQUIRESLVL, 0);
+            ac018.put(KEY_KEYCOST, 2);
             ac018.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac018);
 
@@ -283,7 +285,7 @@ public class DBHandler {
             ac019.put(KEY_TYPE, 2);
             ac019.put(KEY_DESC, "50% chance to reset opponent's score after 3 turns.");
             ac019.put(KEY_COST, 2);
-            ac019.put(KEY_REQUIRESLVL, 14);
+            ac019.put(KEY_KEYCOST, 2);
             ac019.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac019);
 
@@ -293,7 +295,7 @@ public class DBHandler {
             ac020.put(KEY_TYPE, 3);
             ac020.put(KEY_DESC, "Removes all ailments from yourself.");
             ac020.put(KEY_COST, 1);
-            ac020.put(KEY_REQUIRESLVL, 0);
+            ac020.put(KEY_KEYCOST, 0);
             ac020.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac020);
 
@@ -303,7 +305,7 @@ public class DBHandler {
             ac021.put(KEY_TYPE, 3);
             ac021.put(KEY_DESC, "25% chance to reset all objects at the end of your turn.");
             ac021.put(KEY_COST, 0);
-            ac021.put(KEY_REQUIRESLVL, 19);
+            ac021.put(KEY_KEYCOST, 2);
             ac021.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac021);
 
@@ -313,7 +315,7 @@ public class DBHandler {
             ac022.put(KEY_TYPE, 3);
             ac022.put(KEY_DESC, "Gain a temporary shield that protects against ailments. Lasts 2 turns.");
             ac022.put(KEY_COST, 0);
-            ac022.put(KEY_REQUIRESLVL, 11);
+            ac022.put(KEY_KEYCOST, 1);
             ac022.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac022);
 
@@ -323,7 +325,7 @@ public class DBHandler {
             ac023.put(KEY_TYPE, 3);
             ac023.put(KEY_DESC, "Keep the next card you play. Lasts until a card is played.");
             ac023.put(KEY_COST, 1);
-            ac023.put(KEY_REQUIRESLVL, 20);
+            ac023.put(KEY_KEYCOST, 2);
             ac023.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac023);
 
@@ -333,7 +335,7 @@ public class DBHandler {
             ac024.put(KEY_TYPE, 2);
             ac024.put(KEY_DESC, "Removes all positive buffs from the opponent.");
             ac024.put(KEY_COST, 1);
-            ac024.put(KEY_REQUIRESLVL, 15);
+            ac024.put(KEY_KEYCOST, 1);
             ac024.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac024);
 
@@ -343,7 +345,7 @@ public class DBHandler {
             ac025.put(KEY_TYPE, 1);
             ac025.put(KEY_DESC, "Brings back five objects.");
             ac025.put(KEY_COST, 1);
-            ac025.put(KEY_REQUIRESLVL, 0);
+            ac025.put(KEY_KEYCOST, 2);
             ac025.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac025);
 
@@ -353,7 +355,7 @@ public class DBHandler {
             ac026.put(KEY_TYPE, 2);
             ac026.put(KEY_DESC, "Makes opponent more prone to miss. Lasts 2 turns.");
             ac026.put(KEY_COST, 1);
-            ac026.put(KEY_REQUIRESLVL, 0);
+            ac026.put(KEY_KEYCOST, 3);
             ac026.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac026);
 
@@ -363,7 +365,7 @@ public class DBHandler {
             ac027.put(KEY_TYPE, 3);
             ac027.put(KEY_DESC, "Gain 5 points after 2 turns.");
             ac027.put(KEY_COST, 1);
-            ac027.put(KEY_REQUIRESLVL, 0);
+            ac027.put(KEY_KEYCOST, 1);
             ac027.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac027);
 
@@ -373,7 +375,7 @@ public class DBHandler {
             ac028.put(KEY_TYPE, 1);
             ac028.put(KEY_DESC, "Brings back five objects after 1 turn.");
             ac028.put(KEY_COST, 1);
-            ac028.put(KEY_REQUIRESLVL, 0);
+            ac028.put(KEY_KEYCOST, 1);
             ac028.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac028);
 
@@ -383,7 +385,7 @@ public class DBHandler {
             ac029.put(KEY_TYPE, 2);
             ac029.put(KEY_DESC, "Disables opponent's ability to play cards on next turn.");
             ac029.put(KEY_COST, 1);
-            ac029.put(KEY_REQUIRESLVL, 0);
+            ac029.put(KEY_KEYCOST, 1);
             ac029.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac029);
 
@@ -393,7 +395,7 @@ public class DBHandler {
             ac030.put(KEY_TYPE, 3);
             ac030.put(KEY_DESC, "Gain 100% hit chance. Lasts 2 turns.");
             ac030.put(KEY_COST, 0);
-            ac030.put(KEY_REQUIRESLVL, 0);
+            ac030.put(KEY_KEYCOST, 1);
             ac030.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac030);
 
@@ -403,7 +405,7 @@ public class DBHandler {
             ac031.put(KEY_TYPE, 2);
             ac031.put(KEY_DESC, "Causes enemy to sometimes get addition and subtraction mixed up.");
             ac031.put(KEY_COST, 2);
-            ac031.put(KEY_REQUIRESLVL, 0);
+            ac031.put(KEY_KEYCOST, 3);
             ac031.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac031);
 
@@ -413,7 +415,7 @@ public class DBHandler {
             ac032.put(KEY_TYPE, 3);
             ac032.put(KEY_DESC, "Increases Critical strike rate by 20%. Lasts 2 turns.");
             ac032.put(KEY_COST, 1);
-            ac032.put(KEY_REQUIRESLVL, 0);
+            ac032.put(KEY_KEYCOST, 1);
             ac032.put(KEY_ISUNLOCKED, 0);
             db.insert(AllCards, null, ac032);
 
@@ -433,6 +435,7 @@ public class DBHandler {
             playerInfo.put(KEY_LEVEL, 1);
             playerInfo.put(KEY_LVLSBEATEN, 0);
             playerInfo.put(KEY_CHOSENSTARTCARD, 0);
+            playerInfo.put(KEY_KEYS, 0);
             playerInfo.put(KEY_EXP, 0);
             playerInfo.put(KEY_UNLOCKEDSLOTS, 1);
             db.insert(PlayerInfo, null, playerInfo);
@@ -813,6 +816,13 @@ public class DBHandler {
         cv.put(KEY_COST, cost);
         cv.put(KEY_DESC, desc);
         return appDB.insert(SelectedCards, null, cv);
+    }
+
+    /* Method for updating player keys */
+    public long updatePlayerKeys(int level) {
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_KEYS, level);
+        return appDB.update(PlayerInfo, cv, "_id "+"="+1, null);
     }
 
     /* Method for updating player exp */
