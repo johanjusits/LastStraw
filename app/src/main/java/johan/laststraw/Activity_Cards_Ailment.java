@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.graphics.Color.TRANSPARENT;
 
@@ -23,9 +24,10 @@ public class Activity_Cards_Ailment extends Activity implements AdapterView.OnIt
 
     TextView title;
     AllCardsAdapter cursorAdapter;
-    Cursor cursor;
+    Cursor cursor, cursor2;
     private ListView allAilmentCards;
     DBHandler db;
+    int playerKeys;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +50,32 @@ public class Activity_Cards_Ailment extends Activity implements AdapterView.OnIt
 
     private void setAilmentCardsList() {
         cursor = db.getAllAilmentCards();
+        cursor2 = db.getPlayerInfo();
+        if (cursor2 != null && cursor2.moveToFirst()){
+            playerKeys = cursor2.getInt(cursor2.getColumnIndex("keys"));
+        }
         allAilmentCards = (ListView) findViewById(R.id.allCards);
         cursorAdapter = new AllCardsAdapter(this, cursor);
         allAilmentCards.setAdapter(cursorAdapter);
         allAilmentCards.setOnItemClickListener(this);
+        allAilmentCards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                //CHECK IF CARD ALREADY IS UNLOCKED
+                int unlockCheck = cursor.getInt(cursor.getColumnIndex("unlocked"));
+                int cardCostCheck = cursor.getInt(cursor.getColumnIndex("keycost"));
+                if (unlockCheck == 1){
+                    unlockError("Card is already unlocked.", Activity_Cards_Ailment.this);
+                } else if (cardCostCheck == 0) {
+                    unlockError("This card is not unlockable.", Activity_Cards_Ailment.this);
+                } else {
+                    unlockCard(Activity_Cards_Ailment.this);
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -63,6 +87,98 @@ public class Activity_Cards_Ailment extends Activity implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         displayCard(Activity_Cards_Ailment.this);
+    }
+
+    private void unlockCard(final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_unlock_card);
+        final int cardId = cursor.getInt(cursor.getColumnIndex("_id"));
+        final int cardType = cursor.getInt(cursor.getColumnIndex("type"));
+        final int cardCost = cursor.getInt(cursor.getColumnIndex("cost"));
+        final int cardKeyCost = cursor.getInt(cursor.getColumnIndex("keycost"));
+        final String cardName = cursor.getString(cursor.getColumnIndex("name"));
+        final String cardImage = cursor.getString(cursor.getColumnIndex("image"));
+        final String cardDesc = cursor.getString(cursor.getColumnIndex("desc"));
+        TextView tvMsg = (TextView) dialog.findViewById(R.id.tvMsg);
+        tvMsg.setText("Unlock this card for " + cardKeyCost + " key(s)?");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        /* YES CLICKED */
+        Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(playerKeys >= cardKeyCost){
+                    try {
+                        db.open();
+                    } catch (java.sql.SQLException e) {
+                        e.printStackTrace();
+                    }
+                    int keysRemaining = playerKeys - cardKeyCost;
+                    db.updatePlayerKeys(keysRemaining);
+                    db.unlockCard(cardId, 1);
+                    db.addOwnedCard(cardName, cardImage, cardType, cardCost, cardDesc);
+                    db.close();
+                    unlockSuccess("Card unlocked!", Activity_Cards_Ailment.this);
+                    setAilmentCardsList();
+                } else {
+                    unlockError("You need more keys.", Activity_Cards_Ailment.this);
+                }
+                dialog.dismiss();
+            }
+        });
+
+        /* NO CLICKED */
+        Button buttonDialogNo = (Button) dialog.findViewById(R.id.bConfirmCancel);
+        buttonDialogNo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void unlockError(String message, Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_error);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvError);
+        ImageView ivError = (ImageView) dialog.findViewById(R.id.ivError);
+        tvText.setText(message);
+        ivError.setImageResource(R.drawable.action_error);
+
+        /* YES CLICKED */
+        Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void unlockSuccess(String message, Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_success);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvSuccess);
+        ImageView ivSuccess = (ImageView) dialog.findViewById(R.id.ivSuccess);
+        tvText.setText(message);
+        ivSuccess.setImageResource(R.drawable.action_success);
+
+        /* YES CLICKED */
+        Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void displayCard(final Context context) {
