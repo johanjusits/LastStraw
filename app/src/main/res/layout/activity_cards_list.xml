@@ -23,7 +23,8 @@
         <ListView
             android:layout_width="264dp"
             android:layout_height="wrap_content"
-            android:id="@+id/allCards" />
+            android:id="@+id/allCards"
+            android:longClickable="true"/>
     </LinearLayout>
 
 </LinearLayout>

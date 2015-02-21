@@ -435,7 +435,7 @@ public class DBHandler {
             playerInfo.put(KEY_LEVEL, 1);
             playerInfo.put(KEY_LVLSBEATEN, 0);
             playerInfo.put(KEY_CHOSENSTARTCARD, 0);
-            playerInfo.put(KEY_KEYS, 0);
+            playerInfo.put(KEY_KEYS, 1);
             playerInfo.put(KEY_EXP, 0);
             playerInfo.put(KEY_UNLOCKEDSLOTS, 1);
             db.insert(PlayerInfo, null, playerInfo);

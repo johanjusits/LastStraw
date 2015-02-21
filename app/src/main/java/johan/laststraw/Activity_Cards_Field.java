@@ -23,10 +23,10 @@ public class Activity_Cards_Field extends Activity implements AdapterView.OnItem
 
     TextView title;
     AllCardsAdapter cursorAdapter;
-    Cursor cursor;
+    Cursor cursor, cursor2;
     private ListView allFieldCards;
     DBHandler db;
-    int viewType;
+    int playerKeys;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +49,32 @@ public class Activity_Cards_Field extends Activity implements AdapterView.OnItem
 
     private void setFieldCardsList() {
         cursor = db.getAllFieldCards();
+        cursor2 = db.getPlayerInfo();
+        if (cursor2 != null && cursor2.moveToFirst()){
+            playerKeys = cursor2.getInt(cursor2.getColumnIndex("keys"));
+        }
         allFieldCards = (ListView) findViewById(R.id.allCards);
         cursorAdapter = new AllCardsAdapter(this, cursor);
         allFieldCards.setAdapter(cursorAdapter);
         allFieldCards.setOnItemClickListener(this);
+        allFieldCards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                //CHECK IF CARD ALREADY IS UNLOCKED
+                int unlockCheck = cursor.getInt(cursor.getColumnIndex("unlocked"));
+                int cardCostCheck = cursor.getInt(cursor.getColumnIndex("keycost"));
+                if (unlockCheck == 1){
+                    unlockError("Card is already unlocked.", Activity_Cards_Field.this);
+                } else if (cardCostCheck == 0) {
+                    unlockError("This card is not unlockable.", Activity_Cards_Field.this);
+                } else {
+                    unlockCard(Activity_Cards_Field.this);
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -64,6 +86,98 @@ public class Activity_Cards_Field extends Activity implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         displayCard(Activity_Cards_Field.this);
+    }
+
+    private void unlockCard(final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_unlock_card);
+        final int cardId = cursor.getInt(cursor.getColumnIndex("_id"));
+        final int cardType = cursor.getInt(cursor.getColumnIndex("type"));
+        final int cardCost = cursor.getInt(cursor.getColumnIndex("cost"));
+        final int cardKeyCost = cursor.getInt(cursor.getColumnIndex("keycost"));
+        final String cardName = cursor.getString(cursor.getColumnIndex("name"));
+        final String cardImage = cursor.getString(cursor.getColumnIndex("image"));
+        final String cardDesc = cursor.getString(cursor.getColumnIndex("desc"));
+        TextView tvMsg = (TextView) dialog.findViewById(R.id.tvMsg);
+        tvMsg.setText("Unlock this card for " + cardKeyCost + " key(s)?");
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        /* YES CLICKED */
+        Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(playerKeys >= cardKeyCost){
+                    try {
+                        db.open();
+                    } catch (java.sql.SQLException e) {
+                        e.printStackTrace();
+                    }
+                    int keysRemaining = playerKeys - cardKeyCost;
+                    db.updatePlayerKeys(keysRemaining);
+                    db.unlockCard(cardId, 1);
+                    db.addOwnedCard(cardName, cardImage, cardType, cardCost, cardDesc);
+                    db.close();
+                    unlockSuccess("Card unlocked!", Activity_Cards_Field.this);
+                    setFieldCardsList();
+                } else {
+                    unlockError("You need more keys.", Activity_Cards_Field.this);
+                }
+                dialog.dismiss();
+            }
+        });
+
+        /* NO CLICKED */
+        Button buttonDialogNo = (Button) dialog.findViewById(R.id.bConfirmCancel);
+        buttonDialogNo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void unlockError(String message, Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_error);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvError);
+        ImageView ivError = (ImageView) dialog.findViewById(R.id.ivError);
+        tvText.setText(message);
+        ivError.setImageResource(R.drawable.action_error);
+
+        /* YES CLICKED */
+        Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void unlockSuccess(String message, Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_success);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvSuccess);
+        ImageView ivSuccess = (ImageView) dialog.findViewById(R.id.ivSuccess);
+        tvText.setText(message);
+        ivSuccess.setImageResource(R.drawable.action_success);
+
+        /* YES CLICKED */
+        Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void displayCard(final Context context) {
