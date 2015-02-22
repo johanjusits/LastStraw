@@ -2023,6 +2023,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 } else if (nextObjIsInfested && infestedObjRemainingHits == 0) {
                     if (objectsRemaining == 1 && playerMoves >= 1 + playerCorruptedPenalty) {
+                        btnEndTurn.setEnabled(false);
+                        btnEndTurn.setText("");
                         playerHitObject("-", lastPickPenaltyNr);
                         SoundEffects.playSound(clearSoundId);
                         playerMoves = playerMoves - 1 - playerCorruptedPenalty;
@@ -2044,6 +2046,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 }
                 if (objectsRemaining == 1 && playerMoves >= 1 + playerCorruptedPenalty) {
+                    btnEndTurn.setEnabled(false);
+                    btnEndTurn.setText("");
                     playerHitObject("-", lastPickPenaltyNr);
                     SoundEffects.playSound(clearSoundId);
                     playerMoves = playerMoves - 1 - playerCorruptedPenalty;
