@@ -45,7 +45,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     ImageButton enemyCard1, enemyCard2, enemyCard3, enemyCard4, enemyCard5, enemyCard6;
     ImageView playerStatusIcon1, playerStatusIcon2, playerStatusIcon3, playerStatusIcon4, playerStatusIcon5;
     ImageView enemyStatusIcon1, enemyStatusIcon2, enemyStatusIcon3, enemyStatusIcon4, enemyStatusIcon5;
-    ImageView ivCenterImage;
+    ImageView ivCenterImage, ivKey;
     Button btnEndTurn;
     TextView tvCenterMessage, tvPlayerMovesNumber, tvEnemyMovesNumber;
     TextView tvPlayerName, tvPlayerExp, tvPlayerLevel, tvPlayerScore, tvEnemyScore, tvEnemyName, tvEnemyLvl;
@@ -137,6 +137,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     String whiteColorName = "textWhite";
     static ArrayList<String> enemyCardsArray = new ArrayList<String>();
     /* INTS */
+    int playerKeys;
+    int playerKeyChance;
     int confuseMixUpChance;
     int objectValue;
     int rewindResetChance;
@@ -231,6 +233,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     int aiPattern = 0;
     ArrayList<Integer> pool = new ArrayList<Integer>();
     /* BOOLEANS */
+    boolean keyFound = false;
     boolean mixedUp = false;
     boolean playerIsConfused = false;
     boolean enemyIsConfused = false;
@@ -436,6 +439,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         tvObjMsg = (TextView) findViewById(R.id.tvObjMsg);
         tvObjMsg.setTextColor(getResources().getColor(R.color.supergreen));
         tvObjMsg.setVisibility(View.INVISIBLE);
+        ivKey = (ImageView) findViewById(R.id.ivKey);
+        ivKey.setVisibility(View.INVISIBLE);
         ivCenterImage = (ImageView) findViewById(R.id.ivCenterImage);
         tvPlayerName = (TextView) findViewById(R.id.tvPlayerName);
         tvPlayerLevel = (TextView) findViewById(R.id.tvLvNumber);
@@ -724,6 +729,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -745,6 +753,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -765,6 +776,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -803,6 +817,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -823,6 +840,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -842,6 +862,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -880,6 +903,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -900,6 +926,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -919,6 +948,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -957,6 +989,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -977,6 +1012,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -996,6 +1034,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -1034,6 +1075,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1054,6 +1098,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1073,6 +1120,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -1111,6 +1161,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1131,6 +1184,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1150,6 +1206,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -1188,6 +1247,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1208,6 +1270,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1227,6 +1292,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -1265,6 +1333,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1285,6 +1356,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1304,6 +1378,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -1342,6 +1419,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1362,6 +1442,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1381,6 +1464,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -1419,6 +1505,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1439,6 +1528,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1458,6 +1550,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -1496,6 +1591,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1516,6 +1614,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1535,6 +1636,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -1573,6 +1677,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1593,6 +1700,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1612,6 +1722,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -1650,6 +1763,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1670,6 +1786,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1689,6 +1808,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -1727,6 +1849,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1747,6 +1872,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         myHandler.postDelayed(new Runnable() {
                             public void run() {
                                 tvObjMsg.startAnimation(ani_fadeOut);
+                                if (keyFound){
+                                    ivKey.startAnimation(ani_fadeOut);
+                                }
                             }
                         }, 500);
                         myHandler.postDelayed(new Runnable() {
@@ -1766,6 +1894,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     myHandler.postDelayed(new Runnable() {
                         public void run() {
                             tvObjMsg.startAnimation(ani_fadeOut);
+                            if (keyFound){
+                                ivKey.startAnimation(ani_fadeOut);
+                            }
                         }
                     }, 500);
                     myHandler.postDelayed(new Runnable() {
@@ -4161,6 +4292,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             tvPlayerName.setText(cursor.getString(cursor.getColumnIndex("name")));
             playerName = cursor.getString(cursor.getColumnIndex("name"));
             playerLevel = cursor.getInt(cursor.getColumnIndex("level"));
+            playerKeys = cursor.getInt(cursor.getColumnIndex("keys"));
             tvPlayerLevel.setText(String.valueOf(playerLevel));
             playerExp = cursor.getInt(cursor.getColumnIndex("exp"));
             tvPlayerExp.setText(String.valueOf(playerExp));
@@ -11959,9 +12091,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* INITIATES STUFF WHEN PLAYER CLICKS AN OBJECT */
     private void initiateObjClick() {
         //SETS PLAYER HIT CHANCE
+        keyFound = false;
+        ivKey.clearAnimation();
         playerHitChance = genRand(100);
         playerHit = playerHitChance <= playerHitChancePercentage;
         if (playerHit) {
+            if (objectsRemaining >= 3){
+                playerKeyChance = genRand(150);
+                keyFound = playerKeyChance <= 1;
+                if (keyFound){
+                    awardKey();
+                }
+            }
             playerCritChance = genRand(100);
             playerCrit = playerCritChance <= playerCritChancePercentage;
             objectValue = genRand(100);
@@ -12004,6 +12145,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         //SETS WHERE TO DISPLAY MSG
         setObjMsgLocation();
         tvObjMsg.setVisibility(View.INVISIBLE);
+        if (objectsRemaining < 3){
+            ivKey.setVisibility(View.GONE);
+        } else {
+            ivKey.setVisibility(View.INVISIBLE);
+        }
         disable(layout_objectRow);
         disablePlayerCards();
     }
@@ -12011,6 +12157,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
     /* INITIATES STUFF WHEN ENEMY CLICKS AN OBJECT */
     private void initiateEnemyObjClick() {
+        keyFound = false;
+        ivKey.clearAnimation();
         enemyHitChance = genRand(100);
         enemyHit = enemyHitChance <= enemyHitChancePercentage;
         if (enemyHit) {
@@ -12055,6 +12203,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         }
         setObjMsgLocation();
         tvObjMsg.setVisibility(View.INVISIBLE);
+        if (objectsRemaining < 3){
+            ivKey.setVisibility(View.GONE);
+        } else {
+            ivKey.setVisibility(View.INVISIBLE);
+        }
     }
 
     /* METHOD FOR ANIMATING MSG ABOVE OBJECT */
@@ -12073,7 +12226,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             tvObjMsg.setText(msg);
         }
         if (playerCrit || enemyCrit) {
+            if (keyFound && playerTurn){
+                ivKey.setVisibility(View.VISIBLE);
+                ivKey.bringToFront();
+            }
             tvObjMsg.startAnimation(ani_bounce_crit);
+            if (keyFound && playerTurn){
+                ivKey.startAnimation(ani_bounce);
+            }
             myHandler.postDelayed(new Runnable() {
                 public void run() {
                     tvObjMsg.startAnimation(ani_resetscore);
@@ -12083,6 +12243,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             enemyCrit = false;
         } else {
             tvObjMsg.startAnimation(ani_bounce);
+            if (keyFound && playerTurn){
+                ivKey.startAnimation(ani_bounce);
+            }
         }
     }
 
@@ -12446,6 +12609,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         obj014.setImageResource(objectImg);
         obj015.setImageResource(objectImg);
         obj016.setImageResource(objectImg);
+    }
+
+    /* AWARD KEY METHOD */
+    private void awardKey(){
+        try {
+            db.open();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+        playerKeys++;
+        db.updatePlayerKeys(playerKeys);
+        db.close();
     }
 
     @Override

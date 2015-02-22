@@ -529,6 +529,14 @@
         android:id="@+id/objectRow"
         android:gravity="center_horizontal">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivKey"
+            android:src="@drawable/icon_key_found"
+            android:layout_above="@+id/tvObjMsg"
+            android:layout_alignLeft="@+id/tvObjMsg" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
