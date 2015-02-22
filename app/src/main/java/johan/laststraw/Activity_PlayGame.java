@@ -12097,7 +12097,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         playerHit = playerHitChance <= playerHitChancePercentage;
         if (playerHit) {
             if (objectsRemaining >= 3){
-                playerKeyChance = genRand(150);
+                playerKeyChance = genRand(200);
                 keyFound = playerKeyChance <= 1;
                 if (keyFound){
                     awardKey();
@@ -12625,8 +12625,9 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //super.onBackPressed();
     }
+
 }
 
 

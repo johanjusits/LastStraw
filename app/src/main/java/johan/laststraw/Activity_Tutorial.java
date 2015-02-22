@@ -43,7 +43,7 @@ public class Activity_Tutorial extends Activity implements View.OnClickListener,
     ImageButton enemyCard1, enemyCard2, enemyCard3, enemyCard4, enemyCard5, enemyCard6;
     ImageView playerStatusIcon1, playerStatusIcon2, playerStatusIcon3, playerStatusIcon4, playerStatusIcon5;
     ImageView enemyStatusIcon1, enemyStatusIcon2, enemyStatusIcon3, enemyStatusIcon4, enemyStatusIcon5;
-    ImageView ivCenterImage;
+    ImageView ivCenterImage, ivKey;
     Button btnEndTurn;
     TextView tvCenterMessage, tvPlayerMovesNumber, tvEnemyMovesNumber;
     TextView tvPlayerName, tvPlayerExp, tvPlayerLevel, tvPlayerScore, tvEnemyScore, tvEnemyName, tvEnemyLvl;
@@ -433,8 +433,10 @@ public class Activity_Tutorial extends Activity implements View.OnClickListener,
 
         /* SETS VARIOUS VIEWS */
         tvObjMsg = (TextView) findViewById(R.id.tvObjMsg);
+        ivKey = (ImageView) findViewById(R.id.ivKey);
         tvObjMsg.setTextColor(getResources().getColor(R.color.supergreen));
         tvObjMsg.setVisibility(View.INVISIBLE);
+        ivKey.setVisibility(View.GONE);
         ivCenterImage = (ImageView) findViewById(R.id.ivCenterImage);
         tvPlayerName = (TextView) findViewById(R.id.tvPlayerName);
         tvPlayerLevel = (TextView) findViewById(R.id.tvLvNumber);
@@ -13042,6 +13044,11 @@ public class Activity_Tutorial extends Activity implements View.OnClickListener,
         obj014.setImageResource(objectImg);
         obj015.setImageResource(objectImg);
         obj016.setImageResource(objectImg);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
     }
 
 }
