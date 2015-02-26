@@ -39,6 +39,15 @@
             android:textSize="40sp"
             android:textColor="@color/textBlack" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivKeyAwarded"
+            android:src="@drawable/icon_one_key"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="4dp" />
+
     </LinearLayout>
 
     <LinearLayout

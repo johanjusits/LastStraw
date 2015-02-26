@@ -4000,6 +4000,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 final TextView tvTitle = (TextView) dialog.findViewById(R.id.tvExpGainTitle);
                 final TextView tvExpText = (TextView) dialog.findViewById(R.id.tvExp);
                 final TextView tvGainedExp = (TextView) dialog.findViewById(R.id.tvGainedExp);
+                final ImageView ivKey = (ImageView) dialog.findViewById(R.id.ivKeyAwarded);
                 tvGainedExp.setText(String.valueOf(gainedXp));
                 expBar.setProgress(playerExp);
 
@@ -4034,6 +4035,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         expBar.setProgress(playerExp + gainedXp);
 
                         if (expBar.getProgress() >= 100) {
+                            ivKey.setVisibility(View.VISIBLE);
                             myHandler.postDelayed(new Runnable() {
                                 public void run() {
                                     try {
@@ -4059,6 +4061,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                                     if (cursor != null && cursor.moveToFirst()) {
                                         db.updatePlayerLevel(playerLevel);
                                         db.updatePlayerExp(expToNextLevel);
+                                        playerKeys++;
+                                        db.updatePlayerKeys(playerKeys);
                                     }
                                     db.close();
 
@@ -4067,7 +4071,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                                             dialog.dismiss();
                                             getLevelInfo();
                                             if (lvlcleared == 1){
-                                                exitOrContinue();
+                                                if (lvlId == 48){
+                                                    youWin();
+                                                } else {
+                                                    exitOrContinue();
+                                                }
                                             } else {
                                                 exitOrTryAgain();
                                             }
@@ -4081,7 +4089,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                                     dialog.dismiss();
                                     getLevelInfo();
                                     if (lvlcleared == 1){
-                                        exitOrContinue();
+                                        if (lvlId == 48){
+                                            youWin();
+                                        } else {
+                                            exitOrContinue();
+                                        }
                                     } else {
                                         exitOrTryAgain();
                                     }
@@ -4202,6 +4214,30 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 dialog.show();
             }
         }, 1000);
+    }
+
+    /* METHOD LOADED WHEN YOU BEAT LV 48 */
+    private void youWin(){
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                ivCenterImage.startAnimation(ani_fadeIn);
+                ivCenterImage.setImageResource(R.drawable.thx_for_playing);
+            }
+        }, 1000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                tvCenterMessage.clearAnimation();
+                ivCenterImage.startAnimation(ani_fadeOut);
+            }
+        }, 4000);
+        myHandler.postDelayed(new Runnable() {
+            public void run() {
+                Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
+                finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(finish);
+                finish();
+            }
+        }, 5000);
     }
 
     /* THIS METHOD STARTS THE CONFIRM CARD SELECTION DIALOG */
@@ -7702,10 +7738,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 obj008.setImageResource(objectImg);
                 obj009.setImageResource(objectImg);
             } else {
+                obj005.setImageResource(objectImg);
                 obj006.setImageResource(objectImg);
                 obj007.setImageResource(objectImg);
                 obj008.setImageResource(objectImg);
-                obj009.setImageResource(objectImg);
             }
             objectsRemaining = objectsRemaining + 4;
         }
@@ -8358,8 +8394,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             lvlId = cursor.getInt(cursor.getColumnIndex("_id"));
             worldId = cursor.getInt(cursor.getColumnIndex("worldid"));
         }
-        //lvlId = 41;
-        //worldId = 6;
+        //System.out.println("Level ID: " + String.valueOf(lvlId));
         db.close();
     }
 
@@ -12101,7 +12136,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         playerHit = playerHitChance <= playerHitChancePercentage;
         if (playerHit) {
             if (objectsRemaining >= 3){
-                playerKeyChance = genRand(200);
+                playerKeyChance = genRand(150);
                 keyFound = playerKeyChance <= 1;
                 if (keyFound){
                     awardKey();
