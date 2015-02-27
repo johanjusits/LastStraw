@@ -523,6 +523,13 @@
         android:layout_centerHorizontal="true"
         android:visibility="visible" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivFinalPic"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

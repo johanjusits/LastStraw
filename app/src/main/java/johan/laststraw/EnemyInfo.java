@@ -224,114 +224,114 @@ public class EnemyInfo {
             case 1:
                 switch (levelId){
                     case 1:
-                        return "Farmhand";
+                        return "Farmhand Knut";
                     case 2:
-                        return "Farmhand";
+                        return "Farmhand Cesar";
                     case 3:
-                        return "Farmhand";
+                        return "Farmhand Anna";
                     case 4:
                         return "Farmboss Arvid";
                     case 5:
-                        return "Farmhand";
+                        return "Farmhand Josefin";
                     case 6:
-                        return "Farmhand";
+                        return "Farmhand Bengt";
                     case 7:
-                        return "Farmhand";
+                        return "Farmhand Fabian";
                     case 8:
-                        return "Farmlord Bengt";
+                        return "Farmlord Olivia";
                 }
             case 2:
                 switch (levelId){
                     case 9:
-                        return "Farmhand";
+                        return "Farmhand Rikard";
                     case 10:
-                        return "Farmhand";
+                        return "Farmhand Cecilia";
                     case 11:
-                        return "Farmhand";
+                        return "Farmhand Katarina";
                     case 12:
-                        return "Farmboss Valdemar";
+                        return "Farmboss Lisa";
                     case 13:
-                        return "Farmhand";
+                        return "Farmhand Maria";
                     case 14:
-                        return "Farmhand";
+                        return "Farmhand Peter";
                     case 15:
-                        return "Farmhand";
+                        return "Farmhand Valdemar";
                     case 16:
                         return "Farmlord Hjalmar";
                 }
             case 3:
                 switch (levelId){
                     case 17:
-                        return "Farmhand";
+                        return "Farmhand Gabriel";
                     case 18:
-                        return "Farmhand";
+                        return "Farmhand Ivar";
                     case 19:
-                        return "Farmhand";
+                        return "Farmhand Hanna";
                     case 20:
                         return "Farmboss Gustaf";
                     case 21:
-                        return "Farmhand";
+                        return "Farmhand Kenneth";
                     case 22:
-                        return "Farmhand";
+                        return "Farmhand Keith";
                     case 23:
-                        return "Farmhand";
+                        return "Farmhand Ulrika";
                     case 24:
-                        return "Farmlord Kenneth";
+                        return "Farmlord Julia";
                 }
             case 4:
                 switch (levelId){
                     case 25:
-                        return "Farmhand";
+                        return "Farmhand Tina";
                     case 26:
-                        return "Farmhand";
+                        return "Farmhand Karina";
                     case 27:
-                        return "Farmhand";
+                        return "Farmhand Petra";
                     case 28:
                         return "Farmboss Sture";
                     case 29:
-                        return "Farmhand";
+                        return "Farmhand Ingemar";
                     case 30:
-                        return "Farmhand";
+                        return "Farmhand Sara";
                     case 31:
-                        return "Farmhand";
+                        return "Farmhand Henning";
                     case 32:
                         return "Farmlord Olof";
                 }
             case 5:
                 switch (levelId){
                     case 33:
-                        return "Farmhand";
+                        return "Farmhand Kristina";
                     case 34:
-                        return "Farmhand";
+                        return "Farmhand Olga";
                     case 35:
-                        return "Farmhand";
+                        return "Farmhand Kristian";
                     case 36:
                         return "Farmboss Karl";
                     case 37:
-                        return "Farmhand";
+                        return "Farmhand Julius";
                     case 38:
-                        return "Farmhand";
+                        return "Farmhand Martin";
                     case 39:
-                        return "Farmhand";
+                        return "Farmhand Leonora";
                     case 40:
                         return "Farmlord Reinhard";
                 }
             case 6:
                 switch (levelId){
                     case 41:
-                        return "Farmhand";
+                        return "Farmhand Inger";
                     case 42:
-                        return "Farmhand";
+                        return "Farmhand Ulf";
                     case 43:
-                        return "Farmhand";
+                        return "Farmhand Per";
                     case 44:
                         return "Farmboss Dan";
                     case 45:
-                        return "Farmhand";
+                        return "Farmhand Linnea";
                     case 46:
-                        return "Farmhand";
+                        return "Farmhand Aaron";
                     case 47:
-                        return "Farmhand";
+                        return "Farmhand David";
                     case 48:
                         return "Farmlord Johan";
                 }

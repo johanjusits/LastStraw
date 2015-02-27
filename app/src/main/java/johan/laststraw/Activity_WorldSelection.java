@@ -189,27 +189,36 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         w001lv007score = highScores[6];
         w001lv008score = highScores[7];
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+
         if (worldId == 1){
+            editor.putInt("W1Total", totalScore);
             world001High.setText(String.valueOf(totalScore));
             setW1Stars();
         }
         if (worldId == 2){
+            editor.putInt("W2Total", totalScore);
             world002High.setText(String.valueOf(totalScore));
             setW2Stars();
         }
         if (worldId == 3){
+            editor.putInt("W3Total", totalScore);
             world003High.setText(String.valueOf(totalScore));
             setW3Stars();
         }
         if (worldId == 4){
+            editor.putInt("W4Total", totalScore);
             world004High.setText(String.valueOf(totalScore));
             setW4Stars();
         }
         if (worldId == 5){
+            editor.putInt("W5Total", totalScore);
             world005High.setText(String.valueOf(totalScore));
             setW5Stars();
         }
         if (worldId == 6){
+            editor.putInt("W6Total", totalScore);
             world006High.setText(String.valueOf(totalScore));
             setW6Stars();
         }
@@ -220,8 +229,6 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
                 Integer.parseInt(world004High.getText().toString()) +
                 Integer.parseInt(world005High.getText().toString()) +
                 Integer.parseInt(world006High.getText().toString());
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("AccountScore", accountScore);
         editor.apply();
     }

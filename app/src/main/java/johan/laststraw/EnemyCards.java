@@ -661,27 +661,27 @@ public class EnemyCards {
                 switch (cardNr){
                     case 0:
                         card1Name = newCard;
-                        System.out.println("card1Name: " + card1Name);
+                        //System.out.println("card1Name: " + card1Name);
                         break;
                     case 1:
                         card2Name = newCard;
-                        System.out.println("card2Name: " + card2Name);
+                        //System.out.println("card2Name: " + card2Name);
                         break;
                     case 2:
                         card3Name = newCard;
-                        System.out.println("card3Name: " + card3Name);
+                        //System.out.println("card3Name: " + card3Name);
                         break;
                     case 3:
                         card4Name = newCard;
-                        System.out.println("card4Name: " + card4Name);
+                        //System.out.println("card4Name: " + card4Name);
                         break;
                     case 4:
                         card5Name = newCard;
-                        System.out.println("card5Name: " + card5Name);
+                        //System.out.println("card5Name: " + card5Name);
                         break;
                     case 5:
                         card6Name = newCard;
-                        System.out.println("card6Name: " + card6Name);
+                        //System.out.println("card6Name: " + card6Name);
                         break;
                 }
                 return newCard;

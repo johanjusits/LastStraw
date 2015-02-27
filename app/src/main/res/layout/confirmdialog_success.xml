@@ -25,6 +25,16 @@
         android:textColor="@color/textBlack"
         android:textStyle="bold" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Under Msg"
+        android:id="@+id/tvSuccess2"
+        android:textColor="@color/textWhite"
+        android:layout_gravity="center_horizontal"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"

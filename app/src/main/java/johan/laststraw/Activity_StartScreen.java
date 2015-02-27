@@ -128,20 +128,21 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
 
         //CHECKS IF MINI BOSS 1 HAS BEEN BEATEN
         checkMiniBoss1();
-        //CHECKS IF BOSS 1 HAS BEEN BEATEN
-        checkBoss1();
         //CHECKS IF MINI BOSS 2 HAS BEEN BEATEN
         checkMiniBoss2();
-        //CHECKS IF BOSS 2 HAS BEEN BEATEN
-        checkBoss2();
         //CHECKS IF MINI BOSS 3 HAS BEEN BEATEN
         checkMiniBoss3();
-        //CHECKS IF BOSS 3 HAS BEEN BEATEN
-        checkBoss3();
         //CHECKS IF MINI BOSS 4 HAS BEEN BEATEN
         checkMiniBoss4();
         //CHECKS IF MINI BOSS 5 HAS BEEN BEATEN
         checkMiniBoss5();
+
+        checkWStars(1);
+        checkWStars(2);
+        checkWStars(3);
+        checkWStars(4);
+        checkWStars(5);
+        checkWStars(6);
 
         updateAccountScore();
     }
@@ -238,7 +239,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 }
                 addCard("Silence", "card_silence", 2, 1, "Disables opponent's ability to play cards on next turn.", 27);
                 updatePlayerInfo();
-                confirmSuccess("Card chosen!", Activity_StartScreen.this);
+                confirmSuccess("Card chosen!", "", Activity_StartScreen.this);
                 cursor = db.getPlayerInfo();
                 if (cursor != null && cursor.moveToFirst()) {
                     chosenCard = cursor.getInt(cursor.getColumnIndex("chosenstartcard"));
@@ -259,7 +260,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 }
                 addCard("Precision", "card_precision", 3, 1, "Increases Critical strike rate by 20%. Lasts 2 turns.", 30);
                 updatePlayerInfo();
-                confirmSuccess("Card chosen!", Activity_StartScreen.this);
+                confirmSuccess("Card chosen!", "", Activity_StartScreen.this);
                 cursor = db.getPlayerInfo();
                 if (cursor != null && cursor.moveToFirst()) {
                     chosenCard = cursor.getInt(cursor.getColumnIndex("chosenstartcard"));
@@ -281,7 +282,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 }
                 addCard("Salvage", "card_salvage", 1, 1, "Brings back five objects after 1 turn.", 26);
                 updatePlayerInfo();
-                confirmSuccess("Card chosen!", Activity_StartScreen.this);
+                confirmSuccess("Card chosen!", "", Activity_StartScreen.this);
                 cursor = db.getPlayerInfo();
                 if (cursor != null && cursor.moveToFirst()) {
                     chosenCard = cursor.getInt(cursor.getColumnIndex("chosenstartcard"));
@@ -326,7 +327,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                     chosenCard = cursor.getInt(cursor.getColumnIndex("chosenstartcard"));
                 }
                 db.close();
-                confirmSuccess(message, Activity_StartScreen.this);
+                confirmSuccess(message, "", Activity_StartScreen.this);
                 dialog.dismiss();
             }
         });
@@ -341,15 +342,41 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         dialog.show();
     }
 
-    private void confirmSuccess(String message, Context context) {
+    private void confirmSuccess(String message, String message2, Context context) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmdialog_success);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
 
         TextView tvText = (TextView) dialog.findViewById(R.id.tvSuccess);
+        TextView tvText2 = (TextView) dialog.findViewById(R.id.tvSuccess2);
         ImageView ivSuccess = (ImageView) dialog.findViewById(R.id.ivSuccess);
         tvText.setText(message);
+        tvText2.setText(message2);
+        ivSuccess.setImageResource(R.drawable.action_success);
+
+        /* YES CLICKED */
+        Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+        buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void confirmSuccess2(String message, String message2, Context context) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.confirmdialog_success);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+
+        TextView tvText = (TextView) dialog.findViewById(R.id.tvSuccess);
+        TextView tvText2 = (TextView) dialog.findViewById(R.id.tvSuccess2);
+        ImageView ivSuccess = (ImageView) dialog.findViewById(R.id.ivSuccess);
+        tvText.setText(message);
+        tvText2.setText(message2);
+        tvText2.setVisibility(View.VISIBLE);
         ivSuccess.setImageResource(R.drawable.action_success);
 
         /* YES CLICKED */
@@ -391,7 +418,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("player2ndSlotAwarded", true);
             editor.apply();
-            confirmSuccess("You have unlocked a new card slot!", Activity_StartScreen.this);
+            confirmSuccess("You have unlocked a new card slot!", "", Activity_StartScreen.this);
             db.close();
         }
     }
@@ -411,7 +438,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("player3rdSlotAwarded", true);
             editor.apply();
-            confirmSuccess("You have unlocked a new card slot!", Activity_StartScreen.this);
+            confirmSuccess("You have unlocked a new card slot!", "", Activity_StartScreen.this);
             db.close();
         }
     }
@@ -431,7 +458,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("player4thSlotAwarded", true);
             editor.apply();
-            confirmSuccess("You have unlocked a new card slot!", Activity_StartScreen.this);
+            confirmSuccess("You have unlocked a new card slot!", "", Activity_StartScreen.this);
             db.close();
         }
     }
@@ -451,7 +478,7 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("player5thSlotAwarded", true);
             editor.apply();
-            confirmSuccess("You have unlocked a new card slot!", Activity_StartScreen.this);
+            confirmSuccess("You have unlocked a new card slot!", "", Activity_StartScreen.this);
             db.close();
         }
     }
@@ -471,68 +498,129 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("player6thSlotAwarded", true);
             editor.apply();
-            confirmSuccess("You have unlocked the last card slot!", Activity_StartScreen.this);
+            confirmSuccess("You have unlocked the last card slot!", "", Activity_StartScreen.this);
             db.close();
         }
     }
 
-    private void checkBoss1(){
-        int checkBoss1 = getLevelInfo(8);
+    private void checkWStars(int worldId){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean stealCardAwarded = preferences.getBoolean("stealCardAwarded", false);
-        if (checkBoss1 == 1 && !stealCardAwarded){
-            try {
-                db.open();
-            } catch (java.sql.SQLException e) {
-                e.printStackTrace();
-            }
-            preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("stealCardAwarded", true);
-            editor.apply();
-            addCard("Leech", "card_leech", 1, 1, "Drains 1-3 points from the opponent.", 4);
-            confirmSuccess("You have unlocked the Leech card!", Activity_StartScreen.this);
-            db.close();
-        }
-    }
-
-    private void checkBoss2(){
-        int checkBoss2 = getLevelInfo(16);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean curseCardAwarded = preferences.getBoolean("curseCardAwarded", false);
-        if (checkBoss2 == 1 && !curseCardAwarded){
-            try {
-                db.open();
-            } catch (java.sql.SQLException e) {
-                e.printStackTrace();
-            }
-            preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("curseCardAwarded", true);
-            editor.apply();
-            addCard("Curse", "card_curse", 2, 2, "Reduces score by half after three turns.", 13);
-            confirmSuccess("You have unlocked the Curse card!", Activity_StartScreen.this);
-            db.close();
-        }
-    }
-
-    private void checkBoss3(){
-        int checkBoss2 = getLevelInfo(24);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean cureCardAwarded = preferences.getBoolean("cureCardAwarded", false);
-        if (checkBoss2 == 1 && !cureCardAwarded){
-            try {
-                db.open();
-            } catch (java.sql.SQLException e) {
-                e.printStackTrace();
-            }
-            preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("cureCardAwarded", true);
-            editor.apply();
-            addCard("Cure", "card_cure", 3, 1, "Removes all ailments from yourself.", 18);
-            confirmSuccess("You have unlocked the Cure card!", Activity_StartScreen.this);
-            db.close();
+        SharedPreferences.Editor editor = preferences.edit();
+        switch (worldId){
+            //AWARDS TAKE AIM CARD
+            case 1:
+                int score = preferences.getInt("W1Total", 0);
+                if (score >= 200){
+                    boolean checkIfAwarded = preferences.getBoolean("W1StarCardAwarded", false);
+                    if (!checkIfAwarded){
+                        try {
+                            db.open();
+                        } catch (java.sql.SQLException e) {
+                            e.printStackTrace();
+                        }
+                        editor.putBoolean("W1StarCardAwarded", true);
+                        editor.apply();
+                        addCard("Take Aim", "card_take_aim", 3, 0, "Gain 100% hit chance. Lasts 2 turns.", 28);
+                        confirmSuccess2("You have gained three stars on World 1!", "Take Aim card has been unlocked.", Activity_StartScreen.this);
+                        db.close();
+                    }
+                }
+                break;
+            //AWARDS LEECH II CARD
+            case 2:
+                score = preferences.getInt("W2Total", 0);
+                if (score >= 200){
+                    boolean checkIfAwarded = preferences.getBoolean("W2StarCardAwarded", false);
+                    if (!checkIfAwarded){
+                        try {
+                            db.open();
+                        } catch (java.sql.SQLException e) {
+                            e.printStackTrace();
+                        }
+                        editor.putBoolean("W2StarCardAwarded", true);
+                        editor.apply();
+                        addCard("Leech II", "card_leech_2", 1, 2, "Drains 3-5 points from the opponent.", 6);
+                        confirmSuccess2("You got three stars on World 2!", "Leech II card has been unlocked.", Activity_StartScreen.this);
+                        db.close();
+                    }
+                }
+                break;
+            //AWARDS DISPEL CARD
+            case 3:
+                score = preferences.getInt("W3Total", 0);
+                if (score >= 200){
+                    boolean checkIfAwarded = preferences.getBoolean("W3StarCardAwarded", false);
+                    if (!checkIfAwarded){
+                        try {
+                            db.open();
+                        } catch (java.sql.SQLException e) {
+                            e.printStackTrace();
+                        }
+                        editor.putBoolean("W3StarCardAwarded", true);
+                        editor.apply();
+                        addCard("Dispel", "card_dispel", 2, 1, "Removes all positive buffs from the opponent.", 22);
+                        confirmSuccess2("You got three stars on World 3!", "Dispel card has been unlocked.", Activity_StartScreen.this);
+                        db.close();
+                    }
+                }
+                break;
+            //AWARDS CHARGE CARD
+            case 4:
+                score = preferences.getInt("W4Total", 0);
+                if (score >= 200){
+                    boolean checkIfAwarded = preferences.getBoolean("W4StarCardAwarded", false);
+                    if (!checkIfAwarded){
+                        try {
+                            db.open();
+                        } catch (java.sql.SQLException e) {
+                            e.printStackTrace();
+                        }
+                        editor.putBoolean("W4StarCardAwarded", true);
+                        editor.apply();
+                        addCard("Charge", "card_charge", 3, 1, "Gain 5 points after 2 turns.", 25);
+                        confirmSuccess2("You got three stars on World 4!", "Charge card has been unlocked.", Activity_StartScreen.this);
+                        db.close();
+                    }
+                }
+                break;
+            //AWARDS BLIND CARD
+            case 5:
+                score = preferences.getInt("W5Total", 0);
+                if (score >= 200){
+                    boolean checkIfAwarded = preferences.getBoolean("W5StarCardAwarded", false);
+                    if (!checkIfAwarded){
+                        try {
+                            db.open();
+                        } catch (java.sql.SQLException e) {
+                            e.printStackTrace();
+                        }
+                        editor.putBoolean("W5StarCardAwarded", true);
+                        editor.apply();
+                        addCard("Blind", "card_blind", 2, 1, "Makes opponent more prone to miss. Lasts 2 turns.", 24);
+                        confirmSuccess2("You got three stars on World 5!", "Blind card has been unlocked.", Activity_StartScreen.this);
+                        db.close();
+                    }
+                }
+                break;
+            //AWARDS DEATH SENTENCE CARD
+            case 6:
+                score = preferences.getInt("W6Total", 0);
+                if (score >= 200){
+                    boolean checkIfAwarded = preferences.getBoolean("W6StarCardAwarded", false);
+                    if (!checkIfAwarded){
+                        try {
+                            db.open();
+                        } catch (java.sql.SQLException e) {
+                            e.printStackTrace();
+                        }
+                        editor.putBoolean("W6StarCardAwarded", true);
+                        editor.apply();
+                        addCard("Death Sentence", "card_death_sentence", 2, 2, "50% chance to reset opponent's score after 3 turns.", 17);
+                        confirmSuccess2("You got three stars on World 6!", "Death Sentence card has been unlocked.", Activity_StartScreen.this);
+                        db.close();
+                    }
+                }
+                break;
         }
     }
 

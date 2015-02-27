@@ -45,7 +45,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     ImageButton enemyCard1, enemyCard2, enemyCard3, enemyCard4, enemyCard5, enemyCard6;
     ImageView playerStatusIcon1, playerStatusIcon2, playerStatusIcon3, playerStatusIcon4, playerStatusIcon5;
     ImageView enemyStatusIcon1, enemyStatusIcon2, enemyStatusIcon3, enemyStatusIcon4, enemyStatusIcon5;
-    ImageView ivCenterImage, ivKey;
+    ImageView ivCenterImage, ivKey, ivFinalPic;
     Button btnEndTurn;
     TextView tvCenterMessage, tvPlayerMovesNumber, tvEnemyMovesNumber;
     TextView tvPlayerName, tvPlayerExp, tvPlayerLevel, tvPlayerScore, tvEnemyScore, tvEnemyName, tvEnemyLvl;
@@ -415,6 +415,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         enemyPortraitImg = getResources().getIdentifier(enemyPortraitName, "drawable", getPackageName());
         ivEnemyPortrait.setImageResource(enemyPortraitImg);
         ivCenterCardFrame = (ImageView) findViewById(R.id.ivCenterCardFrame);
+        ivFinalPic = (ImageView) findViewById(R.id.ivFinalPic);
         playerCard1 = (ImageButton) findViewById(R.id.ibPlayerCard1);
         playerCard2 = (ImageButton) findViewById(R.id.ibPlayerCard2);
         playerCard3 = (ImageButton) findViewById(R.id.ibPlayerCard3);
@@ -2636,7 +2637,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             enemySalvageCountdown--;
         }
         if (enemyHasCharge && enemyChargeCountdown == -1) {
-            enemyChargeCountdown = 3;
+            enemyChargeCountdown = 2;
         }
         if (enemyHasCharge && enemyChargeCountdown != -1) {
             enemyChargeCountdown--;
@@ -2960,7 +2961,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
             playerSalvageCountdown--;
         }
         if (playerHasCharge && playerChargeCountdown == -1) {
-            playerChargeCountdown = 3;
+            playerChargeCountdown = 2;
         }
         if (playerHasCharge && playerChargeCountdown != -1) {
             playerChargeCountdown--;
@@ -3966,155 +3967,158 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
         myHandler.postDelayed(new Runnable() {
             public void run() {
                 if (playerLevel == 20) {
-                    finish();
-                    overridePendingTransition(0, 0);
-                }
-                int xpPenalty;
-                final int gainedXp;
-                boolean penaltyOrNot = UpdateExp.getXpReward(worldId, playerLevel);
-                if (penaltyOrNot) {
-                    xpPenalty = UpdateExp.getExpPenalty(worldId, playerLevel);
-                    gainedXp = UpdateExp.getGainedXp(finalPlayerScore, xpPenalty);
+                    Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
+                    finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(finish);
                 } else {
-                    gainedXp = finalPlayerScore * 2;
-                }
-                final Dialog dialog = new Dialog(context);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.confirmdialog_exp_gain);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
-                if (density.equals("xxhdpi")) {
-                    dialog.getWindow().setLayout(1000, 600);
-                } else if (density.equals("hdpi")) {
-                    dialog.getWindow().setLayout(500, 300);
-                } else if (density.equals("mdpi")) {
-                    dialog.getWindow().setLayout(400, 250);
-                } else if (density.equals("ldpi")) {
-                    dialog.getWindow().setLayout(350, 200);
-                }
-                dialog.setCancelable(false);
-
-                final ProgressBar expBar = (ProgressBar) dialog.findViewById(R.id.expBarUpd);
-                Drawable draw = getResources().getDrawable(R.drawable.customprogressbar);
-                expBar.setProgressDrawable(draw);
-
-                final TextView tvTitle = (TextView) dialog.findViewById(R.id.tvExpGainTitle);
-                final TextView tvExpText = (TextView) dialog.findViewById(R.id.tvExp);
-                final TextView tvGainedExp = (TextView) dialog.findViewById(R.id.tvGainedExp);
-                final ImageView ivKey = (ImageView) dialog.findViewById(R.id.ivKeyAwarded);
-                tvGainedExp.setText(String.valueOf(gainedXp));
-                expBar.setProgress(playerExp);
-
-                myHandler.postDelayed(new Runnable() {
-                    public void run() {
-
-                        if (android.os.Build.VERSION.SDK_INT >= 11) {
-                            ObjectAnimator animation = ObjectAnimator.ofInt(expBar, "progress", playerExp + gainedXp);
-                            animation.setDuration(1000);
-                            animation.setInterpolator(new DecelerateInterpolator());
-                            animation.start();
-                        } else {
-                            expBar.setProgress(playerExp + gainedXp);
-                        }
-                        checkIfExpRoof = playerExp + gainedXp;
-
-                        if (checkIfExpRoof > 100) {
-                            expToNextLevel = checkIfExpRoof - 100;
-                        }
-
-                        try {
-                            db.open();
-                        } catch (java.sql.SQLException e) {
-                            e.printStackTrace();
-                        }
-                        cursor = db.getPlayerInfo();
-                        if (cursor != null && cursor.moveToFirst()) {
-                            newExp = playerExp + gainedXp;
-                            db.updatePlayerExp(newExp);
-                        }
-                        db.close();
-                        expBar.setProgress(playerExp + gainedXp);
-
-                        if (expBar.getProgress() >= 100) {
-                            ivKey.setVisibility(View.VISIBLE);
-                            myHandler.postDelayed(new Runnable() {
-                                public void run() {
-                                    try {
-                                        db.open();
-                                    } catch (java.sql.SQLException e) {
-                                        e.printStackTrace();
-                                    }
-                                    cursor = db.getPlayerInfo();
-                                    expBar.setProgress(0);
-
-                                    if (android.os.Build.VERSION.SDK_INT >= 11) {
-                                        ObjectAnimator animation = ObjectAnimator.ofInt(expBar, "progress", expToNextLevel);
-                                        animation.setDuration(500);
-                                        animation.setInterpolator(new DecelerateInterpolator());
-                                        animation.start();
-                                    } else {
-                                        expBar.setProgress(expToNextLevel);
-                                    }
-                                    playerLevel++;
-                                    tvTitle.setText("Congratulations! You reached");
-                                    tvGainedExp.setText("Level");
-                                    tvExpText.setText(String.valueOf(playerLevel));
-                                    if (cursor != null && cursor.moveToFirst()) {
-                                        db.updatePlayerLevel(playerLevel);
-                                        db.updatePlayerExp(expToNextLevel);
-                                        playerKeys++;
-                                        db.updatePlayerKeys(playerKeys);
-                                    }
-                                    db.close();
-
-                                    myHandler.postDelayed(new Runnable() {
-                                        public void run() {
-                                            dialog.dismiss();
-                                            getLevelInfo();
-                                            if (lvlcleared == 1){
-                                                if (lvlId == 48){
-                                                    youWin();
-                                                } else {
-                                                    exitOrContinue();
-                                                }
-                                            } else {
-                                                exitOrTryAgain();
-                                            }
-                                        }
-                                    }, 4000);
-                                }
-                            }, 1500);
-                        } else {
-                            myHandler.postDelayed(new Runnable() {
-                                public void run() {
-                                    dialog.dismiss();
-                                    getLevelInfo();
-                                    if (lvlcleared == 1){
-                                        if (lvlId == 48){
-                                            youWin();
-                                        } else {
-                                            exitOrContinue();
-                                        }
-                                    } else {
-                                        exitOrTryAgain();
-                                    }
-                                }
-                            }, 5000);
-                        }
-
+                    int xpPenalty;
+                    final int gainedXp;
+                    boolean penaltyOrNot = UpdateExp.getXpReward(worldId, playerLevel);
+                    if (penaltyOrNot) {
+                        xpPenalty = UpdateExp.getExpPenalty(worldId, playerLevel);
+                        gainedXp = UpdateExp.getGainedXp(finalPlayerScore, xpPenalty);
+                    } else {
+                        gainedXp = finalPlayerScore * 2;
                     }
-                }, 2000);
+                    final Dialog dialog = new Dialog(context);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.confirmdialog_exp_gain);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+                    if (density.equals("xxhdpi")) {
+                        dialog.getWindow().setLayout(1000, 600);
+                    } else if (density.equals("hdpi")) {
+                        dialog.getWindow().setLayout(500, 300);
+                    } else if (density.equals("mdpi")) {
+                        dialog.getWindow().setLayout(400, 250);
+                    } else if (density.equals("ldpi")) {
+                        dialog.getWindow().setLayout(350, 200);
+                    }
+                    dialog.setCancelable(false);
+
+                    final ProgressBar expBar = (ProgressBar) dialog.findViewById(R.id.expBarUpd);
+                    Drawable draw = getResources().getDrawable(R.drawable.customprogressbar);
+                    expBar.setProgressDrawable(draw);
+
+                    final TextView tvTitle = (TextView) dialog.findViewById(R.id.tvExpGainTitle);
+                    final TextView tvExpText = (TextView) dialog.findViewById(R.id.tvExp);
+                    final TextView tvGainedExp = (TextView) dialog.findViewById(R.id.tvGainedExp);
+                    final ImageView ivKey = (ImageView) dialog.findViewById(R.id.ivKeyAwarded);
+                    tvGainedExp.setText(String.valueOf(gainedXp));
+                    expBar.setProgress(playerExp);
+
+                    myHandler.postDelayed(new Runnable() {
+                        public void run() {
+
+                            if (android.os.Build.VERSION.SDK_INT >= 11) {
+                                ObjectAnimator animation = ObjectAnimator.ofInt(expBar, "progress", playerExp + gainedXp);
+                                animation.setDuration(1000);
+                                animation.setInterpolator(new DecelerateInterpolator());
+                                animation.start();
+                            } else {
+                                expBar.setProgress(playerExp + gainedXp);
+                            }
+                            checkIfExpRoof = playerExp + gainedXp;
+
+                            if (checkIfExpRoof > 100) {
+                                expToNextLevel = checkIfExpRoof - 100;
+                            }
+
+                            try {
+                                db.open();
+                            } catch (java.sql.SQLException e) {
+                                e.printStackTrace();
+                            }
+                            cursor = db.getPlayerInfo();
+                            if (cursor != null && cursor.moveToFirst()) {
+                                newExp = playerExp + gainedXp;
+                                db.updatePlayerExp(newExp);
+                            }
+                            db.close();
+                            expBar.setProgress(playerExp + gainedXp);
+
+                            if (expBar.getProgress() >= 100) {
+                                ivKey.setVisibility(View.VISIBLE);
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        try {
+                                            db.open();
+                                        } catch (java.sql.SQLException e) {
+                                            e.printStackTrace();
+                                        }
+                                        cursor = db.getPlayerInfo();
+                                        expBar.setProgress(0);
+
+                                        if (android.os.Build.VERSION.SDK_INT >= 11) {
+                                            ObjectAnimator animation = ObjectAnimator.ofInt(expBar, "progress", expToNextLevel);
+                                            animation.setDuration(500);
+                                            animation.setInterpolator(new DecelerateInterpolator());
+                                            animation.start();
+                                        } else {
+                                            expBar.setProgress(expToNextLevel);
+                                        }
+                                        playerLevel++;
+                                        tvTitle.setText("Congratulations! You reached");
+                                        tvGainedExp.setText("Level");
+                                        tvExpText.setText(String.valueOf(playerLevel));
+                                        if (cursor != null && cursor.moveToFirst()) {
+                                            db.updatePlayerLevel(playerLevel);
+                                            db.updatePlayerExp(expToNextLevel);
+                                            playerKeys++;
+                                            db.updatePlayerKeys(playerKeys);
+                                        }
+                                        db.close();
+
+                                        myHandler.postDelayed(new Runnable() {
+                                            public void run() {
+                                                dialog.dismiss();
+                                                getLevelInfo();
+                                                if (lvlcleared == 1){
+                                                    if (lvlId == 48){
+                                                        youWin();
+                                                    } else {
+                                                        exitOrContinue();
+                                                    }
+                                                } else {
+                                                    exitOrTryAgain();
+                                                }
+                                            }
+                                        }, 4000);
+                                    }
+                                }, 1500);
+                            } else {
+                                myHandler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        dialog.dismiss();
+                                        getLevelInfo();
+                                        if (lvlcleared == 1){
+                                            if (lvlId == 48){
+                                                youWin();
+                                            } else {
+                                                exitOrContinue();
+                                            }
+                                        } else {
+                                            exitOrTryAgain();
+                                        }
+                                    }
+                                }, 5000);
+                            }
+
+                        }
+                    }, 2000);
 
                 /* YES CLICKED */
-                Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
-                buttonDialogYes.setClickable(false);
-                buttonDialogYes.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                    }
-                });
-                dialog.show();
-            }
-        }, 1000);
-    }
+                    Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
+                    buttonDialogYes.setClickable(false);
+                    buttonDialogYes.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                        }
+                    });
+                    dialog.show();
+                }}
+            }, 1000);
+                }
+
+
 
     /* METHOD TO LET PLAYER DECIDE WHAT TO DO AT END OF GAME, IF THE LEVEL HAS BEEN CLEARED */
     private void exitOrContinue(){
@@ -4218,16 +4222,18 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
     /* METHOD LOADED WHEN YOU BEAT LV 48 */
     private void youWin(){
+        tvCenterMessage.setVisibility(View.GONE);
+        tvCenterMessage.clearAnimation();
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                ivCenterImage.startAnimation(ani_fadeIn);
-                ivCenterImage.setImageResource(R.drawable.thx_for_playing);
+                ivFinalPic.setVisibility(View.VISIBLE);
+                ivFinalPic.startAnimation(ani_fadeIn);
+                ivFinalPic.setImageResource(R.drawable.thx_for_playing);
             }
         }, 1000);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                tvCenterMessage.clearAnimation();
-                ivCenterImage.startAnimation(ani_fadeOut);
+                ivFinalPic.startAnimation(ani_fadeOut);
             }
         }, 4000);
         myHandler.postDelayed(new Runnable() {
