@@ -649,4 +649,8 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
         db.close();
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
