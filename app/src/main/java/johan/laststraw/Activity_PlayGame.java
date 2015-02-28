@@ -3842,22 +3842,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
     /* METHOD CALLED WHEN THE GAME IS OVER */
     private void gameOver() {
-        final String density = DeviceDensity.getDensityName(this);
         myHandler.postDelayed(new Runnable() {
             public void run() {
-                final Dialog dialog = new Dialog(context);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                final Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
                 dialog.setContentView(R.layout.confirmdialog_finalscore);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
-                if (density.equals("xxhdpi")) {
-                    dialog.getWindow().setLayout(1000, 600);
-                } else if (density.equals("hdpi")) {
-                    dialog.getWindow().setLayout(500, 300);
-                } else if (density.equals("mdpi")) {
-                    dialog.getWindow().setLayout(400, 250);
-                } else if (density.equals("ldpi")) {
-                    dialog.getWindow().setLayout(350, 200);
-                }
                 dialog.setCancelable(false);
 
                 TextView tvPlayer = (TextView) dialog.findViewById(R.id.tvPlayer);
@@ -3884,8 +3873,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                 Button buttonDialogYes = (Button) dialog.findViewById(R.id.bConfirmOk);
                 buttonDialogYes.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        dialog.dismiss();
                         if (finalPlayerScore > lvlhighscore) {
+                            dialog.dismiss();
                             myHandler.postDelayed(new Runnable() {
                                 public void run() {
                                     tvCenterMessage.setText("NEW HIGH SCORE!");
@@ -3895,15 +3884,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                             myHandler.postDelayed(new Runnable() {
                                 public void run() {
                                     tvCenterMessage.startAnimation(ani_fadeOut);
-                                    updateExp();
+                                    updateExp(dialog);
                                 }
                             }, 3500);
                         } else {
-                            myHandler.postDelayed(new Runnable() {
-                                public void run() {
-                                    updateExp();
-                                }
-                            }, 500);
+                            updateExp(dialog);
                         }
                     }
                 });
@@ -3962,10 +3947,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     }
 
     /* METHOD TO UPDATE EXP/LEVEL UP */
-    private void updateExp() {
-        final String density = DeviceDensity.getDensityName(this);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
+    private void updateExp(final Dialog dialog) {
                 if (playerLevel == 20) {
                     Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
                     finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -3980,20 +3962,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     } else {
                         gainedXp = finalPlayerScore * 2;
                     }
-                    final Dialog dialog = new Dialog(context);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    //final Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
                     dialog.setContentView(R.layout.confirmdialog_exp_gain);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
-                    if (density.equals("xxhdpi")) {
-                        dialog.getWindow().setLayout(1000, 600);
-                    } else if (density.equals("hdpi")) {
-                        dialog.getWindow().setLayout(500, 300);
-                    } else if (density.equals("mdpi")) {
-                        dialog.getWindow().setLayout(400, 250);
-                    } else if (density.equals("ldpi")) {
-                        dialog.getWindow().setLayout(350, 200);
-                    }
-                    dialog.setCancelable(false);
+                    //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+                    //dialog.setCancelable(false);
 
                     final ProgressBar expBar = (ProgressBar) dialog.findViewById(R.id.expBarUpd);
                     Drawable draw = getResources().getDrawable(R.drawable.customprogressbar);
@@ -4070,16 +4042,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
                                         myHandler.postDelayed(new Runnable() {
                                             public void run() {
-                                                dialog.dismiss();
+                                                //dialog.dismiss();
                                                 getLevelInfo();
                                                 if (lvlcleared == 1){
                                                     if (lvlId == 48){
                                                         youWin();
                                                     } else {
-                                                        exitOrContinue();
+                                                        exitOrContinue(dialog);
                                                     }
                                                 } else {
-                                                    exitOrTryAgain();
+                                                    exitOrTryAgain(dialog);
                                                 }
                                             }
                                         }, 4000);
@@ -4088,16 +4060,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                             } else {
                                 myHandler.postDelayed(new Runnable() {
                                     public void run() {
-                                        dialog.dismiss();
                                         getLevelInfo();
                                         if (lvlcleared == 1){
                                             if (lvlId == 48){
+                                                dialog.dismiss();
                                                 youWin();
                                             } else {
-                                                exitOrContinue();
+                                                exitOrContinue(dialog);
                                             }
                                         } else {
-                                            exitOrTryAgain();
+                                            exitOrTryAgain(dialog);
                                         }
                                     }
                                 }, 5000);
@@ -4114,31 +4086,14 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         }
                     });
                     dialog.show();
-                }}
-            }, 1000);
                 }
-
-
+    }
 
     /* METHOD TO LET PLAYER DECIDE WHAT TO DO AT END OF GAME, IF THE LEVEL HAS BEEN CLEARED */
-    private void exitOrContinue(){
-        final String density = DeviceDensity.getDensityName(this);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                final Dialog dialog = new Dialog(context);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    private void exitOrContinue(final Dialog dialog){
                 dialog.setContentView(R.layout.confirmdialog_endgame);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
-                if (density.equals("xxhdpi")) {
-                    dialog.getWindow().setLayout(1000, 400);
-                } else if (density.equals("hdpi")) {
-                    dialog.getWindow().setLayout(500, 200);
-                } else if (density.equals("mdpi")) {
-                    dialog.getWindow().setLayout(400, 165);
-                } else if (density.equals("ldpi")) {
-                    dialog.getWindow().setLayout(350, 130);
-                }
-                dialog.setCancelable(false);
+                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+                //dialog.setCancelable(false);
 
                 /* EXIT CLICKED */
                 Button exitButton = (Button) dialog.findViewById(R.id.bExit);
@@ -4146,6 +4101,7 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     public void onClick(View v) {
                         Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
                         finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        finish();
                         startActivity(finish);
                         dialog.dismiss();
                     }
@@ -4167,29 +4123,13 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     }
                 });
                 dialog.show();
-            }
-        }, 1000);
     }
 
     /* METHOD TO LET PLAYER DECIDE WHAT TO DO AT END OF GAME, IF THE LEVEL HAS NOT BEEN CLEARED */
-    private void exitOrTryAgain(){
-        final String density = DeviceDensity.getDensityName(this);
-        myHandler.postDelayed(new Runnable() {
-            public void run() {
-                final Dialog dialog = new Dialog(context);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    private void exitOrTryAgain(final Dialog dialog){
                 dialog.setContentView(R.layout.confirmdialog_endgame);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
-                if (density.equals("xxhdpi")) {
-                    dialog.getWindow().setLayout(1000, 400);
-                } else if (density.equals("hdpi")) {
-                    dialog.getWindow().setLayout(500, 200);
-                } else if (density.equals("mdpi")) {
-                    dialog.getWindow().setLayout(400, 165);
-                } else if (density.equals("ldpi")) {
-                    dialog.getWindow().setLayout(350, 130);
-                }
-                dialog.setCancelable(false);
+                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+                //dialog.setCancelable(false);
 
                 /* EXIT CLICKED */
                 Button exitButton = (Button) dialog.findViewById(R.id.bExit);
@@ -4197,8 +4137,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     public void onClick(View v) {
                         Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
                         finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(finish);
                         finish();
+                        startActivity(finish);
                         dialog.dismiss();
                     }
                 });
@@ -4211,13 +4151,10 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                         Intent finish = new Intent(Activity_PlayGame.this, Activity_PlayGame.class);
                         finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(finish);
-                        finish();
                         dialog.dismiss();
                     }
                 });
                 dialog.show();
-            }
-        }, 1000);
     }
 
     /* METHOD LOADED WHEN YOU BEAT LV 48 */

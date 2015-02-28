@@ -5,101 +5,65 @@
     android:id="@+id/root"
     android:background="@drawable/confirm_box"
     android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:paddingBottom="8dp"
+    android:gravity="center_vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/tvWhoWins"
-        android:layout_gravity="center_horizontal"
         android:textSize="30sp"
-        android:textColor="@color/textBlack" />
+        android:textColor="@color/textBlack"
+        android:layout_gravity="center_horizontal" />
 
-    <TableLayout
-        android:layout_width="fill_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:stretchColumns="1">
+        android:text="Player"
+        android:id="@+id/tvPlayer"
+        android:textColor="@color/textBlack"
+        android:textSize="20sp"
+        android:layout_gravity="center_horizontal" />
 
-        <TableRow>
-            <FrameLayout
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="1.3">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/tvPlayerFinalScore"
+        android:textColor="@color/textBlack"
+        android:textSize="20sp"
+        android:gravity="end"
+        android:layout_gravity="center_horizontal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Player"
-                    android:id="@+id/tvPlayer"
-                    android:layout_gravity="right"
-                    android:textColor="@color/textBlack"
-                    android:textSize="20sp" />
-            </FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enemy"
+        android:id="@+id/tvEnemy"
+        android:textColor="@color/textBlack"
+        android:textSize="20sp"
+        android:layout_gravity="center_horizontal" />
 
-            <FrameLayout
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/tvPlayerFinalScore"
-                    android:layout_gravity="left"
-                    android:textColor="@color/textBlack"
-                    android:layout_marginLeft="16dp"
-                    android:textSize="20sp" />
-
-            </FrameLayout>
-        </TableRow>
-
-        <TableRow>
-            <FrameLayout
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="1.3">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Enemy"
-                    android:id="@+id/tvEnemy"
-                    android:layout_gravity="right"
-                    android:textColor="@color/textBlack"
-                    android:textSize="20sp" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/tvEnemyFinalScore"
-                    android:layout_gravity="left"
-                    android:textColor="@color/textBlack"
-                    android:layout_marginLeft="16dp"
-                    android:textSize="20sp" />
-            </FrameLayout>
-        </TableRow>
-
-    </TableLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/tvEnemyFinalScore"
+        android:textColor="@color/textBlack"
+        android:textSize="20sp"
+        android:gravity="end"
+        android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:paddingLeft="16dp"
         android:paddingTop="8dp"
         android:paddingRight="16dp"
-        android:paddingBottom="16dp">
+        android:paddingBottom="16dp"
+        android:layout_gravity="center_horizontal">
 
         <Button
             android:layout_width="96dp"
