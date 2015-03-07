@@ -9,12 +9,16 @@ import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.graphics.Color.TRANSPARENT;
 
@@ -248,6 +252,24 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 dialog.dismiss();
             }
         });
+        buttonDialogSilence.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                LayoutInflater inflater = getLayoutInflater();
+                View toastLayout = inflater.inflate(R.layout.toast_layout,
+                        (ViewGroup) findViewById(R.id.toast_layout_root));
+
+                TextView text = (TextView) toastLayout.findViewById(R.id.text);
+                text.setText("Disables opponent's ability to play cards on next turn.");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.TOP, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(toastLayout);
+                toast.show();
+                return true;
+            }
+        });
 
         /* PRECISION CLICKED */
         ImageButton buttonDialogPrecision = (ImageButton) dialog.findViewById(R.id.ibCardPrecision);
@@ -269,7 +291,24 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 dialog.dismiss();
             }
         });
-        dialog.show();
+        buttonDialogPrecision.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                LayoutInflater inflater = getLayoutInflater();
+                View toastLayout = inflater.inflate(R.layout.toast_layout,
+                        (ViewGroup) findViewById(R.id.toast_layout_root));
+
+                TextView text = (TextView) toastLayout.findViewById(R.id.text);
+                text.setText("Increases Critical strike rate by 20%. Lasts 2 turns.");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.TOP, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(toastLayout);
+                toast.show();
+                return true;
+            }
+        });
 
         /* SALVAGE CLICKED */
         ImageButton buttonDialogSalvage = (ImageButton) dialog.findViewById(R.id.ibCardSalvage);
@@ -289,6 +328,24 @@ public class Activity_StartScreen extends Activity implements View.OnClickListen
                 }
                 db.close();
                 dialog.dismiss();
+            }
+        });
+        buttonDialogSalvage.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                LayoutInflater inflater = getLayoutInflater();
+                View toastLayout = inflater.inflate(R.layout.toast_layout,
+                        (ViewGroup) findViewById(R.id.toast_layout_root));
+
+                TextView text = (TextView) toastLayout.findViewById(R.id.text);
+                text.setText("Brings back five objects after 1 turn.");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.TOP, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(toastLayout);
+                toast.show();
+                return true;
             }
         });
         dialog.show();
