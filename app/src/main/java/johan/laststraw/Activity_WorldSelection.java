@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 
 /**
  * Created by Johan on 2014-09-27.
@@ -33,22 +31,11 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
     boolean w4gold = false;
     boolean w5gold = false;
     boolean w6gold = false;
-    private InterstitialAd interstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worldselection);
-
-        // Create the interstitial.
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-1205040448652074/2063651142");
-
-        // Create ad request.
-        AdRequest adRequest = new AdRequest.Builder().build();
-
-        // Begin loading your interstitial.
-        interstitialAd.loadAd(adRequest);
 
         bFields = (ImageButton) findViewById(R.id.imgBtnWorld001);
         bDungeon = (ImageButton) findViewById(R.id.imgBtnWorld002);
@@ -405,17 +392,6 @@ public class Activity_WorldSelection extends Activity implements View.OnClickLis
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        displayAd();
-    }
-
-    public void displayAd() {
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        }
-    }
 }
 
 

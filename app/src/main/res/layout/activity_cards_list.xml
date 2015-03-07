@@ -3,28 +3,94 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_menus">
+    android:background="@drawable/bg_menus"
+    android:padding="8dp">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cards"
-            android:id="@+id/tvAllCardsTitle"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/textBlack"
-            android:textSize="30sp" />
+            android:layout_gravity="center_horizontal">
 
-        <ListView
-            android:layout_width="264dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/allCards"
-            android:longClickable="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cards"
+                android:id="@+id/tvAllCardsTitle"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textBlack"
+                android:textSize="30sp" />
+
+            <ListView
+                android:layout_width="264dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/allCards"
+                android:longClickable="true"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instructions"
+                android:id="@+id/Instructions"
+                android:textSize="30sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="In the list to the left, you can see all the cards within this category."
+                android:id="@+id/textView2"
+                android:textColor="@color/textBlack" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Push to get info on each card."
+                android:id="@+id/textView3"
+                android:textColor="@color/textBlack"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Push and hold to unlock a card."
+                android:id="@+id/textView4"
+                android:textColor="@color/textBlack"
+                android:layout_marginBottom="4dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cards are unlocked using keys. Keys are obtained through gaining levels but can also be found in each wheat you clear while playing."
+                android:id="@+id/textView5"
+                android:textColor="@color/textBlack" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="If the cost of the card appears as &quot;??&quot;, this card has to be unlocked in a different way."
+                android:id="@+id/textView6"
+                android:textColor="@color/textBlack"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

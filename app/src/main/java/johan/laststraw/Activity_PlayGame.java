@@ -28,6 +28,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -294,11 +297,23 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     DBHandler db;
     Cursor cursor;
     Context context;
+    private InterstitialAd interstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new DBHandler(this);
+
+        //SETS UP ADS
+        // Create the interstitial.
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-1205040448652074/2063651142");
+
+        // Create ad request.
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        // Begin loading your interstitial.
+        interstitialAd.loadAd(adRequest);
 
         getLevelInfo();
 
@@ -3949,9 +3964,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     /* METHOD TO UPDATE EXP/LEVEL UP */
     private void updateExp(final Dialog dialog) {
                 if (playerLevel == 20) {
-                    Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
-                    finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(finish);
+                    if (lvlcleared == 1){
+                        if (lvlId == 48){
+                            youWin();
+                        } else {
+                            Intent finish = new Intent(Activity_PlayGame.this, Activity_StartScreen.class);
+                            finish.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            displayAd();
+                            startActivity(finish);
+                        }
+                    }
                 } else {
                     int xpPenalty;
                     final int gainedXp;
@@ -3962,10 +3984,8 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                     } else {
                         gainedXp = finalPlayerScore * 2;
                     }
-                    //final Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                    //Changes content of the inherited dialog
                     dialog.setContentView(R.layout.confirmdialog_exp_gain);
-                    //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
-                    //dialog.setCancelable(false);
 
                     final ProgressBar expBar = (ProgressBar) dialog.findViewById(R.id.expBarUpd);
                     Drawable draw = getResources().getDrawable(R.drawable.customprogressbar);
@@ -4042,15 +4062,16 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
 
                                         myHandler.postDelayed(new Runnable() {
                                             public void run() {
-                                                //dialog.dismiss();
                                                 getLevelInfo();
                                                 if (lvlcleared == 1){
                                                     if (lvlId == 48){
                                                         youWin();
                                                     } else {
+                                                        displayAd();
                                                         exitOrContinue(dialog);
                                                     }
                                                 } else {
+                                                    displayAd();
                                                     exitOrTryAgain(dialog);
                                                 }
                                             }
@@ -4066,9 +4087,11 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
                                                 dialog.dismiss();
                                                 youWin();
                                             } else {
+                                                displayAd();
                                                 exitOrContinue(dialog);
                                             }
                                         } else {
+                                            displayAd();
                                             exitOrTryAgain(dialog);
                                         }
                                     }
@@ -12608,6 +12631,12 @@ public class Activity_PlayGame extends Activity implements View.OnClickListener,
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+    }
+
+    public void displayAd() {
+        if (interstitialAd.isLoaded()) {
+            interstitialAd.show();
+        }
     }
 
 }
